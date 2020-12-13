@@ -1,8 +1,12 @@
 import React from 'react';
 import { StyleSheet, View, ImageBackground, Text} from 'react-native';
-import { Icon, Button, Input, Avatar } from '@ui-kitten/components';
-import { SPACING, width } from '../../config/theme';
 import { Ionicons } from '@expo/vector-icons'; 
+
+// Components
+import { Button, Input, Avatar } from '@ui-kitten/components';
+
+// Theme
+import { SPACING, width } from '../../config/theme';
 
 const styles = StyleSheet.create({
     headingContainer: {

@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/core'
 import { Ionicons } from '@expo/vector-icons'; 
 
 // Components
-import { Icon, Button, Input } from '@ui-kitten/components';
+import { Input } from '@ui-kitten/components';
 
 // Data
 import AnimalData from '../../config/data/Animal';
@@ -43,10 +43,14 @@ const styles = StyleSheet.create({
     scanIcon: {
         top: CELL_HEIGHT / 5,
         left: width / 30
+    },
+    hideList: {
+        opacity: 0,
+        height: 0
     }
 });
 
-export default function AnimalList ({props}) {
+export default function AnimalList (props) {
     const navigation = useNavigation()
     return (
         <>
@@ -64,6 +68,7 @@ export default function AnimalList ({props}) {
                 </TouchableOpacity>
             </View>
             <FlatList
+                style={props.homescreen ? styles.hideList : styles.noHide}
                 showsVerticalScrollIndicator={false}
                 data={AnimalData}
                 keyExtractor={(item) => item.key}

@@ -8,6 +8,10 @@ import {
 } from 'react-native';
 import { SharedElement } from 'react-native-shared-element';
 import { FlatList } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+
+
+// Data
 import CardData from '../../config/data/HomePage';
 
 // Theme
@@ -38,7 +42,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export const MainCards = () => {
+export function MainCards ( { navigation }) {
     return (
         <FlatList
             data={CardData}
@@ -48,12 +52,6 @@ export const MainCards = () => {
             showsHorizontalScrollIndicator={false}
             decelerationRate="fast"
             renderItem={({ item }) => {
-
-                // Navigation
-                const HerdBook = () => {
-                    navigation.navigate(`${item.navigate}`)
-                }
-        
                 return (
                     <TouchableOpacity
                         style={{
@@ -62,7 +60,7 @@ export const MainCards = () => {
                             margin: SPACING,
                             marginTop: 30
                         }}
-                        onPress={HerdBook}
+                        onPress={() => navigation.navigate('Herd')}
                     >
                         <View style={{ flex: 1, justifyContent: 'center' }}>
                             <SharedElement

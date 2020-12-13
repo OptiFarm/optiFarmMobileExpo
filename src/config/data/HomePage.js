@@ -1,3 +1,5 @@
+import faker from 'faker';
+
 const CardData = [
   {
     type: 'Herd Book',
@@ -41,10 +43,10 @@ const topMedicine = [
 
 export default CardData.map((item, index) => ({
   ...item,
-  key: 'ss'
+  key: faker.random.uuid(),
 }));
 
 export const popularMedicine = topMedicine.map((item, index) => ({
     ...item,
-    key: '11'
+    key: faker.random.uuid(),
 }));

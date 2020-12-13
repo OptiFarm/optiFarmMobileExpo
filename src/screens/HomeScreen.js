@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {
     StyleSheet,
-    ScrollView
+    ScrollView,
+    Button
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -13,13 +14,13 @@ import { MainCards } from '../components/molecules/MainCards'
 import { SPACING, defaultBackground } from '../config/theme';
 
 
-export default function HomeScreen () {
+export default function HomeScreen ( {navigation} ) {
     return (
         <>
             <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground }}>
                 <HomeUserHeader />
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <MainCards />
+                    <MainCards navigation={navigation} />
                 </ScrollView>
             </SafeAreaView>
         </>

@@ -1,10 +1,19 @@
 import * as React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, View } from 'react-native';
 
-export default function MedicineSceen () {
+// Components
+import GoBack from '../components/atoms/GoBack'
+import { PageHeader } from '../components/atoms/PageHeader'
+
+// Theme
+import { SPACING, defaultBackground } from '../config/theme';
+
+export default function MedicineScreen () {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Medicine</Text>
-        </View>
+        <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground }}>
+            <GoBack />
+            <PageHeader  label="Medicine"/>
+        </SafeAreaView>
     )
 }

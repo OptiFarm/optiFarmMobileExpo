@@ -5,7 +5,7 @@ const CardData = [
     type: 'Herd Book',
     desc: 'Your collection of animals',
     image: 'https://i.ibb.co/dppF9xh/books-1.png',
-    navigate: 'HerdBook',
+    navigate: 'Herd',
     color: '#E3F8FB'
   },
   {

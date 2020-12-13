@@ -13,7 +13,6 @@ import { MainCards } from '../components/molecules/MainCards'
 // Theme
 import { SPACING, defaultBackground } from '../config/theme';
 
-
 export default function HomeScreen ( {navigation} ) {
     return (
         <>

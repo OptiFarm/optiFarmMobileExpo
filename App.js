@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import * as eva from '@eva-design/eva';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ApplicationProvider } from '@ui-kitten/components';
 import AppLoading from 'expo-app-loading';
+
+// Navigations
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Fonts
 import {
@@ -27,6 +29,7 @@ import GroupScreen from './src/screens/GroupScreen'
 import MedicineScreen from './src/screens/MedicineScreen'
 import SettingsScreen from './src/screens/SettingsScreen'
 import HerdBook from './src/screens/HerdBook'
+import AnimalDetail from './src/screens/AnimalDetail'
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -61,11 +64,12 @@ if (!fontsloaded) {
 } else {
     return (
       <>
-        <ApplicationProvider {...eva} theme={eva.dark}>
+        <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
             <Stack.Navigator headerMode="none">
               <Stack.Screen name="Home" component={HomeTabs} />
               <Stack.Screen name="Herd" component={HerdBook} />
+              <Stack.Screen name="AnimalDetail" component={AnimalDetail} />
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>

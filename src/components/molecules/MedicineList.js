@@ -123,6 +123,7 @@ export default function MedicineList (props) {
 
                 return (
                   <TouchableOpacity 
+                    onPress={() => navigation.navigate('MedicineDetail', {item})}
                     style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 180 }}
                   >
                   <View style={{ flex: 1, padding: 15 }}>

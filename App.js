@@ -29,7 +29,10 @@ import GroupScreen from './src/screens/GroupScreen'
 import MedicineScreen from './src/screens/MedicineScreen'
 import SettingsScreen from './src/screens/SettingsScreen'
 import HerdBook from './src/screens/HerdBook'
+
+// Details Screen
 import AnimalDetail from './src/screens/AnimalDetail'
+import MedicineDetail from './src/screens/MedicineDetail'
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -70,6 +73,7 @@ if (!fontsloaded) {
               <Stack.Screen name="Home" component={HomeTabs} />
               <Stack.Screen name="Herd" component={HerdBook} />
               <Stack.Screen name="AnimalDetail" component={AnimalDetail} />
+              <Stack.Screen name="MedicineDetail" component={MedicineDetail} />
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>

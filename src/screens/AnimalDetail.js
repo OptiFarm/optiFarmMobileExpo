@@ -4,14 +4,14 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 
 // Components
-import GoBack from '../components/atoms/GoBack'
+import GoBack from '../components/atoms/GoBack';
 
 // Theme
 import { fonts, SPACING, width, height, defaultBackground, cardBackground } from '../config/theme';
 
 // Sizing
-const TOP_HEADER_HEIGHT = height * 0.3
-import {CELL_HEIGHT} from '../components/molecules/AnimalList'
+const TOP_HEADER_HEIGHT = height * 0.3;
+import {CELL_HEIGHT} from '../components/molecules/AnimalList';
 
 const styles = StyleSheet.create({
     name: {
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     }
 });
 
-export default function AnimalDetail ({navigation, route}) {
-    const { item } = route.params
+export default function AnimalDetail ({ navigation, route }) {
+    const { item } = route.params;
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
             <GoBack />

@@ -58,9 +58,6 @@ export default function GroupList () {
                     textStyle={{height: 35}}
                 />
             </View>
-            <TouchableOpacity>
-                <Ionicons name="add-circle-outline" size={45} color="white" style={styles.addIcon} />
-            </TouchableOpacity>
 
             {/* Group Cards */}
             <FlatList

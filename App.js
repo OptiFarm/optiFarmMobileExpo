@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import AppLoading from 'expo-app-loading';
+import { Ionicons } from '@expo/vector-icons'; 
 
 // Navigations
 import { NavigationContainer } from '@react-navigation/native';
@@ -39,12 +40,38 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function HomeTabs() {
+
+  // Custom styling
+  const customTabBarStyle = {
+    style: {
+      backgroundColor: '#3A364D',
+      borderTopColor: '#3A364D',
+      height: 95
+    }
+  }
+
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Group" component={GroupScreen} />
-      <Tab.Screen name="Medicine" component={MedicineScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+    <Tab.Navigator tabBarOptions={customTabBarStyle}
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size}) => {
+          let iconName;
+          color = focused ? '#FF569F' : 'white'
+          if (route.name === 'Home') {
+            iconName = 'home-outline'
+          } else if (route.name === 'Group') {
+            iconName = 'grid-outline'
+          } else if (route.name === 'Medicine') {
+            iconName = 'eyedrop-outline'
+          } else if (route.name === 'Settings') {
+            iconName = 'settings-outline'
+          }
+          return <Ionicons name={iconName} size={30} color={color} />
+        },
+      })}>
+      <Tab.Screen name="Home" component={HomeScreen} options={{tabBarLabel: ''}} />
+      <Tab.Screen name="Group" component={GroupScreen} options={{tabBarLabel: ''}}/>
+      <Tab.Screen name="Medicine" component={MedicineScreen} options={{tabBarLabel: ''}}/>
+      <Tab.Screen name="Settings" component={SettingsScreen} options={{tabBarLabel: ''}}/>
     </Tab.Navigator>
   )
 }

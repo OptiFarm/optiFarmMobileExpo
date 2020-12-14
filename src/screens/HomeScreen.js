@@ -20,7 +20,7 @@ import { SPACING, defaultBackground } from '../config/theme';
 export default function HomeScreen ( {navigation} ) {
     return (
         <>
-            <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground }}>
+            <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground, paddingBottom: -50 }}>
                 <HomeUserHeader />
                 <AnimalList homescreen />
                 <ScrollView showsVerticalScrollIndicator={false}>

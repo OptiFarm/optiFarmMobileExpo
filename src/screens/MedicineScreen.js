@@ -11,7 +11,7 @@ import { SPACING, defaultBackground } from '../config/theme';
 
 export default function MedicineScreen () {
     return (
-        <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground }}>
+        <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground, paddingBottom: -50 }}>
             <PageHeader  label="Medicine"/>
             <MedicineList />
         </SafeAreaView>

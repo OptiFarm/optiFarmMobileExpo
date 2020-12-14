@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import * as eva from '@eva-design/eva';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ApplicationProvider } from '@ui-kitten/components';
 import AppLoading from 'expo-app-loading';
+import { Ionicons } from '@expo/vector-icons'; 
+
+// Navigations
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Fonts
 import {
@@ -28,16 +31,47 @@ import MedicineScreen from './src/screens/MedicineScreen'
 import SettingsScreen from './src/screens/SettingsScreen'
 import HerdBook from './src/screens/HerdBook'
 
+// Details Screen
+import AnimalDetail from './src/screens/AnimalDetail'
+import MedicineDetail from './src/screens/MedicineDetail'
+import GroupDetail from './src/screens/GroupDetail'
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function HomeTabs() {
+
+  // Custom styling
+  const customTabBarStyle = {
+    style: {
+      backgroundColor: '#3A364D',
+      borderTopColor: '#3A364D',
+      height: 95
+    }
+  }
+
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Group" component={GroupScreen} />
-      <Tab.Screen name="Medicine" component={MedicineScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+    <Tab.Navigator tabBarOptions={customTabBarStyle}
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size}) => {
+          let iconName;
+          color = focused ? '#FF569F' : 'white'
+          if (route.name === 'Home') {
+            iconName = 'home-outline'
+          } else if (route.name === 'Group') {
+            iconName = 'grid-outline'
+          } else if (route.name === 'Medicine') {
+            iconName = 'eyedrop-outline'
+          } else if (route.name === 'Settings') {
+            iconName = 'settings-outline'
+          }
+          return <Ionicons name={iconName} size={30} color={color} />
+        },
+      })}>
+      <Tab.Screen name="Home" component={HomeScreen} options={{tabBarLabel: ''}} />
+      <Tab.Screen name="Group" component={GroupScreen} options={{tabBarLabel: ''}}/>
+      <Tab.Screen name="Medicine" component={MedicineScreen} options={{tabBarLabel: ''}}/>
+      <Tab.Screen name="Settings" component={SettingsScreen} options={{tabBarLabel: ''}}/>
     </Tab.Navigator>
   )
 }
@@ -61,11 +95,14 @@ if (!fontsloaded) {
 } else {
     return (
       <>
-        <ApplicationProvider {...eva} theme={eva.dark}>
+        <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
             <Stack.Navigator headerMode="none">
               <Stack.Screen name="Home" component={HomeTabs} />
               <Stack.Screen name="Herd" component={HerdBook} />
+              <Stack.Screen name="AnimalDetail" component={AnimalDetail} />
+              <Stack.Screen name="MedicineDetail" component={MedicineDetail} />
+              <Stack.Screen name="GroupDetail" component={GroupDetail} />
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>

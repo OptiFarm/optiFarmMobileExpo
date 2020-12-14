@@ -51,6 +51,27 @@ const AnimalData = [
   }
 ];
 
+// Group Data
+const GroupData = [
+  {
+    groupName: 'Dry Cows',
+    groupAmount: '2',
+    GroupDateCreated: '23 October 2020',
+    GroupNote: 'This is for dry cows only'
+  },
+  {
+    groupName: 'Calves',
+    groupAmount: '3',
+    GroupDateCreated: '22 October 2020',
+    GroupNote: 'This is for calves only'
+  },
+]
+
+export const groupData = GroupData.map((item, index) => ({
+  ...item,
+  key: faker.random.uuid()
+}))
+
 export default AnimalData.map((item, index) => ({
   ...item,
   key: faker.random.uuid(),

@@ -33,6 +33,7 @@ import HerdBook from './src/screens/HerdBook'
 // Details Screen
 import AnimalDetail from './src/screens/AnimalDetail'
 import MedicineDetail from './src/screens/MedicineDetail'
+import GroupDetail from './src/screens/GroupDetail'
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -74,6 +75,7 @@ if (!fontsloaded) {
               <Stack.Screen name="Herd" component={HerdBook} />
               <Stack.Screen name="AnimalDetail" component={AnimalDetail} />
               <Stack.Screen name="MedicineDetail" component={MedicineDetail} />
+              <Stack.Screen name="GroupDetail" component={GroupDetail} />
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>

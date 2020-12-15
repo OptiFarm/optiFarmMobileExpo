@@ -3,8 +3,11 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons'; 
-import {View, ActivityIndicator} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Components
+import {View, ActivityIndicator, Text} from 'react-native';
+import Loader from './src/components/atoms/Loader'
 
 // Navigations
 import { NavigationContainer } from '@react-navigation/native';
@@ -43,6 +46,7 @@ import LoginScreen from './src/screens/authentication/LoginScreen';
 import RegisterScreen from './src/screens/authentication/RegisterScreen';
 import WelcomeScreen from './src/screens/authentication/WelcomeScreen';
 import { AuthContext } from './src/components/context';
+import { defaultBackground } from './src/config/theme';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -161,7 +165,7 @@ export default function App () {
         console.log(e);
       }
       dispatch({ type: 'REGISTER', token: userToken });
-    }, 1000);
+    }, 2000);
   }, []);
 
   let [fontsloaded] = useFonts({
@@ -182,8 +186,8 @@ if (!fontsloaded) {
 } else {
     if (loginState.isLoading) {
       return (
-        <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-          <ActivityIndicator size="large" />
+        <View style={{flex:1, justifyContent:'center', alignItems:'center', backgroundColor: defaultBackground}}>
+          <Loader />
         </View>
       )
     }

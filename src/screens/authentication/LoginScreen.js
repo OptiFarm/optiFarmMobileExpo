@@ -1,22 +1,43 @@
 import { database } from 'faker';
 import * as React from 'react';
-import {
-    StyleSheet,
-    Button,
-    View,
-    Text,
-    TextInput,
-    Alert
-} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../components/context'
 import UserData from '../../model/Users'
 
 // Components
-
+import {StyleSheet, View, Text, TextInput, Alert} from 'react-native';
+import { Button } from '@ui-kitten/components';
 
 // Theme
-import { SPACING, defaultBackground, height } from '../../config/theme';
+import { SPACING, defaultBackground, height, width } from '../../config/theme';
+
+const styles = StyleSheet.create({
+    input: {
+        borderBottomColor: '#9D9D9D', 
+        borderBottomWidth: 1, 
+        width: width / 1.1, 
+        top: 20, 
+        color: 'white',
+        fontFamily: 'RobotoMono_700Bold',
+        fontSize: 20
+    },
+    button: {
+        backgroundColor: 'white', 
+        borderColor: defaultBackground, 
+        height: 60, 
+        borderRadius: 10,
+        top: height / 5
+    },
+    errorMsg: {
+        color: '#D74747', 
+        top: 30
+    },
+    inputTitle: {
+        fontFamily: 'RobotoMono_700Bold', 
+        fontSize: 15, 
+        color: 'grey'
+    }
+});
 
 export default function LoginScreen ({navigation}) {
 
@@ -86,30 +107,38 @@ export default function LoginScreen ({navigation}) {
 
     return (
         <>
-            <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: 'white', paddingBottom: -50 }}>
-                <View style={{marginTop: height / 4}}>
-                    <TextInput
-                        placeholder="Username"
-                        value={username}
-                        onChangeText={(val) => textInputChange(val)}
-                        onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
-                    />
-                    {
-                        isValidUser ? null : 
-                        <Text style={{color: 'red'}}>Username must be 4 characters long</Text>
-                    } 
-                    <TextInput
-                        placeholder="Password"
-                        value={password}
-                        onChangeText={(val) => handlePasswordChange(val)}
-                        secureTextEntry
-                    />
-                    {
-                        isValidPassword ? null : 
-                        <Text style={{color: 'red'}}>Password must be 8 characters long</Text>
-                    } 
-                    <Button title="Sign in" onPress={() => {loginHandle(username, password)}} />
+            <SafeAreaView style={{ flex: 1, padding: SPACING, backgroundColor: defaultBackground, paddingBottom: -50 }}>
+                <View style={{marginTop: height / 5}}>          
+                    <View style={{marginBottom: height / 10}}>
+                        <Text style={styles.inputTitle}>Username</Text>
+                        <TextInput
+                            style={styles.input}
+                            value={username}
+                            onChangeText={(val) => textInputChange(val)}
+                            onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
+                        />
+                        {
+                            isValidUser ? null : 
+                            <Text style={styles.errorMsg}>Username must be 4 characters long</Text>
+                        } 
+                    </View>
+                    <View style={{marginBottom: height / 10}}>
+                        <Text style={styles.inputTitle}>Password</Text>
+                        <TextInput
+                            style={styles.input}
+                            value={password}
+                            onChangeText={(val) => handlePasswordChange(val)}
+                            secureTextEntry
+                        />
+                        {
+                            isValidPassword ? null : 
+                            <Text style={styles.errorMsg}>Password must be 8 characters long</Text>
+                        } 
+                    </View>
                 </View>
+                <Button style={styles.button} onPress={() => {loginHandle(username, password)}}>
+                        <Text style={{color: 'black', fontSize: 20, fontFamily: 'RobotoMono_700Bold'}}>Log In</Text>
+                </Button>
             </SafeAreaView>
         </>
     );

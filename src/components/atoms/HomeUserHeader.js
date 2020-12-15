@@ -3,7 +3,7 @@ import { StyleSheet, View, ImageBackground, Text, TouchableOpacity} from 'react-
 import { Ionicons } from '@expo/vector-icons'; 
 
 // Components
-import { Button, Input, Avatar } from '@ui-kitten/components';
+import { Avatar } from '@ui-kitten/components';
 
 // Theme
 import { SPACING, width } from '../../config/theme';

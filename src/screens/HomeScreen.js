@@ -1,11 +1,4 @@
 import * as React from 'react';
-import {
-    StyleSheet,
-    ScrollView,
-    Button,
-    View,
-    Text
-} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Components
@@ -13,6 +6,7 @@ import { HomeUserHeader } from '../components/atoms/HomeUserHeader'
 import { MainCards } from '../components/molecules/MainCards'
 import AnimalList from '../components/molecules/AnimalList'
 import MedicineList from '../components/molecules/MedicineList'
+import {StyleSheet, ScrollView, View} from 'react-native';
 
 // Theme
 import { SPACING, defaultBackground } from '../config/theme';

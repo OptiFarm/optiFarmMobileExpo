@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     icon: {
-        left: width / 2.75
+        left: width / 3.5
     }
 });
 
@@ -52,7 +52,7 @@ export const HomeUserHeader = (props) => {
             </View>
             <Ionicons name="notifications-outline" size={35} color="white" style={styles.icon} />
             <TouchableOpacity onPress={() => {signOut()}}>
-                <Ionicons name="log-out-outline" size={35} color="white" style={{left: width / 2.65}} />
+                <Ionicons name="log-out-outline" size={35} color="white" style={{left: width / 3}} />
             </ TouchableOpacity>
        </View>
     )

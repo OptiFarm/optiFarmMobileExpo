@@ -50,7 +50,6 @@ export default function GroupList () {
         <>
             <View style={{flexDirection: 'row'}}>
                 <Input
-                    placeholder='Search Animal' 
                     // onChangeText={this.handleSearch}
                     style={styles.searchInput}
                     size='large'
@@ -70,7 +69,7 @@ export default function GroupList () {
                 return (
                   <TouchableOpacity 
                     onPress={() => navigation.navigate('GroupDetail', {item})}
-                    style={{ marginBottom: CELL_HEIGHT / 10, height: 180 }}
+                    style={{ marginBottom: CELL_HEIGHT / 10, height: 180, top: CELL_HEIGHT / 10 }}
                   >
                   <View style={{ flex: 1, padding: 15}}>
                       <View style={[StyleSheet.absoluteFillObject,

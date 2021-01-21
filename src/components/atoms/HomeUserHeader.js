@@ -1,12 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, ImageBackground, Text} from 'react-native';
+import { StyleSheet, View, ImageBackground, Text, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
 
 // Components
-import { Button, Input, Avatar } from '@ui-kitten/components';
+import { Avatar } from '@ui-kitten/components';
 
 // Theme
 import { SPACING, width } from '../../config/theme';
+
+import { AuthContext } from '../context'
 
 const styles = StyleSheet.create({
     headingContainer: {
@@ -25,11 +27,13 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     icon: {
-        left: width / 2.75
+        left: width / 3.5
     }
 });
 
+
 export const HomeUserHeader = (props) => {
+    const { signOut } = React.useContext(AuthContext)
     return (
         <View style={styles.headingContainer}>
             <View style={{marginRight: SPACING}}>
@@ -47,6 +51,9 @@ export const HomeUserHeader = (props) => {
                 </Text>
             </View>
             <Ionicons name="notifications-outline" size={35} color="white" style={styles.icon} />
+            <TouchableOpacity onPress={() => {signOut()}}>
+                <Ionicons name="log-out-outline" size={35} color="white" style={{left: width / 3}} />
+            </ TouchableOpacity>
        </View>
     )
 };

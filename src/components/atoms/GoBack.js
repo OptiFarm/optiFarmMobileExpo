@@ -15,18 +15,14 @@ const TOP_HEADER_HEIGHT = height * 0.3
 const styles = StyleSheet.create({
     icon: {
       top: TOP_HEADER_HEIGHT - SPACING * 18.5,
-      left: width / 40
+      left: width / 40,
+      width: 100
     }
 });
 
 export default function GoBack() {
     const navigation = useNavigation()
     return (
-        <TouchableOpacity
-            onPress={() => {
-            navigation.goBack()
-            }}>
-                <Ionicons name="arrow-back-outline" size={35} color="white" style={styles.icon} />
-        </TouchableOpacity>
+        <Ionicons onPress={() => { navigation.goBack() }} name="arrow-back-outline" size={35} color="white" style={styles.icon} />
     )
 }

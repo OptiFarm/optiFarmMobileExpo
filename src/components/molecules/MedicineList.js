@@ -86,13 +86,15 @@ export default function MedicineList (props) {
               >
                 View Medicine
               </Text>
-              <Text 
-                style={[
-                  styles.heading,
-                  { fontSize: 15, lineHeight: CELL_HEIGHT * 0.6, position: 'absolute', right: 10, fontFamily: 'RobotoMono_700Bold', color: 'white' },
-                ]}>
-                See All
-              </Text>
+              <TouchableOpacity
+                style={{position: 'absolute', right: 10}}
+                onPress={() => navigation.navigate('Medicine')}
+              >
+                <Text 
+                    style={{ fontSize: 15, lineHeight: CELL_HEIGHT * 0.6, fontFamily: 'RobotoMono_700Bold', color: 'white'}}>
+                    See All
+                </Text>
+              </TouchableOpacity>
             </View>
 
             <View style={props.homepage ? styles.hideSearch : styles.showSearch}>

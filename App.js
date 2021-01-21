@@ -35,6 +35,7 @@ import GroupScreen from './src/screens/GroupScreen';
 import MedicineScreen from './src/screens/MedicineScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import HerdBook from './src/screens/HerdBook';
+import Remedies from './src/screens/Remedies';
 
 // Details Screen
 import AnimalDetail from './src/screens/AnimalDetail';
@@ -200,6 +201,7 @@ if (!fontsloaded) {
                 <Stack.Navigator headerMode="none">
                   <Stack.Screen name="Home" component={HomeTabs} />
                   <Stack.Screen name="Herd" component={HerdBook} />
+                  <Stack.Screen name="Remedies" component={Remedies} />
                   <Stack.Screen name="AnimalDetail" component={AnimalDetail} />
                   <Stack.Screen name="MedicineDetail" component={MedicineDetail} />
                   <Stack.Screen name="GroupDetail" component={GroupDetail} />

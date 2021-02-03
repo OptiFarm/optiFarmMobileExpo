@@ -3,6 +3,7 @@ import { SafeAreaView, View, StyleSheet, FlatList, TouchableOpacity, Text, Image
 
 // Components
 import GoBack from '../components/atoms/GoBack';
+import { Button } from '@ui-kitten/components';
 import MedicationButton from '../components/atoms/MedicationButton';
 
 // Theme
@@ -65,8 +66,19 @@ export default function AnimalDetail ({ navigation, route }) {
                     return (
                         <>
                         <View style={{paddingBottom: SPACING * 5}}>
-                            <Text style={{fontSize: 20, paddingBottom: SPACING ,color: 'grey', fontFamily: 'RobotoMono_700Bold'}}>Description</Text>
-                            <Text style={{fontSize: 15, color: 'white', fontFamily: 'RobotoMono_700Bold'}}>This is a description</Text>
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <View style={{padding: SPACING}}>
+                                    <Text style={{color: 'grey', fontSize: 17, fontFamily: 'RobotoMono_700Bold'}}>Note</Text>
+                                </View>
+                                <Button status='info' style={{borderRadius: 20, width: 100, position: 'absolute', right: 0, right: SPACING}}>
+                                    Edit
+                                </Button>
+                            </View>
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <View style={{padding: SPACING}}>
+                                    <Text style={{color: 'white', fontSize: 17, fontFamily: 'RobotoMono_700Bold'}}>Lorem Ipsum</Text>
+                                </View>
+                            </View>
                         </View>
                         <View 
                             style={{ marginBottom: CELL_HEIGHT / 10, top: 0, height: CELL_HEIGHT * 1.4}}

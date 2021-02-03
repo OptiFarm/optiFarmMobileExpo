@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { SafeAreaView, View, StyleSheet, FlatList, TouchableOpacity, Text, Image } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { ScrollView } from 'react-native-gesture-handler';
 
 // Components
 import GoBack from '../components/atoms/GoBack';
@@ -31,43 +29,15 @@ const styles = StyleSheet.create({
         left: SPACING,
         color: 'white'
     },
-    icon: {
-        width: 35,
-        height: 35,
-        top: TOP_HEADER_HEIGHT - SPACING * 18.5,
-        left: 10
-    },
-    bg: {
-        backgroundColor: defaultBackground,
-        transform: [{translateY: 230}],
-        borderRadius: 32,
-        padding: SPACING
-    },
-    card1: {
-        backgroundColor: cardBackground,
-        flexDirection: 'row', 
-        marginBottom: 10,
-        height: height / 3.8,
-        borderRadius: 15
-    },
-    button: {
-        fontSize: 20,
-        fontWeight: '700',
-        position: 'absolute',
-        top: TOP_HEADER_HEIGHT - SPACING * 3,
-        left: SPACING,
-        backgroundColor: cardBackground,
-        borderRadius:15
-    },
     key: {
         fontSize: 15, 
-        paddingTop: 20, 
+        paddingTop: 23, 
         color: 'grey', 
         fontFamily: 'RobotoMono_700Bold'
     },
     value: {
         fontSize: 15, 
-        paddingTop: 20, 
+        paddingTop: 23, 
         color: 'white', 
         fontFamily: 'RobotoMono_700Bold'
     }

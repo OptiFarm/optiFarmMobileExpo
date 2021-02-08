@@ -64,7 +64,7 @@ export default function AnimalList (props) {
                     textStyle={{height: 35}}
                 />
                 <TouchableOpacity>
-                    <Ionicons name="scan-outline" size={45} color="white" style={styles.scanIcon} />
+                    <Ionicons name="add-circle-outline" size={45} color="white" style={styles.scanIcon} onPress={() => navigation.navigate('AnimalForm')} />
                 </TouchableOpacity>
             </View>
             <FlatList

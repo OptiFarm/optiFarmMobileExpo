@@ -43,8 +43,9 @@ import MedicineDetail from './src/screens/MedicineDetail';
 import GroupDetail from './src/screens/GroupDetail';
 
 // Forms Screen
-import MedicineForm from './src/screens/MedicineForm';
-import AnimalForm from './src/screens/AnimalForm';
+import MedicineForm from './src/screens/forms/MedicineForm';
+import AnimalForm from './src/screens/forms/AnimalForm';
+import GroupForm from './src/screens/forms/GroupForm';
 
 // Authentication Screen
 import LoginScreen from './src/screens/authentication/LoginScreen';
@@ -228,6 +229,7 @@ if (!fontsloaded) {
                   <Stack.Screen name="GroupDetail" component={GroupDetail} />
                   <Stack.Screen name="MedicineForm" component={MedicineForm} />
                   <Stack.Screen name="AnimalForm" component={AnimalForm} />
+                  <Stack.Screen name="GroupForm" component={GroupForm} />
                 </Stack.Navigator>
               )
             :

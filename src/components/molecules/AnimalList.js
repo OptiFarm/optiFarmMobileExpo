@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         width: width / 1.30, 
         borderColor: defaultBackground
     },
-    scanIcon: {
+    addIcon: {
         top: CELL_HEIGHT / 5,
         left: width / 30
     },
@@ -64,7 +64,7 @@ export default function AnimalList (props) {
                     textStyle={{height: 35}}
                 />
                 <TouchableOpacity>
-                    <Ionicons name="add-circle-outline" size={45} color="white" style={styles.scanIcon} onPress={() => navigation.navigate('AnimalForm')} />
+                    <Ionicons name="add-circle-outline" size={45} color="white" style={styles.addIcon} onPress={() => navigation.navigate('AnimalForm')} />
                 </TouchableOpacity>
             </View>
             <FlatList

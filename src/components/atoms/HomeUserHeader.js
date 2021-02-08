@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, ImageBackground, Text, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
 
 // Components
 import { Avatar } from '@ui-kitten/components';
+import { StyleSheet, View, ImageBackground, Text, TouchableOpacity} from 'react-native';
 
 // Theme
 import { SPACING, width } from '../../config/theme';
@@ -25,9 +25,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
         opacity: 0.4,
         color: 'white'
-    },
-    icon: {
-        left: width / 3.5
     }
 });
 
@@ -50,10 +47,6 @@ export const HomeUserHeader = (props) => {
                     08 December 2020
                 </Text>
             </View>
-            <Ionicons name="notifications-outline" size={35} color="white" style={styles.icon} />
-            <TouchableOpacity onPress={() => {signOut()}}>
-                <Ionicons name="log-out-outline" size={35} color="white" style={{left: width / 3}} />
-            </ TouchableOpacity>
        </View>
     )
 };

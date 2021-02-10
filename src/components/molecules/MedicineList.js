@@ -1,9 +1,9 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet, FlatList, TouchableOpacity, Text, Image } from 'react-native';
 import {useNavigation} from '@react-navigation/core'
 import { Ionicons } from '@expo/vector-icons'; 
 
 // Components
+import { SafeAreaView, View, StyleSheet, FlatList, TouchableOpacity, Text, Image } from 'react-native';
 import { Input } from '@ui-kitten/components';
 
 // Data
@@ -107,7 +107,7 @@ export default function MedicineList (props) {
                     textStyle={{height: 35}}
                 />
                 <TouchableOpacity>
-                    <Ionicons name="add-circle-outline" size={45} color="white" style={styles.scanIcon} />
+                    <Ionicons name="add-circle-outline" size={45} color="white" style={styles.scanIcon} onPress={() => navigation.navigate('MedicineForm')} />
                 </TouchableOpacity>
             </View>
             {/* Medicine Cards */}

@@ -5,6 +5,7 @@ import { cardBackground } from '../../config/theme'
 
 export const Button = ({ mode, style, ...props }) => (
   <PaperButton
+    theme={{ colors: { primary: 'black',underlineColor:'transparent',}}}
     style={[
       styles.button,
       mode === 'outlined' && { backgroundColor: 'black' },

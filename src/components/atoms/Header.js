@@ -10,6 +10,5 @@ const styles = StyleSheet.create({
     fontSize: 21,
     color: defaultBackground,
     fontWeight: 'bold',
-    paddingVertical: 12,
   },
 })

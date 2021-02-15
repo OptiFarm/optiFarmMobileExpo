@@ -42,9 +42,9 @@ export const HomeUserHeader = (props) => {
                 />
             </View>
             <View style={{marginTop: SPACING * -0.25}}>
-                <Text style={styles.heading}>Hi, John</Text>
+                <Text style={styles.heading}>Hi, Conor</Text>
                 <Text style={styles.subHeading}>
-                    08 December 2020
+                    16 February 2021
                 </Text>
             </View>
        </View>

@@ -95,7 +95,6 @@ export default function MedicineDetail ({ navigation, route }) {
                 keyExtractor={(item) => item.key}
                 contentContainerStyle={{ padding: SPACING }}
                 renderItem={({ item }) => {
-                    console.log(item)
                     return (
                         <>
                         <View style={{paddingBottom: SPACING * 5}}>

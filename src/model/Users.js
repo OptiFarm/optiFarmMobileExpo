@@ -2,7 +2,7 @@ const UserData = [
     {
         id: 1, 
         email: 'user1@email.com',
-        username: 'user1', 
+        username: 'conorc', 
         password: 'password', 
         userToken: 'token123'
     },

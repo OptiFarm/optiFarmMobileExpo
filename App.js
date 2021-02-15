@@ -46,6 +46,7 @@ import GroupDetail from './src/screens/GroupDetail';
 import MedicineForm from './src/screens/forms/MedicineForm';
 import AnimalForm from './src/screens/forms/AnimalForm';
 import GroupForm from './src/screens/forms/GroupForm';
+import FormSuccess from './src/screens/forms/FormSuccess';
 
 // Authentication Screen
 import LoginScreen from './src/screens/authentication/LoginScreen';
@@ -217,7 +218,7 @@ if (!fontsloaded) {
     return (
       <>
         <AuthContext.Provider value={authContext}>
-          <ApplicationProvider {...eva} theme={eva.dark}>
+          <ApplicationProvider {...eva} theme={eva.light}>
             <NavigationContainer>
               { loginState.userToken !== null ? (
                 <Stack.Navigator headerMode="none">
@@ -230,6 +231,7 @@ if (!fontsloaded) {
                   <Stack.Screen name="MedicineForm" component={MedicineForm} />
                   <Stack.Screen name="AnimalForm" component={AnimalForm} />
                   <Stack.Screen name="GroupForm" component={GroupForm} />
+                  <Stack.Screen name="FormSuccess" component={FormSuccess} />
                 </Stack.Navigator>
               )
             :

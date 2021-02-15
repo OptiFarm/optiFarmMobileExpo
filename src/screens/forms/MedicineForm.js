@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/core'
 
 // Components
 import {StyleSheet, View, Text, TextInput, Alert, FlatList, TouchableOpacity} from 'react-native';
@@ -37,6 +38,8 @@ const styles = StyleSheet.create({
 
 export default function MedicineForm () {
     const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
+    const navigation = useNavigation()
+
     return (
         <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground }}>
             <GoBack />
@@ -106,7 +109,7 @@ export default function MedicineForm () {
                         placeholder={item.i}
                         textStyle={{height: 35}}
                     />
-                    <Button style={styles.button}>
+                    <Button style={styles.button} onPress={() => navigation.navigate('FormSuccess')}>
                         <Text style={{color: 'black', fontSize: 20, fontFamily: 'RobotoMono_700Bold'}}>Done</Text>
                     </Button>
                     </>

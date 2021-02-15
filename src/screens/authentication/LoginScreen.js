@@ -1,42 +1,57 @@
 import { database } from 'faker';
 import * as React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../components/context'
 import UserData from '../../model/Users'
 
 // Components
-import {StyleSheet, View, Text, TextInput, Alert} from 'react-native';
-import { Button } from '@ui-kitten/components';
+import {StyleSheet, View, Text, Alert, TouchableOpacity} from 'react-native';
+import { TextInput as Input } from 'react-native-paper'
 
-// Theme
-import { SPACING, defaultBackground, height, width } from '../../config/theme';
+import { Background } from '../../components/atoms/Background'
+import { Header } from '../../components/atoms/Header'
+import { Button } from '../../components/atoms/Button'
+import { Logo } from '../../components/atoms/Logo'
 
 const styles = StyleSheet.create({
-    input: {
-        borderBottomColor: '#9D9D9D', 
-        borderBottomWidth: 1, 
-        width: width / 1.1, 
-        top: 20, 
-        color: 'white',
-        fontFamily: 'RobotoMono_700Bold',
-        fontSize: 20
-    },
-    button: {
-        backgroundColor: 'white', 
-        borderColor: defaultBackground, 
-        height: 60, 
-        borderRadius: 10,
-        top: height / 5
-    },
     errorMsg: {
         color: '#D74747', 
-        top: 30
+        top: 10
     },
-    inputTitle: {
-        fontFamily: 'RobotoMono_700Bold', 
-        fontSize: 15, 
-        color: 'grey'
-    }
+    container: {
+        width: '100%',
+        marginVertical: 12,
+    },
+    input: {
+        backgroundColor: 'white',
+    },
+    description: {
+        fontSize: 13,
+        color: 'black',
+        paddingTop: 8,
+    },
+    error: {
+        fontSize: 13,
+        color: 'red',
+        paddingTop: 8,
+    },
+    forgotPassword: {
+        width: '100%',
+        alignItems: 'flex-end',
+        marginBottom: 24,
+        marginTop: 70,
+    },
+    forgot: {
+        opacity: 0.7,
+        fontSize: 13,
+    },
+    row: {
+        flexDirection: 'row',
+        marginTop: 4,
+    },
+    link: {
+        fontWeight: 'bold',
+        color: 'black',
+    },
 });
 
 export default function LoginScreen ({navigation}) {
@@ -107,39 +122,60 @@ export default function LoginScreen ({navigation}) {
 
     return (
         <>
-            <SafeAreaView style={{ flex: 1, padding: SPACING, backgroundColor: defaultBackground, paddingBottom: -50 }}>
-                <View style={{marginTop: height / 5}}>          
-                    <View style={{marginBottom: height / 10}}>
-                        <Text style={styles.inputTitle}>Username</Text>
-                        <TextInput
-                            style={styles.input}
-                            value={username}
-                            onChangeText={(val) => textInputChange(val)}
-                            onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
-                        />
-                        {
-                            isValidUser ? null : 
-                            <Text style={styles.errorMsg}>Username must be 4 characters long</Text>
-                        } 
-                    </View>
-                    <View style={{marginBottom: height / 10}}>
-                        <Text style={styles.inputTitle}>Password</Text>
-                        <TextInput
-                            style={styles.input}
-                            value={password}
-                            onChangeText={(val) => handlePasswordChange(val)}
-                            secureTextEntry
-                        />
-                        {
-                            isValidPassword ? null : 
-                            <Text style={styles.errorMsg}>Password must be 8 characters long</Text>
-                        } 
+            <Background>
+                <Logo />
+                <Header>Welcome back.</Header>
+                <View style={styles.container}>
+                    <Input
+                        theme={{ colors: { primary: 'black',underlineColor:'transparent',}}}
+                        label='Username'
+                        style={styles.input}
+                        selectionColor='black'
+                        underlineColor="transparent"
+                        mode='outlined'
+                        value={username}
+                        onChangeText={(val) => textInputChange(val)}
+                        onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
+                    />
+                    {
+                        isValidUser ? null : 
+                        <Text style={styles.errorMsg}>Username must be 4 characters long</Text>
+                    } 
+                    <Input
+                        theme={{ colors: { primary: 'black',underlineColor:'transparent',}}}
+                        label='Password'
+                        style={{top: 50}}
+                        selectionColor='black'
+                        underlineColor="transparent"
+                        mode='outlined'
+                        value={password}
+                        onChangeText={(val) => handlePasswordChange(val)}
+                        secureTextEntry
+                    />
+                    {
+                        isValidPassword ? null : 
+                        <Text style={{top: 60, color: '#D74747'}}>Password must be 8 characters long</Text>
+                    }
+                    <View style={styles.forgotPassword}>
+                        <TouchableOpacity
+                        // onPress={() => navigation.navigate('ForgotPasswordScreen')}
+                        >
+                        <Text style={styles.forgot}>Forgot your password?</Text>
+                        </TouchableOpacity>
+                    </View> 
+                    <Button mode="contained" onPress={() => {loginHandle(username, password)}}>
+                        Login
+                    </Button>
+                    <View style={styles.row}>
+                        <Text>Don’t have an account? </Text>
+                        <TouchableOpacity 
+                        // onPress={() => navigation.replace('RegisterScreen')}
+                        >
+                        <Text style={styles.link}>Sign up</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-                <Button style={styles.button} onPress={() => {loginHandle(username, password)}}>
-                        <Text style={{color: 'black', fontSize: 20, fontFamily: 'RobotoMono_700Bold'}}>Log In</Text>
-                </Button>
-            </SafeAreaView>
+            </Background>
         </>
     );
 };

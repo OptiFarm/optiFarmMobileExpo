@@ -9,11 +9,9 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-
-  <h3 align="center">OptiFarm</h3>
-
+  <img src="https://i.imgur.com/bRf4562.png" alt="Logo" width="400" height="400">
   <p align="center">
-    An App for managing your Herd
+    A new way to manage your herd
     <br />
     <a href="https://github.com/OptiFarm/optiFarmMobileExpo"><strong>Explore the docs »</strong></a>
     <br />
@@ -69,10 +67,10 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- The Team -->
 ## The Team
 
-| <a href="https://i.imgur.com/8mkpIBh.jpg" target="_blank">**Renzo W**</a> | <a href="https://i.imgur.com/8mkpIBh.jpg" target="_blank">**Boshi Pan**</a> | <a href="https://avatars3.githubusercontent.com/u/45832475?s=400&v=4" target="_blank">**Ashley Armstrong**</a> | <a href="https://avatars3.githubusercontent.com/u/45832472?s=400&v=4" target="_blank">**Conor Clarke**</a>
-| :---: | :---: | :---: | :---: |
+| <a href="https://i.imgur.com/8mkpIBh.jpg" target="_blank">**Renzo W**</a> | <a href="https://i.imgur.com/8mkpIBh.jpg" target="_blank">**Boshi Pan**</a>
+| :---: | :---: |
 | [![renwid](https://i.imgur.com/8mkpIBh.jpg)](https://github.com/renwid) | [![boshi](https://i.imgur.com/6QYlNFw.jpg)](https://github.com/BoshiEddie) | [![ashley]()](https://github.com/AshleyArmstrongS) | [![conor](https://avatars2.githubusercontent.com/u/47249205?s=400&v=4)](https://github.com/StaringPanda) 
-| <a href="http://github.com/renwid" target="_blank">`github.com/renwid`</a> | <a href="http://github.com/BoshiEddie" target="_blank">`github.com/BoshiEddie`</a> | <a href="https://github.com/AshleyArmstrongS" target="_blank">`github.com/AshleyArmstrongS`</a> | <a href="https://github.com/conorclarke27" target="_blank">`github.com/conorclarke27`</a>
+| <a href="http://github.com/renwid" target="_blank">`github.com/renwid`</a> | <a href="http://github.com/BoshiEddie" target="_blank">`github.com/BoshiEddie`</a> 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [build-shield]: https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat-square

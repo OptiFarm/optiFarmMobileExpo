@@ -27,9 +27,6 @@
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
 * [App Demo](#demo)
-  * [For Clients](#clients)
-  * [For Trainers](#trainers)
-
 * [License](#license)
 * [The Team](#team)
 

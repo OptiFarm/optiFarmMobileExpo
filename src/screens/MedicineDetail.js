@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { SafeAreaView, View, StyleSheet, FlatList, TouchableOpacity, Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Entypo } from '@expo/vector-icons'; 
@@ -93,7 +94,8 @@ export default function MedicineDetail ({ navigation, route }) {
                 data={array}
                 keyExtractor={(item) => item.key}
                 contentContainerStyle={{ padding: SPACING }}
-                renderItem={({ item }) => {   
+                renderItem={({ item }) => {
+                    console.log(item)
                     return (
                         <>
                         <View style={{paddingBottom: SPACING * 5}}>

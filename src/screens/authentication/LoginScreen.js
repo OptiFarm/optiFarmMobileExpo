@@ -6,7 +6,6 @@ import UserData from '../../model/Users'
 // Components
 import {StyleSheet, View, Text, Alert, TouchableOpacity} from 'react-native';
 import { TextInput as Input } from 'react-native-paper'
-
 import { Background } from '../../components/atoms/Background'
 import { Header } from '../../components/atoms/Header'
 import { Button } from '../../components/atoms/Button'

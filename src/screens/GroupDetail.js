@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 // Components
 import GoBack from '../components/atoms/GoBack';
 import { Input, Button } from '@ui-kitten/components';
+import AnimalList from '../components/molecules/AnimalList'
 
 // Theme
 import { fonts, SPACING, width, height, defaultBackground, cardBackground } from '../config/theme';
@@ -36,7 +37,6 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     group: {
         fontSize: 20,
@@ -73,6 +73,10 @@ const styles = StyleSheet.create({
         left: SPACING,
         backgroundColor: cardBackground,
         borderRadius:15
+    },
+    addIcon: {
+        top: CELL_HEIGHT * 1.3,
+        left: width / 30
     }
 });
 
@@ -85,7 +89,7 @@ export default function GroupDetail ({ navigation, route }) {
                 {item.groupName} 
             </Text>
 
-            <View style={{flexDirection: 'row', top: TOP_HEADER_HEIGHT / 1.5, paddingBottom: CELL_HEIGHT / 2.5}}>
+            <View style={{flexDirection: 'row', top: TOP_HEADER_HEIGHT / 1.5, paddingBottom: CELL_HEIGHT / 2.5, marginBottom: 110}}>
                 <View style={{flexDirection: 'column'}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <MaterialCommunityIcons name="cow" style={{top: 0, left: 15}} size={35} color="white" />
@@ -96,25 +100,7 @@ export default function GroupDetail ({ navigation, route }) {
                     </View>
                 </View>
             </View> 
-            <View>
-                <Input
-                    // onChangeText={this.handleSearch}
-                    style={styles.searchInput}
-                    size='large'
-                    placeholder='Search for Animal'
-                    textStyle={{height: 35}}
-                />
-            </View>
-            <View style={{flexDirection: 'column'}}>
-                <Button style={styles.button}>
-                    <Text style={{color: 'white', fontSize: 17, fontFamily: 'RobotoMono_700Bold'}}>Use Medication</Text>
-                </Button>
-            </View>
-
-            
-
-
-            
+            <AnimalList /> 
         </SafeAreaView>
     )
 }

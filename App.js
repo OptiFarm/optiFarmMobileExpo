@@ -4,10 +4,10 @@ import { ApplicationProvider } from '@ui-kitten/components';
 import AppLoading from 'expo-app-loading';
 import { Ionicons, Fontisto, SimpleLineIcons } from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { enableScreens } from 'react-native-screens';
 
 // Components
 import {View, ActivityIndicator, Text} from 'react-native';
-import Loader from './src/components/atoms/Loader'
 
 // Navigations
 import { NavigationContainer } from '@react-navigation/native';
@@ -54,6 +54,8 @@ import RegisterScreen from './src/screens/authentication/RegisterScreen';
 import WelcomeScreen from './src/screens/authentication/WelcomeScreen';
 import { AuthContext } from './src/components/context';
 import { defaultBackground } from './src/config/theme';
+
+enableScreens();
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -211,7 +213,7 @@ if (!fontsloaded) {
     if (loginState.isLoading) {
       return (
         <View style={{flex:1, justifyContent:'center', alignItems:'center', backgroundColor: defaultBackground}}>
-          <Loader />
+          <ActivityIndicator />
         </View>
       )
     }

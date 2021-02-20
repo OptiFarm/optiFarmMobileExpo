@@ -27,6 +27,7 @@
     "expo-status-bar": "~1.0.3",
     "faker": "^5.1.0",
     "graphql": "^15.4.0",
+    "lodash.filter": "^4.6.0",
     "lottie-react-native": "^3.5.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",

@@ -51,7 +51,7 @@ import FormSuccess from './src/screens/forms/FormSuccess';
 // Authentication Screen
 import LoginScreen from './src/screens/authentication/LoginScreen';
 import RegisterScreen from './src/screens/authentication/RegisterScreen';
-import WelcomeScreen from './src/screens/authentication/WelcomeScreen';
+import StartScreen from './src/screens/authentication/StartScreen';
 import { AuthContext } from './src/components/context';
 import { defaultBackground } from './src/config/theme';
 
@@ -208,7 +208,7 @@ export default function App () {
   });
 
 if (!fontsloaded) {
-  return <AppLoading />
+  return null
 } else {
     if (loginState.isLoading) {
       return (
@@ -237,7 +237,11 @@ if (!fontsloaded) {
                 </Stack.Navigator>
               )
             :
-              <LoginScreen />
+                <Stack.Navigator initialRouteName="StartScreen" screenOptions={{headerShown: false}}>
+                  <Stack.Screen name="StartScreen" component={StartScreen} />
+                  <Stack.Screen name="LoginScreen" component={LoginScreen} />
+                  <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+                </Stack.Navigator>
             }
             </NavigationContainer>
           </ApplicationProvider>

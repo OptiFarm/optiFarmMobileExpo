@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/core'
 
 // Components
 import {StyleSheet, View, Text, TextInput, Alert, FlatList, TouchableOpacity} from 'react-native';
-import GoBack from '../../components/atoms/GoBack';
+import { BackButton } from '../../components/atoms/BackButton'
 import { PageHeader } from '../../components/atoms/PageHeader'
 import { Input, IndexPath, Select, Button } from '@ui-kitten/components';
 
@@ -42,7 +42,7 @@ export default function MedicineForm () {
 
     return (
         <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground }}>
-            <GoBack />
+            <BackButton goBack={navigation.goBack} />       
             <PageHeader  label="Medicine Details"/>
                 
             {/* Form */}

@@ -2,9 +2,9 @@ import * as React from 'react';
 import { SafeAreaView, View, StyleSheet, FlatList, TouchableOpacity, Text, Image } from 'react-native';
 
 // Components
-import GoBack from '../components/atoms/GoBack';
 import { Button } from '@ui-kitten/components';
 import MedicationButton from '../components/atoms/MedicationButton';
+import { BackButton } from '../components/atoms/BackButton'
 
 // Theme
 import { fonts, SPACING, width, height, defaultBackground, cardBackground } from '../config/theme';
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: TOP_HEADER_HEIGHT - SPACING * 10,
         left: SPACING,
-        color: 'white'
+        color: 'white',
     },
     group: {
         fontSize: 20,
@@ -51,7 +51,7 @@ export default function AnimalDetail ({ navigation, route }) {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
-            <GoBack />
+            <BackButton goBack={navigation.goBack} />
             <Text style={styles.name}>ID: {item.animal_id}</Text>
             <Text style={styles.group}>Group: {item.animal_group}</Text>
             <MedicationButton />

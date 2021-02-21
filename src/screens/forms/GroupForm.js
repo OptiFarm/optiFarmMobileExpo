@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Components
 import {StyleSheet, View, Text, TextInput, Alert, FlatList, TouchableOpacity} from 'react-native';
-import GoBack from '../../components/atoms/GoBack';
+import { BackButton } from '../../components/atoms/BackButton'
 import { PageHeader } from '../../components/atoms/PageHeader'
 import { Input, IndexPath, Select, Button } from '@ui-kitten/components';
 
@@ -35,15 +35,12 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function GroupForm () {
+export default function GroupForm ({ navigation }) {
     const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
     return (
         <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground }}>
-            <GoBack />
+            <BackButton goBack={navigation.goBack} />  
             <PageHeader  label="Group Details"/>
-                
-            
-            
         </SafeAreaView>
     )
 }

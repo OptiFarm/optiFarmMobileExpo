@@ -8,7 +8,7 @@ export const Button = ({ mode, style, ...props }) => (
     theme={{ colors: { primary: 'black',underlineColor:'transparent',}}}
     style={[
       styles.button,
-      mode === 'outlined' && { backgroundColor: 'black' },
+      mode === 'outlined' && { backgroundColor: 'white' },
       style,
     ]}
     labelStyle={styles.text}
@@ -27,6 +27,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
     lineHeight: 26,
-    color: 'white'
   },
 })

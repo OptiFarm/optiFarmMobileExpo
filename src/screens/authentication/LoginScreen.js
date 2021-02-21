@@ -1,7 +1,7 @@
-import { database } from 'faker';
 import * as React from 'react';
 import { AuthContext } from '../../components/context'
 import UserData from '../../model/Users'
+import {useNavigation} from '@react-navigation/core'
 
 // Components
 import {StyleSheet, View, Text, Alert, TouchableOpacity} from 'react-native';
@@ -10,6 +10,8 @@ import { Background } from '../../components/atoms/Background'
 import { Header } from '../../components/atoms/Header'
 import { Button } from '../../components/atoms/Button'
 import { Logo } from '../../components/atoms/Logo'
+import { BackButton } from '../../components/atoms/BackButton';
+
 
 const styles = StyleSheet.create({
     errorMsg: {
@@ -22,11 +24,6 @@ const styles = StyleSheet.create({
     },
     input: {
         backgroundColor: 'white',
-    },
-    description: {
-        fontSize: 13,
-        color: 'black',
-        paddingTop: 8,
     },
     error: {
         fontSize: 13,
@@ -122,6 +119,7 @@ export default function LoginScreen ({navigation}) {
     return (
         <>
             <Background>
+                <BackButton goBack={navigation.goBack} />
                 <Logo />
                 <Header>Welcome back.</Header>
                 <View style={styles.container}>
@@ -165,14 +163,12 @@ export default function LoginScreen ({navigation}) {
                     <Button mode="contained" onPress={() => {loginHandle(username, password)}}>
                         Login
                     </Button>
-                    <View style={styles.row}>
-                        <Text>Don’t have an account? </Text>
-                        <TouchableOpacity 
-                        // onPress={() => navigation.replace('RegisterScreen')}
-                        >
+                </View>
+                <View style={styles.row}>
+                    <Text>Don’t have an account? </Text>
+                    <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
                         <Text style={styles.link}>Sign up</Text>
-                        </TouchableOpacity>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </Background>
         </>

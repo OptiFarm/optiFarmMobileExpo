@@ -3,7 +3,7 @@ import { SafeAreaView, View, StyleSheet, FlatList, TouchableOpacity, Text, Image
 
 // Components
 import { Button } from '@ui-kitten/components';
-import MedicationButton from '../components/atoms/MedicationButton';
+import { EditButton } from '../components/atoms/EditButton';
 import { BackButton } from '../components/atoms/BackButton'
 
 // Theme
@@ -54,7 +54,7 @@ export default function AnimalDetail ({ navigation, route }) {
             <BackButton goBack={navigation.goBack} />
             <Text style={styles.name}>ID: {item.animal_id}</Text>
             <Text style={styles.group}>Group: {item.animal_group}</Text>
-            <MedicationButton />
+            {/* <EditButton /> */}
 
             <FlatList
                 showsVerticalScrollIndicator={false}

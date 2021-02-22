@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import AppLoading from 'expo-app-loading';
-import { Ionicons, Fontisto, SimpleLineIcons } from '@expo/vector-icons'; 
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { enableScreens } from 'react-native-screens';
 
@@ -53,7 +53,7 @@ import LoginScreen from './src/screens/authentication/LoginScreen';
 import RegisterScreen from './src/screens/authentication/RegisterScreen';
 import StartScreen from './src/screens/authentication/StartScreen';
 import { AuthContext } from './src/components/context';
-import { defaultBackground } from './src/config/theme';
+import { cardBackground, defaultBackground } from './src/config/theme';
 
 enableScreens();
 
@@ -64,48 +64,42 @@ function HomeTabs() {
   // Custom styling
   const customTabBarStyle = {
     style: {
-      backgroundColor: '#3A364D',
-      borderTopColor: '#3A364D',
+      backgroundColor: cardBackground,
+      borderTopColor: cardBackground,
       height: 95
     }
   }
-
   return (
     <Tab.Navigator tabBarOptions={customTabBarStyle}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, dotColor, size}) => {
           let iconName;
-          color = focused ? '#FF569F' : 'white'
-          dotColor = focused ? '#FF569F' : '#3A364D'
+          color = focused ? 'white' : 'white'
+          dotColor = focused ? 'white' : cardBackground
           if (route.name === 'Home') {
-            iconName = 'home-outline'
+            iconName = 'home-filled'
           } else if (route.name === 'Group') {
-            return (
-              <>
-              <SimpleLineIcons name="grid" size={30} color={color} style={{paddingTop: 10}} />
-              <View style={{width: 5, height: 5, borderRadius: 100 / 2, backgroundColor: dotColor, top: 5}}></View>
-              </>
-            )
+            iconName = 'grid-view'
           } else if (route.name === 'Medicine') {
             return (
               <>
-              <Fontisto name="pills" size={30} color={color} style={{paddingTop: 10}} />
+              <MaterialCommunityIcons name="pill" size={30} color={color} style={{paddingTop: 10}} />
               <View style={{width: 5, height: 5, borderRadius: 100 / 2, backgroundColor: dotColor, top: 5}}></View>
               </>
             )
 
           } else if (route.name === 'Settings') {
-            iconName = 'settings-outline'
+            iconName = 'settings'
           }
           return (
             <>
-            <Ionicons name={iconName} size={30} color={color} style={{paddingTop: 10}} />
+            <MaterialIcons name={iconName} size={30} color={color} style={{paddingTop: 10}} />
             <View style={{width: 5, height: 5, borderRadius: 100 / 2, backgroundColor: dotColor, top: 5}}></View>
             </>
           )
         },
       })}>
-      <Tab.Screen name="Home" component={HomeScreen} options={{tabBarLabel: ''}} />
+      <Tab.Screen name="Home" component={HomeScreen} options={{tabBarLabel: ''}}/>
       <Tab.Screen name="Group" component={GroupScreen} options={{tabBarLabel: ''}}/>
       <Tab.Screen name="Medicine" component={MedicineScreen} options={{tabBarLabel: ''}}/>
       <Tab.Screen name="Settings" component={SettingsScreen} options={{tabBarLabel: ''}}/>

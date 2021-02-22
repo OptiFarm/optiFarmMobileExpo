@@ -4,7 +4,7 @@ import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 
 // Components
-import GoBack from '../components/atoms/GoBack';
+import { BackButton } from '../components/atoms/BackButton'
 import { Input, Button } from '@ui-kitten/components';
 import AnimalList from '../components/molecules/AnimalList'
 
@@ -84,7 +84,7 @@ export default function GroupDetail ({ navigation, route }) {
     const { item } = route.params;
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
-            <GoBack />
+            <BackButton goBack={navigation.goBack} />
             <Text style={styles.name}>
                 {item.groupName} 
             </Text>

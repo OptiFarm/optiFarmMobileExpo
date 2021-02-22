@@ -1,25 +1,24 @@
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons'; 
+import { getStatusBarHeight } from 'react-native-status-bar-height'
+import { AuthContext } from '../context'
 
 // Components
-import { Avatar } from '@ui-kitten/components';
-import { StyleSheet, View, ImageBackground, Text, TouchableOpacity} from 'react-native';
+import { Avatar } from 'react-native-paper';
+import { StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 // Theme
-import { SPACING, width } from '../../config/theme';
-
-import { AuthContext } from '../context'
+import { SPACING } from '../../config/theme';
 
 const styles = StyleSheet.create({
     headingContainer: {
         padding: SPACING,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     heading: {
         fontSize: 22,
         marginBottom: SPACING / 2.5,
-        color: 'white',
-        fontFamily: 'RobotoMono_500Medium'
     },
     subHeading: {
         fontSize: 12,
@@ -34,19 +33,15 @@ export const HomeUserHeader = (props) => {
     return (
         <View style={styles.headingContainer}>
             <View style={{marginRight: SPACING}}>
-                <Avatar
-                    style={{width: 50, height: 50}}
-                    size='large'
+                <Avatar.Image
+                    size={50}
                     source={require('../../assets/images/conor.png')}
-                    ImageComponent={ImageBackground}
                 />
             </View>
-            <View style={{marginTop: SPACING * -0.25}}>
-                <Text style={styles.heading}>Hi, Conor</Text>
-                <Text style={styles.subHeading}>
-                    16 February 2021
-                </Text>
-            </View>
+            <MaterialIcons name="notifications" size={35} color="white" style={{position: 'absolute', right: 0, paddingRight: SPACING}} />
+            <TouchableOpacity onPress={() => {signOut()}} style={{position: 'absolute', right: 0, paddingRight: 60}}>
+                <MaterialIcons name="logout" size={35} color="white"/>
+            </TouchableOpacity>
        </View>
     )
 };

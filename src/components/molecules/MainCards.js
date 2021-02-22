@@ -8,9 +8,7 @@ import {
 } from 'react-native';
 import { SharedElement } from 'react-native-shared-element';
 import { FlatList } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'; 
-
 
 // Data
 import CardData from '../../config/data/HomePage';

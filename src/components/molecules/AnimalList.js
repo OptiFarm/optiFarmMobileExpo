@@ -31,8 +31,7 @@ const styles = StyleSheet.create({
         fontFamily: 'RobotoMono_700Bold'
     },
     hideList: {
-        opacity: 0,
-        height: 0
+        display: 'none'
     }
 });
 
@@ -104,9 +103,9 @@ export default function AnimalList (props) {
         <>
             <SearchBar
                 containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0}}
-                inputContainerStyle={{backgroundColor: 'white'}}
+                inputContainerStyle={{backgroundColor: '#F6F6F4'}}
                 round
-                searchIcon={{ size: 24 }}
+                searchIcon={{ size: 25 }}
                 onChangeText={(text) => searchFilterFunction(text)}
                 onClear={(text) => searchFilterFunction('')}
                 placeholder="Search Animal"

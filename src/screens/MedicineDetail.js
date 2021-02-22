@@ -5,7 +5,7 @@ import { Entypo } from '@expo/vector-icons';
 import { Fontisto, Ionicons, FontAwesome5 } from '@expo/vector-icons'; 
 
 // Components
-import GoBack from '../components/atoms/GoBack';
+import { BackButton } from '../components/atoms/BackButton'
 import { Button } from '@ui-kitten/components';
 import MedicationButton from '../components/atoms/MedicationButton';
 
@@ -59,7 +59,7 @@ export default function MedicineDetail ({ navigation, route }) {
     
     return (
         <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground }}>
-            <GoBack />
+            <BackButton goBack={navigation.goBack} />
             <Text style={styles.name}>
                 {item.medicineName} 
                 <Ionicons name='ellipse' size={25} color={color} />

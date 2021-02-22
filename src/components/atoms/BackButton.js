@@ -14,8 +14,7 @@ export const BackButton = ({ goBack }) => (
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 10 + getStatusBarHeight(),
-    left: 4,
-    marginLeft: SPACING
+    top: 50 + getStatusBarHeight(),
+    left: SPACING,
   }
 })

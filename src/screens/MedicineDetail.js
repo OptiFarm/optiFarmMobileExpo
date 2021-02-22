@@ -128,7 +128,7 @@ export default function MedicineDetail ({ navigation, route }) {
                 </TouchableOpacity>
             </View>
             <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', textAlign: 'center', color: color, paddingBottom: SPACING}}>
-                Low Quantity 
+                {item.medicineLevel}
             </Text>
 
             {/* CONTENT */}

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "optiFarmMobile",
-    "slug": "optiFarmMobile",
+    "name": "optifarmstaging",
+    "slug": "optifarmstaging",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "OptiFarm App Staging Ver."
   }
 }

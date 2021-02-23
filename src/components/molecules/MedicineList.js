@@ -28,10 +28,6 @@ const styles = StyleSheet.create({
         color: 'grey',
         fontFamily: 'RobotoMono_700Bold'
     },
-    hideList: {
-        opacity: 0,
-        height: 0
-    },
     hide: {
         display: 'none'
     },

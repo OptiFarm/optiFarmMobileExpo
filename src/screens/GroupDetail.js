@@ -84,7 +84,7 @@ export default function GroupDetail ({ navigation, route }) {
     const { item } = route.params;
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
-            <BackButton goBack={navigation.goBack} />
+            <BackButton goBack={navigation.goBack} color='white'/>
             <Text style={styles.name}>
                 {item.groupName} 
             </Text>

@@ -13,7 +13,7 @@ import { SPACING, defaultBackground } from '../config/theme';
 export default function HerdBook ({ navigation }) {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
-            <BackButton goBack={navigation.goBack} />
+            <BackButton goBack={navigation.goBack} color='white'/>
             <PageHeader  label="My Herd"/>
             <AnimalList /> 
         </SafeAreaView>

@@ -90,10 +90,12 @@ export default function MedicineDetail ({ navigation, route }) {
     const color = item.medicineLevel === 'Low Quantity' ? medicineLevelLow
                               : item.medicineLevel === 'Medium Quantity' ? medicineLevelMedium
                               : medicineLevelHigh
-
-    const bottomSheetModalRef = useRef(null);
+    
+    const activeColor = item.medicineWithdrawal === 'Active' ? medicineLevelHigh : medicineLevelLow
 
     // EDIT MODAL
+    const bottomSheetModalRef = useRef(null);
+
     const snapPoints = useMemo(() => ['25%', '50%'], []);
 
     const sheetRef = useRef(null);
@@ -173,7 +175,7 @@ export default function MedicineDetail ({ navigation, route }) {
                                         </View>
                                         <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
                                             <Text style={styles.value}>{item.medicineBatchNo}</Text>
-                                            <Text style={styles.value}>{item.medicineWithdrawal}</Text>
+                                            <Text style={{color: activeColor, fontSize: 15, paddingTop: 23, fontFamily: 'RobotoMono_700Bold'}}>{item.medicineWithdrawal}</Text>
                                             <Text style={styles.value}>{item.medicineMeat}</Text>
                                             <Text style={styles.value}>{item.medicineMilk}</Text>
                                         </View>
@@ -198,7 +200,9 @@ export default function MedicineDetail ({ navigation, route }) {
                         </>
                     )
                 }}
-            /> 
+            />
+
+            {/* EDIT MODAL  */}
             <BottomSheetModalProvider>
                 <View style={styles.container}>
                     <BottomSheetModal
@@ -222,6 +226,5 @@ export default function MedicineDetail ({ navigation, route }) {
                 </View>
             </BottomSheetModalProvider>
         </SafeAreaView>
-        
     )
 }

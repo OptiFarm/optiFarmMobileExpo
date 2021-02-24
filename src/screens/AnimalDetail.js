@@ -53,11 +53,11 @@ const styles = StyleSheet.create({
         fontFamily: 'RobotoMono_700Bold'
     },
     navBar: {
-        height: 50,
+        height: 60,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: -30 + getStatusBarHeight(),
+        marginTop: getStatusBarHeight(),
     },
     leftContainer: {
         flex: 1,

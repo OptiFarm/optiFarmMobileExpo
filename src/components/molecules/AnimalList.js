@@ -69,7 +69,7 @@ export default function AnimalList (props) {
         return (
             <TouchableOpacity 
                 onPress={() => navigation.navigate('AnimalDetail', {item})}
-                style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: CELL_HEIGHT * 1.4 }}
+                style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 225 }}
             >
                 <View style={{ flex: 1, padding: SPACING }}>
                     <View style={[StyleSheet.absoluteFillObject,{backgroundColor: cardBackground, borderRadius: 15}]}></View>

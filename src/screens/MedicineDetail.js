@@ -32,6 +32,7 @@ import {
 
 // SIZING
 import { CELL_HEIGHT } from '../components/molecules/AnimalList';
+import { Platform } from 'react-native';
 
 const styles = StyleSheet.create({
     name: {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
         fontFamily: 'RobotoMono_700Bold'
     },
     navBar: {
-        height: 60,
+        height: Platform.OS === 'android' ? 130: 60,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -130,7 +131,7 @@ export default function MedicineDetail ({ navigation, route }) {
                     <FontAwesome5 name="hand-holding-medical" size={30} color="white" />
                 </TouchableOpacity>
             </View>
-            <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', textAlign: 'center', color: color, paddingBottom: SPACING}}>
+            <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', textAlign: 'center', color: color, paddingBottom: SPACING, marginTop: Platform.OS === 'android' ? -30 : 0}}>
                 {item.medicineLevel}
             </Text>
 

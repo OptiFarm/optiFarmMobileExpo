@@ -6,7 +6,7 @@ const CardData = [
     desc: 'Your collection of animals',
     image: 'https://i.ibb.co/dppF9xh/books-1.png',
     navigate: 'Herd',
-    color: '#3F3B51',
+    color: '#1C2436',
     backgroundColor: '#E3F8FB'
   },
   {
@@ -14,7 +14,7 @@ const CardData = [
     desc: 'Your collection of medicated animals',
     image: 'https://i.ibb.co/mF94bCf/pills-6.png',
     navigate: 'Remedies',
-    color: '#3F3B51',
+    color: '#1C2436',
     backgroundColor: '#E2E7FF'
   },
 ];

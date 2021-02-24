@@ -5,17 +5,16 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { SPACING } from '../../config/theme';
 
 
-export const BackButton = ({ goBack }) => (
+export const BackButton = ({ goBack, color }) => (
   <TouchableOpacity onPress={goBack} style={styles.container}>
-    <MaterialIcons name="arrow-back-ios" size={30} color="black" />
+    <MaterialIcons name="arrow-back-ios" size={30} color={color} />
   </TouchableOpacity>
 )
 
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 10 + getStatusBarHeight(),
-    left: 4,
-    marginLeft: SPACING
+    top: 20 + getStatusBarHeight(),
+    left: SPACING,
   }
 })

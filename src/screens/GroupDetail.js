@@ -3,7 +3,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 // COMPONENTS
-import { SafeAreaView, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { SafeAreaView, View, StyleSheet, TouchableOpacity, Text, Platform } from 'react-native';
 import AnimalList from '../components/molecules/AnimalList'
 
 // THEME
@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: getStatusBarHeight(),
     },
     leftContainer: {
         flex: 1,
@@ -45,7 +44,7 @@ export default function GroupDetail ({ navigation, route }) {
     const { item } = route.params;
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
-            <View style={styles.navBar}>
+            <View style={[styles.navBar, {marginTop: Platform.OS === 'android' ? getStatusBarHeight() : getStatusBarHeight() - 20}]}>
                 <TouchableOpacity style={styles.leftContainer} onPress={navigation.goBack}>
                     <MaterialIcons name="arrow-back-ios" size={30} color="white" />
                 </TouchableOpacity>
@@ -53,7 +52,7 @@ export default function GroupDetail ({ navigation, route }) {
                     {item.groupName} 
                 </Text>
                 <TouchableOpacity style={styles.rightContainer}>
-                    <MaterialIcons name="playlist-add" size={30} color="white" />
+                    <MaterialIcons name="edit" size={30} color="white" />
                 </TouchableOpacity>
             </View>
             <Text style={{fontSize: 20, fontFamily: 'RobotoMono_700Bold', textAlign: 'center', color: '#6A7E89', paddingBottom: 50}}>

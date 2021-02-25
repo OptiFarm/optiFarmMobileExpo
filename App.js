@@ -64,9 +64,9 @@ function HomeTabs() {
   // Custom styling
   const customTabBarStyle = {
     style: {
-      backgroundColor: cardBackground,
-      borderTopColor: cardBackground,
-      height: 95
+      backgroundColor: defaultBackground,
+      borderTopColor: defaultBackground,
+      height: 100,
     }
   }
   return (
@@ -74,8 +74,8 @@ function HomeTabs() {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, dotColor, size}) => {
           let iconName;
-          color = focused ? 'white' : 'white'
-          dotColor = focused ? 'white' : cardBackground
+          color = focused ? '#F4F3BE' : 'white'
+          dotColor = focused ? '#F4F3BE' : defaultBackground
           if (route.name === 'Home') {
             iconName = 'home-filled'
           } else if (route.name === 'Group') {

@@ -54,7 +54,6 @@ export default function MedicineList (props) {
     const searchFilterFunction = (text) => {
         if (text) {
             const newData = masterDataSource.filter(function (item) { 
-                console.log(item.medicineName)
                 const itemData = item.medicineName ? item.medicineName.toUpperCase() : ''.toUpperCase();
                 const textData = text.toUpperCase();
                 return itemData.indexOf(textData) > -1;

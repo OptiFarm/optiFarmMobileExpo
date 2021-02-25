@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/core'
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 // COMPONENTS
 import { View, StyleSheet, FlatList, TouchableOpacity, Text } from 'react-native';
@@ -33,6 +34,10 @@ const styles = StyleSheet.create({
     },
     showHeader: {
         flexDirection: 'row'
+    },
+    searchBar: {
+        flexDirection: 'row',
+        alignItems: 'center',
     }
 });
 
@@ -54,7 +59,6 @@ export default function MedicineList (props) {
     const searchFilterFunction = (text) => {
         if (text) {
             const newData = masterDataSource.filter(function (item) { 
-                console.log(item.medicineName)
                 const itemData = item.medicineName ? item.medicineName.toUpperCase() : ''.toUpperCase();
                 const textData = text.toUpperCase();
                 return itemData.indexOf(textData) > -1;
@@ -125,9 +129,9 @@ export default function MedicineList (props) {
             </View>
             
             {/* SEARCH BAR */}
-            <View style={props.homepage ? styles.hide : ''}>
+            <View style={props.homepage ? styles.hide : styles.searchBar}>
                 <SearchBar
-                    containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0}}
+                    containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0, width: width - 40}}
                     inputContainerStyle={{backgroundColor: '#F6F6F4'}}
                     round
                     searchIcon={{ size: 25 }}
@@ -136,6 +140,9 @@ export default function MedicineList (props) {
                     placeholder="Search Medicine"
                     value={search}
                 />
+                <TouchableOpacity>
+                    <MaterialIcons name="playlist-add" size={30} color="white" onPress={() => navigation.navigate('MedicineForm')}/>
+                </TouchableOpacity>
             </View>
             <FlatList
                 showsVerticalScrollIndicator={false}

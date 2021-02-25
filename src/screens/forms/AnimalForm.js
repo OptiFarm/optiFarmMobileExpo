@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/core'
 
 // Components
 import {StyleSheet, View, Text, TextInput, Alert, FlatList, TouchableOpacity} from 'react-native';
@@ -37,6 +38,8 @@ const styles = StyleSheet.create({
 
 export default function AnimalForm () {
     const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
+    const navigation = useNavigation()
+
     return (
         <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground }}>
             <BackButton goBack={navigation.goBack} />  

@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; 
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 // COMPONENTS
 import { 
@@ -56,7 +57,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-      },
+        marginTop: getStatusBarHeight(),
+    },
     leftContainer: {
         flex: 1,
         flexDirection: 'row',

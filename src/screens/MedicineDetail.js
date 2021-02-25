@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; 
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 // COMPONENTS
 import { 
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginTop: getStatusBarHeight(),
       },
     leftContainer: {
         flex: 1,
@@ -130,7 +132,7 @@ export default function MedicineDetail ({ navigation, route }) {
                     <FontAwesome5 name="hand-holding-medical" size={30} color="white" />
                 </TouchableOpacity>
             </View>
-            <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', textAlign: 'center', color: color, paddingBottom: SPACING}}>
+            <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', textAlign: 'center', color: color, paddingBottom: SPACING,}}>
                 {item.medicineLevel}
             </Text>
 

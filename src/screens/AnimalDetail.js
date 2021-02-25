@@ -114,8 +114,6 @@ export default function AnimalDetail ({ navigation, route }) {
         <SafeAreaView style={{backgroundColor: defaultBackground}}>
 
             {/* HEADER */}
-            {/* <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View> */}
-
             <View style={[styles.navBar, {marginTop: Platform.OS === 'android' ? getStatusBarHeight() : getStatusBarHeight() - 20}]}>
                 <TouchableOpacity style={styles.leftContainer} onPress={navigation.goBack}>
                     <MaterialIcons name="arrow-back-ios" size={30} color="white" />

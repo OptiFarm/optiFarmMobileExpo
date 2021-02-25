@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/core'
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'; 
 
 // COMPONENTS
 import { View, StyleSheet, FlatList, TouchableOpacity, Text } from 'react-native';
@@ -33,6 +33,10 @@ const styles = StyleSheet.create({
         paddingTop: SPACING,
         paddingLeft: 10
     },
+    searchBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    }
 });
 
 export default function GroupList (props) {
@@ -98,9 +102,9 @@ export default function GroupList (props) {
   return (
       <>
       {/* SEARCH BAR */}
-      <View style={props.homepage ? styles.hide : ''}>
+      <View style={props.homepage ? styles.hide : styles.searchBar}>
         <SearchBar
-            containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0}}
+            containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0,  width: width - 40}}
             inputContainerStyle={{backgroundColor: '#F6F6F4'}}
             round
             searchIcon={{ size: 25 }}
@@ -109,6 +113,9 @@ export default function GroupList (props) {
             placeholder="Search Group"
             value={search}
         />
+        <TouchableOpacity>
+            <MaterialIcons name="playlist-add" size={30} color="white" onPress={() => navigation.navigate('GroupForm')}/>
+        </TouchableOpacity>
       </View>
 
       {/* Group Cards */}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/core'
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 // COMPONENTS
 import { Input } from '@ui-kitten/components';
@@ -31,6 +32,10 @@ const styles = StyleSheet.create({
     },
     hideList: {
         display: 'none'
+    },
+    searchBar: {
+        flexDirection: 'row',
+        alignItems: 'center',
     }
 });
 
@@ -95,16 +100,21 @@ export default function AnimalList (props) {
 
     return (
         <>
-            <SearchBar
-                containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0}}
-                inputContainerStyle={{backgroundColor: '#F6F6F4'}}
-                round
-                searchIcon={{ size: 25 }}
-                onChangeText={(text) => searchFilterFunction(text)}
-                onClear={(text) => searchFilterFunction('')}
-                placeholder="Search Animal"
-                value={search}
-            />
+            <View style={styles.searchBar}>
+                <SearchBar
+                    containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0, width: props.homescreen ? width : width - 40}}
+                    inputContainerStyle={{backgroundColor: '#F6F6F4'}}
+                    round
+                    searchIcon={{ size: 25 }}
+                    onChangeText={(text) => searchFilterFunction(text)}
+                    onClear={(text) => searchFilterFunction('')}
+                    placeholder="Search Animal"
+                    value={search}
+                />
+                <TouchableOpacity>
+                    {props.homescreen ? <></> : <MaterialIcons name="playlist-add" size={30} color="white" onPress={() => navigation.navigate('AnimalForm')}/>}
+                </TouchableOpacity>
+            </View>
             <FlatList
                 style={props.homescreen ? styles.hideList : styles.noHide}
                 showsVerticalScrollIndicator={false}

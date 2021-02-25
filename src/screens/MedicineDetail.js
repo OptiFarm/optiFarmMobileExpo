@@ -12,7 +12,8 @@ import {
     Text, 
     TextInput,
     ScrollView,
-    Button
+    Button,
+    Platform
 } from 'react-native';
 import { BackButton } from '../components/atoms/BackButton'
 import { EditButton } from '../components/atoms/EditButton';
@@ -57,7 +58,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: getStatusBarHeight(),
       },
     leftContainer: {
         flex: 1,
@@ -121,7 +121,7 @@ export default function MedicineDetail ({ navigation, route }) {
         <SafeAreaView style={{backgroundColor: defaultBackground}}>
 
             {/* HEADER */}
-            <View style={styles.navBar}>
+            <View style={[styles.navBar, {marginTop: Platform.OS === 'android' ? getStatusBarHeight() : getStatusBarHeight() - 20}]}>
                 <TouchableOpacity style={styles.leftContainer} onPress={navigation.goBack}>
                     <MaterialIcons name="arrow-back-ios" size={30} color="white" />
                 </TouchableOpacity>

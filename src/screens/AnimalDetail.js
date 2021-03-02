@@ -168,7 +168,7 @@ export default function AnimalDetail ({ navigation, route }) {
                                             <Text style={styles.key}>Vaccination</Text>
                                             <Text style={styles.key}>Doesing</Text>
                                             <Text style={styles.key}>Medication</Text>
-                                            <Text style={styles.key}>View Proginy</Text>
+                                            <Text style={styles.key}>View Progeny</Text>
                                         </View>
                                         <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
                                             <Text style={styles.value}>{item.animal_vaccine}</Text>
@@ -183,7 +183,7 @@ export default function AnimalDetail ({ navigation, route }) {
                         {/* NOTE */}
                         <View style={{marginBottom: CELL_HEIGHT / 10, height: 225, marginTop: 10}} >
                             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 0}}>
-                                <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', textAlign: 'left', color: 'grey'}}>Note</Text>
+                                <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', textAlign: 'left', color: 'grey'}}>Description</Text>
                                 <TouchableOpacity onPress={handlePresentModalPress}>
                                     <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', color: '#91CCFE'}}>Edit</Text>
                                 </TouchableOpacity>

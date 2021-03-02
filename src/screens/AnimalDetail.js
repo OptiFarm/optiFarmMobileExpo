@@ -141,18 +141,22 @@ export default function AnimalDetail ({ navigation, route }) {
                     return (
                         <>
                         {/* DETAILS */}
-                        <View style={{marginBottom: CELL_HEIGHT / 10, marginTop: 30, height: 225}} >
+                        <View style={{marginBottom: CELL_HEIGHT / 10, marginTop: 30, height: 300}} >
                             <View style={{flex: 1, padding: SPACING}}>
                                 <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
                                     <View style={{flexDirection: 'row'}}>
                                         <View>
                                             <Text style={styles.key}>Tag No</Text>
+                                            <Text style={styles.key}>Sire Number</Text>
+                                            <Text style={styles.key}>Mother Number</Text>
                                             <Text style={styles.key}>Sex</Text>
                                             <Text style={styles.key}>Date of Birth</Text>
                                             <Text style={styles.key}>Breed</Text>
                                         </View>
                                         <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
                                             <Text style={styles.value}>{item.animal_tag}</Text>
+                                            <Text style={styles.value}>{item.sire_number}</Text>
+                                            <Text style={styles.value}>{item.mother_number}</Text>
                                             <Text style={styles.value}>{item.animal_sex}</Text>
                                             <Text style={styles.value}>{item.animal_dob}</Text>
                                             <Text style={styles.value}>{item.animal_breed}</Text>

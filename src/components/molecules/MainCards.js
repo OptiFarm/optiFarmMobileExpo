@@ -17,22 +17,21 @@ import CardData from '../../config/data/HomePage';
 import { SPACING, width } from '../../config/theme';
 
 // Sizing
-export const CELL_WIDTH = width * 0.64;
-const CELL_HEIGHT = CELL_WIDTH * 1.3;
+export const CELL_WIDTH = width * 0.60;
+const CELL_HEIGHT = CELL_WIDTH * 1.45;
 const FULL_SIZE = CELL_WIDTH + SPACING * 2;
 
 const styles = StyleSheet.create({
     itemSubtype: {
-      fontSize: 14,
-      opacity: 0.6,
-      fontFamily: 'RobotoMono_500Medium',
+      fontSize: 15,
+      fontFamily: 'Sora-Medium',
       color: 'white',
       paddingTop: SPACING
     },
     itemText: {
-      fontSize: 24,
+      fontSize: 30,
       width: CELL_WIDTH - SPACING * 2,
-      fontFamily: 'RobotoMono_500Medium',
+      fontFamily: 'Sora-SemiBold',
       color: 'white',
       paddingTop: SPACING
     },
@@ -57,8 +56,9 @@ export function MainCards ( { navigation }) {
                         style={{
                             height: CELL_HEIGHT / 1.2,
                             width: CELL_WIDTH,
-                            margin: SPACING,
-                            marginTop: 30
+                            marginLeft: SPACING,
+                            marginRight: SPACING,
+                            marginBottom: SPACING,
                         }}
                         onPress={() => navigation.navigate(`${item.navigate}`)}
                     >

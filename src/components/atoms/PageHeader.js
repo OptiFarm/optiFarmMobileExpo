@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, Platform } from 'react-native';
+import { topOS } from '../../../src/config/theme'
 
 interface headerProps {
     label: String;
@@ -13,12 +14,12 @@ export const PageHeader = ({label}: headerProps) => {
 
 const styles = StyleSheet.create({
     header: {
-        fontFamily: 'RobotoMono_700Bold',
+        fontFamily: 'Sora-Bold',
         fontSize: 35,
         lineHeight: 55,
         color: 'white',
-        top: 60,
+        top: topOS,
         left: 15,
-        marginBottom: 80
+        marginBottom: 40
     }
 });

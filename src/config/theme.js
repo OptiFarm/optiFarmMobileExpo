@@ -1,4 +1,5 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 export const { width, height } = Dimensions.get('window');
 export const SIZE = 64;
@@ -12,6 +13,7 @@ export const medicineLevelLow = '#D74747'
 export const medicineLevelMedium = '#FF9F47'
 export const medicineLevelHigh = '#82F5A8'
 
+export const topOS = Platform.OS === 'android' ? getStatusBarHeight() : getStatusBarHeight() - 20;
 
 
 interface medicineColorProps {

@@ -16,7 +16,7 @@ import {CELL_HEIGHT} from '../components/molecules/AnimalList';
 const styles = StyleSheet.create({
     name: {
         fontSize: 30,
-        fontFamily: 'RobotoMono_700Bold',
+        fontFamily: 'Sora-Bold',
         color: 'white',
     },
     navBar: {
@@ -55,7 +55,7 @@ export default function GroupDetail ({ navigation, route }) {
                     <MaterialIcons name="edit" size={30} color="white" />
                 </TouchableOpacity>
             </View>
-            <Text style={{fontSize: 20, fontFamily: 'RobotoMono_700Bold', textAlign: 'center', color: '#6A7E89', paddingBottom: 50}}>
+            <Text style={{fontSize: 20, fontFamily: 'Sora-Bold', textAlign: 'center', color: 'white', paddingBottom: 50}}>
                 {item.groupAmount} Animals
             </Text>
             <AnimalList /> 

@@ -29,7 +29,8 @@ import {
     cardBackground, 
     medicineLevelLow, 
     medicineLevelMedium, 
-    medicineLevelHigh 
+    medicineLevelHigh,
+    topOS 
 } from '../config/theme';
 
 // SIZING
@@ -38,7 +39,7 @@ import { CELL_HEIGHT } from '../components/molecules/AnimalList';
 const styles = StyleSheet.create({
     name: {
         fontSize: 30,
-        fontFamily: 'RobotoMono_700Bold',
+        fontFamily: 'Sora-Bold',
         color: 'white',
     },
     key: {
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginTop: topOS
     },
     leftContainer: {
         flex: 1,
@@ -114,7 +116,7 @@ export default function AnimalDetail ({ navigation, route }) {
         <SafeAreaView style={{backgroundColor: defaultBackground}}>
 
             {/* HEADER */}
-            <View style={[styles.navBar, {marginTop: Platform.OS === 'android' ? getStatusBarHeight() : getStatusBarHeight() - 20}]}>
+            <View style={styles.navBar}>
                 <TouchableOpacity style={styles.leftContainer} onPress={navigation.goBack}>
                     <MaterialIcons name="arrow-back-ios" size={30} color="white" />
                 </TouchableOpacity>
@@ -125,7 +127,7 @@ export default function AnimalDetail ({ navigation, route }) {
                     <FontAwesome5 name="hand-holding-medical" size={30} color="white" />
                 </TouchableOpacity>
             </View>
-            <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', textAlign: 'center', color: '#6A7E89', paddingBottom: SPACING}}>
+            <Text style={{fontSize: 20, fontFamily: 'Sora-Bold', textAlign: 'center', color: 'white', paddingBottom: SPACING}}>
                 {item.animal_group}
             </Text>
 

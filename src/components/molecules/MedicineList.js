@@ -116,7 +116,7 @@ export default function MedicineList (props) {
             {/* THIS BLOCK IS FOR HOMESCREEN ONLY */}
             <View style={props.homepage ? styles.showHeader : styles.hide}>
                 <Text style={{fontSize: 25, fontFamily: 'Sora-Bold', top: CELL_HEIGHT / 10, color: 'white', padding: SPACING}}>
-                    View Medicine
+                    My Medicine
                 </Text>
                 <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={() => navigation.navigate('Medicine')}>
                     <Text style={{ fontSize: 15, lineHeight: CELL_HEIGHT * 0.6, fontFamily: 'Sora-Bold', color: 'white'}}>
@@ -128,7 +128,7 @@ export default function MedicineList (props) {
             {/* SEARCH BAR */}
             <View style={props.homepage ? styles.hide : styles.searchBar}>
                 <SearchBar
-                    containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0, width: width - 40}}
+                    containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0, width: width - 50}}
                     inputContainerStyle={{backgroundColor: '#F6F6F4'}}
                     round
                     searchIcon={{ size: 25 }}
@@ -138,7 +138,7 @@ export default function MedicineList (props) {
                     value={search}
                 />
                 <TouchableOpacity>
-                    <MaterialIcons name="playlist-add" size={30} color="white" onPress={() => navigation.navigate('MedicineForm')}/>
+                    <MaterialIcons name="playlist-add" size={40} color="white" onPress={() => navigation.navigate('MedicineForm')}/>
                 </TouchableOpacity>
             </View>
             <FlatList

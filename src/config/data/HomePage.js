@@ -10,7 +10,7 @@ const CardData = [
     backgroundColor: '#E3F8FB'
   },
   {
-    type: 'Remedies',
+    type: 'Medicine Usage',
     desc: 'Your collection of medicated animals',
     image: 'https://i.ibb.co/mF94bCf/pills-6.png',
     navigate: 'Remedies',

@@ -120,7 +120,7 @@ export default function AnimalList (props) {
         <>
             <View style={styles.searchBar}>
                 <SearchBar
-                    containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0, width: props.homescreen ? width : width - 40}}
+                    containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0, width: props.homescreen ? width : width - 50}}
                     inputContainerStyle={{backgroundColor: '#F6F6F4'}}
                     round
                     searchIcon={{ size: 25 }}
@@ -130,7 +130,7 @@ export default function AnimalList (props) {
                     value={search}
                 />
                 <TouchableOpacity>
-                    {props.homescreen ? <></> : <MaterialIcons name="playlist-add" size={30} color="white" onPress={() => navigation.navigate('AnimalForm')}/>}
+                    {props.homescreen ? <></> : <MaterialIcons name="playlist-add" size={40} color="white" onPress={() => navigation.navigate('AnimalForm')}/>}
                 </TouchableOpacity>
             </View>
             <FlatList

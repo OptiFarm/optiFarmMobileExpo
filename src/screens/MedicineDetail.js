@@ -127,8 +127,8 @@ export default function MedicineDetail ({ navigation, route }) {
                                 <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
                                     <View style={{flexDirection: 'row'}}>
                                         <View>
-                                            <Text style={styles.key}>Date Purchased</Text>
-                                            <Text style={styles.key}>Purchased At</Text>
+                                            <Text style={styles.key}>Purchase Date</Text>
+                                            <Text style={styles.key}>Supplied By</Text>
                                             <Text style={styles.key}>Quantity</Text>
                                             <Text style={styles.key}>Expiry Date</Text>
                                         </View>
@@ -164,9 +164,9 @@ export default function MedicineDetail ({ navigation, route }) {
                         {/* NOTE */}
                         <View style={{marginBottom: CELL_HEIGHT / 10, height: 225, marginTop: 10}} >
                             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 0}}>
-                                <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', textAlign: 'left', color: 'grey'}}>Note</Text>
-                                <TouchableOpacity onPress={showModal}>
-                                    <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: '#91CCFE'}}>Edit</Text>
+                                <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', textAlign: 'left', color: 'grey'}}>Comments</Text>
+                                <TouchableOpacity onPress={handlePresentModalPress}>
+                                    <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', color: '#91CCFE'}}>Edit</Text>
                                 </TouchableOpacity>
                             </View>
                             <Card style={{borderRadius: 10, marginTop: 10, backgroundColor: cardBackground}}>

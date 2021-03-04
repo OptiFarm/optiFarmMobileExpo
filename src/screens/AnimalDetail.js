@@ -115,18 +115,22 @@ export default function AnimalDetail ({ navigation, route }) {
                     return (
                         <>
                         {/* DETAILS */}
-                        <View style={{marginBottom: CELL_HEIGHT / 10, marginTop: 30, height: 235}} >
+                        <View style={{marginBottom: CELL_HEIGHT / 10, marginTop: 30, height: 300}} >
                             <View style={{flex: 1, padding: SPACING}}>
                                 <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
                                     <View style={{flexDirection: 'row'}}>
                                         <View>
                                             <Text style={styles.key}>Tag No</Text>
+                                            <Text style={styles.key}>Sire Number</Text>
+                                            <Text style={styles.key}>Mother Number</Text>
                                             <Text style={styles.key}>Sex</Text>
                                             <Text style={styles.key}>Date of Birth</Text>
                                             <Text style={styles.key}>Breed</Text>
                                         </View>
                                         <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
                                             <Text style={styles.value}>{item.animal_tag}</Text>
+                                            <Text style={styles.value}>{item.sire_number}</Text>
+                                            <Text style={styles.value}>{item.mother_number}</Text>
                                             <Text style={styles.value}>{item.animal_sex}</Text>
                                             <Text style={styles.value}>{item.animal_dob}</Text>
                                             <Text style={styles.value}>{item.animal_breed}</Text>
@@ -142,7 +146,7 @@ export default function AnimalDetail ({ navigation, route }) {
                                             <Text style={styles.key}>Vaccination</Text>
                                             <Text style={styles.key}>Doesing</Text>
                                             <Text style={styles.key}>Medication</Text>
-                                            <Text style={styles.key}>View Proginy</Text>
+                                            <Text style={styles.key}>View Progeny</Text>
                                         </View>
                                         <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
                                             <Text style={styles.value}>{item.animal_vaccine}</Text>
@@ -159,9 +163,9 @@ export default function AnimalDetail ({ navigation, route }) {
                         {/* NOTE */}
                         <View style={{marginBottom: CELL_HEIGHT / 10, height: 225, marginTop: 10}} >
                             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 0}}>
-                                <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', textAlign: 'left', color: 'white', opacity: 0.8}}>Note</Text>
-                                <TouchableOpacity onPress={showModal}>
-                                    <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: '#91CCFE'}}>Edit</Text>
+                                <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', textAlign: 'left', color: 'grey'}}>Description</Text>
+                                <TouchableOpacity onPress={handlePresentModalPress}>
+                                    <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', color: '#91CCFE'}}>Edit</Text>
                                 </TouchableOpacity>
                             </View>
                             <Card style={{borderRadius: 10, marginTop: 10, backgroundColor: cardBackground}}>

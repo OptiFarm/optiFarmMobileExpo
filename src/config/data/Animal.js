@@ -4,6 +4,8 @@ const AnimalData = [
   {
     animal_id: '40122',
     animal_tag: 'IE 4745 383',
+    sire_number: '11111',
+    mother_number: '222222',
     animal_type: 'Cow',
     animal_sex: 'Male',
     animal_dob: '20 June 2020',
@@ -16,6 +18,8 @@ const AnimalData = [
   {
     animal_id: '32123',
     animal_tag: 'IE 4745 383',
+    sire_number: '11111',
+    mother_number: '222222',
     animal_type: 'Cow',
     animal_sex: 'Female',
     animal_dob: '10 September 2020',
@@ -28,6 +32,8 @@ const AnimalData = [
   {
     animal_id: '44442',
     animal_tag: 'IE 4745 383',
+    sire_number: '11111',
+    mother_number: '222222',
     animal_type: 'Cow',
     animal_sex: 'Male',
     animal_dob: '20 July 2020',
@@ -40,6 +46,8 @@ const AnimalData = [
   {
     animal_id: '42132',
     animal_tag: 'IE 4745 383',
+    sire_number: '11111',
+    mother_number: '222222',
     animal_type: 'Cow',
     animal_sex: 'Male',
     animal_dob: '13 August 2020',

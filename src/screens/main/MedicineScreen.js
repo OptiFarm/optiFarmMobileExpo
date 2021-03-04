@@ -3,11 +3,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, View } from 'react-native';
 
 // Components
-import { PageHeader } from '../components/atoms/PageHeader'
-import MedicineList from '../components/molecules/MedicineList'
+import { PageHeader } from '../../components/atoms/PageHeader'
+import MedicineList from '../../components/molecules/MedicineList'
 
 // Theme
-import { SPACING, defaultBackground } from '../config/theme';
+import { SPACING, defaultBackground } from '../../config/theme';
 
 export default function MedicineScreen () {
     return (

@@ -12,7 +12,7 @@ import {
     Text, 
     TextInput,
 } from 'react-native';
-import { EditButton } from '../components/atoms/EditButton';
+import { EditButton } from '../../components/atoms/EditButton';
 import { Card, Paragraph, Modal, Portal, Provider, Title, Button } from 'react-native-paper';
 
 // THEME
@@ -24,10 +24,10 @@ import {
     medicineLevelLow, 
     medicineLevelMedium, 
     medicineLevelHigh 
-} from '../config/theme';
+} from '../../config/theme';
 
 // SIZING
-import { CELL_HEIGHT } from '../components/molecules/AnimalList';
+import { CELL_HEIGHT } from '../../components/molecules/AnimalList';
 
 const styles = StyleSheet.create({
     name: {
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     key: {
         fontSize: 18, 
         paddingTop: 23, 
-        color: 'grey', 
+        color: 'white', 
+        opacity: 0.8,
         fontFamily: 'Sora-SemiBold'
     },
     value: {
@@ -164,9 +165,9 @@ export default function MedicineDetail ({ navigation, route }) {
                         {/* NOTE */}
                         <View style={{marginBottom: CELL_HEIGHT / 10, height: 225, marginTop: 10}} >
                             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 0}}>
-                                <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', textAlign: 'left', color: 'grey'}}>Comments</Text>
-                                <TouchableOpacity onPress={handlePresentModalPress}>
-                                    <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', color: '#91CCFE'}}>Edit</Text>
+                                <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', textAlign: 'left', color: 'white', opacity: 0.8}}>Comments</Text>
+                                <TouchableOpacity onPress={showModal}>
+                                    <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: '#91CCFE'}}>Edit</Text>
                                 </TouchableOpacity>
                             </View>
                             <Card style={{borderRadius: 10, marginTop: 10, backgroundColor: cardBackground}}>

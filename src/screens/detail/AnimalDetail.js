@@ -21,10 +21,10 @@ import {
     defaultBackground, 
     cardBackground, 
     topOS,
-} from '../config/theme';
+} from '../../config/theme';
 
 // SIZING
-import { CELL_HEIGHT } from '../components/molecules/AnimalList';
+import { CELL_HEIGHT } from '../../components/molecules/AnimalList';
 
 const styles = StyleSheet.create({
     name: {
@@ -115,7 +115,7 @@ export default function AnimalDetail ({ navigation, route }) {
                     return (
                         <>
                         {/* DETAILS */}
-                        <View style={{marginBottom: CELL_HEIGHT / 10, marginTop: 30, height: 300}} >
+                        <View style={{marginBottom: CELL_HEIGHT / 10, marginTop: 30, height: 325}} >
                             <View style={{flex: 1, padding: SPACING}}>
                                 <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
                                     <View style={{flexDirection: 'row'}}>
@@ -163,9 +163,9 @@ export default function AnimalDetail ({ navigation, route }) {
                         {/* NOTE */}
                         <View style={{marginBottom: CELL_HEIGHT / 10, height: 225, marginTop: 10}} >
                             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 0}}>
-                                <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', textAlign: 'left', color: 'grey'}}>Description</Text>
-                                <TouchableOpacity onPress={handlePresentModalPress}>
-                                    <Text style={{fontSize: 15, fontFamily: 'RobotoMono_700Bold', color: '#91CCFE'}}>Edit</Text>
+                                <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', textAlign: 'left', color: 'white', opacity: 0.8}}>Description</Text>
+                                <TouchableOpacity onPress={showModal}>
+                                    <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: '#91CCFE'}}>Edit</Text>
                                 </TouchableOpacity>
                             </View>
                             <Card style={{borderRadius: 10, marginTop: 10, backgroundColor: cardBackground}}>

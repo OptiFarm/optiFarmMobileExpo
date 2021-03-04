@@ -51,9 +51,8 @@ export default function GroupDetail ({ navigation, route }) {
                 <Text style={styles.name}>
                     {item.groupName} 
                 </Text>
-                <TouchableOpacity style={styles.rightContainer}>
-                    <MaterialIcons name="edit" size={30} color="white" />
-                </TouchableOpacity>
+                <View style={styles.rightContainer}>
+                </View>
             </View>
             <Text style={{fontSize: 20, fontFamily: 'Sora-Bold', textAlign: 'center', color: 'white', paddingBottom: 50}}>
                 {item.groupAmount} Animals

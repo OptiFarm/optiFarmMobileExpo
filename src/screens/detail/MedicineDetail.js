@@ -190,7 +190,7 @@ export default function MedicineDetail ({ navigation, route }) {
         <Provider>
             <Portal>
                 <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-                    <TextInput style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: 'white', bottom: 50, textAlign: 'center'}}>
+                    <TextInput style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: 'white', bottom: 50, textAlign: 'center'}} autoFocus={true}>
                         This is a note
                     </TextInput>
                     <Button icon="check" mode="contained" color='#91CCFE' style={{top: 70, marginHorizontal: SPACING,}} onPress={hideModal} labelStyle={{fontFamily: 'Sora-SemiBold', fontSize: 15}}>

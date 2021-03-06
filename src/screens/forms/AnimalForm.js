@@ -5,14 +5,13 @@ import { useForm, Controller } from "react-hook-form";
 // COMPONENTS
 import { StyleSheet, View, Text, FlatList, TextInput, Button, KeyboardAvoidingView } from 'react-native';
 import { PageHeader } from '../../components/atoms/PageHeader';
-// import { TextInput as Input } from 'react-native-paper'
 import RNPickerSelect from 'react-native-picker-select';
 
 // THEME
 import { SPACING, height, defaultBackground, cardBackground, width } from '../../config/theme';
 
 // DATA
-import AnimalFormData from '../../config/form/AForm';
+import AnimalFormData from '../../config/form/Form';
 
 const styles = StyleSheet.create({
     label: {
@@ -63,6 +62,7 @@ export default function AnimalForm ({navigation}) {
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
     const onSubmit = data => {
       console.log(data);
+      navigation.navigate('FormSuccess');
     };
   
     const onChange = arg => {
@@ -157,7 +157,7 @@ export default function AnimalForm ({navigation}) {
                                 )}
                                 name="sex"
                                 rules={{ required: true }}
-                                defaultValue={"123" || null}
+                                defaultValue={null}
                             />
 
                             <Text style={styles.label}>{item.e}</Text>
@@ -229,7 +229,6 @@ export default function AnimalForm ({navigation}) {
                                     title="SUBMIT"
                                     onPress={handleSubmit(onSubmit)}
                                     color={defaultBackground}
-                                    onPress={() => navigation.navigate('FormSuccess')}
                                 />
                             </View>
                             </>

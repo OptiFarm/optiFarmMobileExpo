@@ -114,7 +114,7 @@ export default function AnimalDetail ({ navigation, route }) {
                 renderItem={({ item }) => {
                     return (
                         <>
-                        <Button icon="pill" mode="contained" color={cardBackground} style={{marginTop: 30}} contentStyle={{height: 50}} labelStyle={{fontFamily: 'Sora-SemiBold', fontSize: 15}}>
+                        <Button icon="pill" mode="contained" color={cardBackground} style={{marginTop: 30, borderRadius: 15}} contentStyle={{height: 50}} labelStyle={{fontFamily: 'Sora-SemiBold', fontSize: 15}}>
                             Give Medication
                         </Button>
                         {/* DETAILS */}

@@ -17,17 +17,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useFonts } from 'expo-font';
 
 // Screens
-import HomeScreen from './src/screens/HomeScreen';
-import GroupScreen from './src/screens/GroupScreen';
-import MedicineScreen from './src/screens/MedicineScreen';
-import SettingsScreen from './src/screens/SettingsScreen';
+import HomeScreen from './src/screens/main/HomeScreen';
+import GroupScreen from './src/screens/main/GroupScreen';
+import MedicineScreen from './src/screens/main/MedicineScreen';
+import ProfileScreen from './src/screens/main/ProfileScreen';
 import HerdBook from './src/screens/HerdBook';
 import Remedies from './src/screens/Remedies';
 
 // Details Screen
-import AnimalDetail from './src/screens/AnimalDetail';
-import MedicineDetail from './src/screens/MedicineDetail';
-import GroupDetail from './src/screens/GroupDetail';
+import AnimalDetail from './src/screens/detail/AnimalDetail';
+import MedicineDetail from './src/screens/detail/MedicineDetail';
+import GroupDetail from './src/screens/detail/GroupDetail';
 
 // Forms Screen
 import MedicineForm from './src/screens/forms/MedicineForm';
@@ -74,7 +74,7 @@ function HomeTabs() {
               <View style={{width: 5, height: 5, borderRadius: 100 / 2, backgroundColor: dotColor, top: 10}}></View>
               </>
             )
-          } else if (route.name === 'Settings') {
+          } else if (route.name === 'Profile') {
             iconName = 'user'
           }
           return (
@@ -88,7 +88,7 @@ function HomeTabs() {
       <Tab.Screen name="Home" component={HomeScreen} options={{tabBarLabel: ''}}/>
       <Tab.Screen name="Group" component={GroupScreen} options={{tabBarLabel: ''}}/>
       <Tab.Screen name="Medicine" component={MedicineScreen} options={{tabBarLabel: ''}}/>
-      <Tab.Screen name="Settings" component={SettingsScreen} options={{tabBarLabel: ''}}/>
+      <Tab.Screen name="Profile" component={ProfileScreen} options={{tabBarLabel: ''}}/>
     </Tab.Navigator>
   )
 }

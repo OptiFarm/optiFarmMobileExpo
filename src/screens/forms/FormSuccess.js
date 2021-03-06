@@ -23,10 +23,10 @@ export default function FormSuccess () {
     return (
         <>
           <Background>
-            <Feather name="check-square" size={50} color="green" />
-            <Header>Medicine Added</Header>
-            <Text style={{textAlign: 'center', fontSize: 15, top: 20, opacity: 0.7}}>Your new medicine has been added to the system</Text>
-            <Button mode="contained" style={{top: 50, borderRadius: 15}} onPress={() => navigation.navigate('Home')} >
+            <Feather name="check-square" size={50} color="#82F5A8" />
+            <Header style={{color:'white', fontSize: 30, fontFamily: 'Sora-SemiBold', top: SPACING}}>Animal Added</Header>
+            <Text style={{textAlign: 'center', fontSize: 18, top: 30, opacity: 0.8, color: 'white', fontFamily: 'Sora-SemiBold'}}>Your new animal has been added to the system</Text>
+            <Button mode="contained" style={{top: 70, borderRadius: 15}} onPress={() => navigation.navigate('Home')} >
                 Done
             </Button>
           </Background>

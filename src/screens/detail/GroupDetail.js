@@ -4,14 +4,14 @@ import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 // COMPONENTS
 import { SafeAreaView, View, StyleSheet, TouchableOpacity, Text, Platform } from 'react-native';
-import AnimalList from '../components/molecules/AnimalList'
+import AnimalList from '../../components/molecules/AnimalList'
 
 // THEME
-import { SPACING, width, height, defaultBackground, cardBackground } from '../config/theme';
+import { SPACING, width, height, defaultBackground, cardBackground } from '../../config/theme';
 
 // SIZING
 const TOP_HEADER_HEIGHT = height * 0.3;
-import {CELL_HEIGHT} from '../components/molecules/AnimalList';
+import {CELL_HEIGHT} from '../../components/molecules/AnimalList';
 
 const styles = StyleSheet.create({
     name: {

@@ -112,7 +112,6 @@ export default function AnimalForm ({navigation}) {
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
                                 <TextInput
-                                    autoFocus={true}
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
@@ -129,7 +128,6 @@ export default function AnimalForm ({navigation}) {
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
                                 <TextInput
-                                    autoFocus={true}
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
@@ -167,7 +165,6 @@ export default function AnimalForm ({navigation}) {
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
                                 <TextInput
-                                    autoFocus={true}
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
@@ -184,7 +181,6 @@ export default function AnimalForm ({navigation}) {
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
                                 <TextInput
-                                    autoFocus={true}
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
@@ -201,7 +197,6 @@ export default function AnimalForm ({navigation}) {
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
                                 <TextInput
-                                    autoFocus={true}
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
@@ -218,7 +213,6 @@ export default function AnimalForm ({navigation}) {
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
                                 <TextInput
-                                    autoFocus={true}
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}

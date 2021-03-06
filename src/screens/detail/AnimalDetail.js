@@ -114,6 +114,9 @@ export default function AnimalDetail ({ navigation, route }) {
                 renderItem={({ item }) => {
                     return (
                         <>
+                        <Button icon="pill" mode="contained" color={cardBackground} style={{marginTop: 30}} contentStyle={{height: 50}} labelStyle={{fontFamily: 'Sora-SemiBold', fontSize: 15}}>
+                            Give Medication
+                        </Button>
                         {/* DETAILS */}
                         <View style={{marginBottom: CELL_HEIGHT / 10, marginTop: 30, height: 325}} >
                             <View style={{flex: 1, padding: SPACING}}>
@@ -187,7 +190,7 @@ export default function AnimalDetail ({ navigation, route }) {
                     <TextInput style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: 'white', bottom: 50, textAlign: 'center'}}>
                         This is a note
                     </TextInput>
-                    <Button icon="check" mode="contained" color='#91CCFE' style={{top: 70, marginHorizontal: SPACING,}} onPress={hideModal}>
+                    <Button icon="check" mode="contained" color='#91CCFE' style={{top: 70, marginHorizontal: SPACING,}} onPress={hideModal} labelStyle={{fontFamily: 'Sora-SemiBold', fontSize: 15}}>
                         Edit
                     </Button>
                 </Modal>

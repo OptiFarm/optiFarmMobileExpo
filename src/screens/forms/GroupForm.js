@@ -1,20 +1,16 @@
 import * as React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useForm, Controller } from "react-hook-form";
 
-// Components
-import {StyleSheet, View, Text, TextInput, Alert, FlatList, TouchableOpacity} from 'react-native';
-import { BackButton } from '../../components/atoms/BackButton'
-import { PageHeader } from '../../components/atoms/PageHeader'
-import { Input, IndexPath, Select, Button } from '@ui-kitten/components';
+// COMPONENTS
+import { StyleSheet, View, Text, FlatList, TextInput, Button, KeyboardAvoidingView } from 'react-native';
+import { PageHeader } from '../../components/atoms/PageHeader';
+import RNPickerSelect from 'react-native-picker-select';
 
-// Theme
-import { fonts, SPACING, width, height, defaultBackground, cardBackground } from '../../config/theme';
+// THEME
+import { SPACING, height, defaultBackground, cardBackground, width } from '../../config/theme';
 
-// Data
-import MedicineFormData from '../../config/form/MForm';
-
-// Sizing
-export const CELL_HEIGHT = height * 0.18;
+// DATA
 
 const styles = StyleSheet.create({
     input: {
@@ -36,11 +32,12 @@ const styles = StyleSheet.create({
 });
 
 export default function GroupForm ({ navigation }) {
-    const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
     return (
-        <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground }}>
-            <BackButton goBack={navigation.goBack} />  
-            <PageHeader  label="Group Details"/>
+        <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
+            <PageHeader  label="Add New Group" goBack={navigation.goBack} showChevron='true'/>
+            <KeyboardAvoidingView behavior='height' style={{flex: 1, height: height, width: width}}>
+
+            </KeyboardAvoidingView>
         </SafeAreaView>
     )
 }

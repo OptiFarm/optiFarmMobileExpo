@@ -35,7 +35,7 @@ interface headerProps {
 export const PageHeader = ({label, goBack, showChevron}: headerProps) => {
     return (
         <View style={styles.navBar}>
-            <TouchableOpacity onPress={goBack} style={{display: showChevron === 'true' ? '' : 'none'}}>
+            <TouchableOpacity onPress={goBack} style={{display: showChevron === 'true' ? 'flex' : 'none'}}>
                 <MaterialIcons name="arrow-back-ios" size={30} color="white" />
             </TouchableOpacity>
             <Text style={styles.name}>

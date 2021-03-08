@@ -4,19 +4,19 @@ import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 // COMPONENTS
 import { SafeAreaView, View, StyleSheet, TouchableOpacity, Text, Platform } from 'react-native';
-import AnimalList from '../components/molecules/AnimalList'
+import AnimalList from '../../components/molecules/AnimalList'
 
 // THEME
-import { SPACING, width, height, defaultBackground, cardBackground } from '../config/theme';
+import { SPACING, width, height, defaultBackground, cardBackground } from '../../config/theme';
 
 // SIZING
 const TOP_HEADER_HEIGHT = height * 0.3;
-import {CELL_HEIGHT} from '../components/molecules/AnimalList';
+import {CELL_HEIGHT} from '../../components/molecules/AnimalList';
 
 const styles = StyleSheet.create({
     name: {
         fontSize: 30,
-        fontFamily: 'RobotoMono_700Bold',
+        fontFamily: 'Sora-Bold',
         color: 'white',
     },
     navBar: {
@@ -51,11 +51,10 @@ export default function GroupDetail ({ navigation, route }) {
                 <Text style={styles.name}>
                     {item.groupName} 
                 </Text>
-                <TouchableOpacity style={styles.rightContainer}>
-                    <MaterialIcons name="edit" size={30} color="white" />
-                </TouchableOpacity>
+                <View style={styles.rightContainer}>
+                </View>
             </View>
-            <Text style={{fontSize: 20, fontFamily: 'RobotoMono_700Bold', textAlign: 'center', color: '#6A7E89', paddingBottom: 50}}>
+            <Text style={{fontSize: 20, fontFamily: 'Sora-Bold', textAlign: 'center', color: 'white', paddingBottom: 50}}>
                 {item.groupAmount} Animals
             </Text>
             <AnimalList /> 

@@ -17,17 +17,17 @@ export const CELL_HEIGHT = height * 0.18;
 
 const styles = StyleSheet.create({
     name: {
-        fontSize: 18,
-        fontFamily: 'RobotoMono_700Bold',
+        fontSize: 20,
+        fontFamily: 'Sora-SemiBold',
         color: 'white',
         paddingTop: 5
     },
     medicineType: {
-        fontSize: 15,
-        opacity: 0.7,
+        fontSize: 18,
         top: 5,
-        color: 'grey',
-        fontFamily: 'RobotoMono_700Bold'
+        opacity: 0.8,
+        color: 'white',
+        fontFamily: 'Sora-SemiBold'
     },
     hide: {
         display: 'none'
@@ -84,29 +84,26 @@ export default function MedicineList (props) {
         return (
             <TouchableOpacity 
                 onPress={() => navigation.navigate('MedicineDetail', {item})}
-                style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 180 }}
+                style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 200 }}
             >
-                <View style={{ flex: 1, padding: 15 }}>
-                    <View style={[StyleSheet.absoluteFillObject,
-                        { backgroundColor: cardBackground, borderTopRightRadius: 15, borderBottomRightRadius: 15, borderLeftColor: color, borderLeftWidth: 3}]}></View>
+                <View style={{ flex: 1, padding: SPACING }}>
+                    <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderTopRightRadius: 15, borderBottomRightRadius: 15, borderLeftColor: color, borderLeftWidth: 3}]}/>
                     <View style={{flexDirection: 'row'}}>
                         <View>
                             <Text style={styles.name}>{item.medicineName}</Text>
                             <Text style={styles.medicineType}>{item.medicineType}</Text>    
                         </View>
-                            <View style={{position: 'absolute', right: 0}}>
-                            <Text style={[styles.name, {color: color, fontSize: 15, top: 20}]}>{item.medicineLevel}</Text>
-                        </View>
+                        <Text style={[styles.name, {color: color, fontSize: 18, top: 20, fontFamily: 'Sora-SemiBold', position: 'absolute', right: 0}]}>{item.medicineLevel}</Text>
                     </View>
                     <View style={{borderBottomColor: '#9D9D9D', borderBottomWidth: 1, top: 25, marginBottom: 15}} />
                     <View style={{flexDirection: 'row'}}>
                         <View>
-                            <Text style={{fontSize: 15, paddingTop: 35, fontWeight: 'bold', color: 'grey'}}>Quantity</Text>
-                            <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold' }}>{item.medicineQuantity}</Text>
+                            <Text style={{fontSize: 18, paddingTop: 35, opacity: 0.8, color: 'white', fontFamily: 'Sora-SemiBold'}}>Quantity</Text>
+                            <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold', fontFamily: 'Sora-SemiBold', paddingTop: 10}}>{item.medicineQuantity}</Text>
                         </View>
                         <View style={{position: 'absolute', right: 0}}>
-                            <Text style={{fontSize: 15, paddingTop: 35, fontWeight: 'bold', color: 'grey'}}>Date of Purchase</Text>
-                            <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold' }}>{item.medicinePurchaseDate}</Text>
+                            <Text style={{fontSize: 18, paddingTop: 35, opacity: 0.8, color: 'white', fontFamily: 'Sora-SemiBold'}}>Date of Purchase</Text>
+                            <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold', fontFamily: 'Sora-SemiBold', paddingTop: 10}}>{item.medicinePurchaseDate}</Text>
                         </View>
                     </View>
                 </View>
@@ -118,11 +115,11 @@ export default function MedicineList (props) {
         <>
             {/* THIS BLOCK IS FOR HOMESCREEN ONLY */}
             <View style={props.homepage ? styles.showHeader : styles.hide}>
-                <Text style={{fontSize: 25, fontFamily: 'RobotoMono_700Bold', top: CELL_HEIGHT / 10, color: 'white', padding: SPACING}}>
-                    View Medicine
+                <Text style={{fontSize: 25, fontFamily: 'Sora-Bold', top: CELL_HEIGHT / 10, color: 'white', padding: SPACING}}>
+                    My Medicine
                 </Text>
                 <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={() => navigation.navigate('Medicine')}>
-                    <Text style={{ fontSize: 15, lineHeight: CELL_HEIGHT * 0.6, fontFamily: 'RobotoMono_700Bold', color: 'white'}}>
+                    <Text style={{ fontSize: 15, lineHeight: CELL_HEIGHT * 0.6, fontFamily: 'Sora-Bold', color: 'white'}}>
                         See All
                     </Text>
                 </TouchableOpacity>
@@ -131,7 +128,7 @@ export default function MedicineList (props) {
             {/* SEARCH BAR */}
             <View style={props.homepage ? styles.hide : styles.searchBar}>
                 <SearchBar
-                    containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0, width: width - 40}}
+                    containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0, width: width - 50}}
                     inputContainerStyle={{backgroundColor: '#F6F6F4'}}
                     round
                     searchIcon={{ size: 25 }}
@@ -141,7 +138,7 @@ export default function MedicineList (props) {
                     value={search}
                 />
                 <TouchableOpacity>
-                    <MaterialIcons name="playlist-add" size={30} color="white" onPress={() => navigation.navigate('MedicineForm')}/>
+                    <MaterialIcons name="playlist-add" size={40} color="white" onPress={() => navigation.navigate('MedicineForm')}/>
                 </TouchableOpacity>
             </View>
             <FlatList

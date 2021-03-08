@@ -1,127 +1,241 @@
 import * as React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/core'
+import { useForm, Controller } from "react-hook-form";
 
-// Components
-import {StyleSheet, View, Text, TextInput, Alert, FlatList, TouchableOpacity} from 'react-native';
-import { BackButton } from '../../components/atoms/BackButton'
+// COMPONENTS
+import { StyleSheet, View, Text, FlatList, TextInput, Button, KeyboardAvoidingView } from 'react-native';
 import { PageHeader } from '../../components/atoms/PageHeader';
-import { Input, IndexPath, Select, Button } from '@ui-kitten/components';
+import RNPickerSelect from 'react-native-picker-select';
 
-// Theme
-import { fonts, SPACING, width, height, defaultBackground, cardBackground } from '../../config/theme';
+// THEME
+import { SPACING, height, defaultBackground, cardBackground, width } from '../../config/theme';
 
-// Data
-import AnimalFormData from '../../config/form/AForm';
-
-// Sizing
-export const CELL_HEIGHT = height * 0.18;
+// DATA
+import AnimalFormData from '../../config/form/Form';
 
 const styles = StyleSheet.create({
-    input: {
+    label: {
         color: 'white',
-        fontFamily: 'RobotoMono_700Bold',
-        fontSize: 20,
-        paddingTop: 20,
-        backgroundColor: '#3F3B51',
-        borderColor: defaultBackground,
-        borderRadius: 10,
+        marginTop: 30,
+        marginBottom: 10,
+        marginHorizontal: 20,
+        marginLeft: 0,
+        fontFamily: 'Sora-SemiBold',
+        fontSize: 18
+    },
+    input: {
+        backgroundColor: cardBackground,
+        height: 50,
+        padding: 10,
+        borderRadius: 15,
+        fontFamily: 'Sora-SemiBold',
+        fontSize: 18,
+        color: 'white'
     },
     button: {
-        backgroundColor: 'white', 
-        borderColor: defaultBackground, 
-        height: 50, 
-        borderRadius: 10,
-        top: 20
+        marginTop: 40,
+        height: 40,
+        borderRadius: 15,
+        backgroundColor: '#F3F4B8',
     },
 });
 
-export default function AnimalForm () {
-    const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
-    const navigation = useNavigation()
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+      fontSize: 16,
+      paddingVertical: 12,
+      paddingHorizontal: 10,
+      borderWidth: 0,
+      borderRadius: 15,
+      color: 'white',
+      paddingRight: 30, // to ensure the text is never behind the icon
+      backgroundColor: cardBackground,
+      height: 50,
+      fontFamily: 'Sora-SemiBold',
+      fontSize: 18
+    },
+});
+
+export default function AnimalForm ({navigation}) {
+
+    // REACT HOOK FORM FUNCTIONS
+    const { register, setValue, handleSubmit, control, reset, errors } = useForm();
+    const onSubmit = data => {
+      console.log(data);
+      navigation.navigate('FormSuccess');
+    };
+  
+    const onChange = arg => {
+      return {
+        value: arg.nativeEvent.text,
+      };
+    };
+
+    const placeholder = {
+        label: 'Select a gender',
+        value: null,
+    };
 
     return (
-        <SafeAreaView style={{ flex: 1, paddingVertical: SPACING, backgroundColor: defaultBackground }}>
-            <BackButton goBack={navigation.goBack} />  
-            <PageHeader  label="Animal Details"/>
-                
-            {/* Form */}
-            <FlatList
-                showsVerticalScrollIndicator={false}
-                data={AnimalFormData}
-                keyExtractor={(item) => item.key}
-                contentContainerStyle={{ padding: 20 }}
-                renderItem={({ item }) => {
+        <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
+            <PageHeader  label="Add New Animal" goBack={navigation.goBack} showChevron='true'/>
+            <KeyboardAvoidingView behavior='height' style={{flex: 1, height: height, width: width}}>
 
-                return (
-                    <>
-                    <Input
-                        style={styles.input}
-                        size='large'
-                        placeholder={item.a}
-                        textStyle={{height: 35}}
-                    />
-                    <Input
-                        style={styles.input}
-                        size='large'
-                        placeholder={item.b}
-                        textStyle={{height: 35}}
-                    />
-                    <Input
-                        style={styles.input}
-                        size='large'
-                        placeholder={item.c}
-                        textStyle={{height: 35}}
-                    />
-                    <Input
-                        style={styles.input}
-                        size='large'
-                        placeholder={item.d}
-                        textStyle={{height: 35}}
-                    />
-                    <Input
-                        style={styles.input}
-                        size='large'
-                        placeholder={item.e}
-                        textStyle={{height: 35}}
-                    />
-                    <Input
-                        style={styles.input}
-                        size='large'
-                        placeholder={item.f}
-                        textStyle={{height: 35}}
-                    />
-                    <Input
-                        style={styles.input}
-                        size='large'
-                        placeholder={item.g}
-                        textStyle={{height: 35}}
-                    />
-                    <Input
-                        style={styles.input}
-                        size='large'
-                        placeholder={item.h}
-                        textStyle={{height: 35}}
-                    />
-                    <Input
-                        style={styles.input}
-                        size='large'
-                        placeholder={item.i}
-                        textStyle={{height: 35}}
-                    />
-                    <Input
-                        style={styles.input}
-                        size='large'
-                        placeholder={item.j}
-                        textStyle={{height: 35}}
-                    />
-                    <Button style={styles.button}>
-                        <Text style={{color: 'black', fontSize: 20, fontFamily: 'RobotoMono_700Bold'}}>Done</Text>
-                    </Button>
-                    </>
-                );
-              }}
-            ></FlatList>
+                {/* Form */}
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    data={AnimalFormData}
+                    keyExtractor={(item) => item.key}
+                    contentContainerStyle={{ padding: SPACING, }}
+                    renderItem={({ item }) => {
+                        return (
+                            <>
+                            <Text style={styles.label}>{item.a}</Text>
+                            <Controller
+                                control={control}
+                                render={({ onChange, onBlur, value }) => (
+                                <TextInput
+                                    autoFocus={true}
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={value => onChange(value)}
+                                    value={value}
+                                />
+                                )}
+                                name="tagNumber"
+                                rules={{ required: true }}
+                                defaultValue={null}
+                            />
+
+                            <Text style={styles.label}>{item.b}</Text>
+                            <Controller
+                                control={control}
+                                render={({ onChange, onBlur, value }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={value => onChange(value)}
+                                    value={value}
+                                />
+                                )}
+                                name="sireNumber"
+                                rules={{ required: true }}
+                                defaultValue={null}
+                            />
+
+                            <Text style={styles.label}>{item.c}</Text>
+                            <Controller
+                                control={control}
+                                render={({ onChange, onBlur, value }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={value => onChange(value)}
+                                    value={value}
+                                />
+                                )}
+                                name="motherNumber"
+                                rules={{ required: true }}
+                                defaultValue={null}
+                            />
+                            
+                            <Text style={styles.label}>{item.d}</Text>
+                            <Controller
+                                control={control}
+                                render={({ onChange, onBlur, value }) => (
+                                    <RNPickerSelect
+                                        items={[
+                                            { label: 'Male', value: 'male' },
+                                            { label: 'Female', value: 'female' }
+                                        ]}
+                                        onValueChange={value => onChange(value)}
+                                        style={styles.input}
+                                        onBlur={onBlur}
+                                        style={pickerSelectStyles}
+                                        placeholder={placeholder}
+                                    />
+                                )}
+                                name="sex"
+                                rules={{ required: true }}
+                                defaultValue={null}
+                            />
+
+                            <Text style={styles.label}>{item.e}</Text>
+                            <Controller
+                                control={control}
+                                render={({ onChange, onBlur, value }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={value => onChange(value)}
+                                    value={value}
+                                />
+                                )}
+                                name="breed"
+                                rules={{ required: true }}
+                                defaultValue={null}
+                            />
+
+                            <Text style={styles.label}>{item.f}</Text>
+                            <Controller
+                                control={control}
+                                render={({ onChange, onBlur, value }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={value => onChange(value)}
+                                    value={value}
+                                />
+                                )}
+                                name="dateOfBirth"
+                                rules={{ required: true }}
+                                defaultValue={null}
+                            />
+
+                            <Text style={styles.label}>{item.g}</Text>
+                            <Controller
+                                control={control}
+                                render={({ onChange, onBlur, value }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={value => onChange(value)}
+                                    value={value}
+                                />
+                                )}
+                                name="pureBreed"
+                                rules={{ required: true }}
+                                defaultValue={null}
+                            />
+
+                            <Text style={styles.label}>{item.h}</Text>
+                            <Controller
+                                control={control}
+                                render={({ onChange, onBlur, value }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={value => onChange(value)}
+                                    value={value}
+                                />
+                                )}
+                                name="description"
+                                rules={{ required: true }}
+                                defaultValue={null}
+                            />
+
+                            <View style={styles.button}>
+                                <Button
+                                    title="SUBMIT"
+                                    onPress={handleSubmit(onSubmit)}
+                                    color={defaultBackground}
+                                />
+                            </View>
+                            </>
+                        );
+                    }}
+                />
+            </KeyboardAvoidingView>
         </SafeAreaView>
     )
 }

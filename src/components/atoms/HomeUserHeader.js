@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontSize: 22,
-        marginBottom: SPACING / 2.5,
     },
     subHeading: {
         fontSize: 12,
@@ -38,8 +37,7 @@ export const HomeUserHeader = (props) => {
                     source={require('../../assets/images/conor.png')}
                 />
             </View>
-            <MaterialIcons name="notifications" size={35} color="white" style={{position: 'absolute', right: 0, paddingRight: SPACING}} />
-            <TouchableOpacity onPress={() => {signOut()}} style={{position: 'absolute', right: 0, paddingRight: 60}}>
+            <TouchableOpacity onPress={() => {signOut()}} style={{position: 'absolute', right: SPACING,}}>
                 <MaterialIcons name="logout" size={35} color="white"/>
             </TouchableOpacity>
        </View>

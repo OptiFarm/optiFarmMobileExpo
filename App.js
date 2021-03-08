@@ -2,45 +2,32 @@ import React, { useState, useEffect } from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import AppLoading from 'expo-app-loading';
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons, Feather } from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { enableScreens } from 'react-native-screens';
 
 // Components
-import {View, ActivityIndicator, Text} from 'react-native';
+import { View, ActivityIndicator, Text } from 'react-native';
 
 // Navigations
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-// Fonts
-import {
-  useFonts,
-  RobotoMono_100Thin,
-  RobotoMono_100Thin_Italic,
-  RobotoMono_300Light,
-  RobotoMono_300Light_Italic,
-  RobotoMono_400Regular,
-  RobotoMono_400Regular_Italic,
-  RobotoMono_500Medium,
-  RobotoMono_500Medium_Italic,
-  RobotoMono_700Bold,
-  RobotoMono_700Bold_Italic,
-} from '@expo-google-fonts/roboto-mono';
+import { useFonts } from 'expo-font';
 
 // Screens
-import HomeScreen from './src/screens/HomeScreen';
-import GroupScreen from './src/screens/GroupScreen';
-import MedicineScreen from './src/screens/MedicineScreen';
-import SettingsScreen from './src/screens/SettingsScreen';
+import HomeScreen from './src/screens/main/HomeScreen';
+import GroupScreen from './src/screens/main/GroupScreen';
+import MedicineScreen from './src/screens/main/MedicineScreen';
+import ProfileScreen from './src/screens/main/ProfileScreen';
 import HerdBook from './src/screens/HerdBook';
 import Remedies from './src/screens/Remedies';
 
 // Details Screen
-import AnimalDetail from './src/screens/AnimalDetail';
-import MedicineDetail from './src/screens/MedicineDetail';
-import GroupDetail from './src/screens/GroupDetail';
+import AnimalDetail from './src/screens/detail/AnimalDetail';
+import MedicineDetail from './src/screens/detail/MedicineDetail';
+import GroupDetail from './src/screens/detail/GroupDetail';
 
 // Forms Screen
 import MedicineForm from './src/screens/forms/MedicineForm';
@@ -66,7 +53,7 @@ function HomeTabs() {
     style: {
       backgroundColor: defaultBackground,
       borderTopColor: defaultBackground,
-      height: 100,
+      height: 110,
     }
   }
   return (
@@ -77,24 +64,23 @@ function HomeTabs() {
           color = focused ? '#F4F3BE' : 'white'
           dotColor = focused ? '#F4F3BE' : defaultBackground
           if (route.name === 'Home') {
-            iconName = 'home-filled'
+            iconName = 'home'
           } else if (route.name === 'Group') {
-            iconName = 'grid-view'
+            iconName = 'grid'
           } else if (route.name === 'Medicine') {
             return (
               <>
-              <MaterialCommunityIcons name="pill" size={30} color={color} style={{paddingTop: 10}} />
-              <View style={{width: 5, height: 5, borderRadius: 100 / 2, backgroundColor: dotColor, top: 5}}></View>
+              <MaterialCommunityIcons name="pill" size={30} color={color} style={{paddingTop: 0}} />
+              <View style={{width: 5, height: 5, borderRadius: 100 / 2, backgroundColor: dotColor, top: 10}}></View>
               </>
             )
-
-          } else if (route.name === 'Settings') {
-            iconName = 'settings'
+          } else if (route.name === 'Profile') {
+            iconName = 'user'
           }
           return (
             <>
-            <MaterialIcons name={iconName} size={30} color={color} style={{paddingTop: 10}} />
-            <View style={{width: 5, height: 5, borderRadius: 100 / 2, backgroundColor: dotColor, top: 5}}></View>
+            <Feather name={iconName} size={30} color={color} style={{paddingTop: 0}} />
+            <View style={{width: 5, height: 5, borderRadius: 100 / 2, backgroundColor: dotColor, top: 10}}></View>
             </>
           )
         },
@@ -102,7 +88,7 @@ function HomeTabs() {
       <Tab.Screen name="Home" component={HomeScreen} options={{tabBarLabel: ''}}/>
       <Tab.Screen name="Group" component={GroupScreen} options={{tabBarLabel: ''}}/>
       <Tab.Screen name="Medicine" component={MedicineScreen} options={{tabBarLabel: ''}}/>
-      <Tab.Screen name="Settings" component={SettingsScreen} options={{tabBarLabel: ''}}/>
+      <Tab.Screen name="Profile" component={ProfileScreen} options={{tabBarLabel: ''}}/>
     </Tab.Navigator>
   )
 }
@@ -189,19 +175,12 @@ export default function App () {
   }, []);
 
   let [fontsloaded] = useFonts({
-    RobotoMono_100Thin,
-    RobotoMono_100Thin_Italic,
-    RobotoMono_300Light,
-    RobotoMono_300Light_Italic,
-    RobotoMono_400Regular,
-    RobotoMono_400Regular_Italic,
-    RobotoMono_500Medium,
-    RobotoMono_500Medium_Italic,
-    RobotoMono_700Bold,
-    RobotoMono_700Bold_Italic,
+    'Sora-Medium': require('./src/assets/fonts/Sora-Medium.ttf'),
+    'Sora-Bold': require('./src/assets/fonts/Sora-Bold.ttf'),
+    'Sora-SemiBold': require('./src/assets/fonts/Sora-SemiBold.ttf'),
   });
 
-if (!fontsloaded) {
+if (!fontsloaded) { 
   return null
 } else {
     if (loginState.isLoading) {

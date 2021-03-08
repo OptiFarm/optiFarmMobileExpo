@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/core'
 import { MaterialIcons } from '@expo/vector-icons'; 
 
 // COMPONENTS
-import { Input } from '@ui-kitten/components';
 import { View, StyleSheet, FlatList, TouchableOpacity, Text } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 
@@ -18,20 +17,38 @@ export const CELL_HEIGHT = height * 0.18;
 
 const styles = StyleSheet.create({
     name: {
-        fontSize: 18,
-        fontFamily: 'RobotoMono_700Bold',
+        fontSize: 20,
+        fontFamily: 'Sora-SemiBold',
         color: 'white',
-        paddingTop: 5
+        paddingTop: SPACING,
     },
     animalType: {
-        fontSize: 15,
-        opacity: 0.7,
+        fontSize: 18,
         top: 5,
-        color: 'grey',
-        fontFamily: 'RobotoMono_700Bold'
+        opacity: 0.8,
+        color: 'white',
+        fontFamily: 'Sora-SemiBold',
+    },
+    animalLabel: {
+        fontSize: 18, 
+        paddingTop: 35, 
+        color: 'white', 
+        opacity: 0.8, 
+        fontFamily: 'Sora-SemiBold',
+    },
+    animalDesc: {
+        color: 'white', 
+        fontSize: 18, 
+        fontFamily: 'Sora-SemiBold',
+        top: 5,
+    },
+    border: {
+        borderBottomColor: '#9D9D9D', 
+        borderBottomWidth: 1, 
+        top: 20,
     },
     hideList: {
-        display: 'none'
+        display: 'none',
     },
     searchBar: {
         flexDirection: 'row',
@@ -74,25 +91,25 @@ export default function AnimalList (props) {
         return (
             <TouchableOpacity 
                 onPress={() => navigation.navigate('AnimalDetail', {item})}
-                style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 225 }}
+                style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 265 }}
             >
                 <View style={{ flex: 1, padding: SPACING }}>
-                    <View style={[StyleSheet.absoluteFillObject,{backgroundColor: cardBackground, borderRadius: 15}]}></View>
+                    <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderRadius: 15}]}/>
                     <Text style={styles.name}>ID: {item.animal_id}</Text>
                     <Text style={styles.animalType}>{item.animal_type}</Text>
-                    <View style={{borderBottomColor: '#9D9D9D', borderBottomWidth: 1, top: CELL_HEIGHT / 10}}/>
+                    <View style={styles.border}/>
                     <View style={{flexDirection: 'row'}}>
                         <View>
-                            <Text style={{fontSize: 15, paddingTop: CELL_HEIGHT / 4.5, color: 'grey', fontFamily: 'RobotoMono_700Bold'}}>Sex</Text>
-                            <Text style={{fontSize: 16, color: 'white', fontFamily: 'RobotoMono_700Bold'}}>{item.animal_sex}</Text>
+                            <Text style={styles.animalLabel}>Sex</Text>
+                            <Text style={styles.animalDesc}>{item.animal_sex}</Text>
                         </View>
                         <View style={{position: 'absolute', right: 0}}>
-                            <Text style={{fontSize: 15, paddingTop: CELL_HEIGHT / 4.5, color: 'grey', fontFamily: 'RobotoMono_700Bold'}}>Date of Birth</Text>
-                            <Text style={{fontSize: 16, color: 'white', fontFamily: 'RobotoMono_700Bold' }}>{item.animal_dob}</Text>
+                            <Text style={styles.animalLabel}>Breed</Text>
+                            <Text style={styles.animalDesc}>{item.animal_breed}</Text>
                         </View>
                     </View>
-                    <Text style={{fontSize: 15, paddingTop: CELL_HEIGHT / 7, color: 'grey', fontFamily: 'RobotoMono_700Bold'}}>Breed</Text>
-                    <Text style={{color: 'white', fontSize: 16, fontFamily: 'RobotoMono_700Bold'}}>{item.animal_breed}</Text>
+                    <Text style={styles.animalLabel}>Date of Birth</Text>
+                    <Text style={styles.animalDesc}>{item.animal_dob}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -100,29 +117,29 @@ export default function AnimalList (props) {
 
     return (
         <>
-            <View style={styles.searchBar}>
-                <SearchBar
-                    containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0, width: props.homescreen ? width : width - 40}}
-                    inputContainerStyle={{backgroundColor: '#F6F6F4'}}
-                    round
-                    searchIcon={{ size: 25 }}
-                    onChangeText={(text) => searchFilterFunction(text)}
-                    onClear={(text) => searchFilterFunction('')}
-                    placeholder="Search Animal"
-                    value={search}
-                />
-                <TouchableOpacity>
-                    {props.homescreen ? <></> : <MaterialIcons name="playlist-add" size={30} color="white" onPress={() => navigation.navigate('AnimalForm')}/>}
-                </TouchableOpacity>
-            </View>
-            <FlatList
-                style={props.homescreen ? styles.hideList : styles.noHide}
-                showsVerticalScrollIndicator={false}
-                data={filteredDataSource}
-                keyExtractor={(item) => item.key}
-                contentContainerStyle={{ padding: SPACING }}
-                renderItem={ItemView}
-            /> 
+        <View style={styles.searchBar}>
+            <SearchBar
+                containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0, width: props.homescreen ? width : width - 50}}
+                inputContainerStyle={{backgroundColor: '#F6F6F4'}}
+                round
+                searchIcon={{ size: 25 }}
+                onChangeText={(text) => searchFilterFunction(text)}
+                onClear={(text) => searchFilterFunction('')}
+                placeholder="Search Animal"
+                value={search}
+            />
+            <TouchableOpacity>
+                {props.homescreen ? <></> : <MaterialIcons name="playlist-add" size={40} color="white" onPress={() => navigation.navigate('AnimalForm')}/>}
+            </TouchableOpacity>
+        </View>
+        <FlatList
+            style={props.homescreen ? styles.hideList : styles.noHide}
+            showsVerticalScrollIndicator={false}
+            data={filteredDataSource}
+            keyExtractor={(item) => item.key}
+            contentContainerStyle={{ padding: SPACING }}
+            renderItem={ItemView}
+        /> 
         </>
     );
 };

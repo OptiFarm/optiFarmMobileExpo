@@ -1,0 +1,30 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Expo Main Publish
+
+# Controls when the action will run. 
+on: [ pull_request ]
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  publish:
+    # The type of runner that the job will run on
+    name: Install and Publish
+    runs-on: macOS-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      # set up the node version
+      - uses: actions/setup-node@v2
+        with:
+            node-version: 12.x
+      
+      - uses: expo/expo-github-action@v5
+        with: 
+          expo-version: 4.x
+          expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
+          expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
+      - run: yarn install
+      - run: expo publish

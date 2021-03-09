@@ -13,7 +13,7 @@ export default function MedicineScreen () {
     return (
         <>
         <SafeAreaView style={{backgroundColor: defaultBackground,}}>
-            <PageHeader  label="Medicine"/>
+            <PageHeader  label="My Medicine"/>
         </SafeAreaView>
         <View style={{backgroundColor: defaultBackground, flex: 1}}>
              <MedicineList />

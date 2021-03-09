@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "optifarmstaging",
-    "slug": "optifarmstaging",
+    "name": "staging",
+    "slug": "staging",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

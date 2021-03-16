@@ -11,29 +11,29 @@ import { FlatList } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'; 
 
 // Data
-import CardData from '../../config/data/HomePage';
+import { cardData } from '../../config/data/Animal';
 
 // Theme
 import { SPACING, width } from '../../config/theme';
 
 // Sizing
-export const CELL_WIDTH = width * 0.60;
+export const CELL_WIDTH = width * 0.65;
 const CELL_HEIGHT = CELL_WIDTH * 1.45;
 const FULL_SIZE = CELL_WIDTH + SPACING * 2;
 
 const styles = StyleSheet.create({
     itemSubtype: {
-      fontSize: 15,
-      fontFamily: 'Sora-Medium',
+      fontSize: 17,
+      fontFamily: 'Sora-SemiBold',
       color: 'white',
       paddingTop: SPACING
     },
     itemText: {
       fontSize: 30,
       width: CELL_WIDTH - SPACING * 2,
-      fontFamily: 'Sora-SemiBold',
+      fontFamily: 'Sora-Bold', 
       color: 'white',
-      paddingTop: SPACING
+      paddingTop: 22
     },
     itemImage: {
       width: CELL_WIDTH * 0.2,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 export function MainCards ( { navigation }) {
     return (
         <FlatList
-            data={CardData}
+            data={cardData}
             keyExtractor={(item) => item.key}
             horizontal
             snapToInterval={FULL_SIZE}
@@ -93,6 +93,7 @@ export function MainCards ( { navigation }) {
                                 {item.type}
                                 </Text>
                                 <Text style={styles.itemSubtype}>{item.desc}</Text>
+                                <Text style={[styles.itemSubtype, {top: 20}]}>{item.countLabel}<Text style={{color: '#F4F3BE'}}>{item.count}</Text></Text>
                             </View>
                             <Ionicons name="chevron-forward-outline" size={35} color="white" style={{alignSelf: 'flex-end', position: 'absolute', bottom: 0, padding: SPACING}} />
                             </SharedElement>

@@ -1,21 +1,21 @@
 import * as React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { NavigationContainer, useScrollToTop } from '@react-navigation/native';
+import { useScrollToTop } from '@react-navigation/native';
 
-// Components
-import { HomeUserHeader } from '../../components/atoms/HomeUserHeader'
+// COMPONENTS
 import { MainCards } from '../../components/molecules/MainCards'
+import { PageHeader } from '../../components/atoms/PageHeader';
 import AnimalList from '../../components/molecules/AnimalList'
 import MedicineList from '../../components/molecules/MedicineList'
-import {StyleSheet, ScrollView, View} from 'react-native';
+import { ScrollView, View } from 'react-native';
 
-// Theme
-import { SPACING, defaultBackground } from '../../config/theme';
-import { PageHeader } from '../../components/atoms/PageHeader';
+// THEME
+import { defaultBackground } from '../../config/theme';
 
 export default function HomeScreen ({navigation}) {
     const ref = React.useRef(null);
     useScrollToTop(ref);
+
     return (
         <>
             <SafeAreaView style={{backgroundColor: defaultBackground,}}>

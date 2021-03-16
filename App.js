@@ -65,8 +65,6 @@ function HomeTabs() {
           dotColor = focused ? '#F4F3BE' : defaultBackground
           if (route.name === 'Home') {
             iconName = 'home'
-          } else if (route.name === 'Group') {
-            iconName = 'grid'
           } else if (route.name === 'Medicine') {
             return (
               <>
@@ -74,6 +72,8 @@ function HomeTabs() {
               <View style={{width: 5, height: 5, borderRadius: 100 / 2, backgroundColor: dotColor, top: 10}}></View>
               </>
             )
+          } else if (route.name === 'Group') {
+            iconName = 'grid'
           } else if (route.name === 'Profile') {
             iconName = 'user'
           }
@@ -86,8 +86,8 @@ function HomeTabs() {
         },
       })}>
       <Tab.Screen name="Home" component={HomeScreen} options={{tabBarLabel: ''}}/>
-      <Tab.Screen name="Group" component={GroupScreen} options={{tabBarLabel: ''}}/>
       <Tab.Screen name="Medicine" component={MedicineScreen} options={{tabBarLabel: ''}}/>
+      <Tab.Screen name="Group" component={GroupScreen} options={{tabBarLabel: ''}}/>
       <Tab.Screen name="Profile" component={ProfileScreen} options={{tabBarLabel: ''}}/>
     </Tab.Navigator>
   )

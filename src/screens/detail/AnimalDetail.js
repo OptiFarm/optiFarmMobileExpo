@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; 
+import { MaterialIcons, Feather } from '@expo/vector-icons'; 
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 // COMPONENTS
@@ -11,6 +11,7 @@ import {
     TouchableOpacity, 
     Text, 
     TextInput,
+    Image
 } from 'react-native';
 import { Card, Paragraph, Modal, Portal, Provider, Title, Button } from 'react-native-paper';
 
@@ -84,6 +85,9 @@ export default function AnimalDetail ({ navigation, route }) {
     const hideModal = () => setVisible(false);
     const containerStyle = {backgroundColor: cardBackground, borderRadius: 15, marginHorizontal: SPACING, height: 250, bottom: 100};
 
+    // COW LOGO
+    const cowLogo = item.animal_sex === 'Female' ? 'https://i.ibb.co/B4cgVmv/cow-5.png' : 'https://i.ibb.co/g6MntkZ/cow-6.png';
+
     return (
         <>
         <SafeAreaView style={{backgroundColor: defaultBackground}}>
@@ -97,6 +101,7 @@ export default function AnimalDetail ({ navigation, route }) {
                     {item.animal_id} 
                 </Text>
                 <View style={styles.rightContainer}>
+                    <Image source={{ uri: cowLogo }} style={{ height: 40, width: 40 }}/>
                 </View>
             </View>
             <Text style={{fontSize: 20, fontFamily: 'Sora-Bold', textAlign: 'center', color: 'white', paddingBottom: SPACING}}>
@@ -114,7 +119,15 @@ export default function AnimalDetail ({ navigation, route }) {
                 renderItem={({ item }) => {
                     return (
                         <>
-                        <Button icon="pill" mode="contained" color={cardBackground} style={{marginTop: 30, borderRadius: 15}} contentStyle={{height: 50}} labelStyle={{fontFamily: 'Sora-SemiBold', fontSize: 15}}>
+                        <Button
+                            contentStyle={{height: 50, width: 25, }} 
+                            icon="pill" 
+                            mode="contained" 
+                            color='#F4F3BE' 
+                            style={{marginTop: 30, borderRadius: 10}} 
+                            contentStyle={{height: 50}} 
+                            labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
+                        >
                             Give Medication
                         </Button>
                         {/* DETAILS */}
@@ -156,7 +169,7 @@ export default function AnimalDetail ({ navigation, route }) {
                                             <Text style={styles.value}>{item.animal_doesing}</Text>
                                             <Text style={styles.value}>{item.animal_medication}</Text>
                                             <TouchableOpacity>
-                                                <Text style={[styles.value, {color: '#91CCFE'}]}>Click Here</Text>
+                                                <Text style={[styles.value, {color: '#F4F3BE'}]}><Feather name='info' size={18} color='#F4F3BE'/> Click Here</Text>
                                             </TouchableOpacity>
                                         </View>
                                 </View>
@@ -168,7 +181,7 @@ export default function AnimalDetail ({ navigation, route }) {
                             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 0}}>
                                 <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', textAlign: 'left', color: 'white', opacity: 0.8}}>Description</Text>
                                 <TouchableOpacity onPress={showModal}>
-                                    <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: '#91CCFE'}}>Edit</Text>
+                                    <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: '#F4F3BE'}}>Edit</Text>
                                 </TouchableOpacity>
                             </View>
                             <Card style={{borderRadius: 10, marginTop: 10, backgroundColor: cardBackground}}>
@@ -190,7 +203,7 @@ export default function AnimalDetail ({ navigation, route }) {
                     <TextInput style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: 'white', bottom: 50, textAlign: 'center'}} autoFocus={true}>
                         This is a note
                     </TextInput>
-                    <Button icon="check" mode="contained" color='#91CCFE' style={{top: 70, marginHorizontal: SPACING,}} onPress={hideModal} labelStyle={{fontFamily: 'Sora-SemiBold', fontSize: 15}}>
+                    <Button icon="check" mode="contained" color='#F4F3BE' style={{top: 70, marginHorizontal: SPACING,}} onPress={hideModal} labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17}}>
                         Edit
                     </Button>
                 </Modal>

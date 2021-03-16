@@ -3,9 +3,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm, Controller } from "react-hook-form";
 
 // COMPONENTS
-import { StyleSheet, View, Text, FlatList, TextInput, Button, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, Text, FlatList, TextInput, KeyboardAvoidingView } from 'react-native';
 import { PageHeader } from '../../components/atoms/PageHeader';
 import RNPickerSelect from 'react-native-picker-select';
+import { Button } from 'react-native-paper';
 
 // THEME
 import { SPACING, height, defaultBackground, cardBackground, width } from '../../config/theme';
@@ -264,14 +265,18 @@ export default function MedicineForm ({navigation}) {
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
-
-                            <View style={styles.button}>
-                                <Button
-                                    title="SUBMIT"
-                                    onPress={handleSubmit(onSubmit)}
-                                    color={defaultBackground}
-                                />
-                            </View>
+                            
+                            <Button
+                                contentStyle={{height: 50, width: 25, }} 
+                                mode="contained" 
+                                color='#F4F3BE' 
+                                style={{marginTop: 30, borderRadius: 10}} 
+                                contentStyle={{height: 50}} 
+                                labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
+                                onPress={handleSubmit(onSubmit)}
+                            >
+                                Submit
+                            </Button>
                             </>
                         );
                     }}

@@ -119,7 +119,7 @@ export default function MedicineList (props) {
                     My Medicine
                 </Text>
                 <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={() => navigation.navigate('Medicine')}>
-                    <Text style={{ fontSize: 15, lineHeight: CELL_HEIGHT * 0.6, fontFamily: 'Sora-Bold', color: 'white'}}>
+                    <Text style={{ fontSize: 18, lineHeight: CELL_HEIGHT * 0.55, fontFamily: 'Sora-Bold', color: '#F4F3BE'}}>
                         See All
                     </Text>
                 </TouchableOpacity>

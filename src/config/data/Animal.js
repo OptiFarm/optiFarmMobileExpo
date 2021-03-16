@@ -1,5 +1,6 @@
 import faker from 'faker';
 
+// ANIMAL LIST
 const AnimalData = [
   {
     animal_id: '40122',
@@ -35,7 +36,7 @@ const AnimalData = [
     sire_number: '11111',
     mother_number: '222222',
     animal_type: 'Cow',
-    animal_sex: 'Male',
+    animal_sex: 'Female',
     animal_dob: '20 July 2020',
     animal_breed: 'FDS',
     animal_group: 'Dry Cows',
@@ -59,7 +60,9 @@ const AnimalData = [
   }
 ];
 
-// Group Data
+const animalCount = Object.keys(AnimalData).length;
+
+// GROUP LIST
 const GroupData = [
   {
     groupName: 'Dry Cows',
@@ -75,13 +78,40 @@ const GroupData = [
   },
 ]
 
-export const groupData = GroupData.map((item, index) => ({
-  ...item,
-  key: faker.random.uuid()
-}))
+// HOMEPAGE CARDS
+const CardData = [
+  {
+    type: 'Herd Book',
+    desc: 'Your collection of animals',
+    image: 'https://i.ibb.co/3d9GTLc/book.png',
+    navigate: 'Herd',
+    color: '#1C2436',
+    backgroundColor: '#FF929C',
+    countLabel: 'Animal Count: ',
+    count: animalCount
+  },
+  {
+    type: 'Medicine Usage',
+    desc: 'Your collection of medicated animals',
+    image: 'https://i.ibb.co/7k5SnZs/charity.png',
+    navigate: 'Remedies',
+    color: '#1C2436',
+    backgroundColor: '#9968ED',
+  },
+];
 
 export default AnimalData.map((item, index) => ({
   ...item,
   key: faker.random.uuid(),
   color: '#2A253F'
+}));
+
+export const groupData = GroupData.map((item, index) => ({
+  ...item,
+  key: faker.random.uuid()
+}));
+
+export const cardData = CardData.map((item, index) => ({
+  ...item,
+  key: faker.random.uuid()
 }));

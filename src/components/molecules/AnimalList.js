@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/core'
 import { MaterialIcons } from '@expo/vector-icons'; 
 
 // COMPONENTS
-import { View, StyleSheet, FlatList, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, FlatList, TouchableOpacity, Text, Image } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 
 // DATA
@@ -88,6 +88,10 @@ export default function AnimalList (props) {
 
     // FLATLIST ITEM
     const ItemView = ({ item }) => {
+
+        // COW LOGO
+        const cowLogo = item.animal_sex === 'Female' ? 'https://i.ibb.co/B4cgVmv/cow-5.png' : 'https://i.ibb.co/g6MntkZ/cow-6.png';
+
         return (
             <TouchableOpacity 
                 onPress={() => navigation.navigate('AnimalDetail', {item})}
@@ -95,8 +99,16 @@ export default function AnimalList (props) {
             >
                 <View style={{ flex: 1, padding: SPACING }}>
                     <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderRadius: 15}]}/>
-                    <Text style={styles.name}>ID: {item.animal_id}</Text>
-                    <Text style={styles.animalType}>{item.animal_type}</Text>
+
+                    <View style={{flexDirection: 'row'}}>
+                        <View>
+                            <Text style={styles.name}>ID: <Text style={{color: '#F4F3BE'}}>{item.animal_id}</Text></Text>
+                            <Text style={styles.animalType}>{item.animal_type}</Text>
+                        </View>
+                        <View style={{position: 'absolute', right: 0, top: SPACING}}>
+                            <Image source={{ uri: cowLogo }} style={{ height: 40, width: 40 }}/>
+                        </View>
+                    </View>
                     <View style={styles.border}/>
                     <View style={{flexDirection: 'row'}}>
                         <View>

@@ -122,7 +122,15 @@ export default function MedicineDetail ({ navigation, route }) {
                 renderItem={({ item }) => {
                     return (
                         <>
-                        <Button icon="pill" mode="contained" color={cardBackground} style={{marginTop: 30, borderRadius: 15}} contentStyle={{height: 50}} labelStyle={{fontFamily: 'Sora-SemiBold', fontSize: 15}}>
+                        <Button
+                            contentStyle={{height: 50, width: 25, }} 
+                            icon="pill" 
+                            mode="contained" 
+                            color='#F4F3BE' 
+                            style={{marginTop: 30, borderRadius: 10}} 
+                            contentStyle={{height: 50}} 
+                            labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
+                        >
                             Give Medication
                         </Button>
                         {/* DETAILS */}
@@ -131,16 +139,16 @@ export default function MedicineDetail ({ navigation, route }) {
                                 <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
                                     <View style={{flexDirection: 'row'}}>
                                         <View>
-                                            <Text style={styles.key}>Purchase Date</Text>
-                                            <Text style={styles.key}>Supplied By</Text>
-                                            <Text style={styles.key}>Quantity</Text>
                                             <Text style={styles.key}>Expiry Date</Text>
+                                            <Text style={styles.key}>Withdrawal Period</Text>
+                                            <Text style={styles.key}>Meat</Text>
+                                            <Text style={styles.key}>Milk</Text>
                                         </View>
                                         <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
-                                            <Text style={styles.value}>{item.medicinePurchaseDate}</Text>
-                                            <Text style={styles.value}>{item.medicinePurchaseAt}</Text>
-                                            <Text style={styles.value}>{item.medicineQuantity}</Text>
                                             <Text style={styles.value}>{item.medicineExpiry}</Text>
+                                            <Text style={{color: activeColor, fontSize: 18, paddingTop: 23, fontFamily: 'Sora-SemiBold'}}>{item.medicineWithdrawal}</Text>
+                                            <Text style={styles.value}>{item.medicineMeat}</Text>
+                                            <Text style={styles.value}>{item.medicineMilk}</Text>
                                         </View>
                                     </View>
                             </View>
@@ -150,16 +158,16 @@ export default function MedicineDetail ({ navigation, route }) {
                                 <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
                                     <View style={{flexDirection: 'row'}}>
                                         <View>
+                                            <Text style={styles.key}>Quantity</Text>
+                                            <Text style={styles.key}>Purchase Date</Text>
+                                            <Text style={styles.key}>Supplied By</Text>
                                             <Text style={styles.key}>Batch No</Text>
-                                            <Text style={styles.key}>Withdrawal Period</Text>
-                                            <Text style={styles.key}>Meat</Text>
-                                            <Text style={styles.key}>Milk</Text>
                                         </View>
                                         <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
+                                            <Text style={styles.value}>{item.medicineQuantity}</Text>
+                                            <Text style={styles.value}>{item.medicinePurchaseDate}</Text>
+                                            <Text style={styles.value}>{item.medicinePurchaseAt}</Text>
                                             <Text style={styles.value}>{item.medicineBatchNo}</Text>
-                                            <Text style={{color: activeColor, fontSize: 18, paddingTop: 23, fontFamily: 'Sora-SemiBold'}}>{item.medicineWithdrawal}</Text>
-                                            <Text style={styles.value}>{item.medicineMeat}</Text>
-                                            <Text style={styles.value}>{item.medicineMilk}</Text>
                                         </View>
                                 </View>
                             </View>
@@ -170,7 +178,7 @@ export default function MedicineDetail ({ navigation, route }) {
                             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 0}}>
                                 <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', textAlign: 'left', color: 'white', opacity: 0.8}}>Comments</Text>
                                 <TouchableOpacity onPress={showModal}>
-                                    <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: '#91CCFE'}}>Edit</Text>
+                                    <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: '#F4F3BE'}}>Edit</Text>
                                 </TouchableOpacity>
                             </View>
                             <Card style={{borderRadius: 10, marginTop: 10, backgroundColor: cardBackground}}>
@@ -193,7 +201,7 @@ export default function MedicineDetail ({ navigation, route }) {
                     <TextInput style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: 'white', bottom: 50, textAlign: 'center'}} autoFocus={true}>
                         This is a note
                     </TextInput>
-                    <Button icon="check" mode="contained" color='#91CCFE' style={{top: 70, marginHorizontal: SPACING,}} onPress={hideModal} labelStyle={{fontFamily: 'Sora-SemiBold', fontSize: 15}}>
+                    <Button icon="check" mode="contained" color='#F4F3BE' style={{top: 70, marginHorizontal: SPACING,}} onPress={hideModal} labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17}}>
                         Edit
                     </Button>
                 </Modal>

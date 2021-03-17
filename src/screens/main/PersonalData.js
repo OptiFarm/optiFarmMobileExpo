@@ -91,7 +91,7 @@ export default function PersonalData ({navigation}) {
                                         control={control}
                                         render={({ onChange, onBlur, value }) => (
                                         <TextInput
-                                            style={[styles.input, {width: 190}]}
+                                            style={[styles.input, {width: 170}]}
                                             onBlur={onBlur}
                                             onChangeText={value => onChange(value)}
                                             value={value}
@@ -109,7 +109,7 @@ export default function PersonalData ({navigation}) {
                                         control={control}
                                         render={({ onChange, onBlur, value }) => (
                                         <TextInput
-                                            style={[styles.input, {width: 190}]}
+                                            style={[styles.input, {width: 170}]}
                                             onBlur={onBlur}
                                             onChangeText={value => onChange(value)}
                                             value={value}

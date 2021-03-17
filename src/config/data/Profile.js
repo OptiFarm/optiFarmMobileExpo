@@ -7,7 +7,7 @@ const ProfileData = [
     type: 'Personal Data',
     image: 'https://i.ibb.co/c8C4Dpc/user-3.png',
     backgroundColor: cardBackground,
-    navigation: ''
+    navigation: 'PersonalData'
   },
   {
     type: 'Settings',
@@ -35,8 +35,25 @@ const ProfileData = [
   },
 ];
 
+// PROFILE DATA
+const profileFormData = [
+  {
+    email: 'conorclarke@gmail.com',
+    herdNumber: '13992',
+    firstName: 'Conor',
+    lastName: 'Clarke',
+    password: '********',
+    farmType: 'Dairy',
+    farmAddress: '34 Oriel House'
+  }
+]
+
 export default ProfileData.map((item, index) => ({
   ...item,
   key: faker.random.uuid(),
 }));
 
+export const ProfileFormData = profileFormData.map((item, index) => ({
+  ...item,
+  key: faker.random.uuid()
+}));

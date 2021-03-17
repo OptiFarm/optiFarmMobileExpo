@@ -23,6 +23,7 @@ import MedicineScreen from './src/screens/main/MedicineScreen';
 import ProfileScreen from './src/screens/main/ProfileScreen';
 import HerdBook from './src/screens/HerdBook';
 import Remedies from './src/screens/Remedies';
+import PersonalData from './src/screens/main/PersonalData';
 
 // Details Screen
 import AnimalDetail from './src/screens/detail/AnimalDetail';
@@ -40,7 +41,7 @@ import LoginScreen from './src/screens/authentication/LoginScreen';
 import RegisterScreen from './src/screens/authentication/RegisterScreen';
 import StartScreen from './src/screens/authentication/StartScreen';
 import { AuthContext } from './src/components/context';
-import { cardBackground, defaultBackground } from './src/config/theme';
+import { cardBackground, defaultBackground, SPACING } from './src/config/theme';
 
 enableScreens();
 
@@ -207,6 +208,7 @@ if (!fontsloaded) {
                   <Stack.Screen name="AnimalForm" component={AnimalForm} />
                   <Stack.Screen name="GroupForm" component={GroupForm} />
                   <Stack.Screen name="FormSuccess" component={FormSuccess} />
+                  <Stack.Screen name="PersonalData" component={PersonalData} />
                 </Stack.Navigator>
               )
             :

@@ -16,8 +16,8 @@ const ProfileData = [
     navigation: ''
   },
   {
-    type: 'Refferal Code',
-    image: 'https://i.ibb.co/gzC9fBP/heart-shape-rounded-edges-variant-with-white-details.png',
+    type: 'OptiFarm Pro',
+    image: 'https://i.ibb.co/WnYLvbp/graph.png',
     backgroundColor: cardBackground,
     navigation: ''
   },

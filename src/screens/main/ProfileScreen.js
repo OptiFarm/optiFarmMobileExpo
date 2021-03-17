@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons'; 
+import { AuthContext } from '../../components/context'
 
 // COMPONENT
 import { Text, View, Image, StyleSheet, FlatList } from 'react-native';
@@ -35,11 +36,11 @@ const styles = StyleSheet.create({
     }
 });
 
-export default function ProfileScreen () {
+export default function ProfileScreen ({navigation}) {
+    const { signOut } = React.useContext(AuthContext)
     return (
         <>
         <SafeAreaView style={{backgroundColor: defaultBackground,}}>
-            {/* <PageHeader  label="Profile"/>  */}
         </SafeAreaView>
         <View style={{backgroundColor: defaultBackground, flex: 1, flexDirection: 'column'}}>
 
@@ -65,7 +66,7 @@ export default function ProfileScreen () {
                 decelerationRate="fast"
                 renderItem={({ item }) => {
                     return (
-                        <TouchableOpacity style={{flexDirection: 'row', paddingTop: 40, alignItems: 'center',}}>
+                        <TouchableOpacity onPress={() => navigation.navigate(`${item.navigation}`)} style={{flexDirection: 'row', paddingTop: 40, alignItems: 'center',}}>
                             <View style={{width: 50, height: 50, backgroundColor: `${item.backgroundColor}`, borderRadius: 15, justifyContent: 'center', alignItems: 'center'}}>
                                 <Image
                                     source={{ uri: item.image }}
@@ -80,6 +81,7 @@ export default function ProfileScreen () {
             />
             <View>
                 <Button
+                    onPress={() => {signOut()}}
                     contentStyle={{height: 50, width: 20,}} 
                     mode="contained" 
                     color='#F4F3BE' 

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; 
+import { MaterialIcons, Feather } from '@expo/vector-icons'; 
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 // COMPONENTS
@@ -11,9 +11,11 @@ import {
     TouchableOpacity, 
     Text, 
     TextInput,
+    Image
 } from 'react-native';
-import { EditButton } from '../../components/atoms/EditButton';
-import { Card, Paragraph, Modal, Portal, Provider, Title, Button } from 'react-native-paper';
+import { Card, Paragraph, Modal, Portal, Provider, Button } from 'react-native-paper';
+import BottomSheet, { BottomSheetFlatList, BottomSheetModalProvider, BottomSheetModal, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import { CustomSheetBackground } from '../../components/atoms/CustomSheetBackground'
 
 // THEME
 import { 
@@ -28,6 +30,9 @@ import {
 
 // SIZING
 import { CELL_HEIGHT } from '../../components/molecules/AnimalList';
+
+// DATA
+import { assignMedicationData } from '../../config/data/Animal'
 
 const styles = StyleSheet.create({
     name: {
@@ -74,6 +79,16 @@ const styles = StyleSheet.create({
     },
 });
 
+const modalStyles = StyleSheet.create({
+    contentContainer: {
+      padding: SPACING,
+    },
+    itemContainer: {
+      padding: 6,
+      marginBottom: SPACING,
+    },
+});
+
 export default function MedicineDetail ({ navigation, route }) {
     const { item } = route.params;
     const array = []
@@ -91,6 +106,43 @@ export default function MedicineDetail ({ navigation, route }) {
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
     const containerStyle = {backgroundColor: cardBackground, borderRadius: 15, marginHorizontal: SPACING, height: 250, bottom: 100};
+
+    // ASSIGN MEDICATION MODAL
+    const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
+
+    const bottomSheetModalRef = useRef(null);
+
+    const handleSheetChanges = useCallback(index => {
+        // console.log('handleSheetChange', index);
+    }, []);
+    const handlePresentModalPress = useCallback(() => {
+        bottomSheetModalRef.current?.present();
+    }, []);
+    const handleClosePress = useCallback(() => {
+        bottomSheetModalRef.current?.close();
+    }, []);
+
+    const renderItem = ({ item }) => {
+
+        // COW LOGO
+        const cowLogo = item.animal_sex === 'Female' ? 'https://i.ibb.co/B4cgVmv/cow-5.png' : 'https://i.ibb.co/g6MntkZ/cow-6.png';
+
+        return (
+            <TouchableOpacity 
+                onPress={() => navigation.navigate('AnimalDetail', {item})}
+                style={{flexDirection: 'row', marginBottom: 40, alignItems: 'center',}}
+            >
+                <View style={{ flexDirection: 'row',}}>
+                    <Image source={{ uri: cowLogo }} style={{ height: 50, width: 50 }}/>
+                    <View>
+                        <Text style={{fontFamily: 'Sora-SemiBold', fontSize: 18, color: 'white', left: SPACING}}>ID: <Text style={{color: '#F4F3BE'}}>{item.animal_id}</Text></Text>
+                        <Text style={{fontFamily: 'Sora-SemiBold', fontSize: 18, color: 'white', left: SPACING}}><Text style={{color: 'white', opacity: 0.8}}>{item.animal_group}</Text></Text>
+                    </View>
+                </View>
+                <Feather name="chevron-right" size={30} color="#F4F3BE" style={{position: 'absolute', right: 0, bottom: SPACING}}/> 
+            </TouchableOpacity>
+        );
+    };
 
     return (
         <>
@@ -130,6 +182,7 @@ export default function MedicineDetail ({ navigation, route }) {
                             style={{marginTop: 30, borderRadius: 10}} 
                             contentStyle={{height: 50}} 
                             labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
+                            onPress={handlePresentModalPress}
                         >
                             Give Medication
                         </Button>
@@ -193,7 +246,6 @@ export default function MedicineDetail ({ navigation, route }) {
             />
         </SafeAreaView>
 
-
         {/* EDIT MODAL */}
         <Provider>
             <Portal>
@@ -207,6 +259,27 @@ export default function MedicineDetail ({ navigation, route }) {
                 </Modal>
             </Portal>
         </Provider>
+        
+        {/* ASSIGN MEDICATION MODAL */}
+        <BottomSheetModalProvider>
+            <BottomSheetModal
+                ref={bottomSheetModalRef}
+                snapPoints={snapPoints}
+                onChange={handleSheetChanges}
+                index={1}
+                backgroundComponent={CustomSheetBackground}
+                backdropComponent={BottomSheetBackdrop}
+            >
+                <Text style={{ padding: SPACING, color: 'white', fontSize: 20, fontFamily: 'Sora-Bold', marginBottom: SPACING}}>Select Animal</Text>
+                <BottomSheetFlatList
+                    showsVerticalScrollIndicator={true}
+                    data={assignMedicationData}
+                    keyExtractor={(item) => item.key}
+                    renderItem={renderItem}
+                    contentContainerStyle={modalStyles.contentContainer}
+                />
+            </BottomSheetModal>
+        </BottomSheetModalProvider>
         </>
     );
 }

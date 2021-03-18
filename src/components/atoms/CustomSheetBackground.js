@@ -9,7 +9,7 @@ export const CustomSheetBackground = ({ style, animatedIndex, }) => {
         styles.container,
         style,
         {
-            backgroundColor: defaultBackground
+            backgroundColor: cardBackground
         },
     ], [style, animatedIndex]);
     return React.createElement(Animated.View, { pointerEvents: "none", style: containerStyle });
@@ -19,6 +19,5 @@ const styles = StyleSheet.create({
     container: {
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        backgroundColor: '#fff',
     },
 });

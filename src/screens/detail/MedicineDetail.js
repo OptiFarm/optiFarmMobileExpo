@@ -94,6 +94,11 @@ export default function MedicineDetail ({ navigation, route }) {
     const array = []
     array.push(item)
 
+    // Variables for Assign Medication Form
+    const medicineName = item.medicineName;
+    const withdrawalMilk = item.medicineMilk;
+    const withdrawalMeat = item.medicineMeat;
+
     // MEDICINE QUANTITY COLOR
     const color = item.medicineLevel === 'Low Quantity' ? medicineLevelLow
                               : item.medicineLevel === 'Medium Quantity' ? medicineLevelMedium
@@ -129,7 +134,7 @@ export default function MedicineDetail ({ navigation, route }) {
 
         return (
             <TouchableOpacity 
-                onPress={() => navigation.navigate('AnimalDetail', {item})}
+                onPress={() => navigation.navigate('AssignMedication', {animalID: item.animal_id, medicineName: medicineName, withdrawalMeat: withdrawalMeat, withdrawalMilk: withdrawalMilk})}
                 style={{flexDirection: 'row', marginBottom: 40, alignItems: 'center',}}
             >
                 <View style={{ flexDirection: 'row',}}>
@@ -270,7 +275,7 @@ export default function MedicineDetail ({ navigation, route }) {
                 backgroundComponent={CustomSheetBackground}
                 backdropComponent={BottomSheetBackdrop}
             >
-                <Text style={{ padding: SPACING, color: 'white', fontSize: 20, fontFamily: 'Sora-Bold', marginBottom: SPACING}}>Select Animal</Text>
+                <Text style={{ padding: SPACING, color: 'white', fontSize: 25, fontFamily: 'Sora-Bold', marginBottom: SPACING}}>Select Animal</Text>
                 <BottomSheetFlatList
                     showsVerticalScrollIndicator={true}
                     data={assignMedicationData}

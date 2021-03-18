@@ -113,7 +113,8 @@ const AssignMedicationData = [
     animal_group: 'Dry Cows',
     animal_vaccine: 'Adrestan',
     animal_doesing: 'N/A',
-    animal_medication: 'N/A'
+    animal_medication: 'N/A',
+    animal_lastMedicated: '17 March 2021'
   },
   {
     animal_id: '32123',
@@ -127,7 +128,8 @@ const AssignMedicationData = [
     animal_group: 'Calves',
     animal_vaccine: 'Adrestan',
     animal_doesing: 'N/A',
-    animal_medication: 'N/A'
+    animal_medication: 'N/A',
+    animal_lastMedicated: '22 February 2021'
   },
   {
     animal_id: '44442',
@@ -141,7 +143,8 @@ const AssignMedicationData = [
     animal_group: 'Calves',
     animal_vaccine: 'Adrestan',
     animal_doesing: 'N/A',
-    animal_medication: 'N/A'
+    animal_medication: 'N/A',
+    animal_lastMedicated: '11 January 2021'
   },
   {
     animal_id: '42132',
@@ -155,7 +158,8 @@ const AssignMedicationData = [
     animal_group: 'Dry Cows',
     animal_vaccine: 'Adrestan',
     animal_doesing: 'N/A',
-    animal_medication: 'N/A'
+    animal_medication: 'N/A',
+    animal_lastMedicated: '5 March 2021'
   }
 ];
 

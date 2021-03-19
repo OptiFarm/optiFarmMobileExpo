@@ -91,13 +91,14 @@ const modalStyles = StyleSheet.create({
 
 export default function MedicineDetail ({ navigation, route }) {
     const { item } = route.params;
-    const array = []
-    array.push(item)
+    const array = [];
+    array.push(item);
 
     // Variables for Assign Medication Form
     const medicineName = item.medicineName;
     const withdrawalMilk = item.medicineMilk;
     const withdrawalMeat = item.medicineMeat;
+    const medicineQuantity = item.medicineQuantity;
 
     // MEDICINE QUANTITY COLOR
     const color = item.medicineLevel === 'Low Quantity' ? medicineLevelLow
@@ -134,13 +135,14 @@ export default function MedicineDetail ({ navigation, route }) {
 
         return (
             <TouchableOpacity 
-                onPress={() => navigation.navigate('AssignMedication', {animalID: item.animal_id, medicineName: medicineName, withdrawalMeat: withdrawalMeat, withdrawalMilk: withdrawalMilk})}
+                onPress={() => navigation.navigate('AssignMedication', {animalID: item.animal_id, medicineName: medicineName, withdrawalMeat: withdrawalMeat, withdrawalMilk: withdrawalMilk, medicineQuantity: medicineQuantity, color: color})}
                 style={{flexDirection: 'row', marginBottom: 40, alignItems: 'center',}}
             >
                 <View style={{ flexDirection: 'row',}}>
                     <Image source={{ uri: cowLogo }} style={{ height: 50, width: 50 }}/>
                     <View>
                         <Text style={{fontFamily: 'Sora-SemiBold', fontSize: 18, color: 'white', left: SPACING}}>ID: <Text style={{color: '#F4F3BE'}}>{item.animal_id}</Text></Text>
+                        <View style={{borderBottomColor: '#9D9D9D', opacity: 0.4,borderBottomWidth: 1, top: 45, left: SPACING, width: 300,}}/>
                         <Text style={{fontFamily: 'Sora-SemiBold', fontSize: 18, color: 'white', left: SPACING}}><Text style={{color: 'white', opacity: 0.8}}>{item.animal_group}</Text></Text>
                     </View>
                 </View>

@@ -36,6 +36,7 @@ import AnimalForm from './src/screens/forms/AnimalForm';
 import GroupForm from './src/screens/forms/GroupForm';
 import FormSuccess from './src/screens/forms/FormSuccess';
 import AssignMedication from './src/screens/forms/AssignMedication';
+import AssignMedicationConfirm from './src/screens/forms/AssignMedicationConfirm';
 
 // Authentication Screen
 import LoginScreen from './src/screens/authentication/LoginScreen';
@@ -211,6 +212,7 @@ if (!fontsloaded) {
                   <Stack.Screen name="FormSuccess" component={FormSuccess} />
                   <Stack.Screen name="PersonalData" component={PersonalData} />
                   <Stack.Screen name="AssignMedication" component={AssignMedication} />
+                  <Stack.Screen name="AssignMedicationConfirm" component={AssignMedicationConfirm} />
                 </Stack.Navigator>
               )
             :

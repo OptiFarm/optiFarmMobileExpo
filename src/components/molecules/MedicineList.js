@@ -98,12 +98,12 @@ export default function MedicineList (props) {
                     <View style={{borderBottomColor: '#9D9D9D', borderBottomWidth: 1, top: 25, marginBottom: 15}} />
                     <View style={{flexDirection: 'row'}}>
                         <View>
-                            <Text style={{fontSize: 18, paddingTop: 35, opacity: 0.8, color: 'white', fontFamily: 'Sora-SemiBold'}}>Quantity</Text>
-                            <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold', fontFamily: 'Sora-SemiBold', paddingTop: 10}}>{item.medicineQuantity}</Text>
+                            <Text style={{fontSize: 18, paddingTop: 35, opacity: 0.8, color: 'white', fontFamily: 'Sora-SemiBold'}}>Expiration Date</Text>
+                            <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold', fontFamily: 'Sora-SemiBold', paddingTop: 10}}>{item.medicineExpiry}</Text>
                         </View>
                         <View style={{position: 'absolute', right: 0}}>
-                            <Text style={{fontSize: 18, paddingTop: 35, opacity: 0.8, color: 'white', fontFamily: 'Sora-SemiBold'}}>Date of Purchase</Text>
-                            <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold', fontFamily: 'Sora-SemiBold', paddingTop: 10}}>{item.medicinePurchaseDate}</Text>
+                            <Text style={{fontSize: 18, paddingTop: 35, opacity: 0.8, color: 'white', fontFamily: 'Sora-SemiBold'}}>Quantity</Text>
+                            <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold', fontFamily: 'Sora-SemiBold', paddingTop: 10}}>{item.medicineQuantity}</Text>
                         </View>
                     </View>
                 </View>
@@ -119,7 +119,7 @@ export default function MedicineList (props) {
                     My Medicine
                 </Text>
                 <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={() => navigation.navigate('Medicine')}>
-                    <Text style={{ fontSize: 15, lineHeight: CELL_HEIGHT * 0.6, fontFamily: 'Sora-Bold', color: 'white'}}>
+                    <Text style={{ fontSize: 18, lineHeight: CELL_HEIGHT * 0.55, fontFamily: 'Sora-Bold', color: '#F4F3BE'}}>
                         See All
                     </Text>
                 </TouchableOpacity>

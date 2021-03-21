@@ -4,7 +4,7 @@ import { useFonts } from 'expo-font';
 // NAVIGATION
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import TabNavigator from './src/routes/TabNavigator'
+import TabNavigator from './src/routes/TabNavigator';
 
 // AUTHENTICATION 
 import { AuthContext } from './src/components/context';
@@ -139,5 +139,5 @@ if (!fontsloaded) {
         </AuthContext.Provider>
       </>
     );
-  }
+  };
 };

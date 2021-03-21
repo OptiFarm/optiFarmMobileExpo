@@ -13,4 +13,4 @@ export default function GroupStackComp() {
             <GroupStack.Screen name="GroupForm" component={GroupForm} />
         </GroupStack.Navigator>
     );
-}
+};

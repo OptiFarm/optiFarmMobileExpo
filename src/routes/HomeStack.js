@@ -19,4 +19,4 @@ export default function HomeStackComp() {
       <HomeStack.Screen name="FormSuccess" component={FormSuccess} />
     </HomeStack.Navigator>
   );
-}
+};

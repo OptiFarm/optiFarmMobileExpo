@@ -11,4 +11,4 @@ export default function ProfileStackComp() {
       <ProfileStack.Screen name="PersonalData" component={PersonalData} />
     </ProfileStack.Navigator>
   );
-}
+};

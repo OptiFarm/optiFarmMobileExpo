@@ -2,10 +2,10 @@ import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // STACK IMPORTS
-import HomeScreen from '../screens/home/HomeScreen'
-import MedicineScreen from '../screens/medicine/MedicineScreen'
-import GroupScreen from '../screens/group/GroupScreen'
-import ProfileScreen from '../screens/profile/ProfileScreen'
+import HomeScreen from '../screens/home/HomeScreen';
+import MedicineScreen from '../screens/medicine/MedicineScreen';
+import GroupScreen from '../screens/group/GroupScreen';
+import ProfileScreen from '../screens/profile/ProfileScreen';
 
 // COMPONENT
 import { View, ActivityIndicator, Text } from 'react-native';
@@ -23,7 +23,7 @@ const customTabBarStyle = {
     borderTopColor: defaultBackground,
     height: 110,
   }
-}
+};
 
 export default function TabNavigator() {
   return (

@@ -17,4 +17,4 @@ export default function MedicineStackComp() {
       <MedicineHomeStack.Screen name="AssignMedicationConfirm" component={AssignMedicationConfirm} />
     </MedicineHomeStack.Navigator>
   );
-}
+};

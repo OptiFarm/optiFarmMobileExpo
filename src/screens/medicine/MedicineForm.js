@@ -63,7 +63,7 @@ export default function MedicineForm ({navigation}) {
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
     const onSubmit = data => {
       console.log(data);
-      navigation.navigate('FormSuccess');
+      navigation.navigate('Home', {screen: 'FormSuccess'});
     };
   
     const onChange = arg => {

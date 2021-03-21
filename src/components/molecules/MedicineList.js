@@ -83,7 +83,7 @@ export default function MedicineList (props) {
 
         return (
             <TouchableOpacity 
-                onPress={() => navigation.navigate('MedicineDetail', {item})}
+                onPress={() => navigation.navigate('Medicine', {screen: 'MedicineDetail', params: {item}})}
                 style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 200 }}
             >
                 <View style={{ flex: 1, padding: SPACING }}>
@@ -138,7 +138,7 @@ export default function MedicineList (props) {
                     value={search}
                 />
                 <TouchableOpacity>
-                    <MaterialIcons name="playlist-add" size={40} color="white" onPress={() => navigation.navigate('MedicineForm')}/>
+                    <MaterialIcons name="playlist-add" size={40} color="white" onPress={() => navigation.navigate('Medicine', {screen: 'MedicineForm'})}/>
                 </TouchableOpacity>
             </View>
             <FlatList

@@ -12,7 +12,7 @@ import { Button } from 'react-native-paper';
 import { SPACING, height, defaultBackground, cardBackground, width } from '../../config/theme';
 
 // DATA
-import AnimalFormData from '../../config/form/Form';
+import { MedicineFormData } from '../../config/form/Form';
 
 const styles = StyleSheet.create({
     label: {
@@ -57,13 +57,13 @@ const pickerSelectStyles = StyleSheet.create({
     },
 });
 
-export default function AnimalForm ({navigation}) {
+export default function MedicineForm ({navigation}) {
 
     // REACT HOOK FORM FUNCTIONS
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
     const onSubmit = data => {
       console.log(data);
-      navigation.navigate('FormSuccess');
+      navigation.navigate('Home', {screen: 'FormSuccess'});
     };
   
     const onChange = arg => {
@@ -73,19 +73,19 @@ export default function AnimalForm ({navigation}) {
     };
 
     const placeholder = {
-        label: 'Select a gender',
+        label: 'Select quantity type',
         value: null,
     };
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
-            <PageHeader  label="Add New Animal" goBack={navigation.goBack} showChevron='true'/>
+            <PageHeader  label="Add New Medicine" goBack={navigation.goBack} showChevron='true'/>
             <KeyboardAvoidingView behavior='height' style={{flex: 1, height: height, width: width}}>
 
                 {/* Form */}
                 <FlatList
                     showsVerticalScrollIndicator={false}
-                    data={AnimalFormData}
+                    data={MedicineFormData}
                     keyExtractor={(item) => item.key}
                     contentContainerStyle={{ padding: SPACING, }}
                     renderItem={({ item }) => {
@@ -103,7 +103,7 @@ export default function AnimalForm ({navigation}) {
                                     value={value}
                                 />
                                 )}
-                                name="tagNumber"
+                                name="medicineName"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
@@ -119,7 +119,7 @@ export default function AnimalForm ({navigation}) {
                                     value={value}
                                 />
                                 )}
-                                name="sireNumber"
+                                name="suppliedBy"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
@@ -135,7 +135,7 @@ export default function AnimalForm ({navigation}) {
                                     value={value}
                                 />
                                 )}
-                                name="motherNumber"
+                                name="dateOfPurchase"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
@@ -144,19 +144,15 @@ export default function AnimalForm ({navigation}) {
                             <Controller
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
-                                    <RNPickerSelect
-                                        items={[
-                                            { label: 'Male', value: 'male' },
-                                            { label: 'Female', value: 'female' }
-                                        ]}
-                                        onValueChange={value => onChange(value)}
-                                        style={styles.input}
-                                        onBlur={onBlur}
-                                        style={pickerSelectStyles}
-                                        placeholder={placeholder}
-                                    />
+                                <TextInput
+                                    keyboardType='decimal-pad'
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={value => onChange(value)}
+                                    value={value}
+                                />
                                 )}
-                                name="sex"
+                                name="quantity"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
@@ -165,14 +161,23 @@ export default function AnimalForm ({navigation}) {
                             <Controller
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
-                                <TextInput
-                                    style={styles.input}
-                                    onBlur={onBlur}
-                                    onChangeText={value => onChange(value)}
-                                    value={value}
-                                />
+                                    <RNPickerSelect
+                                        items={[
+                                            { label: 'Ml', value: 'ml' },
+                                            { label: 'Mg', value: 'mg' },
+                                            { label: 'Litres', value: 'litres' },
+                                            { label: 'Grams', value: 'grams' },
+                                            { label: 'Kgs', value: 'kgs' },
+                                            { label: 'Units', value: 'units' }
+                                        ]}
+                                        onValueChange={value => onChange(value)}
+                                        style={styles.input}
+                                        onBlur={onBlur}
+                                        style={pickerSelectStyles}
+                                        placeholder={placeholder}
+                                    />
                                 )}
-                                name="breed"
+                                name="quantityType"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
@@ -182,13 +187,14 @@ export default function AnimalForm ({navigation}) {
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
                                 <TextInput
+                                    keyboardType='decimal-pad'
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     value={value}
                                 />
                                 )}
-                                name="dateOfBirth"
+                                name="withdrawalForMilk"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
@@ -198,18 +204,36 @@ export default function AnimalForm ({navigation}) {
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
                                 <TextInput
+                                    keyboardType='decimal-pad'
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     value={value}
                                 />
                                 )}
-                                name="pureBreed"
+                                name="withdrawalForMeat"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
 
                             <Text style={styles.label}>{item.h}</Text>
+                            <Controller
+                                control={control}
+                                render={({ onChange, onBlur, value }) => (
+                                <TextInput
+                                    keyboardType='decimal-pad'
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={value => onChange(value)}
+                                    value={value}
+                                />
+                                )}
+                                name="batchNo"
+                                rules={{ required: true }}
+                                defaultValue={null}
+                            />
+
+                            <Text style={styles.label}>{item.i}</Text>
                             <Controller
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
@@ -220,11 +244,28 @@ export default function AnimalForm ({navigation}) {
                                     value={value}
                                 />
                                 )}
-                                name="description"
+                                name="expiryDate"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
 
+
+                            <Text style={styles.label}>{item.j}</Text>
+                            <Controller
+                                control={control}
+                                render={({ onChange, onBlur, value }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={value => onChange(value)}
+                                    value={value}
+                                />
+                                )}
+                                name="notes"
+                                rules={{ required: true }}
+                                defaultValue={null}
+                            />
+                            
                             <Button
                                 contentStyle={{height: 50, width: 25, }} 
                                 mode="contained" 

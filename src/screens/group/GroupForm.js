@@ -10,8 +10,6 @@ import RNPickerSelect from 'react-native-picker-select';
 // THEME
 import { SPACING, height, defaultBackground, cardBackground, width } from '../../config/theme';
 
-// DATA
-
 const styles = StyleSheet.create({
     input: {
         color: 'white',

@@ -1,100 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider } from '@ui-kitten/components';
-import AppLoading from 'expo-app-loading';
-import { MaterialCommunityIcons, Feather } from '@expo/vector-icons'; 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { enableScreens } from 'react-native-screens';
-
-// Components
-import { View, ActivityIndicator, Text } from 'react-native';
-
-// Navigations
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 import { useFonts } from 'expo-font';
 
-// Screens
-import HomeScreen from './src/screens/main/HomeScreen';
-import GroupScreen from './src/screens/main/GroupScreen';
-import MedicineScreen from './src/screens/main/MedicineScreen';
-import ProfileScreen from './src/screens/main/ProfileScreen';
-import HerdBook from './src/screens/HerdBook';
-import Remedies from './src/screens/Remedies';
-import PersonalData from './src/screens/main/PersonalData';
+// NAVIGATION
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import TabNavigator from './src/routes/TabNavigator';
 
-// Details Screen
-import AnimalDetail from './src/screens/detail/AnimalDetail';
-import MedicineDetail from './src/screens/detail/MedicineDetail';
-import GroupDetail from './src/screens/detail/GroupDetail';
-
-// Forms Screen
-import MedicineForm from './src/screens/forms/MedicineForm';
-import AnimalForm from './src/screens/forms/AnimalForm';
-import GroupForm from './src/screens/forms/GroupForm';
-import FormSuccess from './src/screens/forms/FormSuccess';
-import AssignMedication from './src/screens/forms/AssignMedication';
-import AssignMedicationConfirm from './src/screens/forms/AssignMedicationConfirm';
-
-// Authentication Screen
-import LoginScreen from './src/screens/authentication/LoginScreen';
-import RegisterScreen from './src/screens/authentication/RegisterScreen';
-import StartScreen from './src/screens/authentication/StartScreen';
+// AUTHENTICATION 
 import { AuthContext } from './src/components/context';
-import { cardBackground, defaultBackground, SPACING } from './src/config/theme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-enableScreens();
+// STACK IMPORTS
+import HomeStackComp from './src/routes/HomeStack';
+import MedicineStackComp from './src/routes/MedicineStack';
+import GroupStackComp from './src/routes/GroupStack';
+import ProfileStackComp from './src/routes/ProfileStack';
+import AuthenticationStackComp from './src/routes/AuthenticationStack';
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+// LOADER
+import { PageLoader } from './src/components/atoms/PageLoader';
 
-function HomeTabs() {
-  // Custom styling
-  const customTabBarStyle = {
-    style: {
-      backgroundColor: defaultBackground,
-      borderTopColor: defaultBackground,
-      height: 110,
-    }
-  }
-  return (
-    <Tab.Navigator tabBarOptions={customTabBarStyle}
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, dotColor, size}) => {
-          let iconName;
-          color = focused ? '#F4F3BE' : 'white'
-          dotColor = focused ? '#F4F3BE' : defaultBackground
-          if (route.name === 'Home') {
-            iconName = 'home'
-          } else if (route.name === 'Medicine') {
-            return (
-              <>
-              <MaterialCommunityIcons name="pill" size={30} color={color} style={{paddingTop: 0}} />
-              <View style={{width: 5, height: 5, borderRadius: 100 / 2, backgroundColor: dotColor, top: 10}}></View>
-              </>
-            )
-          } else if (route.name === 'Group') {
-            iconName = 'grid'
-          } else if (route.name === 'Profile') {
-            iconName = 'user'
-          }
-          return (
-            <>
-            <Feather name={iconName} size={30} color={color} style={{paddingTop: 0}} />
-            <View style={{width: 5, height: 5, borderRadius: 100 / 2, backgroundColor: dotColor, top: 10}}></View>
-            </>
-          )
-        },
-      })}>
-      <Tab.Screen name="Home" component={HomeScreen} options={{tabBarLabel: ''}}/>
-      <Tab.Screen name="Medicine" component={MedicineScreen} options={{tabBarLabel: ''}}/>
-      <Tab.Screen name="Group" component={GroupScreen} options={{tabBarLabel: ''}}/>
-      <Tab.Screen name="Profile" component={ProfileScreen} options={{tabBarLabel: ''}}/>
-    </Tab.Navigator>
-  )
-}
+const RootStack = createStackNavigator();
 
 export default function App () {
 
@@ -188,44 +114,30 @@ if (!fontsloaded) {
 } else {
     if (loginState.isLoading) {
       return (
-        <View style={{flex:1, justifyContent:'center', alignItems:'center', backgroundColor: defaultBackground}}>
-          <ActivityIndicator />
-        </View>
+        <PageLoader/>
       )
     }
     return (
       <>
         <AuthContext.Provider value={authContext}>
-          <ApplicationProvider {...eva} theme={eva.light}>
-            <NavigationContainer>
-              { loginState.userToken !== null ? (
-                <Stack.Navigator headerMode="none">
-                  <Stack.Screen name="Home" component={HomeTabs} />
-                  <Stack.Screen name="Herd" component={HerdBook} />
-                  <Stack.Screen name="Remedies" component={Remedies} />
-                  <Stack.Screen name="AnimalDetail" component={AnimalDetail} />
-                  <Stack.Screen name="MedicineDetail" component={MedicineDetail} />
-                  <Stack.Screen name="GroupDetail" component={GroupDetail} />
-                  <Stack.Screen name="MedicineForm" component={MedicineForm} />
-                  <Stack.Screen name="AnimalForm" component={AnimalForm} />
-                  <Stack.Screen name="GroupForm" component={GroupForm} />
-                  <Stack.Screen name="FormSuccess" component={FormSuccess} />
-                  <Stack.Screen name="PersonalData" component={PersonalData} />
-                  <Stack.Screen name="AssignMedication" component={AssignMedication} />
-                  <Stack.Screen name="AssignMedicationConfirm" component={AssignMedicationConfirm} />
-                </Stack.Navigator>
-              )
-            :
-                <Stack.Navigator initialRouteName="StartScreen" screenOptions={{headerShown: false}}>
-                  <Stack.Screen name="StartScreen" component={StartScreen} />
-                  <Stack.Screen name="LoginScreen" component={LoginScreen} />
-                  <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-                </Stack.Navigator>
-            }
-            </NavigationContainer>
-          </ApplicationProvider>
+          <NavigationContainer>
+            { loginState.userToken !== null ? (
+              <RootStack.Navigator headerMode="none">
+                <RootStack.Screen name="Back" component={TabNavigator} />
+                <RootStack.Screen name="Home" component={HomeStackComp} />
+                <RootStack.Screen name="Medicine" component={MedicineStackComp} />
+                <RootStack.Screen name="Group" component={GroupStackComp} />
+                <RootStack.Screen name="Profile" component={ProfileStackComp} />
+              </RootStack.Navigator>
+            )
+          :
+              <RootStack.Navigator headerMode="none">
+                <RootStack.Screen name="Authentication" component={AuthenticationStackComp} />
+              </RootStack.Navigator>
+          }
+          </NavigationContainer>
         </AuthContext.Provider>
       </>
     );
-  }
+  };
 };

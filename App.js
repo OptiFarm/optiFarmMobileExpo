@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import AppLoading from 'expo-app-loading';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFonts } from 'expo-font';
 
 // NAVIGATION
@@ -8,23 +6,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './src/routes/TabNavigator'
 
-// AUTHENTICATION SCREEN
-import LoginScreen from './src/screens/authentication/LoginScreen';
-import RegisterScreen from './src/screens/authentication/RegisterScreen';
-import StartScreen from './src/screens/authentication/StartScreen';
+// AUTHENTICATION 
 import { AuthContext } from './src/components/context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // STACK IMPORTS
 import HomeStackComp from './src/routes/HomeStack';
 import MedicineStackComp from './src/routes/MedicineStack';
 import GroupStackComp from './src/routes/GroupStack';
 import ProfileStackComp from './src/routes/ProfileStack';
+import AuthenticationStackComp from './src/routes/AuthenticationStack';
 
-// COMPONENTS
-import { View, ActivityIndicator, Text } from 'react-native';
-
-// THEME
-import { cardBackground, defaultBackground, SPACING } from './src/config/theme';
+// LOADER
+import { PageLoader } from './src/components/atoms/PageLoader';
 
 const RootStack = createStackNavigator();
 
@@ -120,9 +114,7 @@ if (!fontsloaded) {
 } else {
     if (loginState.isLoading) {
       return (
-        <View style={{flex:1, justifyContent:'center', alignItems:'center', backgroundColor: defaultBackground}}>
-          <ActivityIndicator />
-        </View>
+        <PageLoader/>
       )
     }
     return (
@@ -139,10 +131,8 @@ if (!fontsloaded) {
               </RootStack.Navigator>
             )
           :
-              <RootStack.Navigator initialRouteName="StartScreen" screenOptions={{headerShown: false}}>
-                <RootStack.Screen name="StartScreen" component={StartScreen} />
-                <RootStack.Screen name="LoginScreen" component={LoginScreen} />
-                <RootStack.Screen name="RegisterScreen" component={RegisterScreen} />
+              <RootStack.Navigator headerMode="none">
+                <RootStack.Screen name="Authentication" component={AuthenticationStackComp} />
               </RootStack.Navigator>
           }
           </NavigationContainer>

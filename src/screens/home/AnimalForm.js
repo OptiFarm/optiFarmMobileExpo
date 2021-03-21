@@ -5,8 +5,8 @@ import { useForm, Controller } from "react-hook-form";
 // COMPONENTS
 import { StyleSheet, View, Text, FlatList, TextInput, KeyboardAvoidingView } from 'react-native';
 import { PageHeader } from '../../components/atoms/PageHeader';
-import RNPickerSelect from 'react-native-picker-select';
 import { Button } from 'react-native-paper';
+import RNPickerSelect from 'react-native-picker-select';
 
 // THEME
 import { SPACING, height, defaultBackground, cardBackground, width } from '../../config/theme';
@@ -63,7 +63,7 @@ export default function AnimalForm ({navigation}) {
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
     const onSubmit = data => {
       console.log(data);
-      navigation.navigate('FormSuccess');
+      navigation.navigate('Home', {screen: 'FormSuccess'});
     };
   
     const onChange = arg => {

@@ -60,6 +60,12 @@ const AnimalData = [
   }
 ];
 
+export default AnimalData.map((item, index) => ({
+  ...item,
+  key: faker.random.uuid(),
+  color: '#2A253F'
+}));
+
 const animalCount = Object.keys(AnimalData).length;
 
 // GROUP LIST
@@ -78,13 +84,18 @@ const GroupData = [
   },
 ]
 
+export const groupData = GroupData.map((item, index) => ({
+  ...item,
+  key: faker.random.uuid()
+}));
+
 // HOMEPAGE CARDS
 const CardData = [
   {
     type: 'Herd Book',
     desc: 'Your collection of animals',
     image: 'https://i.ibb.co/3d9GTLc/book.png',
-    navigate: 'Herd',
+    navigate: 'HerdBook',
     color: '#1C2436',
     backgroundColor: '#FF929C',
     countLabel: 'Animal Count: ',
@@ -99,6 +110,11 @@ const CardData = [
     backgroundColor: '#9968ED',
   },
 ];
+
+export const cardData = CardData.map((item, index) => ({
+  ...item,
+  key: faker.random.uuid()
+}));
 
 const AssignMedicationData = [
   {
@@ -162,23 +178,6 @@ const AssignMedicationData = [
     animal_lastMedicated: '5 March 2021'
   }
 ];
-
-
-export default AnimalData.map((item, index) => ({
-  ...item,
-  key: faker.random.uuid(),
-  color: '#2A253F'
-}));
-
-export const groupData = GroupData.map((item, index) => ({
-  ...item,
-  key: faker.random.uuid()
-}));
-
-export const cardData = CardData.map((item, index) => ({
-  ...item,
-  key: faker.random.uuid()
-}));
 
 export const assignMedicationData = AssignMedicationData.map((item, index) => ({
   ...item,

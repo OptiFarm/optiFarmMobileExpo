@@ -71,8 +71,8 @@ export default function GroupList (props) {
     const ItemView = ({ item }) => {
       return (
           <TouchableOpacity 
-          onPress={() => navigation.navigate('GroupDetail', {item})}
-          style={{ marginBottom: 20, height: CELL_HEIGHT }}
+            onPress={() => navigation.navigate('Group', {screen: 'GroupDetail', params: {item}})}
+            style={{ marginBottom: 20, height: CELL_HEIGHT }}
           >
             <View style={{ flex: 1, padding: SPACING}}>
                 <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
@@ -107,7 +107,7 @@ export default function GroupList (props) {
             value={search}
         />
         <TouchableOpacity>
-            <MaterialIcons name="playlist-add" size={40} color="white" onPress={() => navigation.navigate('GroupForm')}/>
+            <MaterialIcons name="playlist-add" size={40} color="white" onPress={() => navigation.navigate('Group', {screen: 'GroupForm'})}/>
         </TouchableOpacity>
       </View>
 

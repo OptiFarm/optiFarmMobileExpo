@@ -13,6 +13,11 @@ const AnimalFormData = [
     }
 ];
 
+export default AnimalFormData.map((item, index) => ({
+    ...item,
+    key: faker.random.uuid()
+}));
+
 const medicineFormData = [
     {
         a: 'Medicine Name',
@@ -27,11 +32,6 @@ const medicineFormData = [
         j: 'Notes'
     }
 ]
-
-export default AnimalFormData.map((item, index) => ({
-    ...item,
-    key: faker.random.uuid()
-}));
 
 export const MedicineFormData = medicineFormData.map((item, index) => ({
     ...item,

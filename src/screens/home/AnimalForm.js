@@ -5,14 +5,14 @@ import { useForm, Controller } from "react-hook-form";
 // COMPONENTS
 import { StyleSheet, View, Text, FlatList, TextInput, KeyboardAvoidingView } from 'react-native';
 import { PageHeader } from '../../components/atoms/PageHeader';
-import RNPickerSelect from 'react-native-picker-select';
 import { Button } from 'react-native-paper';
+import RNPickerSelect from 'react-native-picker-select';
 
 // THEME
 import { SPACING, height, defaultBackground, cardBackground, width } from '../../config/theme';
 
 // DATA
-import { MedicineFormData } from '../../config/form/Form';
+import AnimalFormData from '../../config/form/Form';
 
 const styles = StyleSheet.create({
     label: {
@@ -57,13 +57,13 @@ const pickerSelectStyles = StyleSheet.create({
     },
 });
 
-export default function MedicineForm ({navigation}) {
+export default function AnimalForm ({navigation}) {
 
     // REACT HOOK FORM FUNCTIONS
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
     const onSubmit = data => {
       console.log(data);
-      navigation.navigate('FormSuccess');
+      navigation.navigate('Home', {screen: 'FormSuccess'});
     };
   
     const onChange = arg => {
@@ -73,19 +73,19 @@ export default function MedicineForm ({navigation}) {
     };
 
     const placeholder = {
-        label: 'Select quantity type',
+        label: 'Select a gender',
         value: null,
     };
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
-            <PageHeader  label="Add New Medicine" goBack={navigation.goBack} showChevron='true'/>
+            <PageHeader  label="Add New Animal" goBack={navigation.goBack} showChevron='true'/>
             <KeyboardAvoidingView behavior='height' style={{flex: 1, height: height, width: width}}>
 
                 {/* Form */}
                 <FlatList
                     showsVerticalScrollIndicator={false}
-                    data={MedicineFormData}
+                    data={AnimalFormData}
                     keyExtractor={(item) => item.key}
                     contentContainerStyle={{ padding: SPACING, }}
                     renderItem={({ item }) => {
@@ -103,7 +103,7 @@ export default function MedicineForm ({navigation}) {
                                     value={value}
                                 />
                                 )}
-                                name="medicineName"
+                                name="tagNumber"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
@@ -119,7 +119,7 @@ export default function MedicineForm ({navigation}) {
                                     value={value}
                                 />
                                 )}
-                                name="suppliedBy"
+                                name="sireNumber"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
@@ -135,7 +135,7 @@ export default function MedicineForm ({navigation}) {
                                     value={value}
                                 />
                                 )}
-                                name="dateOfPurchase"
+                                name="motherNumber"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
@@ -144,31 +144,10 @@ export default function MedicineForm ({navigation}) {
                             <Controller
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
-                                <TextInput
-                                    keyboardType='decimal-pad'
-                                    style={styles.input}
-                                    onBlur={onBlur}
-                                    onChangeText={value => onChange(value)}
-                                    value={value}
-                                />
-                                )}
-                                name="quantity"
-                                rules={{ required: true }}
-                                defaultValue={null}
-                            />
-
-                            <Text style={styles.label}>{item.e}</Text>
-                            <Controller
-                                control={control}
-                                render={({ onChange, onBlur, value }) => (
                                     <RNPickerSelect
                                         items={[
-                                            { label: 'Ml', value: 'ml' },
-                                            { label: 'Mg', value: 'mg' },
-                                            { label: 'Litres', value: 'litres' },
-                                            { label: 'Grams', value: 'grams' },
-                                            { label: 'Kgs', value: 'kgs' },
-                                            { label: 'Units', value: 'units' }
+                                            { label: 'Male', value: 'male' },
+                                            { label: 'Female', value: 'female' }
                                         ]}
                                         onValueChange={value => onChange(value)}
                                         style={styles.input}
@@ -177,7 +156,23 @@ export default function MedicineForm ({navigation}) {
                                         placeholder={placeholder}
                                     />
                                 )}
-                                name="quantityType"
+                                name="sex"
+                                rules={{ required: true }}
+                                defaultValue={null}
+                            />
+
+                            <Text style={styles.label}>{item.e}</Text>
+                            <Controller
+                                control={control}
+                                render={({ onChange, onBlur, value }) => (
+                                <TextInput
+                                    style={styles.input}
+                                    onBlur={onBlur}
+                                    onChangeText={value => onChange(value)}
+                                    value={value}
+                                />
+                                )}
+                                name="breed"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
@@ -187,14 +182,13 @@ export default function MedicineForm ({navigation}) {
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
                                 <TextInput
-                                    keyboardType='decimal-pad'
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     value={value}
                                 />
                                 )}
-                                name="withdrawalForMilk"
+                                name="dateOfBirth"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
@@ -204,14 +198,13 @@ export default function MedicineForm ({navigation}) {
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
                                 <TextInput
-                                    keyboardType='decimal-pad'
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     value={value}
                                 />
                                 )}
-                                name="withdrawalForMeat"
+                                name="pureBreed"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
@@ -221,51 +214,17 @@ export default function MedicineForm ({navigation}) {
                                 control={control}
                                 render={({ onChange, onBlur, value }) => (
                                 <TextInput
-                                    keyboardType='decimal-pad'
                                     style={styles.input}
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     value={value}
                                 />
                                 )}
-                                name="batchNo"
+                                name="description"
                                 rules={{ required: true }}
                                 defaultValue={null}
                             />
 
-                            <Text style={styles.label}>{item.i}</Text>
-                            <Controller
-                                control={control}
-                                render={({ onChange, onBlur, value }) => (
-                                <TextInput
-                                    style={styles.input}
-                                    onBlur={onBlur}
-                                    onChangeText={value => onChange(value)}
-                                    value={value}
-                                />
-                                )}
-                                name="expiryDate"
-                                rules={{ required: true }}
-                                defaultValue={null}
-                            />
-
-
-                            <Text style={styles.label}>{item.j}</Text>
-                            <Controller
-                                control={control}
-                                render={({ onChange, onBlur, value }) => (
-                                <TextInput
-                                    style={styles.input}
-                                    onBlur={onBlur}
-                                    onChangeText={value => onChange(value)}
-                                    value={value}
-                                />
-                                )}
-                                name="notes"
-                                rules={{ required: true }}
-                                defaultValue={null}
-                            />
-                            
                             <Button
                                 contentStyle={{height: 50, width: 25, }} 
                                 mode="contained" 

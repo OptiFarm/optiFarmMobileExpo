@@ -66,7 +66,7 @@ export default function ProfileScreen ({navigation}) {
                 decelerationRate="fast"
                 renderItem={({ item }) => {
                     return (
-                        <TouchableOpacity onPress={() => navigation.navigate(`${item.navigation}`)} style={{flexDirection: 'row', paddingTop: 40, alignItems: 'center',}}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Profile', {screen: `${item.navigation}`})} style={{flexDirection: 'row', paddingTop: 40, alignItems: 'center',}}>
                             <View style={{width: 50, height: 50, backgroundColor: `${item.backgroundColor}`, borderRadius: 15, justifyContent: 'center', alignItems: 'center'}}>
                                 <Image
                                     source={{ uri: item.image }}

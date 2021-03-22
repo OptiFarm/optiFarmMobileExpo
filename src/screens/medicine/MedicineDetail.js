@@ -25,11 +25,9 @@ import {
     cardBackground, 
     medicineLevelLow, 
     medicineLevelMedium, 
-    medicineLevelHigh 
+    medicineLevelHigh,
+    CELL_HEIGHT
 } from '../../config/theme';
-
-// SIZING
-import { CELL_HEIGHT } from '../../components/molecules/AnimalList';
 
 // DATA
 import { assignMedicationData } from '../../config/data/Animal'

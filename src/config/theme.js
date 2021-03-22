@@ -15,6 +15,7 @@ export const medicineLevelHigh = '#82F5A8'
 
 export const topOS = Platform.OS === 'android' ? getStatusBarHeight() : getStatusBarHeight() - 20;
 
+export const CELL_HEIGHT = height * 0.18;
 
 interface medicineColorProps {
   quantity: String;

@@ -15,7 +15,7 @@ export default function Remedies ({navigation}) {
             <PageHeader label="Medicine Usage" goBack={navigation.goBack} showChevron='true'/>
         </SafeAreaView>
         <View style={{backgroundColor: defaultBackground, flex: 1}}>
-            {/* TO ADD COMPONENT HERE */}
+            <MedicationList />
         </View>
         </>
     )

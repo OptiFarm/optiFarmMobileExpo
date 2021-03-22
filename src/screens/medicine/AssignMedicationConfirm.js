@@ -110,6 +110,7 @@ export default function AssignMedicationConfirm ({ navigation, route }) {
                         style={{marginTop: 30, borderRadius: 10}} 
                         contentStyle={{height: 50}} 
                         labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
+                        onPress={() => navigation.popToTop()}
                     >
                         Confirm
                     </Button>

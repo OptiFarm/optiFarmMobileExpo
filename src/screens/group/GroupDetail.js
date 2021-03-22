@@ -3,15 +3,17 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 
 // COMPONENTS
-import { SafeAreaView, View, StyleSheet, TouchableOpacity, Text, Platform } from 'react-native';
-import AnimalList from '../../components/molecules/AnimalList'
+import { SafeAreaView, View, StyleSheet, TouchableOpacity, Text, Platform, FlatList } from 'react-native';
+import { AnimalItemView } from '../../components/atoms/AnimalItemView';
+
+// DATA
+import AnimalData from '../../config/data/Animal';
 
 // THEME
-import { SPACING, width, height, defaultBackground, cardBackground } from '../../config/theme';
+import { SPACING, width, height, defaultBackground, cardBackground, CELL_HEIGHT } from '../../config/theme';
 
 // SIZING
 const TOP_HEADER_HEIGHT = height * 0.3;
-import {CELL_HEIGHT} from '../../components/molecules/AnimalList';
 
 const styles = StyleSheet.create({
     name: {
@@ -54,10 +56,17 @@ export default function GroupDetail ({ navigation, route }) {
                 <View style={styles.rightContainer}>
                 </View>
             </View>
-            <Text style={{fontSize: 20, fontFamily: 'Sora-Bold', textAlign: 'center', color: 'white', paddingBottom: 50}}>
+            <Text style={{fontSize: 20, fontFamily: 'Sora-Bold', textAlign: 'center', color: 'white', paddingBottom: SPACING}}>
                 {item.groupAmount} Animals
             </Text>
-            <AnimalList /> 
+            <FlatList
+                style={{marginBottom: 30}}
+                showsVerticalScrollIndicator={false}
+                data={AnimalData}
+                keyExtractor={(item) => item.key}
+                contentContainerStyle={{ paddingHorizontal: SPACING }}
+                renderItem={({item}) => <AnimalItemView item={item} navigation={navigation} />} 
+            /> 
         </SafeAreaView>
     )
 }

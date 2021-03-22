@@ -6,8 +6,7 @@ import { useScrollToTop } from '@react-navigation/native';
 import { ScrollView, View } from 'react-native';
 import { MainCards } from '../../components/molecules/MainCards'
 import { PageHeader } from '../../components/atoms/PageHeader';
-import AnimalList from '../../components/molecules/AnimalList'
-import MedicineList from '../../components/molecules/MedicineList'
+import MedicineList from '../../components/molecules/MedicineList';
 
 // THEME
 import { defaultBackground } from '../../config/theme';

@@ -22,10 +22,8 @@ import {
     defaultBackground, 
     cardBackground, 
     topOS,
+    CELL_HEIGHT
 } from '../../config/theme';
-
-// SIZING
-import { CELL_HEIGHT } from '../../components/molecules/AnimalList';
 
 const styles = StyleSheet.create({
     name: {

@@ -60,7 +60,7 @@ export function MainCards ( { navigation }) {
                             marginRight: SPACING,
                             marginBottom: SPACING,
                         }}
-                        onPress={() => navigation.navigate(`${item.navigate}`)}
+                        onPress={() => navigation.navigate('Home', {screen: `${item.navigate}`})}
                     >
                         <View style={{ flex: 1, justifyContent: 'center' }}>
                             <SharedElement

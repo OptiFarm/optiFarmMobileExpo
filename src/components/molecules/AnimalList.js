@@ -94,7 +94,7 @@ export default function AnimalList (props) {
 
         return (
             <TouchableOpacity 
-                onPress={() => navigation.navigate('AnimalDetail', {item})}
+                onPress={() => navigation.navigate('Home', {screen: 'AnimalDetail', params: {item}})}
                 style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 265 }}
             >
                 <View style={{ flex: 1, padding: SPACING }}>
@@ -141,7 +141,7 @@ export default function AnimalList (props) {
                 value={search}
             />
             <TouchableOpacity>
-                {props.homescreen ? <></> : <MaterialIcons name="playlist-add" size={40} color="white" onPress={() => navigation.navigate('AnimalForm')}/>}
+                {props.homescreen ? <></> : <MaterialIcons name="playlist-add" size={40} color="white" onPress={() => navigation.navigate('Home', {screen: 'AnimalForm'})}/>}
             </TouchableOpacity>
         </View>
         <FlatList

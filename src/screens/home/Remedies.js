@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// Components
-import { PageHeader } from '../components/atoms/PageHeader'
-import MedicationList from '../components/molecules/MedicationList'
+// COMPONENT
+import { PageHeader } from '../../components/atoms/PageHeader'
+import AnimalList from '../../components/molecules/AnimalList'
 
-// Theme
-import { SPACING, defaultBackground } from '../config/theme';
+// THEME
+import { SPACING, defaultBackground } from '../../config/theme';
 
 export default function Remedies ({navigation}) {
     return (

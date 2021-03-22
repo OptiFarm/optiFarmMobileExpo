@@ -35,6 +35,11 @@ const ProfileData = [
   },
 ];
 
+export default ProfileData.map((item, index) => ({
+  ...item,
+  key: faker.random.uuid(),
+}));
+
 // PROFILE DATA
 const profileFormData = [
   {
@@ -47,11 +52,6 @@ const profileFormData = [
     farmAddress: '34 Oriel House'
   }
 ]
-
-export default ProfileData.map((item, index) => ({
-  ...item,
-  key: faker.random.uuid(),
-}));
 
 export const ProfileFormData = profileFormData.map((item, index) => ({
   ...item,

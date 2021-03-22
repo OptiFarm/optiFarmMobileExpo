@@ -4,7 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 // COMPONENT
 import { PageHeader } from '../../components/atoms/PageHeader'
-import AnimalList from '../../components/molecules/AnimalList'
 
 // THEME
 import { SPACING, defaultBackground } from '../../config/theme';

@@ -7,6 +7,7 @@ import Remedies from '../screens/home/Remedies';
 import AnimalDetail from '../screens/home/AnimalDetail';
 import AnimalForm from '../screens/home/AnimalForm';
 import FormSuccess from '../screens/home/FormSuccess';
+import SearchScreen from '../screens/home/SearchScreen';
 
 const HomeStack = createStackNavigator();
 export default function HomeStackComp() {
@@ -17,6 +18,7 @@ export default function HomeStackComp() {
       <HomeStack.Screen name="AnimalDetail" component={AnimalDetail} />
       <HomeStack.Screen name="AnimalForm" component={AnimalForm} />
       <HomeStack.Screen name="FormSuccess" component={FormSuccess} />
+      <HomeStack.Screen name="SearchScreen" component={SearchScreen} />
     </HomeStack.Navigator>
   );
 };

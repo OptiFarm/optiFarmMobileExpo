@@ -10,11 +10,13 @@ import { SearchBar } from 'react-native-elements';
 import { AnimalItemView } from '../../components/atoms/AnimalItemView';
 import { MedicineItemView } from '../../components/atoms/MedicineItemView';
 import { GroupItemView } from '../../components/atoms/GroupItemView';
+import { MedicineUsageItemView } from '../../components/atoms/MedicineUsageItemView';
 
 // DATA
 import AnimalData from '../../config/data/Animal';
 import MedicineData from '../../config/data/Medicine';
 import { groupData } from '../../config/data/Animal';
+import { MedicineUsageData } from '../../config/data/Medicine';
 
 // THEME
 import { SPACING, width, defaultBackground, cardBackground } from '../../config/theme';
@@ -36,7 +38,8 @@ export default function SearchList (props) {
     // DATA SELECTION
     const data = where === 'HerdBook' ? AnimalData 
     : where === 'MedicineList' ? MedicineData 
-    : groupData 
+    : where === 'GroupList' ? groupData 
+    : MedicineUsageData
 
     // NAVIGATION
     const navigation = useNavigation()
@@ -44,7 +47,8 @@ export default function SearchList (props) {
     // SEARCH FUNCTIONS
     const searchPlaceholder = where === 'HerdBook' ? 'Search Animal' 
     : where === 'MedicineList' ? 'Search Medicine'
-    : 'Search Group'
+    : where === 'GroupList' ? 'Search Group'
+    : 'Search Medication'
 
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -60,7 +64,8 @@ export default function SearchList (props) {
             const newData = masterDataSource.filter(function (item) {
                 const searchTerm = where === 'HerdBook' ? item.animal_id 
                 : where === 'MedicineList' ? item.medicineName
-                : item.groupName
+                : where === 'GroupList' ? item.groupName
+                : item.medication
                 const itemData = searchTerm ? searchTerm.toUpperCase() : ''.toUpperCase();
                 const textData = text.toUpperCase();
                 return itemData.indexOf(textData) > -1;
@@ -101,7 +106,8 @@ export default function SearchList (props) {
                 contentContainerStyle={{ paddingHorizontal: SPACING }}
                 renderItem={({item}) => props.for === 'HerdBook' ? <AnimalItemView item={item} navigation={navigation} />
                                         : props.for === 'MedicineList' ? <MedicineItemView item={item} navigation={navigation} />
-                                        : <GroupItemView item={item} navigation={navigation} />
+                                        : props.for === 'GroupList' ? <GroupItemView item={item} navigation={navigation} />
+                                        : <MedicineUsageItemView item={item} navigation={navigation} />
                 } 
             /> 
         </>

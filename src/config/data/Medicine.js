@@ -55,13 +55,30 @@ const MedicineData = [
     }
 ];
 
+export default MedicineData.map((item, index) => ({
+    ...item,
+    key: faker.random.uuid()
+}));
+
 export const homepageMedicineData = MedicineData.slice(0, 3).map((item, index) => ({
     ...item,
     key: faker.random.uuid()
 }))
 
+const medicineUsageData = [
+    {
+        administered_by: "Conor",
+        animal: "40122",
+        medication: "Penstrep",
+        quantity_administered: "2",
+        reason_for_administration: "For test",
+        withdrawalPeriod: 'Active',
+        withdrawalMeat: "12 Days",
+        withdrawalMilk: "10 Days",
+    },
+];
 
-export default MedicineData.map((item, index) => ({
+export const MedicineUsageData = medicineUsageData.map((item, index) => ({
     ...item,
     key: faker.random.uuid()
 }));

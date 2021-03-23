@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useRef } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm, Controller } from "react-hook-form";
 
@@ -57,6 +57,10 @@ export default function AssignMedication ({ navigation, route }) {
     // GET DATE
     var today = new Date();
     var date = today.getDate() + "/"+ parseInt(today.getMonth()+1) +"/"+ today.getFullYear();
+
+    const ref_input2 = useRef();
+    const ref_input3 = useRef();
+    const ref_input4 = useRef();
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: defaultBackground }}>
@@ -138,7 +142,12 @@ export default function AssignMedication ({ navigation, route }) {
                             value={value}
                             autoFocus={true}
                             onChangeText={value => onChange(value)}
-                            keyboardType={'decimal-pad'}
+                            keyboardType='decimal-pad'
+                            returnKeyType='done' 
+                            placeholder='1'
+                            placeholderTextColor='#848D95'
+                            onSubmitEditing={() => ref_input2.current.focus()}
+                            blurOnSubmit={false}
                         />
                         )}
                         name="quantity_administered"
@@ -155,6 +164,11 @@ export default function AssignMedication ({ navigation, route }) {
                             onBlur={onBlur}
                             onChangeText={value => onChange(value)}
                             value={value}
+                            returnKeyType='next'
+                            placeholder='Derek'
+                            placeholderTextColor='#848D95'
+                            ref={ref_input2}
+                            onSubmitEditing={() => ref_input3.current.focus()}
                         />
                         )}
                         name="administered_by"
@@ -171,6 +185,8 @@ export default function AssignMedication ({ navigation, route }) {
                             onBlur={onBlur}
                             value={value}
                             onChangeText={value => onChange(value)}
+                            returnKeyType='done'
+                            ref={ref_input3}
                         />
                         )}
                         name="reason_for_administration"

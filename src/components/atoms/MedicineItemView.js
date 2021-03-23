@@ -3,9 +3,6 @@ import React from 'react';
 // COMPONENTS
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-// DATA
-import MedicineData from '../../config/data/Medicine';
-
 // THEME
 import { SPACING, width, height, cardBackground, CELL_HEIGHT, medicineLevelLow, medicineLevelMedium, medicineLevelHigh } from '../../config/theme';
 

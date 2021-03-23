@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 export const AnimalItemView = ({ navigation, item }) => {
 
     // COW LOGO
-    const cowLogo = item.animal_sex === 'Male' ? 'https://i.ibb.co/B4cgVmv/cow-5.png' : 'https://i.ibb.co/g6MntkZ/cow-6.png';
+    const cowLogo = item.animal_sex === 'Male' ? 'https://i.ibb.co/NnqjqXC/maleCow.png' : 'https://i.ibb.co/V989V52/female-Cow.png';
 
     return (
         <TouchableOpacity 

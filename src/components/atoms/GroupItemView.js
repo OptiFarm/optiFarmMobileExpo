@@ -2,15 +2,13 @@ import React from 'react';
 import { Ionicons } from '@expo/vector-icons'; 
 
 // COMPONENTS
-import { View, FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 // THEME
-import { SPACING, width, height, defaultBackground, cardBackground } from '../../config/theme';
+import { SPACING, width, height, cardBackground } from '../../config/theme';
 
 // SIZING
-const CELL_WIDTH = width * 0.64;
 const CELL_HEIGHT = height * 0.35;
-const FULL_SIZE = CELL_WIDTH + SPACING * 2;
 
 const styles = StyleSheet.create({
     name: {
@@ -32,15 +30,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Sora-Bold',
         top: 5,
     },
-    border: {
-        borderBottomColor: '#9D9D9D', 
-        borderBottomWidth: 1, 
-        top: 20,
-    },
-    searchBar: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    }
 });
 
 export const GroupItemView = ({ navigation, item }) => {

@@ -43,10 +43,10 @@ export default ProfileData.map((item, index) => ({
 // PROFILE DATA
 const profileFormData = [
   {
-    email: 'conorclarke@gmail.com',
+    email: 'derekwatson@gmail.com',
     herdNumber: '13992',
-    firstName: 'Conor',
-    lastName: 'Clarke',
+    firstName: 'Derek',
+    lastName: 'Watson',
     password: '********',
     farmType: 'Dairy',
     farmAddress: '34 Oriel House'

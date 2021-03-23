@@ -59,7 +59,7 @@ export default function SearchList (props) {
         if (text) {
             const newData = masterDataSource.filter(function (item) {
                 const searchTerm = where === 'HerdBook' ? item.animal_id 
-                : where === item.medicineName ? 'Search Medicine'
+                : where === 'MedicineList' ? item.medicineName
                 : item.groupName
                 const itemData = searchTerm ? searchTerm.toUpperCase() : ''.toUpperCase();
                 const textData = text.toUpperCase();
@@ -76,8 +76,8 @@ export default function SearchList (props) {
     return (
         <>
             <View style={{flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING, marginTop: 45, marginBottom: 30}}>
-                <TouchableOpacity style={{left: SPACING}} onPress={navigation.goBack}>
-                    <MaterialIcons name="arrow-back-ios" size={25} color="white" />
+                <TouchableOpacity style={{left: 0}} onPress={navigation.goBack}>
+                    <MaterialIcons name="arrow-back-ios" size={30} color="white" />
                 </TouchableOpacity>
                 <SearchBar
                     containerStyle={{backgroundColor: defaultBackground, borderTopWidth: 0, borderBottomWidth: 0, width: width - 60, position: 'absolute', right: SPACING}}

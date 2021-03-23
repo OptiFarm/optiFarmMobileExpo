@@ -1,15 +1,13 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/core';
-import { Feather, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'; 
 
 // COMPONENTS
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 // DATA
 import MedicineData from '../../config/data/Medicine';
 
 // THEME
-import { SPACING, width, height, defaultBackground, cardBackground, CELL_HEIGHT, medicineLevelLow, medicineLevelMedium, medicineLevelHigh } from '../../config/theme';
+import { SPACING, width, height, cardBackground, CELL_HEIGHT, medicineLevelLow, medicineLevelMedium, medicineLevelHigh } from '../../config/theme';
 
 const styles = StyleSheet.create({
     name: {
@@ -25,15 +23,26 @@ const styles = StyleSheet.create({
         color: 'white',
         fontFamily: 'Sora-SemiBold'
     },
-    hide: {
-        display: 'none'
+    medicineLabel: {
+        fontSize: 18, 
+        paddingTop: 35, 
+        opacity: 0.8, 
+        color: 'white', 
+        fontFamily: 'Sora-SemiBold'
     },
-    showHeader: {
-        flexDirection: 'row'
+    medicineDesc: {
+        color: 'white', 
+        fontSize: 18, 
+        fontWeight: 'bold', 
+        fontFamily: 'Sora-SemiBold',
+        paddingTop: 10
     },
-    searchBar: {
-        flexDirection: 'row',
-        alignItems: 'center',
+    border: {
+        borderBottomColor: '#9D9D9D', 
+        borderBottomWidth: 1, 
+        top: 25, 
+        marginBottom: 15,
+        opacity: 0.3,
     }
 });
 
@@ -56,15 +65,15 @@ export const MedicineItemView = ({ navigation, item }) => {
                     </View>
                     <Text style={[styles.name, {color: color, fontSize: 18, top: 20, fontFamily: 'Sora-SemiBold', position: 'absolute', right: 0}]}>{item.medicineLevel}</Text>
                 </View>
-                <View style={{borderBottomColor: '#9D9D9D', borderBottomWidth: 1, top: 25, marginBottom: 15}} />
+                <View style={styles.border} />
                 <View style={{flexDirection: 'row'}}>
                     <View>
-                        <Text style={{fontSize: 18, paddingTop: 35, opacity: 0.8, color: 'white', fontFamily: 'Sora-SemiBold'}}>Expiration Date</Text>
-                        <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold', fontFamily: 'Sora-SemiBold', paddingTop: 10}}>{item.medicineExpiry}</Text>
+                        <Text style={styles.medicineLabel}>Expiration Date</Text>
+                        <Text style={styles.medicineDesc}>{item.medicineExpiry}</Text>
                     </View>
                     <View style={{position: 'absolute', right: 0}}>
-                        <Text style={{fontSize: 18, paddingTop: 35, opacity: 0.8, color: 'white', fontFamily: 'Sora-SemiBold'}}>Quantity</Text>
-                        <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold', fontFamily: 'Sora-SemiBold', paddingTop: 10}}>{item.medicineQuantity}</Text>
+                        <Text style={styles.medicineLabel}>Quantity</Text>
+                        <Text style={[styles.medicineDesc, {position: 'absolute', right: 0, top: 58}]}>{item.medicineQuantity}</Text>
                     </View>
                 </View>
             </View>

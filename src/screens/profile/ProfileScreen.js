@@ -48,12 +48,12 @@ export default function ProfileScreen ({navigation}) {
             <View style={{ position: 'absolute', padding: SPACING, flexDirection: 'row',}}>
                 <View style={{width: 70, height: 70, backgroundColor: cardBackground, borderRadius: 15, justifyContent: 'center', alignItems: 'center'}}>
                     <Image
-                        source={{ uri: 'https://i.ibb.co/LYbhhT1/index-png-1.png' }}
+                        source={{ uri: 'https://i.ibb.co/XLMTmxc/53ccd086b469f546e7debba892ac46a5.jpg' }}
                         style={{width: 70, height: 70, borderRadius: 15}}
                     />
                 </View>
                 <View>
-                    <Text style={styles.name}>Conor Clarke</Text>
+                    <Text style={styles.name}>Derek Watson</Text>
                     <Text style={styles.subName}>Dairy Farmer</Text>
                 </View>
             </View>

@@ -55,7 +55,17 @@ const MedicineData = [
     }
 ];
 
-const MedicatedAnimalData = [
+export default MedicineData.map((item, index) => ({
+    ...item,
+    key: faker.random.uuid()
+}));
+
+export const homepageMedicineData = MedicineData.slice(0, 3).map((item, index) => ({
+    ...item,
+    key: faker.random.uuid()
+}))
+
+const medicineUsageData = [
     {
         administered_by: "Conor",
         animal: "40122",
@@ -68,17 +78,7 @@ const MedicatedAnimalData = [
     },
 ];
 
-export default MedicineData.map((item, index) => ({
-    ...item,
-    key: faker.random.uuid()
-}));
-
-export const homepageMedicineData = MedicineData.slice(0, 3).map((item, index) => ({
-    ...item,
-    key: faker.random.uuid()
-}))
-
-export const medicatedAnimalData = MedicatedAnimalData.map((item, index) => ({
+export const MedicineUsageData = medicineUsageData.map((item, index) => ({
     ...item,
     key: faker.random.uuid()
 }));

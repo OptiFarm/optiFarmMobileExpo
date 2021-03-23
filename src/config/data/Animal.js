@@ -105,7 +105,7 @@ const CardData = [
     type: 'Medicine Usage',
     desc: 'Your collection of medicated animals',
     image: 'https://i.ibb.co/7k5SnZs/charity.png',
-    navigate: 'Remedies',
+    navigate: 'MedicineUsage',
     color: '#1C2436',
     backgroundColor: '#9968ED',
   },

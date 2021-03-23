@@ -1,9 +1,8 @@
-import * as React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useRef } from 'react'
 import { useForm, Controller } from "react-hook-form";
 
 // COMPONENTS
-import { StyleSheet, View, Text, FlatList, TextInput, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, Text, FlatList, TextInput, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { PageHeader } from '../../components/atoms/PageHeader';
 import { Button } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
@@ -17,12 +16,13 @@ import AnimalFormData from '../../config/form/Form';
 const styles = StyleSheet.create({
     label: {
         color: 'white',
-        marginTop: 30,
+        marginTop: SPACING,
         marginBottom: 10,
         marginHorizontal: 20,
         marginLeft: 0,
         fontFamily: 'Sora-SemiBold',
-        fontSize: 18
+        fontSize: 18,
+        opacity: 0.8,
     },
     input: {
         backgroundColor: cardBackground,
@@ -30,8 +30,9 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 15,
         fontFamily: 'Sora-SemiBold',
-        fontSize: 18,
-        color: 'white'
+        fontSize: 20,
+        color: 'white',
+        marginBottom: 25
     },
     button: {
         marginTop: 40,
@@ -53,7 +54,8 @@ const pickerSelectStyles = StyleSheet.create({
       backgroundColor: cardBackground,
       height: 50,
       fontFamily: 'Sora-SemiBold',
-      fontSize: 18
+      fontSize: 18,
+      marginBottom: 25
     },
 });
 
@@ -77,14 +79,19 @@ export default function AnimalForm ({navigation}) {
         value: null,
     };
 
+    const ref_input2 = useRef();
+    const ref_input3 = useRef();
+    const ref_input4 = useRef();
+    const ref_input5 = useRef();
+    const ref_input6 = useRef();
+    const ref_input7 = useRef();
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
             <PageHeader  label="Add New Animal" goBack={navigation.goBack} showChevron='true'/>
-            <KeyboardAvoidingView behavior='height' style={{flex: 1, height: height, width: width}}>
-
-                {/* Form */}
+            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex: 1,}}>
                 <FlatList
-                    showsVerticalScrollIndicator={false}
+                    showsVerticalScrollIndicator={true}
                     data={AnimalFormData}
                     keyExtractor={(item) => item.key}
                     contentContainerStyle={{ padding: SPACING, }}
@@ -101,6 +108,12 @@ export default function AnimalForm ({navigation}) {
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     value={value}
+                                    keyboardType='decimal-pad'
+                                    returnKeyType='done' 
+                                    placeholder='40122'
+                                    placeholderTextColor='#848D95'
+                                    onSubmitEditing={() => ref_input2.current.focus()}
+                                    blurOnSubmit={false}
                                 />
                                 )}
                                 name="tagNumber"
@@ -117,6 +130,13 @@ export default function AnimalForm ({navigation}) {
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     value={value}
+                                    keyboardType='decimal-pad'
+                                    returnKeyType='done'
+                                    placeholder='10234'
+                                    placeholderTextColor='#848D95'
+                                    ref={ref_input2}
+                                    onSubmitEditing={() => ref_input3.current.focus()}
+                                    blurOnSubmit={false}
                                 />
                                 )}
                                 name="sireNumber"
@@ -133,6 +153,11 @@ export default function AnimalForm ({navigation}) {
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     value={value}
+                                    keyboardType='decimal-pad'
+                                    returnKeyType='done' 
+                                    placeholder='20455'
+                                    placeholderTextColor='#848D95'
+                                    ref={ref_input3}
                                 />
                                 )}
                                 name="motherNumber"
@@ -170,6 +195,11 @@ export default function AnimalForm ({navigation}) {
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     value={value}
+                                    returnKeyType='next'
+                                    placeholder='HBX'
+                                    placeholderTextColor='#848D95'
+                                    ref={ref_input4}
+                                    onSubmitEditing={() => ref_input5.current.focus()}
                                 />
                                 )}
                                 name="breed"
@@ -186,6 +216,11 @@ export default function AnimalForm ({navigation}) {
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     value={value}
+                                    returnKeyType='next'
+                                    placeholder='23 January 2021'
+                                    placeholderTextColor='#848D95'
+                                    ref={ref_input5}
+                                    onSubmitEditing={() => ref_input6.current.focus()}
                                 />
                                 )}
                                 name="dateOfBirth"
@@ -202,6 +237,11 @@ export default function AnimalForm ({navigation}) {
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     value={value}
+                                    returnKeyType='next'
+                                    placeholder='FDS'
+                                    placeholderTextColor='#848D95'
+                                    ref={ref_input6}
+                                    onSubmitEditing={() => ref_input7.current.focus()}
                                 />
                                 )}
                                 name="pureBreed"
@@ -218,6 +258,8 @@ export default function AnimalForm ({navigation}) {
                                     onBlur={onBlur}
                                     onChangeText={value => onChange(value)}
                                     value={value}
+                                    returnKeyType='done'
+                                    ref={ref_input7}
                                 />
                                 )}
                                 name="description"
@@ -229,7 +271,7 @@ export default function AnimalForm ({navigation}) {
                                 contentStyle={{height: 50, width: 25, }} 
                                 mode="contained" 
                                 color='#F4F3BE' 
-                                style={{marginTop: 30, borderRadius: 10}} 
+                                style={{marginTop: SPACING, borderRadius: 10}} 
                                 contentStyle={{height: 50}} 
                                 labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
                                 onPress={handleSubmit(onSubmit)}

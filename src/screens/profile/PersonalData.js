@@ -71,7 +71,7 @@ export default function PersonalData ({navigation}) {
         <View style={{backgroundColor: defaultBackground, flex: 1}}>
             <View style={{width: 80, height: 80, backgroundColor: cardBackground, borderRadius: 15, alignSelf: 'center'}}>
                 <Image
-                    source={{ uri: 'https://i.ibb.co/LYbhhT1/index-png-1.png' }}
+                    source={{ uri: 'https://i.ibb.co/XLMTmxc/53ccd086b469f546e7debba892ac46a5.jpg' }}
                     style={{width: 80, height: 80, borderRadius: 15,}}
                 />
             </View>
@@ -99,7 +99,7 @@ export default function PersonalData ({navigation}) {
                                         )}
                                         name="firstName"
                                         rules={{ required: true }}
-                                        defaultValue={item.firstName}
+                                        defaultValue={item.firstName} 
                                     />
                                 </View>
 

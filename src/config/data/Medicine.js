@@ -8,7 +8,7 @@ const MedicineData = [
         medicineQuantity: '2/10 ml',
         medicinePurchaseDate: '23 October 2020',
         medicinePurchaseAt: 'Glanbia',
-        medicineExpiry: '2 January 2021',
+        medicineExpiry: '2 April 2021',
         medicineBatchNo: '11233',
         medicineWithdrawal: 'Active',
         medicineMeat: '12 Days',
@@ -21,37 +21,37 @@ const MedicineData = [
         medicineQuantity: '17/20 ml',
         medicinePurchaseDate: '19 October 2020',
         medicinePurchaseAt: 'Glanbia',
-        medicineExpiry: '13 January 2021',
+        medicineExpiry: '13 August 2021',
         medicineBatchNo: '11233',
         medicineWithdrawal: 'Active',
         medicineMeat: '12 Days',
         medicineMilk: '10 Days'
     },
     {
-        medicineName: 'Synulox Bolus',
-        medicineType: 'Pills',
+        medicineName: 'Milbotyl',
+        medicineType: 'Liquid',
         medicineLevel: 'Medium Quantity',
-        medicineQuantity: '10/20 ml',
-        medicinePurchaseDate: '19 October 2020',
+        medicineQuantity: '9/20 ml',
+        medicinePurchaseDate: '11 August 2020',
         medicinePurchaseAt: 'Glanbia',
         medicineExpiry: '11 February 2021',
         medicineBatchNo: '11233',
         medicineWithdrawal: 'Active',
-        medicineMeat: '12 Days',
-        medicineMilk: '10 Days'
+        medicineMeat: '21 Days',
+        medicineMilk: '15 Days'
     },
     {
-        medicineName: 'Test test',
-        medicineType: 'Pills',
-        medicineLevel: 'Medium Quantity',
-        medicineQuantity: '10/20 ml',
-        medicinePurchaseDate: '19 October 2020',
+        medicineName: 'Levacide',
+        medicineType: 'Liquid',
+        medicineLevel: 'High Quantity',
+        medicineQuantity: '16/20 ml',
+        medicinePurchaseDate: '22 December 2020',
         medicinePurchaseAt: 'Glanbia',
-        medicineExpiry: '5 March 2021',
+        medicineExpiry: '11 December 2021',
         medicineBatchNo: '11233',
         medicineWithdrawal: 'Active',
-        medicineMeat: '12 Days',
-        medicineMilk: '10 Days'
+        medicineMeat: '13 Days',
+        medicineMilk: '17 Days'
     }
 ];
 

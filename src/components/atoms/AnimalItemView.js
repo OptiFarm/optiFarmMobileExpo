@@ -1,12 +1,10 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/core';
-import { Feather, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'; 
 
 // COMPONENTS
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 
 // THEME
-import { SPACING, width, height, defaultBackground, cardBackground, CELL_HEIGHT } from '../../config/theme';
+import { SPACING, width, height, cardBackground, CELL_HEIGHT } from '../../config/theme';
 
 const styles = StyleSheet.create({
     name: {
@@ -37,23 +35,16 @@ const styles = StyleSheet.create({
     },
     border: {
         borderBottomColor: '#9D9D9D',
-        opacity: 0.5, 
+        opacity: 0.3, 
         borderBottomWidth: 1, 
         top: 20,
     },
-    hideList: {
-        display: 'none',
-    },
-    searchBar: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    }
 });
 
 export const AnimalItemView = ({ navigation, item }) => {
 
     // COW LOGO
-    const cowLogo = item.animal_sex === 'Male' ? 'https://i.ibb.co/B4cgVmv/cow-5.png' : 'https://i.ibb.co/g6MntkZ/cow-6.png';
+    const cowLogo = item.animal_sex === 'Male' ? 'https://i.ibb.co/NnqjqXC/maleCow.png' : 'https://i.ibb.co/V989V52/female-Cow.png';
 
     return (
         <TouchableOpacity 
@@ -80,7 +71,7 @@ export const AnimalItemView = ({ navigation, item }) => {
                     </View>
                     <View style={{position: 'absolute', right: 0}}>
                         <Text style={styles.animalLabel}>Breed</Text>
-                        <Text style={styles.animalDesc}>{item.animal_breed}</Text>
+                        <Text style={[styles.animalDesc, {position: 'absolute', right: 0, top: 63,}]}>{item.animal_breed}</Text>
                     </View>
                 </View>
                 <Text style={styles.animalLabel}>Date of Birth</Text>

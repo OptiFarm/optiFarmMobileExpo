@@ -65,7 +65,6 @@ export default function AssignMedication ({ navigation, route }) {
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: defaultBackground }}>
             <PageHeader label="Assign Medicine" goBack={navigation.goBack} showChevron='true'/>
-            <Text style={{paddingTop: SPACING, paddingHorizontal: SPACING, color: 'white', fontSize: 20, fontFamily: 'Sora-SemiBold',}}>Quantity Left: <Text style={{color: color,}}> {medicineQuantity}</Text></Text>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex: 1,}}>
                 <ScrollView style={{paddingHorizontal: SPACING,}}>
                     <Text style={styles.label}>Animal ID</Text>
@@ -132,7 +131,7 @@ export default function AssignMedication ({ navigation, route }) {
                         defaultValue={withdrawalMilk}
                     />          
 
-                    <Text style={styles.label}>Quantity<Text style={{color: '#D74747', fontSize: 13,}}> Required</Text></Text>
+                    <Text style={styles.label}>Quantity<Text style={{color: '#D74747', fontSize: 13,}}> Remaining: {medicineQuantity}</Text></Text>
                     <Controller
                         control={control}
                         render={({ onChange, onBlur, value }) => (

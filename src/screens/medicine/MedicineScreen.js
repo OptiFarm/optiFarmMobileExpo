@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useNavigation } from '@react-navigation/core';
+import { useScrollToTop } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 // COMPONENTS
@@ -15,6 +16,9 @@ import MedicineData, { homepageMedicineData } from '../../config/data/Medicine';
 import { SPACING, defaultBackground, cardBackground, medicineLevelLow, medicineLevelMedium, medicineLevelHigh, CELL_HEIGHT } from '../../config/theme';
 
 export default function MedicineScreen ({navigation}, props) {
+    const ref = React.useRef(null);
+    useScrollToTop(ref);
+
     return (
         <>
             <SafeAreaView style={{backgroundColor: defaultBackground,}}>
@@ -38,8 +42,8 @@ export default function MedicineScreen ({navigation}, props) {
                     data={MedicineData}
                     keyExtractor={(item) => item.key}
                     contentContainerStyle={{ padding: SPACING }}
-                    renderItem={({item}) => <MedicineItemView item={item} navigation={navigation} />
-                    }
+                    renderItem={({item}) => <MedicineItemView item={item} navigation={navigation} />}
+                    ref={ref}
                 />
             </View>
         </>

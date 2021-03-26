@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo, useRef, useState, useEffect } from 'react';
 import { MaterialIcons, Feather } from '@expo/vector-icons'; 
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
@@ -11,7 +11,7 @@ import {
     TouchableOpacity, 
     Text, 
     TextInput,
-    Image
+    Image,
 } from 'react-native';
 import { Card, Paragraph, Modal, Portal, Provider, Button } from 'react-native-paper';
 import BottomSheet, { BottomSheetFlatList, BottomSheetModalProvider, BottomSheetModal, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
@@ -75,6 +75,21 @@ const styles = StyleSheet.create({
         padding: 24,
         justifyContent: 'center',
     },
+    input: {
+        marginTop: 8,
+        marginBottom: 10,
+        borderRadius: 10,
+        fontSize: 16,
+        lineHeight: 20,
+        padding: 8,
+        backgroundColor: 'white',
+        fontFamily: 'Sora-SemiBold',
+        height: 45
+    },
+    containerModal: {
+        paddingHorizontal: SPACING,
+        paddingVertical: 5,
+    }
 });
 
 const modalStyles = StyleSheet.create({
@@ -140,13 +155,38 @@ export default function MedicineDetail ({ navigation, route }) {
                     <Image source={{ uri: cowLogo }} style={{ height: 50, width: 50 }}/>
                     <View>
                         <Text style={{fontFamily: 'Sora-SemiBold', fontSize: 18, color: 'white', left: SPACING}}>ID: <Text style={{color: '#F4F3BE'}}>{item.animal_id}</Text></Text>
-                        <View style={{borderBottomColor: '#9D9D9D', opacity: 0.4,borderBottomWidth: 1, top: 45, left: SPACING, width: 300,}}/>
+                        <View style={{borderBottomColor: '#9D9D9D', opacity: 0.4, borderBottomWidth: 1, top: 45, width: 300,}}/>
                         <Text style={{fontFamily: 'Sora-SemiBold', fontSize: 18, color: 'white', left: SPACING}}><Text style={{color: 'white', opacity: 0.8}}>{item.animal_group}</Text></Text>
                     </View>
                 </View>
                 <Feather name="chevron-right" size={30} color="#F4F3BE" style={{position: 'absolute', right: 0, bottom: SPACING}}/> 
             </TouchableOpacity>
         );
+    };
+
+    // SEARCH HANDLES
+    const [search, setSearch] = useState('');
+    const [filteredDataSource, setFilteredDataSource] = useState([]);
+    const [masterDataSource, setMasterDataSource] = useState([]);
+
+    useEffect(() => {
+        setFilteredDataSource(assignMedicationData);
+        setMasterDataSource(assignMedicationData);
+    }, [])
+
+    const searchFilterFunction = (text) => {
+        if (text) {
+            const newData = masterDataSource.filter(function (item) {
+                const itemData = item.animal_id ? item.animal_id.toUpperCase() : ''.toUpperCase();
+                const textData = text.toUpperCase();
+                return itemData.indexOf(textData) > -1;
+            });
+            setFilteredDataSource(newData);
+            setSearch(text);
+        } else {
+            setFilteredDataSource(masterDataSource);
+            setSearch(text);
+        }
     };
 
     return (
@@ -275,10 +315,23 @@ export default function MedicineDetail ({ navigation, route }) {
                 backgroundComponent={CustomSheetBackground}
                 backdropComponent={BottomSheetBackdrop}
             >
-                <Text style={{ padding: SPACING, color: 'white', fontSize: 25, fontFamily: 'Sora-Bold', marginBottom: SPACING}}>Select Animal</Text>
+                {/* <Text style={{ padding: SPACING, color: 'white', fontSize: 25, fontFamily: 'Sora-Bold', marginBottom: SPACING}}>Select Animal</Text> */}
+                <View style={styles.containerModal}>
+                    <TextInput
+                        style={styles.input}
+                        textContentType="name"
+                        placeholder="Search for Animal"
+                        clearButtonMode='always'
+                        onChangeText={(text) => searchFilterFunction(text)}
+                        onClear={(text) => searchFilterFunction('')}
+                        placeholderTextColor='#848D95'
+                        keyboardType='decimal-pad'
+                        returnKeyType='done'
+                    />
+                </View>
                 <BottomSheetFlatList
                     showsVerticalScrollIndicator={true}
-                    data={assignMedicationData}
+                    data={filteredDataSource}
                     keyExtractor={(item) => item.key}
                     renderItem={renderItem}
                     contentContainerStyle={modalStyles.contentContainer}

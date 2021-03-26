@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useScrollToTop } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 // COMPONENTS
@@ -14,6 +15,9 @@ import { groupData } from '../../config/data/Animal';
 import { SPACING, defaultBackground, cardBackground } from '../../config/theme';
 
 export default function GroupScreen ({navigation}) {
+    const ref = React.useRef(null);
+    useScrollToTop(ref);
+    
     return (
         <>
         <SafeAreaView style={{backgroundColor: defaultBackground,}}>
@@ -39,6 +43,7 @@ export default function GroupScreen ({navigation}) {
                     keyExtractor={(item) => item.key}
                     contentContainerStyle={{ paddingHorizontal: SPACING }}
                     renderItem={({item}) => <GroupItemView item={item} navigation={navigation} />}
+                    ref={ref}
                 />
             </View>
         </View>

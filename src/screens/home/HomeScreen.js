@@ -3,13 +3,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useScrollToTop } from '@react-navigation/native';
 
 // COMPONENTS
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, FlatList, Text, TouchableOpacity } from 'react-native';
 import { MainCards } from '../../components/molecules/MainCards'
 import { PageHeader } from '../../components/atoms/PageHeader';
-import MedicineList from '../../components/molecules/MedicineList';
+import { MedicineItemView } from '../../components/atoms/MedicineItemView';
+
+// DATA
+import { homepageMedicineData } from '../../config/data/Medicine';
 
 // THEME
-import { defaultBackground } from '../../config/theme';
+import { defaultBackground, SPACING, CELL_HEIGHT } from '../../config/theme';
 
 export default function HomeScreen ({navigation}) {
     const ref = React.useRef(null);
@@ -23,7 +26,24 @@ export default function HomeScreen ({navigation}) {
         <View style={{backgroundColor: defaultBackground, flex: 1}}>
             <ScrollView showsVerticalScrollIndicator={false} ref={ref}>
                 <MainCards navigation={navigation} />
-                <MedicineList homepage/>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={{fontSize: 25, fontFamily: 'Sora-Bold', top: CELL_HEIGHT / 10, color: 'white', padding: SPACING}}>
+                        My Medicine
+                    </Text>
+                    <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={() => navigation.navigate('MedicineTab')}>
+                        <Text style={{ fontSize: 18, lineHeight: CELL_HEIGHT * 0.55, fontFamily: 'Sora-Bold', color: '#F4F3BE',}}>
+                            See All
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <FlatList
+                    style={{padding: SPACING}}    
+                    showsVerticalScrollIndicator={false}
+                    data={homepageMedicineData}
+                    keyExtractor={(item) => item.key}
+                    renderItem={({item}) => <MedicineItemView item={item} navigation={navigation} />}
+                    ref={ref}
+                />
             </ScrollView>
         </View>
         </>

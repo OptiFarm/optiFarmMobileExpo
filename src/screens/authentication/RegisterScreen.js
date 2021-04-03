@@ -9,7 +9,7 @@ import { Button } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 
 // DATA 
-import { RegisterFormData } from '../../config/data/Profile';
+import { RegisterFormData } from '../../model/Users';
 
 // THEME
 import { cardBackground, SPACING } from '../../config/theme'

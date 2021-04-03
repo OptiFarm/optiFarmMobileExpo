@@ -1,29 +1,73 @@
 import * as React from 'react';
 import { AuthContext } from '../../components/context'
-import UserData from '../../model/Users'
-import {useNavigation} from '@react-navigation/core'
+import { MaterialIcons } from '@expo/vector-icons'; 
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
-// Components
-import {StyleSheet, View, Text, Alert, TouchableOpacity} from 'react-native';
-import { TextInput as Input } from 'react-native-paper'
-import { Background } from '../../components/atoms/Background'
-import { Header } from '../../components/atoms/Header'
-import { Button } from '../../components/atoms/Button'
+// COMPONENTS
+import { StyleSheet, View, Text, Alert, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native';
+import { Button } from 'react-native-paper';
 import { Logo } from '../../components/atoms/Logo'
-import { BackButton } from '../../components/atoms/BackButton';
 
+// DATA 
+import UserData from '../../model/Users'
+
+// THEME
+import { cardBackground, SPACING } from '../../config/theme'
 
 const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: 'white',
+    },
+    navBar: {
+        height: 60,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    leftContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        left: SPACING
+    },
+    rightContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        right: SPACING
+    },
+    parentContainer: {
+        flex: 1,
+        padding: 20,
+        width: '100%',
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        maxWidth: 340,
+    },
+    input: {
+        height: 50,
+        borderRadius: 10,
+        borderColor: cardBackground,
+        backgroundColor: '#F6F6F6',
+        borderWidth: 1,
+        fontFamily: 'Sora-SemiBold',
+        fontSize: 20,
+        color: cardBackground,
+        marginBottom: 30,
+        paddingLeft: SPACING
+    },
     errorMsg: {
         color: '#D74747', 
-        top: 10
+        marginBottom: 30,
+        top: -20
     },
     container: {
         width: '100%',
         marginVertical: 12,
-    },
-    input: {
-        backgroundColor: 'white',
     },
     error: {
         fontSize: 13,
@@ -34,19 +78,19 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'flex-end',
         marginBottom: 24,
-        marginTop: 70,
     },
     forgot: {
         opacity: 0.7,
         fontSize: 13,
+        fontFamily: 'Sora-SemiBold'
     },
     row: {
         flexDirection: 'row',
         marginTop: 4,
     },
     link: {
-        fontWeight: 'bold',
-        color: 'black',
+        fontFamily: 'Sora-Bold',
+        color: cardBackground,
     },
 });
 
@@ -118,59 +162,70 @@ export default function LoginScreen ({navigation}) {
 
     return (
         <>
-            <Background>
-                <BackButton goBack={navigation.goBack} />
-                <Logo />
-                <Header>Welcome back.</Header>
-                <View style={styles.container}>
-                    <Input
-                        theme={{ colors: { primary: 'black',underlineColor:'transparent',}}}
-                        label='Username'
-                        style={styles.input}
-                        selectionColor='black'
-                        underlineColor="transparent"
-                        mode='outlined'
-                        value={username}
-                        onChangeText={(val) => textInputChange(val)}
-                        onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
-                    />
-                    {
-                        isValidUser ? null : 
-                        <Text style={styles.errorMsg}>Username must be 4 characters long</Text>
-                    } 
-                    <Input
-                        theme={{ colors: { primary: 'black',underlineColor:'transparent',}}}
-                        label='Password'
-                        style={{top: 50}}
-                        selectionColor='black'
-                        underlineColor="transparent"
-                        mode='outlined'
-                        value={password}
-                        onChangeText={(val) => handlePasswordChange(val)}
-                        secureTextEntry
-                    />
-                    {
-                        isValidPassword ? null : 
-                        <Text style={{top: 60, color: '#D74747'}}>Password must be 8 characters long</Text>
-                    }
-                    <View style={styles.forgotPassword}>
-                        <TouchableOpacity
-                        // onPress={() => navigation.navigate('ForgotPasswordScreen')}
-                        >
-                        <Text style={styles.forgot}>Forgot your password?</Text>
-                        </TouchableOpacity>
-                    </View> 
-                    <Button mode="contained" onPress={() => {loginHandle(username, password)}}>
-                        Login
-                    </Button>
-                </View>
-                <View style={styles.row}>
-                    <Text>Don’t have an account? </Text>
-                    <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
-                        <Text style={styles.link}>Sign up</Text>
+            <View style={styles.background}>
+                <View style={[styles.navBar, {marginTop: getStatusBarHeight()}]}>
+                    <TouchableOpacity style={styles.leftContainer} onPress={navigation.goBack}>
+                        <MaterialIcons name="arrow-back-ios" size={30} color={cardBackground} />
                     </TouchableOpacity>
+                    <Text style={{ fontFamily: 'Sora-Bold', fontSize: 30, color: cardBackground, right: 0}}>
+                        Log In
+                    </Text>
+                    <Text style={styles.rightContainer}>
+                    </Text>
                 </View>
-            </Background>
+                <KeyboardAvoidingView style={styles.parentContainer} behavior="padding">  
+                    <View style={styles.container}>
+                        <TextInput
+                            placeholder='Username'
+                            style={styles.input}
+                            returnKeyType='done'
+                            value={username}
+                            onChangeText={(val) => textInputChange(val)}
+                            onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
+                        />
+                        {
+                            isValidUser ? null : 
+                            <Text style={styles.errorMsg}>Username must be 4 characters long</Text>
+                        } 
+                        <TextInput
+                            placeholder='Password'
+                            style={styles.input}
+                            returnKeyType='done'
+                            value={password}
+                            onChangeText={(val) => handlePasswordChange(val)}
+                            secureTextEntry
+                        />
+                        {
+                            isValidPassword ? null : 
+                            <Text style={styles.errorMsg}>Password must be 8 characters long</Text>
+                        }
+                        <View style={styles.forgotPassword}>
+                            <TouchableOpacity
+                            // onPress={() => navigation.navigate('ForgotPasswordScreen')}
+                            >
+                            <Text style={styles.forgot}>Forgot your password?</Text>
+                            </TouchableOpacity>
+                        </View> 
+                        <Button
+                            contentStyle={{height: 50, width: 25, }} 
+                            mode="contained" 
+                            color={cardBackground} 
+                            style={{marginTop: 100, borderRadius: 10}} 
+                            contentStyle={{height: 50}} 
+                            labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: 'white'}}
+                            onPress={() => {loginHandle(username, password)}}
+                        >
+                            Login
+                        </Button>
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={{color: cardBackground}}>Don’t have an account? </Text>
+                        <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
+                            <Text style={styles.link}>Sign up</Text>
+                        </TouchableOpacity>
+                    </View>
+                </KeyboardAvoidingView>
+            </View>
         </>
     );
 };

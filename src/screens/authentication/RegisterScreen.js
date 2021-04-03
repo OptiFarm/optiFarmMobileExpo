@@ -102,6 +102,7 @@ export default function RegisterScreen ({navigation}) {
     const ref_input3 = useRef();
     const ref_input4 = useRef();
     const ref_input5 = useRef();
+    const ref_input6 = useRef();
 
     return (
         <>
@@ -198,8 +199,8 @@ export default function RegisterScreen ({navigation}) {
                                         onChangeText={value => onChange(value)}
                                         value={value}
                                         returnKeyType='next'
-                                        ref={ref_input2}
-                                        onSubmitEditing={() => ref_input3.current.focus()}
+                                        ref={ref_input3}
+                                        onSubmitEditing={() => ref_input4.current.focus()}
                                     />
                                     )}
                                     name="herdNumber"
@@ -217,8 +218,8 @@ export default function RegisterScreen ({navigation}) {
                                         onChangeText={value => onChange(value)}
                                         value={value}
                                         returnKeyType='next'
-                                        ref={ref_input3}
-                                        onSubmitEditing={() => ref_input4.current.focus()}
+                                        ref={ref_input4}
+                                        onSubmitEditing={() => ref_input5.current.focus()}
                                     />
                                     )}
                                     name="vet"
@@ -236,8 +237,8 @@ export default function RegisterScreen ({navigation}) {
                                         onChangeText={value => onChange(value)}
                                         value={value}
                                         returnKeyType='next'
-                                        ref={ref_input4}
-                                        onSubmitEditing={() => ref_input5.current.focus()}
+                                        ref={ref_input5}
+                                        onSubmitEditing={() => ref_input6.current.focus()}
                                     />
                                     )}
                                     name="address"
@@ -255,7 +256,7 @@ export default function RegisterScreen ({navigation}) {
                                         onChangeText={value => onChange(value)}
                                         value={value}
                                         returnKeyType='done'
-                                        ref={ref_input5}
+                                        ref={ref_input6}
                                     />
                                     )}
                                     name="password"

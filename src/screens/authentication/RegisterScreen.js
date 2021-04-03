@@ -84,7 +84,7 @@ export default function RegisterScreen ({navigation}) {
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
     const onSubmit = data => {
         console.log(data);
-        navigation.navigate('Home', {screen: 'FormSuccess'});
+        navigation.navigate('Authentication', {screen: 'StartScreen'});
     };
     
     const onChange = arg => {
@@ -257,6 +257,7 @@ export default function RegisterScreen ({navigation}) {
                                         value={value}
                                         returnKeyType='done'
                                         ref={ref_input6}
+                                        secureTextEntry
                                     />
                                     )}
                                     name="password"

@@ -1,30 +1,72 @@
 import * as React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons'; 
 import {useNavigation} from '@react-navigation/core'
 
 // COMPONENTS
-import { StyleSheet, ScrollView, View, Text } from 'react-native';
-import { Background } from '../../components/atoms/Background'
-import { Header } from '../../components/atoms/Header'
-import { Button } from '../../components/atoms/Button'
-import { Logo } from '../../components/atoms/Logo'
+import { StyleSheet, View, Text, KeyboardAvoidingView } from 'react-native';
+import { Button } from 'react-native-paper';
 
 // THEME
-import { SPACING, defaultBackground } from '../../config/theme';
+import { SPACING, cardBackground, defaultBackground } from '../../config/theme';
+
+const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: defaultBackground,
+    },
+    container: {
+        flex: 1,
+        padding: 20,
+        width: '100%',
+        maxWidth: 340,
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    label: {
+      color:'white', 
+      fontSize: 30, 
+      fontFamily: 'Sora-SemiBold', 
+      top: SPACING
+    },
+    subLabel: {
+      textAlign: 'center', 
+      fontSize: 17, 
+      top: 30, 
+      opacity: 0.8, 
+      color: 'white', 
+      fontFamily: 'Sora-SemiBold'
+    },
+    button: {
+      marginTop: 100, 
+      borderRadius: 10, 
+      width: '100%'
+    }
+})
 
 export default function FormSuccess () {
     const navigation = useNavigation()
     return (
         <>
-          <Background>
-            <Feather name="check-square" size={50} color="#82F5A8" />
-            <Header style={{color:'white', fontSize: 30, fontFamily: 'Sora-SemiBold', top: SPACING}}>Animal Added</Header>
-            <Text style={{textAlign: 'center', fontSize: 18, top: 30, opacity: 0.8, color: 'white', fontFamily: 'Sora-SemiBold'}}>Your new animal has been added to the system</Text>
-            <Button mode="contained" style={{top: 70, borderRadius: 15}} onPress={() => navigation.navigate('HomeTab')} >
-                Done
-            </Button>
-          </Background>
+          <View style={styles.background}>
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
+              <Feather name="check-square" size={50} color="#82F5A8" />
+              <Text style={styles.label}>Animal Added</Text>
+              <Text style={styles.subLabel}>Your new animal has been added to the system</Text>
+              <Button
+                  contentStyle={{height: 50, width: 25,}} 
+                  mode="contained" 
+                  color='#F4F3BE' 
+                  style={styles.button} 
+                  contentStyle={{height: 50}} 
+                  labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
+                  onPress={() => navigation.navigate('HomeTab')}
+              >
+                  Done
+              </Button>
+            </KeyboardAvoidingView>
+          </View>
         </>
     );
 };

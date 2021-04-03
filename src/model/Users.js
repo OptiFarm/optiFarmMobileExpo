@@ -1,3 +1,5 @@
+import faker from 'faker';
+
 const UserData = [
     {
         id: 1, 
@@ -25,3 +27,21 @@ const UserData = [
 export default UserData.map((item, index) => ({
     ...item,
 }))
+
+// REGISTER DATA
+const registerFormData = [
+    {
+      fullName: 'Full Name',
+      email: 'Email',
+      farmType: 'Farm Type',
+      herdNumber: 'Herd Number',
+      address: 'Address',
+      vet: 'Veterinary Practice',
+      password: 'Password'
+    }
+  ]
+  
+  export const RegisterFormData = registerFormData.map((item, index) => ({
+    ...item,
+    key: faker.random.uuid()
+  }));

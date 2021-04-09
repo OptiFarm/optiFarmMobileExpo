@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useScrollToTop } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import faker from 'faker';
 
 // COMPONENTS
 import { View, FlatList, SafeAreaView } from 'react-native';
@@ -8,15 +9,36 @@ import { Button } from 'react-native-paper';
 import { PageHeader } from '../../components/atoms/PageHeader'
 import { GroupItemView } from '../../components/atoms/GroupItemView';
 
+// LOADER
+import { PageLoader } from '../../components/atoms/PageLoader';
+
 // DATA
 import { groupData } from '../../config/data/Animal';
 
+// QUERY
+import { useQuery } from '@apollo/client';
+import { GET_GROUP } from '../../config/graphql/queries';
+ 
 // THEME
 import { SPACING, defaultBackground, cardBackground } from '../../config/theme';
 
 export default function GroupScreen ({navigation}) {
+
     const ref = React.useRef(null);
     useScrollToTop(ref);
+
+    // GROUP LIST
+    const { data, loading } = useQuery(GET_GROUP);
+
+    console.log(data)
+    if (loading) {
+        return <PageLoader />
+    }
+
+    const GroupData = data.groups.groups.map((item, index) => ({
+        ...item,
+        key: faker.random.uuid()
+    }))
     
     return (
         <>
@@ -39,7 +61,7 @@ export default function GroupScreen ({navigation}) {
                 </View>
                 <FlatList
                     showsVerticalScrollIndicator={false}
-                    data={groupData}
+                    data={GroupData}
                     keyExtractor={(item) => item.key}
                     contentContainerStyle={{ paddingHorizontal: SPACING }}
                     renderItem={({item}) => <GroupItemView item={item} navigation={navigation} />}

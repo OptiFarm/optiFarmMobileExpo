@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import faker from 'faker';
 
 // COMPONENTS
 import { View, FlatList, SafeAreaView } from 'react-native';
@@ -7,13 +8,30 @@ import { Button } from 'react-native-paper';
 import { PageHeader } from '../../components/atoms/PageHeader';
 import { AnimalItemView } from '../../components/atoms/AnimalItemView';
 
-// DATA
-import AnimalData from '../../config/data/Animal';
+// LOADER
+import { PageLoader } from '../../components/atoms/PageLoader';
 
+// QUERY
+import { useQuery } from '@apollo/client';
+import { GET_HERD } from '../../config/graphql/queries';
+ 
 // THEME
 import { SPACING, defaultBackground, cardBackground } from '../../config/theme';
 
 export default function HerdBook ({navigation}) {
+
+    // ANIMAL LIST
+    const { data, loading } = useQuery(GET_HERD);
+
+    if (loading) {
+        return <PageLoader />
+    }
+
+    const AnimalData = data.herd.animals.map((item, index) => ({
+        ...item,
+        key: faker.random.uuid()
+    }))
+
     return (
         <>
         <SafeAreaView style={{backgroundColor: defaultBackground }}>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useScrollToTop } from '@react-navigation/native';
+import faker from 'faker';
 
 // COMPONENTS
 import { ScrollView, View, FlatList, Text, TouchableOpacity } from 'react-native';
@@ -8,15 +9,31 @@ import { MainCards } from '../../components/molecules/MainCards'
 import { PageHeader } from '../../components/atoms/PageHeader';
 import { MedicineItemView } from '../../components/atoms/MedicineItemView';
 
-// DATA
-import { homepageMedicineData } from '../../config/data/Medicine';
+// LOADER
+import { PageLoader } from '../../components/atoms/PageLoader';
 
+// QUERY
+import { useQuery } from '@apollo/client';
+import { GET_MEDICATIONS } from '../../config/graphql/queries';
+ 
 // THEME
 import { defaultBackground, SPACING, CELL_HEIGHT } from '../../config/theme';
 
 export default function HomeScreen ({navigation}) {
     const ref = React.useRef(null);
     useScrollToTop(ref);
+
+    // MEDICINE LIST
+    const { data, loading } = useQuery(GET_MEDICATIONS);
+
+    if (loading) {
+        return <PageLoader />
+    }
+
+    const homepageMedicineData = data.medications.medications.map((item, index) => ({
+        ...item,
+        key: faker.random.uuid()
+    }))
 
     return (
         <>

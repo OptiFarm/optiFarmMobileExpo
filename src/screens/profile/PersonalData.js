@@ -1,19 +1,21 @@
 import * as React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm, Controller } from "react-hook-form";
+import faker from 'faker';
 
 // COMPONENT
-import { Text, View, Image, StyleSheet, FlatList, TextInput } from 'react-native';
+import { Text, View, Image, StyleSheet, FlatList, TextInput, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 import { PageHeader } from '../../components/atoms/PageHeader'
 
 // THEME
 import { SPACING, defaultBackground, cardBackground } from '../../config/theme';
 
-// DATA
-import { ProfileFormData } from '../../config/data/Profile';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
+// QUERY
+import { useQuery } from '@apollo/client';
+import { GET_USER_INFO } from '../../config/graphql/queries';
+import { ScrollView } from 'react-native';
+ 
 const styles = StyleSheet.create({
     name: {
       fontSize: 18,
@@ -63,6 +65,10 @@ export default function PersonalData ({navigation}) {
 
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
 
+    // USER INFO
+    const { data, loading } = useQuery(GET_USER_INFO);
+    const item = data.farmer.farmer;
+
     return (
         <>
         <SafeAreaView style={{backgroundColor: defaultBackground}}>
@@ -75,149 +81,141 @@ export default function PersonalData ({navigation}) {
                     style={{width: 80, height: 80, borderRadius: 15,}}
                 />
             </View>
-            <View style={{backgroundColor: defaultBackground, flex: 1, paddingBottom: 50}}>
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={ProfileFormData}
-                    keyExtractor={(item) => item.key}
-                    contentContainerStyle={{ padding: SPACING, }}
-                    renderItem={({ item }) => {
-                        return (
-                            <>
-                            <View style={{flexDirection: 'row'}}>
-                                <View>
-                                    <Text style={styles.label}>First Name</Text>
-                                    <Controller
-                                        control={control}
-                                        render={({ onChange, onBlur, value }) => (
-                                        <TextInput
-                                            style={[styles.input, {width: 170}]}
-                                            onBlur={onBlur}
-                                            onChangeText={value => onChange(value)}
-                                            value={value}
-                                        />
-                                        )}
-                                        name="firstName"
-                                        rules={{ required: true }}
-                                        defaultValue={item.firstName} 
+            <ScrollView style={{padding: SPACING}}>
+                <View style={{backgroundColor: defaultBackground, flex: 1, paddingBottom: 50}}>
+                    <>
+                        <View style={{flexDirection: 'row'}}>
+                            <View>
+                                <Text style={styles.label}>First Name</Text>
+                                <Controller
+                                    control={control}
+                                    render={({ onChange, onBlur, value }) => (
+                                    <TextInput
+                                        style={[styles.input, {width: 170}]}
+                                        onBlur={onBlur}
+                                        onChangeText={value => onChange(value)}
+                                        value={value}
                                     />
-                                </View>
-
-                                <View style={{position: 'absolute', right: 0}}>
-                                    <Text style={styles.label}>Last Name</Text>
-                                    <Controller
-                                        control={control}
-                                        render={({ onChange, onBlur, value }) => (
-                                        <TextInput
-                                            style={[styles.input, {width: 170}]}
-                                            onBlur={onBlur}
-                                            onChangeText={value => onChange(value)}
-                                            value={value}
-                                        />
-                                        )}
-                                        name="lastName"
-                                        rules={{ required: true }}
-                                        defaultValue={item.lastName}
-                                    />
-                                </View>
+                                    )}
+                                    name="firstName"
+                                    rules={{ required: true }}
+                                    defaultValue={item.first_name} 
+                                />
                             </View>
 
-                            <Text style={styles.label}>Herd Number</Text>
-                            <Controller
-                                control={control}
-                                render={({ onChange, onBlur, value }) => (
-                                <TextInput
-                                    style={styles.input}
-                                    onBlur={onBlur}
-                                    onChangeText={value => onChange(value)}
-                                    value={value}
+                            <View style={{position: 'absolute', right: 0}}>
+                                <Text style={styles.label}>Last Name</Text>
+                                <Controller
+                                    control={control}
+                                    render={({ onChange, onBlur, value }) => (
+                                    <TextInput
+                                        style={[styles.input, {width: 170}]}
+                                        onBlur={onBlur}
+                                        onChangeText={value => onChange(value)}
+                                        value={value}
+                                    />
+                                    )}
+                                    name="lastName"
+                                    rules={{ required: true }}
+                                    defaultValue={item.second_name}
                                 />
-                                )}
-                                name="herdNumber"
-                                rules={{ required: true }}
-                                defaultValue={item.herdNumber}
+                            </View>
+                        </View>
+
+                        <Text style={styles.label}>Herd Number</Text>
+                        <Controller
+                            control={control}
+                            render={({ onChange, onBlur, value }) => (
+                            <TextInput
+                                style={styles.input}
+                                onBlur={onBlur}
+                                onChangeText={value => onChange(value)}
+                                value={value}
                             />
+                            )}
+                            name="herdNumber"
+                            rules={{ required: true }}
+                            defaultValue={item.herd_number}
+                        />
 
-                            <Text style={styles.label}>Farm Type</Text>
-                            <Controller
-                                control={control}
-                                render={({ onChange, onBlur, value }) => (
-                                <TextInput
-                                    style={styles.input}
-                                    onBlur={onBlur}
-                                    onChangeText={value => onChange(value)}
-                                    value={value}
-                                />
-                                )}
-                                name="farmType"
-                                rules={{ required: true }}
-                                defaultValue={item.farmType}
+                        <Text style={styles.label}>Farm Type</Text>
+                        <Controller
+                            control={control}
+                            render={({ onChange, onBlur, value }) => (
+                            <TextInput
+                                style={styles.input}
+                                onBlur={onBlur}
+                                onChangeText={value => onChange(value)}
+                                value={value}
                             />
+                            )}
+                            name="farmType"
+                            rules={{ required: true }}
+                            defaultValue={item.farm_type}
+                        />
 
 
-                            <Text style={styles.label}>Address</Text>
-                            <Controller
-                                control={control}
-                                render={({ onChange, onBlur, value }) => (
-                                <TextInput
-                                    style={styles.input}
-                                    onBlur={onBlur}
-                                    onChangeText={value => onChange(value)}
-                                    value={value}
-                                />
-                                )}
-                                name="farmAddress"
-                                rules={{ required: true }}
-                                defaultValue={item.farmAddress}
+                        <Text style={styles.label}>Address</Text>
+                        <Controller
+                            control={control}
+                            render={({ onChange, onBlur, value }) => (
+                            <TextInput
+                                style={styles.input}
+                                onBlur={onBlur}
+                                onChangeText={value => onChange(value)}
+                                value={value}
                             />
+                            )}
+                            name="farmAddress"
+                            rules={{ required: true }}
+                            defaultValue={item.farm_address}
+                        />
 
-                            <Text style={styles.label}>Email Address</Text>
-                            <Controller
-                                control={control}
-                                render={({ onChange, onBlur, value }) => (
-                                <TextInput
-                                    style={styles.input}
-                                    onBlur={onBlur}
-                                    onChangeText={value => onChange(value)}
-                                    value={value}
-                                />
-                                )}
-                                name="email"
-                                rules={{ required: true }}
-                                defaultValue={item.email}
+                        <Text style={styles.label}>Email Address</Text>
+                        <Controller
+                            control={control}
+                            render={({ onChange, onBlur, value }) => (
+                            <TextInput
+                                style={styles.input}
+                                onBlur={onBlur}
+                                onChangeText={value => onChange(value)}
+                                value={value}
                             />
+                            )}
+                            name="email"
+                            rules={{ required: true }}
+                            defaultValue={item.email}
+                        />
 
-                            <Text style={styles.label}>Password</Text>
-                            <Controller
-                                control={control}
-                                render={({ onChange, onBlur, value }) => (
-                                <TextInput
-                                    style={styles.input}
-                                    onBlur={onBlur}
-                                    onChangeText={value => onChange(value)}
-                                    value={value}
-                                />
-                                )}
-                                name="password"
-                                rules={{ required: true }}
-                                defaultValue={item.password}
+                        <Text style={styles.label}>Password</Text>
+                        <Controller
+                            control={control}
+                            render={({ onChange, onBlur, value }) => (
+                            <TextInput
+                                style={styles.input}
+                                onBlur={onBlur}
+                                onChangeText={value => onChange(value)}
+                                value={value}
                             />
+                            )}
+                            name="password"
+                            rules={{ required: true }}
+                            defaultValue='password'
+                        />
 
-                            <Button
-                                contentStyle={{height: 50, width: 25, }} 
-                                mode="contained" 
-                                color='#F4F3BE' 
-                                style={{marginTop: 30, borderRadius: 10}} 
-                                contentStyle={{height: 50}} 
-                                labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
-                            >
-                                Edit
-                            </Button>
-                            </>
-                        );
-                    }}
-                />
-            </View>
+                        <Button
+                            contentStyle={{height: 50, width: 25, }} 
+                            mode="contained" 
+                            color='#F4F3BE' 
+                            style={{marginTop: 30, borderRadius: 10}} 
+                            contentStyle={{height: 50}} 
+                            labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
+                        >
+                            Edit
+                        </Button>
+                    </>
+                </View>
+            </ScrollView>
         </View>
         </>
     )

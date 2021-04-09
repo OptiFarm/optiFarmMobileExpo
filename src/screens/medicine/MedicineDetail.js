@@ -199,7 +199,7 @@ export default function MedicineDetail ({ navigation, route }) {
                     <MaterialIcons name="arrow-back-ios" size={30} color="white" />
                 </TouchableOpacity>
                 <Text style={styles.name}>
-                    {item.medicineName} 
+                    {item.medication_name} 
                 </Text>
                 <View style={styles.rightContainer}>
                 </View>
@@ -243,10 +243,10 @@ export default function MedicineDetail ({ navigation, route }) {
                                             <Text style={styles.key}>Milk</Text>
                                         </View>
                                         <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
-                                            <Text style={styles.value}>{item.medicineExpiry}</Text>
+                                            <Text style={styles.value}>{item.expiry_date}</Text>
                                             <Text style={{color: activeColor, fontSize: 18, paddingTop: 23, fontFamily: 'Sora-SemiBold'}}>{item.medicineWithdrawal}</Text>
-                                            <Text style={styles.value}>{item.medicineMeat}</Text>
-                                            <Text style={styles.value}>{item.medicineMilk}</Text>
+                                            <Text style={styles.value}>{item.withdrawal_days_meat} days</Text>
+                                            <Text style={styles.value}>{item.withdrawal_days_dairy} days</Text>
                                         </View>
                                     </View>
                             </View>
@@ -262,10 +262,10 @@ export default function MedicineDetail ({ navigation, route }) {
                                             <Text style={styles.key}>Batch No</Text>
                                         </View>
                                         <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
-                                            <Text style={styles.value}>{item.medicineQuantity}</Text>
-                                            <Text style={styles.value}>{item.medicinePurchaseDate}</Text>
-                                            <Text style={styles.value}>{item.medicinePurchaseAt}</Text>
-                                            <Text style={styles.value}>{item.medicineBatchNo}</Text>
+                                            <Text style={styles.value}>{item.remaining_quantity} / {item.quantity} {item.quantity_type}</Text>
+                                            <Text style={styles.value}>{item.purchase_date}</Text>
+                                            <Text style={styles.value}>{item.supplied_by}</Text>
+                                            <Text style={styles.value}>{item.batch_number}</Text>
                                         </View>
                                 </View>
                             </View>
@@ -281,7 +281,7 @@ export default function MedicineDetail ({ navigation, route }) {
                             </View>
                             <Card style={{borderRadius: 10, marginTop: 10, backgroundColor: cardBackground}}>
                                 <Card.Content>
-                                    <Paragraph style={{paddingVertical: SPACING, color: 'white', fontFamily: 'Sora-SemiBold', fontSize: 18}}>This is a note</Paragraph>
+                                    <Paragraph style={{paddingVertical: SPACING, color: 'white', fontFamily: 'Sora-SemiBold', fontSize: 18}}>{item.comments}</Paragraph>
                                 </Card.Content>
                             </Card>
                         </View>
@@ -296,7 +296,7 @@ export default function MedicineDetail ({ navigation, route }) {
             <Portal>
                 <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
                     <TextInput style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: 'white', bottom: 50, textAlign: 'center'}} autoFocus={true}>
-                        This is a note
+                        {item.comments}
                     </TextInput>
                     <Button icon="check" mode="contained" color='#F4F3BE' style={{top: 70, marginHorizontal: SPACING,}} onPress={hideModal} labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17}}>
                         Edit

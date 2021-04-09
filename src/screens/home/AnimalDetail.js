@@ -84,7 +84,7 @@ export default function AnimalDetail ({ navigation, route }) {
     const containerStyle = {backgroundColor: cardBackground, borderRadius: 15, marginHorizontal: SPACING, height: 250, bottom: 100};
 
     // COW LOGO
-    const cowLogo = item.animal_sex === 'Male' ? 'https://i.ibb.co/NnqjqXC/maleCow.png' : 'https://i.ibb.co/V989V52/female-Cow.png';
+    const cowLogo = item.male_female === 'M' ? 'https://i.ibb.co/NnqjqXC/maleCow.png' : 'https://i.ibb.co/V989V52/female-Cow.png';
 
     return (
         <>
@@ -96,7 +96,7 @@ export default function AnimalDetail ({ navigation, route }) {
                     <MaterialIcons name="arrow-back-ios" size={30} color="white" />
                 </TouchableOpacity>
                 <Text style={styles.name}>
-                    {item.animal_id} 
+                    {item.tag_number} 
                 </Text>
                 <View style={styles.rightContainer}>
                     <Image source={{ uri: cowLogo }} style={{ height: 40, width: 40 }}/>
@@ -134,7 +134,7 @@ export default function AnimalDetail ({ navigation, route }) {
                                 <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
                                     <View style={{flexDirection: 'row'}}>
                                         <View>
-                                            <Text style={styles.key}>Tag No</Text>
+                                            <Text style={styles.key}>Herd No</Text>
                                             <Text style={styles.key}>Sire Number</Text>
                                             <Text style={styles.key}>Mother Number</Text>
                                             <Text style={styles.key}>Sex</Text>
@@ -142,12 +142,12 @@ export default function AnimalDetail ({ navigation, route }) {
                                             <Text style={styles.key}>Breed</Text>
                                         </View>
                                         <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
-                                            <Text style={styles.value}>{item.animal_tag}</Text>
+                                            <Text style={styles.value}>{item.herd_number}</Text>
                                             <Text style={styles.value}>{item.sire_number}</Text>
                                             <Text style={styles.value}>{item.mother_number}</Text>
-                                            <Text style={styles.value}>{item.animal_sex}</Text>
-                                            <Text style={styles.value}>{item.animal_dob}</Text>
-                                            <Text style={styles.value}>{item.animal_breed}</Text>
+                                            <Text style={styles.value}>{item.male_female}</Text>
+                                            <Text style={styles.value}>{item.date_of_birth}</Text>
+                                            <Text style={styles.value}>{item.breed_type}</Text>
                                         </View>
                                     </View>
                             </View>
@@ -184,7 +184,7 @@ export default function AnimalDetail ({ navigation, route }) {
                             </View>
                             <Card style={{borderRadius: 10, marginTop: 10, backgroundColor: cardBackground}}>
                                 <Card.Content>
-                                    <Paragraph style={{paddingVertical: SPACING, color: 'white', fontFamily: 'Sora-SemiBold', fontSize: 18}}>This is a note</Paragraph>
+                                    <Paragraph style={{paddingVertical: SPACING, color: 'white', fontFamily: 'Sora-SemiBold', fontSize: 18}}>{item.description}</Paragraph>
                                 </Card.Content>
                             </Card>
                         </View>
@@ -199,7 +199,7 @@ export default function AnimalDetail ({ navigation, route }) {
             <Portal>
                 <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
                     <TextInput style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: 'white', bottom: 50, textAlign: 'center'}} autoFocus={true}>
-                        This is a note
+                        {item.description}
                     </TextInput>
                     <Button icon="check" mode="contained" color='#F4F3BE' style={{top: 70, marginHorizontal: SPACING,}} onPress={hideModal} labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17}}>
                         Edit

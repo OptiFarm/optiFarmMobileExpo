@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 export const AnimalItemView = ({ navigation, item }) => {
 
     // COW LOGO
-    const cowLogo = item.animal_sex === 'Male' ? 'https://i.ibb.co/NnqjqXC/maleCow.png' : 'https://i.ibb.co/V989V52/female-Cow.png';
+    const cowLogo = item.male_female === 'M' ? 'https://i.ibb.co/NnqjqXC/maleCow.png' : 'https://i.ibb.co/V989V52/female-Cow.png';
 
     return (
         <TouchableOpacity 
@@ -56,8 +56,8 @@ export const AnimalItemView = ({ navigation, item }) => {
 
                 <View style={{flexDirection: 'row'}}>
                     <View>
-                        <Text style={styles.name}>ID: <Text style={{color: '#F4F3BE'}}>{item.animal_id}</Text></Text>
-                        <Text style={styles.animalType}>{item.animal_type}</Text>
+                        <Text style={styles.name}>ID: <Text style={{color: '#F4F3BE'}}>{item.tag_number}</Text></Text>
+                        <Text style={styles.animalType}>Herd Number: <Text style={{color: '#F4F3BE'}}>{item.herd_number}</Text></Text>
                     </View>
                     <View style={{position: 'absolute', right: 0, top: SPACING}}>
                         <Image source={{ uri: cowLogo }} style={{ height: 40, width: 40 }}/>
@@ -67,15 +67,15 @@ export const AnimalItemView = ({ navigation, item }) => {
                 <View style={{flexDirection: 'row'}}>
                     <View>
                         <Text style={styles.animalLabel}>Sex</Text>
-                        <Text style={styles.animalDesc}>{item.animal_sex}</Text>
+                        <Text style={styles.animalDesc}>{item.male_female}</Text>
                     </View>
                     <View style={{position: 'absolute', right: 0}}>
                         <Text style={styles.animalLabel}>Breed</Text>
-                        <Text style={[styles.animalDesc, {position: 'absolute', right: 0, top: 63,}]}>{item.animal_breed}</Text>
+                        <Text style={[styles.animalDesc, {position: 'absolute', right: 0, top: 63,}]}>{item.breed_type}</Text>
                     </View>
                 </View>
                 <Text style={styles.animalLabel}>Date of Birth</Text>
-                <Text style={styles.animalDesc}>{item.animal_dob}</Text>
+                <Text style={styles.animalDesc}>{item.date_of_birth}</Text>
             </View>
         </TouchableOpacity>
     );

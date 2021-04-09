@@ -61,13 +61,13 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
                         <Text style={[styles.medicineDesc, {color: '#F3F4B8'}]}>{item.animal}</Text>
                     </View>
                     <View style={{position: 'absolute', right: 0}}>
-                        <Text style={styles.medicineLabel}>Withdrawal Period</Text>
-                        <Text style={[styles.medicineDesc, {position: 'absolute', right: 0, top: 60, color: '#D74747'}]}>{item.withdrawalPeriod}</Text>
+                        <Text style={styles.medicineLabel}>Quantity</Text>
+                        <Text style={[styles.medicineDesc, {position: 'absolute', right: 0, top: 60,}]}>{item.quantity_administered} {item.quantity_type}</Text>
                     </View>
                 </View>
 
                 <Text style={styles.medicineLabel}>Date of Administration</Text>
-                <Text style={styles.medicineDesc}>21 March 2021</Text>
+                <Text style={styles.medicineDesc}>{item.date_of_administration}</Text>
 
             </View>
         </TouchableOpacity>

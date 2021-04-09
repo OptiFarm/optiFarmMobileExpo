@@ -57,20 +57,20 @@ export const MedicineItemView = ({ navigation, item }) => {
                 <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderTopRightRadius: 15, borderBottomRightRadius: 15, borderLeftColor: color, borderLeftWidth: 3}]}/>
                 <View style={{flexDirection: 'row'}}>
                     <View>
-                        <Text style={styles.name}>{item.medicineName}</Text>
-                        <Text style={styles.medicineType}>{item.medicineType}</Text>    
+                        <Text style={styles.name}>{item.medication_name}</Text>
+                        <Text style={styles.medicineType}>{item.medicine_type}</Text>    
                     </View>
-                    <Text style={[styles.name, {color: color, fontSize: 18, top: 20, fontFamily: 'Sora-SemiBold', position: 'absolute', right: 0}]}>{item.medicineLevel}</Text>
+                    <Text style={[styles.name, {color: color, fontSize: 18, top: 20, fontFamily: 'Sora-SemiBold', position: 'absolute', right: 0}]}>{item.quantity}</Text>
                 </View>
                 <View style={styles.border} />
                 <View style={{flexDirection: 'row'}}>
                     <View>
                         <Text style={styles.medicineLabel}>Expiration Date</Text>
-                        <Text style={styles.medicineDesc}>{item.medicineExpiry}</Text>
+                        <Text style={styles.medicineDesc}>{item.expiry_date}</Text>
                     </View>
                     <View style={{position: 'absolute', right: 0}}>
                         <Text style={styles.medicineLabel}>Quantity</Text>
-                        <Text style={[styles.medicineDesc, {position: 'absolute', right: 0, top: 58}]}>{item.medicineQuantity}</Text>
+                        <Text style={[styles.medicineDesc, {position: 'absolute', right: 0, top: 58}]}>{item.quantity} {item.quantity_type}</Text>
                     </View>
                 </View>
             </View>

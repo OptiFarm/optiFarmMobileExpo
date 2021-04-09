@@ -20,7 +20,27 @@ import AuthenticationStackComp from './src/routes/AuthenticationStack';
 // LOADER
 import { PageLoader } from './src/components/atoms/PageLoader';
 
+// GRAPHQL
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+} from "@apollo/client";
+
 const RootStack = createStackNavigator();
+
+// GRAPHQL CLIENT
+const cache = new InMemoryCache();
+const client = new ApolloClient({
+  uri: "http://52.72.164.146:4000/optiFarm",
+  headers: {
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZmJkNWE2NGJjOTM3MDA0ZjRhZDIxZDIiLCJpYXQiOjE2MTc2MzIyODZ9._muvW5leYi4jVrO5nYvbNWaEJw4zPJ6rdMCWLqJdojY",
+      "Content-Type": "application/json",
+  },
+  cache,
+  defaultOptions: { watchQuery: { fetchPolicy: "cache-and-network" } },
+});
 
 export default function App () {
 
@@ -119,24 +139,26 @@ if (!fontsloaded) {
     }
     return (
       <>
-        <AuthContext.Provider value={authContext}>
-          <NavigationContainer>
-            { loginState.userToken !== null ? (
-              <RootStack.Navigator headerMode="none">
-                <RootStack.Screen name="Back" component={TabNavigator} />
-                <RootStack.Screen name="Home" component={HomeStackComp} />
-                <RootStack.Screen name="Medicine" component={MedicineStackComp} />
-                <RootStack.Screen name="Group" component={GroupStackComp} />
-                <RootStack.Screen name="Profile" component={ProfileStackComp} />
-              </RootStack.Navigator>
-            )
-          :
-              <RootStack.Navigator headerMode="none">
-                <RootStack.Screen name="Authentication" component={AuthenticationStackComp} />
-              </RootStack.Navigator>
-          }
-          </NavigationContainer>
-        </AuthContext.Provider>
+        <ApolloProvider client={client}>
+          <AuthContext.Provider value={authContext}>
+            <NavigationContainer>
+              { loginState.userToken !== null ? (
+                <RootStack.Navigator headerMode="none">
+                  <RootStack.Screen name="Back" component={TabNavigator} />
+                  <RootStack.Screen name="Home" component={HomeStackComp} />
+                  <RootStack.Screen name="Medicine" component={MedicineStackComp} />
+                  <RootStack.Screen name="Group" component={GroupStackComp} />
+                  <RootStack.Screen name="Profile" component={ProfileStackComp} />
+                </RootStack.Navigator>
+              )
+            :
+                <RootStack.Navigator headerMode="none">
+                  <RootStack.Screen name="Authentication" component={AuthenticationStackComp} />
+                </RootStack.Navigator>
+            }
+            </NavigationContainer>
+          </AuthContext.Provider>
+        </ApolloProvider>
       </>
     );
   };

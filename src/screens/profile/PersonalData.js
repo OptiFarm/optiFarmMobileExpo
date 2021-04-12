@@ -8,6 +8,9 @@ import { Text, View, Image, StyleSheet, FlatList, TextInput, TouchableOpacity } 
 import { Button } from 'react-native-paper';
 import { PageHeader } from '../../components/atoms/PageHeader'
 
+// LOADER
+import { PageLoader } from '../../components/atoms/PageLoader';
+
 // THEME
 import { SPACING, defaultBackground, cardBackground } from '../../config/theme';
 
@@ -67,6 +70,11 @@ export default function PersonalData ({navigation}) {
 
     // USER INFO
     const { data, loading } = useQuery(GET_USER_INFO);
+
+    if (loading) {
+        return <PageLoader />
+    }
+
     const item = data.farmer.farmer;
 
     return (

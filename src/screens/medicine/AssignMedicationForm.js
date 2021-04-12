@@ -59,7 +59,6 @@ export default function AssignMedicationForm ({ navigation, route }) {
     // REACT HOOK FORM FUNCTIONS
     const { control, handleSubmit, errors } = useForm();
     const onSubmit = data => {
-        // console.log(data);
         navigation.navigate('AssignMedicationConfirm', data);
     };
 
@@ -230,8 +229,7 @@ export default function AssignMedicationForm ({ navigation, route }) {
                         contentStyle={{height: 50}} 
                         labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
                         onPress={handleSubmit(onSubmit)}
-                        // onPress={() => console.log('test')}
-                        >
+                    >
                         Done
                     </Button>
                 </ScrollView>

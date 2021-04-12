@@ -81,8 +81,6 @@ export default function EditAnimalForm ({navigation, route}) {
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
     const onSubmit = data => {
 
-        console.log(data)
-
         const id = item.id;
         const breed_type = data.breed;
         const date_of_birth = data.dateOfBirth;

@@ -83,7 +83,6 @@ export default function RegisterScreen ({navigation}) {
     // REACT HOOK FORM FUNCTIONS
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
     const onSubmit = data => {
-        console.log(data);
         navigation.navigate('Authentication', {screen: 'StartScreen'});
     };
     

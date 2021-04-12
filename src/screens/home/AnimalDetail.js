@@ -114,24 +114,6 @@ export default function AnimalDetail ({ navigation, route }) {
     // Variables for Assign Medication Form
     const animalTag = item.tag_number;
 
-    console.log(item)
-    // Object {
-    //     "__typename": "Animal",
-    //     "animal_name": "TEST",
-    //     "breed_type": "HHH",
-    //     "date_of_birth": "2020-12-12T00:00:00.000Z",
-    //     "description": "Yyyyy",
-    //     "herd_number": "IE 1234567",
-    //     "id": "601afa1fb268dc3ef08817d8",
-    //     "male_female": "M",
-    //     "mother_number": 12344,
-    //     "pure_breed": true,
-    //     "sire_number": 12344,
-    //     "tag_number": 14345,
-    // }
-
-    //animal tag, medicine name, withdrawal meat, withdrawal milk, quantity remaining
-
     // ASSIGN MEDICATION MODAL
     const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
 

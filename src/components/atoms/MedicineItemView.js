@@ -56,6 +56,9 @@ export const MedicineItemView = ({ navigation, item }) => {
                                 : item.remaining_quantity === midLevel ? 'Medium Quantity'
                                 : 'High Quantity'
 
+    const toLower = item.medicine_type.toLowerCase();
+    const medicineType = toLower.charAt(0).toUpperCase() + toLower.slice(1)
+
     // FORMAT DATE TIME
     Moment.locale('en');
     var dt = item.purchase_date;
@@ -71,7 +74,7 @@ export const MedicineItemView = ({ navigation, item }) => {
                 <View style={{flexDirection: 'row'}}>
                     <View>
                         <Text style={styles.name}>{item.medication_name}</Text>
-                        <Text style={styles.medicineType}>{item.medicine_type}</Text>    
+                        <Text style={styles.medicineType}>{medicineType}</Text>    
                     </View>
                     <Text style={[styles.name, {color: medicineLevelColor, fontSize: 18, top: 20, fontFamily: 'Sora-SemiBold', position: 'absolute', right: 0}]}>{medicineLevelLabel}</Text>
                 </View>

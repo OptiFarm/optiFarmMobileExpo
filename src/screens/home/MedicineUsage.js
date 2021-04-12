@@ -1,8 +1,7 @@
 import * as React from 'react';
-import faker from 'faker';
 
 // COMPONENT
-import { View, FlatList, SafeAreaView } from 'react-native';
+import { View, FlatList, SafeAreaView, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { PageHeader } from '../../components/atoms/PageHeader'
 import { MedicineUsageItemView } from '../../components/atoms/MedicineUsageItemView';
@@ -15,7 +14,19 @@ import { useQuery } from '@apollo/client';
 import { GET_MEDICATION_USAGE_LIST } from '../../config/graphql/queries';
 
 // THEME
-import { SPACING, defaultBackground } from '../../config/theme';
+import { SPACING, defaultBackground, topOS } from '../../config/theme';
+
+const styles = StyleSheet.create({
+    header_inner: {
+      flex:1,
+      overflow: 'hidden',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      position: 'relative',
+      marginTop: topOS
+    }
+})
 
 export default function MedicationUsage ({navigation}) {
 
@@ -26,22 +37,23 @@ export default function MedicationUsage ({navigation}) {
         return <PageLoader />
     }
 
-    const MedicineUsageData = data.administeredMedications.administeredMedications.map((item, index) => ({
-        ...item,
-        key: faker.random.uuid() 
-    }))
+    const MedicineUsageList = data.administeredMedications.administeredMedications;
 
     return (
         <>
         <SafeAreaView style={{backgroundColor: defaultBackground}}>
-            <PageHeader label="Medicine Usage" goBack={navigation.goBack} showChevron='true' showSearch='true' whereScreen='MedicineUsage'/>
+            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING, marginBottom: SPACING}}> 
+                <View style={styles.header_inner}>
+                    <PageHeader label="Medicine Usage" goBack={navigation.goBack} showChevron='true' />
+                </View>              
+            </View>            
         </SafeAreaView>
         <View style={{backgroundColor: defaultBackground, flex: 1,}}>
             <FlatList
                 style={{marginTop: SPACING}}
                 showsVerticalScrollIndicator={false}
-                data={MedicineUsageData}
-                keyExtractor={(item) => item.key}
+                data={MedicineUsageList}
+                keyExtractor={(item, index) => item.id}
                 contentContainerStyle={{ paddingHorizontal: SPACING }}
                 renderItem={({item}) => <MedicineUsageItemView item={item} navigation={navigation} />} 
             /> 

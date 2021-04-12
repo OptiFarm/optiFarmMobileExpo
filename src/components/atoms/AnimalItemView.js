@@ -1,4 +1,5 @@
 import React from 'react';
+import Moment from 'moment';
 
 // COMPONENTS
 import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
@@ -45,10 +46,15 @@ export const AnimalItemView = ({ navigation, item }) => {
 
     // COW LOGO
     const cowLogo = item.male_female === 'M' ? 'https://i.ibb.co/NnqjqXC/maleCow.png' : 'https://i.ibb.co/V989V52/female-Cow.png';
+    
+    // FORMAT DATE TIME
+    Moment.locale('en');
+    var dt = item.date_of_birth;
+    const date_of_birth = Moment(dt).format('YYYY-MM-DD');
 
     return (
         <TouchableOpacity 
-            onPress={() => navigation.navigate('Home', {screen: 'AnimalDetail', params: {item}})}
+            onPress={() => navigation.navigate('Home', {screen: 'AnimalDetail', params: {item, date_of_birth, cowLogo}})}
             style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 265 }}
         >
             <View style={{ flex: 1, padding: SPACING }}>
@@ -75,7 +81,7 @@ export const AnimalItemView = ({ navigation, item }) => {
                     </View>
                 </View>
                 <Text style={styles.animalLabel}>Date of Birth</Text>
-                <Text style={styles.animalDesc}>{item.date_of_birth}</Text>
+                <Text style={styles.animalDesc}>{date_of_birth}</Text>
             </View>
         </TouchableOpacity>
     );

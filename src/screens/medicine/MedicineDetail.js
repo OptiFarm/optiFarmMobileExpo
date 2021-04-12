@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState, useEffect } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { MaterialIcons, Feather } from '@expo/vector-icons'; 
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
@@ -31,9 +31,6 @@ import {
     medicineLevelHigh,
     CELL_HEIGHT
 } from '../../config/theme';
-
-// DATA
-import { assignMedicationData } from '../../config/data/Animal'
 
 // QUERY
 import { useQuery } from '@apollo/client';
@@ -147,9 +144,8 @@ export default function MedicineDetail ({ navigation, route }) {
         bottomSheetModalRef.current?.close();
     }, []);
 
-    const renderItem = ({ item }) => {
+    const renderAnimalList = ({ item }) => {
 
-        console.log(item)
         const cowLogo = item.male_female === 'F' ? 'https://i.ibb.co/B4cgVmv/cow-5.png' : 'https://i.ibb.co/g6MntkZ/cow-6.png';
 
         return (
@@ -319,7 +315,7 @@ export default function MedicineDetail ({ navigation, route }) {
                     showsVerticalScrollIndicator={true}
                     data={filteredData && filteredData.length > 0 ? filteredData : AnimalList}
                     keyExtractor={(item, index) => item.id}
-                    renderItem={renderItem}
+                    renderItem={renderAnimalList}
                     contentContainerStyle={modalStyles.contentContainer}
                 />
             </BottomSheetModal>

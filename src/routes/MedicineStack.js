@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 // SCREENS IMPORTS
 import MedicineDetail from '../screens/medicine/MedicineDetail'
 import MedicineForm from '../screens/medicine/MedicineForm'
-import AssignMedication from '../screens/medicine/AssignMedication'
+import AssignMedicationForm from '../screens/medicine/AssignMedicationForm'
 import AssignMedicationConfirm from '../screens/medicine/AssignMedicationConfirm'
 
 const MedicineHomeStack = createStackNavigator();
@@ -13,7 +13,7 @@ export default function MedicineStackComp() {
     <MedicineHomeStack.Navigator headerMode="none">
       <MedicineHomeStack.Screen name="MedicineDetail" component={MedicineDetail} />
       <MedicineHomeStack.Screen name="MedicineForm" component={MedicineForm} />
-      <MedicineHomeStack.Screen name="AssignMedication" component={AssignMedication} />
+      <MedicineHomeStack.Screen name="AssignMedicationForm" component={AssignMedicationForm} />
       <MedicineHomeStack.Screen name="AssignMedicationConfirm" component={AssignMedicationConfirm} />
     </MedicineHomeStack.Navigator>
   );

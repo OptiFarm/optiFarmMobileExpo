@@ -56,8 +56,7 @@ export const MedicineItemView = ({ navigation, item }) => {
                                 : item.remaining_quantity === midLevel ? 'Medium Quantity'
                                 : 'High Quantity'
 
-    const toLower = item.medicine_type.toLowerCase();
-    const medicineType = toLower.charAt(0).toUpperCase() + toLower.slice(1)
+    const medicineType = item.medicine_type.charAt(0) + item.medicine_type.slice(1).toLowerCase();
 
     // FORMAT DATE TIME
     Moment.locale('en');

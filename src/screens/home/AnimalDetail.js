@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { MaterialIcons, Feather } from '@expo/vector-icons'; 
 
 // COMPONENTS
@@ -8,10 +8,20 @@ import {
     StyleSheet, 
     TouchableOpacity, 
     Text, 
+    TextInput,
     Image,
     ScrollView
 } from 'react-native';
 import { Button } from 'react-native-paper';
+import BottomSheet, { BottomSheetFlatList, BottomSheetModalProvider, BottomSheetModal, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import { CustomSheetBackground } from '../../components/atoms/CustomSheetBackground'
+
+// LOADER
+import { PageLoader } from '../../components/atoms/PageLoader';
+
+// QUERY
+import { useQuery } from '@apollo/client';
+import { GET_MEDICATIONS } from '../../config/graphql/queries';
 
 // THEME
 import { 
@@ -20,7 +30,10 @@ import {
     defaultBackground, 
     cardBackground, 
     topOS,
-    CELL_HEIGHT
+    CELL_HEIGHT,
+    medicineLevelLow, 
+    medicineLevelMedium, 
+    medicineLevelHigh,
 } from '../../config/theme';
 
 const styles = StyleSheet.create({
@@ -63,10 +76,139 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         right: SPACING
     },
+    container: {
+        flex: 1,
+        padding: 24,
+        justifyContent: 'center',
+    },
+    input: {
+        marginTop: 8,
+        marginBottom: 10,
+        borderRadius: 10,
+        fontSize: 16,
+        lineHeight: 20,
+        padding: 8,
+        backgroundColor: 'white',
+        fontFamily: 'Sora-SemiBold',
+        height: 45
+    },
+    containerModal: {
+        paddingHorizontal: SPACING,
+        paddingVertical: 5,
+    }
+});
+
+const modalStyles = StyleSheet.create({
+    contentContainer: {
+      padding: SPACING,
+    },
+    itemContainer: {
+      padding: 6,
+      marginBottom: SPACING,
+    },
 });
 
 export default function AnimalDetail ({ navigation, route }) {
     const { item, date_of_birth, cowLogo } = route.params;
+
+    // Variables for Assign Medication Form
+    const animalTag = item.tag_number;
+
+    console.log(item)
+    // Object {
+    //     "__typename": "Animal",
+    //     "animal_name": "TEST",
+    //     "breed_type": "HHH",
+    //     "date_of_birth": "2020-12-12T00:00:00.000Z",
+    //     "description": "Yyyyy",
+    //     "herd_number": "IE 1234567",
+    //     "id": "601afa1fb268dc3ef08817d8",
+    //     "male_female": "M",
+    //     "mother_number": 12344,
+    //     "pure_breed": true,
+    //     "sire_number": 12344,
+    //     "tag_number": 14345,
+    // }
+
+    //animal tag, medicine name, withdrawal meat, withdrawal milk, quantity remaining
+
+    // ASSIGN MEDICATION MODAL
+    const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
+
+    const bottomSheetModalRef = useRef(null);
+
+    const handleSheetChanges = useCallback(index => {
+        // console.log('handleSheetChange', index);
+    }, []);
+    const handlePresentModalPress = useCallback(() => {
+        bottomSheetModalRef.current?.present();
+    }, []);
+    const handleClosePress = useCallback(() => {
+        bottomSheetModalRef.current?.close();
+    }, []);
+
+    const renderMedicineList = ({ item }) => {
+
+        const medicineName = item.medication_name;
+        const withdrawalMilk = item.withdrawal_days_dairy;
+        const withdrawalMeat = item.withdrawal_days_meat;
+        const medicineQuantity = item.remaining_quantity;
+        const medicineQuantityType = item.quantity_type;
+
+        // MEDICINE QUANTITY COLOR
+        const midLevel = item.quantity / 2;
+
+        const medicineLevelColor = item.remaining_quantity < midLevel ? medicineLevelLow
+                                    : item.remaining_quantity === midLevel ? medicineLevelMedium
+                                    : medicineLevelHigh
+
+        return (
+            <TouchableOpacity 
+                onPress={() => navigation.navigate('Medicine', { screen: 'AssignMedicationForm', 
+                params: {
+                    animalID: animalTag, 
+                    medicineName: medicineName, 
+                    withdrawalMeat: withdrawalMeat, 
+                    withdrawalMilk: withdrawalMilk, 
+                    medicineQuantity: medicineQuantity, 
+                    medicineQuantityType: medicineQuantityType, 
+                    color: medicineLevelColor
+                }})}
+                style={{flexDirection: 'row', marginBottom: 40, alignItems: 'center',}}
+            >
+                <View style={{ flexDirection: 'row',}}>
+                    <View style={{backgroundColor: cardBackground, borderTopRightRadius: 15, borderBottomRightRadius: 15, borderLeftColor: medicineLevelColor, borderLeftWidth: 3}}>
+                        <Text style={{fontFamily: 'Sora-SemiBold', fontSize: 18, color: 'white', left: SPACING}}>Medicine: <Text style={{color: '#F4F3BE'}}>{item.medication_name}</Text></Text>
+                        <View style={{borderBottomColor: '#9D9D9D', opacity: 0.4, borderBottomWidth: 1, top: 45, width: 350,}}/>
+                        <Text style={{fontFamily: 'Sora-SemiBold', fontSize: 18, color: 'white', left: SPACING}}>Quantity: <Text style={{color: '#F4F3BE'}}>{item.remaining_quantity} / {item.quantity} {item.quantity_type}</Text></Text>
+                    </View>
+                </View>
+                <Feather name="chevron-right" size={30} color="#F4F3BE" style={{position: 'absolute', right: 0, bottom: SPACING}}/> 
+            </TouchableOpacity>
+        );
+    };
+
+    // SEARCH HANDLES
+    const [searchText, setSearchText] = useState('');
+    const [filteredData, setFilteredData] = useState([]);
+
+    const { data, loading } = useQuery(GET_MEDICATIONS);
+    
+    if (loading) {
+        return <PageLoader />
+    } 
+
+    const MedicineList = data.medications.medications;
+
+    const search = (searchText) => {
+        setSearchText(searchText);
+
+        let filteredData = MedicineList.filter(function (item) {
+            return item.medication_name.toLowerCase().includes(searchText);
+        });
+
+        setFilteredData(filteredData);
+    }
 
     return (
         <>
@@ -100,6 +242,7 @@ export default function AnimalDetail ({ navigation, route }) {
                     style={{marginTop: SPACING, borderRadius: 10}} 
                     contentStyle={{height: 50}} 
                     labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
+                    onPress={handlePresentModalPress}
                 >
                     Give Medication
                 </Button>
@@ -163,6 +306,37 @@ export default function AnimalDetail ({ navigation, route }) {
                 </View>
             </ScrollView>
         </SafeAreaView>
+
+        {/* ASSIGN MEDICATION MODAL */}
+        <BottomSheetModalProvider>
+            <BottomSheetModal
+                ref={bottomSheetModalRef}
+                snapPoints={snapPoints}
+                onChange={handleSheetChanges}
+                index={1}
+                backgroundComponent={CustomSheetBackground}
+                backdropComponent={BottomSheetBackdrop}
+            >
+                <View style={styles.containerModal}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Search for Medicine"
+                        clearButtonMode='always'
+                        onChangeText={search}
+                        value={searchText}
+                        placeholderTextColor='#848D95'
+                        returnKeyType='done'
+                    />
+                </View>
+                <BottomSheetFlatList
+                    showsVerticalScrollIndicator={true}
+                    data={filteredData && filteredData.length > 0 ? filteredData : MedicineList}
+                    keyExtractor={(item, index) => item.id}
+                    renderItem={renderMedicineList}
+                    contentContainerStyle={modalStyles.contentContainer}
+                />
+            </BottomSheetModal>
+        </BottomSheetModalProvider>
         </>
     );
 }

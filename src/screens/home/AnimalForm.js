@@ -12,9 +12,18 @@ import { useMutation } from '@apollo/client';
 import { ADD_OR_UPDATE_ANIMAL } from '../../config/graphql/mutation';
  
 // THEME
-import { SPACING, height, defaultBackground, cardBackground, width } from '../../config/theme';
+import { SPACING, height, defaultBackground, cardBackground, width, topOS } from '../../config/theme';
 
 const styles = StyleSheet.create({
+    header_inner: {
+        flex:1,
+        overflow: 'hidden',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        position: 'relative',
+        marginTop: topOS
+    },
     label: {
         color: 'white',
         marginTop: SPACING,
@@ -118,7 +127,11 @@ export default function AnimalForm ({navigation}) {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
-            <PageHeader  label="Add New Animal" goBack={navigation.goBack} showChevron='true'/>
+            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING, marginBottom: SPACING}}> 
+                <View style={styles.header_inner}>
+                    <PageHeader label="Add Animal" goBack={navigation.goBack} showChevron='true' />
+                </View>              
+            </View>   
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex: 1,}}>
                 <ScrollView style={{padding: SPACING}}>
                     <>

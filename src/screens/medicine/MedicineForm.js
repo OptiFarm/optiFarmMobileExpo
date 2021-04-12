@@ -13,9 +13,18 @@ import { useMutation } from '@apollo/client';
 import { SAVE_OR_UPDATE_MEDICATION } from '../../config/graphql/mutation';
 
 // THEME
-import { SPACING, height, defaultBackground, cardBackground, width } from '../../config/theme';
+import { SPACING, height, defaultBackground, cardBackground, width, topOS } from '../../config/theme';
 
 const styles = StyleSheet.create({
+    header_inner: {
+        flex:1,
+        overflow: 'hidden',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        position: 'relative',
+        marginTop: topOS
+    },
     label: {
         color: 'white',
         marginTop: SPACING,
@@ -70,24 +79,6 @@ export default function MedicineForm ({navigation}) {
     // REACT HOOK FORM FUNCTIONS
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
     const onSubmit = data => {
-      console.log(data);
-
-    //   Object {
-    //     "__typename": "Medication",
-    //     "batch_number": "Test 6",
-    //     "comments": "test",
-    //     "expiry_date": "2021-05-20T00:00:00.000Z",
-    //     "id": "607044e45ac8d40bc06abaaa",
-    //     "medication_name": "Penstrep",
-    //     "medicine_type": "VACCINATION",
-    //     "purchase_date": "2020-12-05T00:00:00.000Z",
-    //     "quantity": 100,
-    //     "quantity_type": "ML",
-    //     "remaining_quantity": 100,
-    //     "supplied_by": "Glanbia",
-    //     "withdrawal_days_dairy": 10,
-    //     "withdrawal_days_meat": 10,
-    //   },
 
       const medication_name = data.medicineName;
       const medicine_type = data.medicineType;
@@ -114,34 +105,6 @@ export default function MedicineForm ({navigation}) {
         purchase_date: dateOfPurchase,
         comments: comments,
       } });
-
-    // medication_name: "Conor Testing 2"
-    // supplied_by: "Virginia Veterinary Clinic"
-    // quantity: 1000
-    // quantity_type: ML
-    // medicine_type: DOSE
-    // withdrawal_days_meat: 10
-    // withdrawal_days_dairy: 12
-    // batch_number: "1237485"
-    // expiry_date: "2021-12-12"
-    // purchase_date: "2021-04-09"
-    // comments: "Testing"
-
-    // addMedicine({ variables: { 
-    //     medication_name: 'TESTTEST', 
-    //     medicine_type: 'VACCINATION',
-    //     supplied_by: 'Glanbia',
-    //     quantity: 12,
-    //     quantity_type: 'ML',
-    //     withdrawal_days_meat: 3,
-    //     withdrawal_days_dairy: 4,
-    //     batch_number: 'TEST 1',
-    //     expiry_date: '2020-11-12',
-    //     purchase_date: '2019-11-11',
-    //     comments: 'TEST',
-    //   } });
-
-    //   navigation.navigate('Home', {screen: 'FormSuccess'});
     };
   
     const onChange = arg => {
@@ -171,7 +134,11 @@ export default function MedicineForm ({navigation}) {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
-            <PageHeader  label="Add New Medicine" goBack={navigation.goBack} showChevron='true'/>
+            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING, marginBottom: SPACING}}> 
+                <View style={styles.header_inner}>
+                    <PageHeader label="Add Medicine" goBack={navigation.goBack} showChevron='true' />
+                </View>              
+            </View>   
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex: 1,}}>
                 <ScrollView style={{padding: SPACING}}>
                     <>

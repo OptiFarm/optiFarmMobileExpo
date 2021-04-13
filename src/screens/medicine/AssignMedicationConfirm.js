@@ -80,7 +80,7 @@ export default function AssignMedicationConfirm ({ navigation, route }) {
 
                 {/* CONFIRMATION CARD */}
                 <ScrollView style={{ paddingHorizontal: SPACING }}>
-                    <View style={{ flex: 1, padding: SPACING, height: height - 200, top: SPACING}}>
+                    <View style={{ flex: 1, padding: SPACING, height: height, top: SPACING}}>
                         <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderRadius: 15}]}/>
 
                         <Text style={styles.name}>{route.params['medication']}</Text>
@@ -101,6 +101,12 @@ export default function AssignMedicationConfirm ({ navigation, route }) {
 
                         <Text style={styles.medicineLabel}>Date of Administration</Text>
                         <Text style={styles.medicineDesc}>{route.params['date_of_administration']}</Text>
+
+                        <Text style={styles.medicineLabel}>Quantity Administered</Text>
+                        <Text style={styles.medicineDesc}>100 ML</Text>
+
+                        <Text style={styles.medicineLabel}>Remaining Medicine Quantity</Text>
+                        <Text style={styles.medicineDesc}>700 ML</Text>
 
                         <Text style={styles.medicineLabel}>Withdrawal Period</Text>
                         <Text style={[styles.medicineDesc, {color: '#D74747'}]}>Active</Text>

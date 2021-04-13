@@ -1,4 +1,5 @@
 import React from 'react';
+import Moment from 'moment';
 
 // COMPONENTS
 import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
@@ -42,9 +43,22 @@ const styles = StyleSheet.create({
 });
 
 export const MedicineUsageItemView = ({ navigation, item }) => {
+
+    // FORMAT DATE TIME
+    Moment.locale('en');
+    var dt = item.date_of_administration;
+    const date_of_administration = Moment(dt).format('YYYY-MM-DD');
+
     return (
         <TouchableOpacity 
-            onPress={() => {}}
+            onPress={() => navigation.navigate('Home', { screen: 'MedicineUsageDetail', 
+            params: {
+                administeredBy: item.administered_by, 
+                dateAdministered: date_of_administration,
+                quantityAdministered: item.quantity_administered, 
+                quantityType: item.quantity_type, 
+                reason: item.reason_for_administration
+            }})}
             style={{ marginBottom: 20, height: 300 }}
         >
             <View style={{ flex: 1, padding: SPACING, height: height - 50, top: SPACING}}>
@@ -67,7 +81,7 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
                 </View>
 
                 <Text style={styles.medicineLabel}>Date of Administration</Text>
-                <Text style={styles.medicineDesc}>{item.date_of_administration}</Text>
+                <Text style={styles.medicineDesc}>{date_of_administration}</Text>
 
             </View>
         </TouchableOpacity>

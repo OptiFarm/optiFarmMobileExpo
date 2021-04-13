@@ -12,7 +12,7 @@ import { PageHeader } from '../../components/atoms/PageHeader'
 import { PageLoader } from '../../components/atoms/PageLoader';
 
 // THEME
-import { SPACING, defaultBackground, cardBackground } from '../../config/theme';
+import { SPACING, defaultBackground, cardBackground, topOS } from '../../config/theme';
 
 // QUERY
 import { useQuery } from '@apollo/client';
@@ -20,6 +20,15 @@ import { GET_USER_INFO } from '../../config/graphql/queries';
 import { ScrollView } from 'react-native';
  
 const styles = StyleSheet.create({
+    header_inner: {
+        flex:1,
+        overflow: 'hidden',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        position: 'relative',
+        marginTop: topOS
+    },
     name: {
       fontSize: 18,
       fontFamily: 'Sora-SemiBold',
@@ -80,10 +89,14 @@ export default function PersonalData ({navigation}) {
     return (
         <>
         <SafeAreaView style={{backgroundColor: defaultBackground}}>
-            <PageHeader label="Personal Data" goBack={navigation.goBack} showChevron='true'/>
+            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING, marginBottom: SPACING}}> 
+                <View style={styles.header_inner}>
+                    <PageHeader label="Personal Data" goBack={navigation.goBack} showChevron='true' />
+                </View>              
+            </View>   
         </SafeAreaView>
         <View style={{backgroundColor: defaultBackground, flex: 1}}>
-            <View style={{width: 80, height: 80, backgroundColor: cardBackground, borderRadius: 15, alignSelf: 'center'}}>
+            <View style={{backgroundColor: cardBackground, borderRadius: 15, alignSelf: 'center', top: -10}}>
                 <Image
                     source={{ uri: 'https://i.ibb.co/XLMTmxc/53ccd086b469f546e7debba892ac46a5.jpg' }}
                     style={{width: 80, height: 80, borderRadius: 15,}}
@@ -204,6 +217,7 @@ export default function PersonalData ({navigation}) {
                                 onBlur={onBlur}
                                 onChangeText={value => onChange(value)}
                                 value={value}
+                                secureTextEntry
                             />
                             )}
                             name="password"

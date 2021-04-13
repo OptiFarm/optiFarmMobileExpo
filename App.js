@@ -32,7 +32,7 @@ const RootStack = createStackNavigator();
 // GRAPHQL CLIENT
 const cache = new InMemoryCache();
 const client = new ApolloClient({
-  uri: "http://52.72.164.146:4000/optiFarm",
+  uri: "http://54.144.86.17:4000/optiFarm",
   headers: {
     Authorization:
       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZmJkNWE2NGJjOTM3MDA0ZjRhZDIxZDIiLCJpYXQiOjE2MTc2MzIyODZ9._muvW5leYi4jVrO5nYvbNWaEJw4zPJ6rdMCWLqJdojY",

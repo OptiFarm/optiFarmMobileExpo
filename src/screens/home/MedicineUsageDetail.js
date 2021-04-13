@@ -56,19 +56,24 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function AssignMedicationConfirm ({ navigation, route }) {
+export default function MedicineUsageDetail ({ navigation, route }) {
 
     // Object {
+    //     "__typename": "AdministeredMedication",
     //     "administered_by": "Conor",
-    //     "animal": "40122",
-    //     "medication": "Penstrep",
-    //     "quantity_administered": "2",
-    //     "reason_for_administration": "For test",
-    //     "withdrawalMeat": "12 Days",
-    //     "withdrawalMilk": "10 Days",
-    //   }
+    //     "animal_id": "5fc543e9e04ba94a7cdf94a5",
+    //     "date_of_administration": "2020-12-12T00:00:00.000Z",
+    //     "id": "6046436af1d177186403ef61",
+    //     "medication_id": "5fd89a8e915d5d3cb0015929",
+    //     "quantity_administered": 10,
+    //     "quantity_type": "MG",
+    //     "reason_for_administration": "as",
+    // }
 
     // Missing: withdrawal period (active/no active)
+    // Missing: Dose given
+
+    const {administeredBy, dateAdministered, quantityAdministered, quantityType, reason} = route.params;
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
@@ -80,10 +85,10 @@ export default function AssignMedicationConfirm ({ navigation, route }) {
 
                 {/* CONFIRMATION CARD */}
                 <ScrollView style={{ paddingHorizontal: SPACING }}>
-                    <View style={{ flex: 1, padding: SPACING, height: height, top: SPACING}}>
+                    <View style={{ flex: 1, padding: SPACING, height: 500, top: SPACING}}>
                         <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderRadius: 15}]}/>
 
-                        <Text style={styles.name}>{route.params['medication']}</Text>
+                        <Text style={styles.name}>MISSING</Text>
                         <Text style={styles.medicineType}>Medicament</Text>
 
                         <View style={styles.border}/>
@@ -91,48 +96,23 @@ export default function AssignMedicationConfirm ({ navigation, route }) {
                         <View style={{flexDirection: 'row'}}>
                             <View>
                                 <Text style={styles.medicineLabel}>Animal ID</Text>
-                                <Text style={[styles.medicineDesc, {color: '#F3F4B8'}]}>{route.params['animal']}</Text>
+                                <Text style={[styles.medicineDesc, {color: '#F3F4B8'}]}>MISSING</Text>
                             </View>
                             <View style={{position: 'absolute', right: 0}}>
                                 <Text style={styles.medicineLabel}>Administered By</Text>
-                                <Text style={[styles.medicineDesc, {position: 'absolute', right: 0, top: 60,}]}>{route.params['administered_by']}</Text>
+                                <Text style={[styles.medicineDesc, {position: 'absolute', right: 0, top: 60,}]}>{administeredBy}</Text>
                             </View>
                         </View>
 
                         <Text style={styles.medicineLabel}>Date of Administration</Text>
-                        <Text style={styles.medicineDesc}>{route.params['date_of_administration']}</Text>
+                        <Text style={styles.medicineDesc}>{dateAdministered}</Text>
 
                         <Text style={styles.medicineLabel}>Quantity Administered</Text>
-                        <Text style={styles.medicineDesc}>100 ML</Text>
+                        <Text style={styles.medicineDesc}>{quantityAdministered} {quantityType}</Text>
 
-                        <Text style={styles.medicineLabel}>Remaining Medicine Quantity</Text>
-                        <Text style={styles.medicineDesc}>700 ML</Text>
-
-                        <Text style={styles.medicineLabel}>Withdrawal Period</Text>
-                        <Text style={[styles.medicineDesc, {color: '#D74747'}]}>Active</Text>
-
-
-                        <Text style={styles.medicineLabel}>Withdrawal Period (Meat)</Text>
-                        <Text style={styles.medicineDesc}>{route.params['withdrawalMeat']}</Text>
-
-                        <Text style={styles.medicineLabel}>Withdrawal Period (Milk)</Text>
-                        <Text style={styles.medicineDesc}>{route.params['withdrawalMilk']}</Text>
-
-                        <Text style={styles.medicineLabel}>Comment</Text>
-                        <Text style={styles.medicineDesc}>{route.params['reason_for_administration']}</Text>
+                        <Text style={styles.medicineLabel}>Reason</Text>
+                        <Text style={styles.medicineDesc}>{reason}</Text>
                     </View>
-
-                    <Button
-                        contentStyle={{height: 50, width: 25, }} 
-                        mode="contained" 
-                        color='#F4F3BE' 
-                        style={{marginTop: 30, borderRadius: 10}} 
-                        contentStyle={{height: 50}} 
-                        labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
-                        onPress={() => navigation.navigate('HomeTab')}
-                    >
-                        Confirm
-                    </Button>
                 </ScrollView>
                 
         </SafeAreaView>

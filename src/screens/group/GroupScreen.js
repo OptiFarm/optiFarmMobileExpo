@@ -11,9 +11,6 @@ import { GroupItemView } from '../../components/atoms/GroupItemView';
 // LOADER
 import { PageLoader } from '../../components/atoms/PageLoader';
 
-// DATA
-import { groupData } from '../../config/data/Animal';
-
 // QUERY
 import { useQuery } from '@apollo/client';
 import { GET_GROUP } from '../../config/graphql/queries';

@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { useNavigation } from '@react-navigation/core';
+import React, { useState, useRef, useEffect } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/core';
 import { useScrollToTop } from '@react-navigation/native';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'; 
 
@@ -129,19 +129,17 @@ export default function MedicineScreen ({navigation}, props) {
 
         ref_input.current.blur();
     }
-    
-    // const wait = (timeout) => {
-    //     return new Promise(resolve => setTimeout(resolve, timeout));
-    // }
 
-    // const [refreshing, setRefreshing] = React.useState(false);
-    
-    // const onRefresh = React.useCallback(() => {
-    //     setRefreshing(true);
-    //     wait(2000).then(() => setRefreshing(false));
-    // }, []);
+    const { data, loading, refetch } = useQuery(GET_MEDICATIONS);
 
-    const { data, loading } = useQuery(GET_MEDICATIONS);
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+          if (refetch) {
+            refetch();
+          }
+        });
+        return unsubscribe;
+    }, [navigation]);
 
     if (loading) {
         return <PageLoader />
@@ -229,14 +227,6 @@ export default function MedicineScreen ({navigation}, props) {
                     contentContainerStyle={{ padding: SPACING }}
                     renderItem={({item}) => <MedicineItemView item={item} navigation={navigation} />}
                     ref={ref}
-                    // refreshControl={
-                    //     <RefreshControl
-                    //       refreshing={refreshing}
-                    //       onRefresh={onRefresh}
-                    //       progressBackgroundColor='white'
-                    //       tintColor='white'
-                    //     />
-                    // }
                 />
             </View>
         </>

@@ -1,10 +1,9 @@
-import * as React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useEffect } from 'react';
 import { useScrollToTop } from '@react-navigation/native';
 import faker from 'faker';
 
 // COMPONENTS
-import { ScrollView, View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { ScrollView, View, FlatList, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { MainCards } from '../../components/molecules/MainCards'
 import { PageHeader } from '../../components/atoms/PageHeader';
 import { MedicineItemView } from '../../components/atoms/MedicineItemView';
@@ -36,7 +35,16 @@ export default function HomeScreen ({navigation}) {
     useScrollToTop(ref);
 
     // MEDICINE LIST
-    const { data, loading } = useQuery(GET_MEDICATIONS);
+    const { data, loading, refetch } = useQuery(GET_MEDICATIONS);
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+          if (refetch) {
+            refetch();
+          }
+        });
+        return unsubscribe;
+    }, [navigation]);
 
     if (loading) {
         return <PageLoader />

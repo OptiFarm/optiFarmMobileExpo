@@ -71,7 +71,7 @@ const pickerSelectStyles = StyleSheet.create({
 
 export default function EditAnimalForm ({navigation, route}) {
 
-    const { item } = route.params;
+    const { item, date_of_birth } = route.params;
 
     // ADD ANIMAL DATA MUTATION
     const [editAnimal, { data }] = useMutation(ADD_OR_UPDATE_ANIMAL);
@@ -263,7 +263,7 @@ export default function EditAnimalForm ({navigation, route}) {
                         )}
                         name="dateOfBirth"
                         rules={{ required: true }}
-                        defaultValue={item.date_of_birth}
+                        defaultValue={date_of_birth}
                     />
 
                     <Text style={styles.label}>Pure Breed</Text>

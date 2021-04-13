@@ -205,7 +205,7 @@ export default function AnimalDetail ({ navigation, route }) {
                     {item.tag_number} 
                 </Text>
                 <View style={styles.rightContainer}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Home', {screen: 'EditAnimalForm', params: {item}})}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Home', {screen: 'EditAnimalForm', params: {item, date_of_birth}})}>
                         <MaterialIcons name="edit" size={30} color="white" />
                     </TouchableOpacity>
                 </View>

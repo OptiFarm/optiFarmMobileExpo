@@ -186,7 +186,7 @@ export default function AnimalDetail ({ navigation, route }) {
         setSearchText(searchText);
 
         let filteredData = MedicineList.filter(function (item) {
-            return item.medication_name.toLowerCase().includes(searchText);
+            return item.medication_name.includes(searchText);
         });
 
         setFilteredData(filteredData);

@@ -45,15 +45,20 @@ const styles = StyleSheet.create({
     }
 })
 
-export default function FormSuccess () {
+export default function FormSuccess ({ route }) {
+
+    const { fromScreen } = route.params;
+
+    const navigateTo = fromScreen === 'Medicine' ? 'MedicineTab' : 'HomeTab';
+
     const navigation = useNavigation()
     return (
         <>
           <View style={styles.background}>
             <KeyboardAvoidingView style={styles.container} behavior="padding">
               <Feather name="check-square" size={50} color="#82F5A8" />
-              <Text style={styles.label}>Animal Added</Text>
-              <Text style={styles.subLabel}>Your new animal has been added to the system</Text>
+              <Text style={styles.label}>{fromScreen} Added</Text>
+              <Text style={styles.subLabel}>Your new {fromScreen} has been added to the system</Text>
               <Button
                   contentStyle={{height: 50, width: 25,}} 
                   mode="contained" 
@@ -61,7 +66,7 @@ export default function FormSuccess () {
                   style={styles.button} 
                   contentStyle={{height: 50}} 
                   labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
-                  onPress={() => navigation.navigate('HomeTab')}
+                  onPress={() => navigation.navigate(navigateTo)}
               >
                   Done
               </Button>

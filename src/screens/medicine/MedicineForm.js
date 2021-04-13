@@ -105,6 +105,11 @@ export default function MedicineForm ({navigation}) {
         purchase_date: dateOfPurchase,
         comments: comments,
       } });
+
+      const fromScreen = 'Medicine';
+
+      navigation.navigate('Home', {screen: 'FormSuccess', params: {fromScreen}});
+
     };
   
     const onChange = arg => {

@@ -101,7 +101,9 @@ export default function AnimalForm ({navigation}) {
             animal_name: animal_name,
         } });
 
-        navigation.navigate('Home', {screen: 'FormSuccess'});
+        const fromScreen = 'Animal';
+
+        navigation.navigate('Home', {screen: 'FormSuccess', params: {fromScreen}});
     };
   
     const onChange = arg => {

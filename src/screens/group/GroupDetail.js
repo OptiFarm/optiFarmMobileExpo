@@ -6,9 +6,6 @@ import { getStatusBarHeight } from 'react-native-status-bar-height'
 import { SafeAreaView, View, StyleSheet, TouchableOpacity, Text, Platform, FlatList } from 'react-native';
 import { AnimalItemView } from '../../components/atoms/AnimalItemView';
 
-// DATA
-import AnimalData from '../../config/data/Animal';
-
 // THEME
 import { SPACING, width, height, defaultBackground, cardBackground, CELL_HEIGHT } from '../../config/theme';
 
@@ -59,14 +56,14 @@ export default function GroupDetail ({ navigation, route }) {
             <Text style={{fontSize: 20, fontFamily: 'Sora-Bold', textAlign: 'center', color: 'white', paddingBottom: SPACING}}>
                 {item.groupAmount} Animals
             </Text>
-            <FlatList
+            {/* <FlatList
                 style={{marginBottom: 30}}
                 showsVerticalScrollIndicator={false}
                 data={AnimalData}
                 keyExtractor={(item) => item.key}
                 contentContainerStyle={{ paddingHorizontal: SPACING }}
                 renderItem={({item}) => <AnimalItemView item={item} navigation={navigation} />} 
-            /> 
+            />  */}
         </SafeAreaView>
     )
 }

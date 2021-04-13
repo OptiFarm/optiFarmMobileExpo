@@ -221,3 +221,20 @@ export const GET_MEDICATION_USAGE_DETAIL = gql`
     }
   }
 `;
+
+/**
+ * @description: query for getting animal count
+ * @param:
+ * @requires: 
+ */
+export const GET_ANIMAL_COUNT = gql`
+  query herdCount {
+    herdCount {
+        responseCheck {
+            success
+            message
+        }
+        count
+    }
+}
+`;

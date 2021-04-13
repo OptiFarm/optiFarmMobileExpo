@@ -10,8 +10,12 @@ import { SharedElement } from 'react-native-shared-element';
 import { FlatList } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'; 
 
-// Data
-import { cardData } from '../../config/data/Animal';
+// LOADER
+import { PageLoader } from '../../components/atoms/PageLoader';
+
+// QUERY
+import { useQuery } from '@apollo/client';
+import { GET_ANIMAL_COUNT } from '../../config/graphql/queries';
 
 // Theme
 import { SPACING, width } from '../../config/theme';
@@ -41,11 +45,35 @@ const styles = StyleSheet.create({
     }
 });
 
-export function MainCards ( { navigation }) {
+export function MainCards ( { navigation, animalCount }) {
+
+    const CardData = [
+        {
+            id: '1',
+            type: 'Herd Book',
+            desc: 'Your collection of animals',
+            image: 'https://i.ibb.co/3d9GTLc/book.png',
+            navigate: 'HerdBook',
+            color: '#1C2436',
+            backgroundColor: '#FF929C',
+            countLabel: 'Animal Count: ',
+            count: animalCount,
+        },
+        {
+            id: '2',
+            type: 'Medicine Usage',
+            desc: 'Your collection of medicated animals',
+            image: 'https://i.ibb.co/7k5SnZs/charity.png',
+            navigate: 'MedicineUsage',
+            color: '#1C2436',
+            backgroundColor: '#9968ED',
+        },
+    ];
+
     return (
         <FlatList
-            data={cardData}
-            keyExtractor={(item) => item.key}
+            data={CardData}
+            keyExtractor={(item) => item.id}
             horizontal
             snapToInterval={FULL_SIZE}
             showsHorizontalScrollIndicator={false}

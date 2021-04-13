@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useScrollToTop } from '@react-navigation/native';
-import faker from 'faker';
 
 // COMPONENTS
 import { ScrollView, View, FlatList, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
@@ -13,7 +12,7 @@ import { PageLoader } from '../../components/atoms/PageLoader';
 
 // QUERY
 import { useQuery } from '@apollo/client';
-import { GET_MEDICATIONS } from '../../config/graphql/queries';
+import { GET_MEDICATIONS, GET_ANIMAL_COUNT } from '../../config/graphql/queries';
  
 // THEME
 import { defaultBackground, SPACING, CELL_HEIGHT, topOS } from '../../config/theme';
@@ -36,6 +35,7 @@ export default function HomeScreen ({navigation}) {
 
     // MEDICINE LIST
     const { data, loading, refetch } = useQuery(GET_MEDICATIONS);
+    const { data: animalCountData } = useQuery(GET_ANIMAL_COUNT);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
@@ -51,6 +51,7 @@ export default function HomeScreen ({navigation}) {
     }
 
     const MedicineHomepageList = data.medications.medications;
+    const animalCount = animalCountData.herdCount.count
 
     const renderItem = ({ item }) => (
         <View style={{paddingHorizontal: SPACING}}>
@@ -71,7 +72,7 @@ export default function HomeScreen ({navigation}) {
             <FlatList
                 ListHeaderComponent={
                     <>
-                    <MainCards navigation={navigation} />
+                    <MainCards navigation={navigation} animalCount= {animalCount}/>
                     <View style={{flexDirection: 'row'}}>
                         <Text style={{fontSize: 25, fontFamily: 'Sora-Bold', top: CELL_HEIGHT / 10, color: 'white', padding: SPACING}}>
                             My Medicine

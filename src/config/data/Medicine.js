@@ -1,5 +1,9 @@
 import faker from 'faker';
 
+// QUERY
+import { useQuery } from '@apollo/client';
+import { GET_MEDICATIONS } from '../../config/graphql/queries';
+
 const MedicineData = [
     {
         medicineName: 'Penstrep',

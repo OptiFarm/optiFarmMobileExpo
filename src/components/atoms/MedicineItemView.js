@@ -1,4 +1,5 @@
 import React from 'react';
+import Moment from 'moment';
 
 // COMPONENTS
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
@@ -45,32 +46,46 @@ const styles = StyleSheet.create({
 
 export const MedicineItemView = ({ navigation, item }) => {
 
-    const color = item.medicineLevel === 'Low Quantity' ? medicineLevelLow
-                            : item.medicineLevel === 'Medium Quantity' ? medicineLevelMedium
-                            : medicineLevelHigh
+    const midLevel = item.quantity / 2;
+
+    const medicineLevelColor = item.remaining_quantity < midLevel ? medicineLevelLow
+                                : item.remaining_quantity === midLevel ? medicineLevelMedium
+                                : medicineLevelHigh
+
+    const medicineLevelLabel = item.remaining_quantity < midLevel ? 'Low Quantity'
+                                : item.remaining_quantity === midLevel ? 'Medium Quantity'
+                                : 'High Quantity'
+
+    const medicineType = item.medicine_type.charAt(0) + item.medicine_type.slice(1).toLowerCase();
+
+    // FORMAT DATE TIME
+    Moment.locale('en');
+    var dt = item.purchase_date;
+    const purchase_date = Moment(dt).format('YYYY-MM-DD');     
+
     return (
         <TouchableOpacity 
-            onPress={() => navigation.navigate('Medicine', {screen: 'MedicineDetail', params: {item}})}
+            onPress={() => navigation.navigate('Medicine', {screen: 'MedicineDetail', params: {item, purchase_date}})}
             style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 200 }}
         >
             <View style={{ flex: 1, padding: SPACING }}>
-                <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderTopRightRadius: 15, borderBottomRightRadius: 15, borderLeftColor: color, borderLeftWidth: 3}]}/>
+                <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderTopRightRadius: 15, borderBottomRightRadius: 15, borderLeftColor: medicineLevelColor, borderLeftWidth: 3}]}/>
                 <View style={{flexDirection: 'row'}}>
                     <View>
-                        <Text style={styles.name}>{item.medicineName}</Text>
-                        <Text style={styles.medicineType}>{item.medicineType}</Text>    
+                        <Text style={styles.name}>{item.medication_name}</Text>
+                        <Text style={styles.medicineType}>{medicineType}</Text>    
                     </View>
-                    <Text style={[styles.name, {color: color, fontSize: 18, top: 20, fontFamily: 'Sora-SemiBold', position: 'absolute', right: 0}]}>{item.medicineLevel}</Text>
+                    <Text style={[styles.name, {color: medicineLevelColor, fontSize: 18, top: 20, fontFamily: 'Sora-SemiBold', position: 'absolute', right: 0}]}>{medicineLevelLabel}</Text>
                 </View>
                 <View style={styles.border} />
                 <View style={{flexDirection: 'row'}}>
                     <View>
                         <Text style={styles.medicineLabel}>Expiration Date</Text>
-                        <Text style={styles.medicineDesc}>{item.medicineExpiry}</Text>
+                        <Text style={styles.medicineDesc}>{purchase_date}</Text>
                     </View>
                     <View style={{position: 'absolute', right: 0}}>
-                        <Text style={styles.medicineLabel}>Quantity</Text>
-                        <Text style={[styles.medicineDesc, {position: 'absolute', right: 0, top: 58}]}>{item.medicineQuantity}</Text>
+                        <Text style={styles.medicineLabel}>Quantity Left</Text>
+                        <Text style={[styles.medicineDesc, {position: 'absolute', right: 0, top: 58}]}>{item.remaining_quantity} {item.quantity_type}</Text>
                     </View>
                 </View>
             </View>

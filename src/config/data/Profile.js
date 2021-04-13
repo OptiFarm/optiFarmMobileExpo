@@ -21,18 +21,6 @@ const ProfileData = [
     backgroundColor: cardBackground,
     navigation: ''
   },
-  {
-    type: 'Our Handbook',
-    image: 'https://i.ibb.co/9GTfzrc/story.png',
-    backgroundColor: cardBackground,
-    navigation: ''
-  },
-  {
-    type: 'FAQs',
-    image: 'https://i.ibb.co/8zdDgfv/chat.png',
-    backgroundColor: cardBackground,
-    navigation: ''
-  },
 ];
 
 export default ProfileData.map((item, index) => ({

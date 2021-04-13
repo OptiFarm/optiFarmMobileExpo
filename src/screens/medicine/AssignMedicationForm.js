@@ -8,7 +8,7 @@ import { PageHeader } from '../../components/atoms/PageHeader';
 import { Button } from 'react-native-paper';
 
 // THEME
-import { SPACING, height, defaultBackground, cardBackground, width } from '../../config/theme';
+import { SPACING, height, defaultBackground, cardBackground, width, topOS } from '../../config/theme';
 
 // DATA
 import { ScrollView } from 'react-native';
@@ -16,6 +16,15 @@ import { KeyboardAvoidingView } from 'react-native';
 import { DatePickerIOS } from 'react-native';
 
 const styles = StyleSheet.create({
+    header_inner: {
+        flex:1,
+        overflow: 'hidden',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        position: 'relative',
+        marginTop: topOS
+    },
     label: {
         color: 'white',
         marginTop: 30,
@@ -43,20 +52,19 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function AssignMedication ({ navigation, route }) {
+export default function AssignMedicationForm ({ navigation, route }) {
 
-    const {animalID, medicineName, withdrawalMeat, withdrawalMilk, medicineQuantity, color} = route.params;
+    const {animalID, medicineName, withdrawalMeat, withdrawalMilk, medicineQuantity, medicineQuantityType, color} = route.params;
 
     // REACT HOOK FORM FUNCTIONS
     const { control, handleSubmit, errors } = useForm();
     const onSubmit = data => {
-        // console.log(data);
         navigation.navigate('AssignMedicationConfirm', data);
     };
 
     // GET DATE
     var today = new Date();
-    var date = today.getDate() + "/"+ parseInt(today.getMonth()+1) +"/"+ today.getFullYear();
+    var date = today.getFullYear() + "-"+ parseInt(today.getMonth()+1) +"-"+ today.getDate();
 
     const ref_input2 = useRef();
     const ref_input3 = useRef();
@@ -64,7 +72,11 @@ export default function AssignMedication ({ navigation, route }) {
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: defaultBackground }}>
-            <PageHeader label="Assign Medicine" goBack={navigation.goBack} showChevron='true'/>
+                <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING, marginBottom: SPACING}}> 
+                    <View style={styles.header_inner}>
+                        <PageHeader label="Assign Medicine" goBack={navigation.goBack} showChevron='true' />
+                    </View>              
+                </View>      
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex: 1,}}>
                 <ScrollView style={{paddingHorizontal: SPACING,}}>
                     <Text style={styles.label}>Animal ID</Text>
@@ -80,7 +92,7 @@ export default function AssignMedication ({ navigation, route }) {
                         )}
                         name="animal"
                         rules={{ required: true }}
-                        defaultValue={animalID}
+                        defaultValue={animalID.toString()}
                     />
 
                     <Text style={styles.label}>Medicine Name</Text>
@@ -112,7 +124,7 @@ export default function AssignMedication ({ navigation, route }) {
                         )}
                         name="withdrawalMeat"
                         rules={{ required: true }}
-                        defaultValue={withdrawalMeat}
+                        defaultValue={withdrawalMeat.toString() + ' Days'}
                     />
 
                     <Text style={styles.label}>Withdrawal For Milk</Text>
@@ -128,10 +140,10 @@ export default function AssignMedication ({ navigation, route }) {
                         )}
                         name="withdrawalMilk"
                         rules={{ required: true }}
-                        defaultValue={withdrawalMilk}
+                        defaultValue={withdrawalMilk.toString() + ' Days'}
                     />          
 
-                    <Text style={styles.label}>Quantity<Text style={{color: '#D74747', fontSize: 13,}}> Remaining: {medicineQuantity}</Text></Text>
+                    <Text style={styles.label}>Quantity<Text style={{color: color, fontSize: 13,}}> Remaining: {medicineQuantity} {medicineQuantityType}</Text></Text>
                     <Controller
                         control={control}
                         render={({ onChange, onBlur, value }) => (
@@ -217,8 +229,7 @@ export default function AssignMedication ({ navigation, route }) {
                         contentStyle={{height: 50}} 
                         labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
                         onPress={handleSubmit(onSubmit)}
-                        // onPress={() => console.log('test')}
-                        >
+                    >
                         Done
                     </Button>
                 </ScrollView>

@@ -52,37 +52,44 @@ export default function HomeScreen ({navigation}) {
 
     const MedicineHomepageList = data.medications.medications;
 
+    const renderItem = ({ item }) => (
+        <View style={{paddingHorizontal: SPACING}}>
+            <MedicineItemView item={item} navigation={navigation} />
+        </View>
+      );    
+
     return (
         <>
         <SafeAreaView style={{backgroundColor: defaultBackground,}}>
-            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING, marginBottom: SPACING}}> 
+            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING, marginBottom: 30}}> 
                 <View style={styles.header_inner}>
                     <PageHeader label="Home" goBack={navigation.goBack} showChevron='false' />
                 </View>              
             </View>     
         </SafeAreaView>
         <View style={{backgroundColor: defaultBackground, flex: 1}}>
-            <ScrollView showsVerticalScrollIndicator={false} ref={ref}>
-                <MainCards navigation={navigation} />
-                <View style={{flexDirection: 'row'}}>
-                    <Text style={{fontSize: 25, fontFamily: 'Sora-Bold', top: CELL_HEIGHT / 10, color: 'white', padding: SPACING}}>
-                        My Medicine
-                    </Text>
-                    <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={() => navigation.navigate('MedicineTab')}>
-                        <Text style={{ fontSize: 18, lineHeight: CELL_HEIGHT * 0.55, fontFamily: 'Sora-Bold', color: '#F4F3BE',}}>
-                            See All
+            <FlatList
+                ListHeaderComponent={
+                    <>
+                    <MainCards navigation={navigation} />
+                    <View style={{flexDirection: 'row'}}>
+                        <Text style={{fontSize: 25, fontFamily: 'Sora-Bold', top: CELL_HEIGHT / 10, color: 'white', padding: SPACING}}>
+                            My Medicine
                         </Text>
-                    </TouchableOpacity>
-                </View>
-                <FlatList
-                    style={{padding: SPACING}}    
-                    showsVerticalScrollIndicator={false}
-                    data={MedicineHomepageList}
-                    keyExtractor={(item) => item.key}
-                    renderItem={({item}) => <MedicineItemView item={item} navigation={navigation} />}
-                    ref={ref}
-                />
-            </ScrollView>
+                        <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={() => navigation.navigate('MedicineTab')}>
+                            <Text style={{ fontSize: 18, lineHeight: CELL_HEIGHT * 0.55, fontFamily: 'Sora-Bold', color: '#F4F3BE',}}>
+                                See All
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    </>
+                }
+                showsVerticalScrollIndicator={false}
+                data={MedicineHomepageList}
+                keyExtractor={(item, index) => item.id}
+                renderItem={renderItem}
+                ref={ref}
+            />
         </View>
         </>
     );

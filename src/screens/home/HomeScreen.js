@@ -35,18 +35,19 @@ export default function HomeScreen ({navigation}) {
 
     // MEDICINE LIST
     const { data, loading, refetch } = useQuery(GET_MEDICATIONS);
-    const { data: animalCountData } = useQuery(GET_ANIMAL_COUNT);
+    const { data: animalCountData, loading: loadingCount, refetch: refetchCount } = useQuery(GET_ANIMAL_COUNT);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
-          if (refetch) {
+          if (refetch || refetchCount) {
             refetch();
+            refetchCount();
           }
         });
         return unsubscribe;
     }, [navigation]);
 
-    if (loading) {
+    if (loading || loadingCount) {
         return <PageLoader />
     }
 
@@ -57,7 +58,7 @@ export default function HomeScreen ({navigation}) {
         <View style={{paddingHorizontal: SPACING}}>
             <MedicineItemView item={item} navigation={navigation} />
         </View>
-      );    
+    );    
 
     return (
         <>

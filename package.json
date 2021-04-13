@@ -30,6 +30,7 @@
     "graphql": "^15.4.0",
     "lodash.filter": "^4.6.0",
     "lottie-react-native": "^3.5.0",
+    "moment": "^2.29.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-hook-form": "^6.15.4",

@@ -42,7 +42,7 @@ export const GroupItemView = ({ navigation, item }) => {
                 <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderRadius: 15}]}/>
 
                 <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.name}>{item.groupName}</Text>
+                    <Text style={styles.name}>{item.group_name}</Text>
                     <Ionicons name="chevron-forward-outline" size={35} color="white" style={{right: 0, position: 'absolute', padding: SPACING}} />
                 </View>
                 <View style={{flexDirection: 'row'}}>
@@ -52,7 +52,7 @@ export const GroupItemView = ({ navigation, item }) => {
                     </View>
                 </View>
                 <Text style={styles.groupLabel}>Note</Text>
-                <Text style={styles.groupDesc}>{item.GroupNote}</Text>
+                <Text style={styles.groupDesc}>{item.group_description}</Text>
             </View>
         </TouchableOpacity>
     );

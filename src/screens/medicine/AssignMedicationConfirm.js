@@ -7,13 +7,22 @@ import { PageHeader } from '../../components/atoms/PageHeader';
 import { Button } from 'react-native-paper';
 
 // THEME
-import { SPACING, width, height, defaultBackground, cardBackground } from '../../config/theme';
+import { SPACING, width, height, defaultBackground, cardBackground, topOS } from '../../config/theme';
 import { ScrollView } from 'react-native';
 
 // SIZING
 export const CELL_HEIGHT = height * 0.18;
 
 const styles = StyleSheet.create({
+    header_inner: {
+        flex:1,
+        overflow: 'hidden',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        position: 'relative',
+        marginTop: topOS
+    },
     name: {
         fontSize: 25,
         fontFamily: 'Sora-Bold',
@@ -63,7 +72,11 @@ export default function AssignMedicationConfirm ({ navigation, route }) {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
-            <PageHeader  label="Medication Details" goBack={navigation.goBack} showChevron='true'/>
+            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING, marginBottom: SPACING}}> 
+                <View style={styles.header_inner}>
+                    <PageHeader label="Medication Details" goBack={navigation.goBack} showChevron='true' />
+                </View>              
+            </View>   
 
                 {/* CONFIRMATION CARD */}
                 <ScrollView style={{ paddingHorizontal: SPACING }}>

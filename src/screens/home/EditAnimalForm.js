@@ -69,16 +69,19 @@ const pickerSelectStyles = StyleSheet.create({
     },
 });
 
-export default function AnimalForm ({navigation}) {
+export default function EditAnimalForm ({navigation, route}) {
+
+    const { item, date_of_birth } = route.params;
 
     // ADD ANIMAL DATA MUTATION
-    const [addAnimal, { data }] = useMutation(ADD_OR_UPDATE_ANIMAL);
+    const [editAnimal, { data }] = useMutation(ADD_OR_UPDATE_ANIMAL);
 
 
     // REACT HOOK FORM FUNCTIONS
     const { register, setValue, handleSubmit, control, reset, errors } = useForm();
     const onSubmit = data => {
 
+        const id = item.id;
         const breed_type = data.breed;
         const date_of_birth = data.dateOfBirth;
         const description = data.description;
@@ -89,7 +92,8 @@ export default function AnimalForm ({navigation}) {
         const tag_number = parseInt(data.tagNumber);
         const animal_name = 'TEST';
 
-        addAnimal({ variables: { 
+        editAnimal({ variables: { 
+            id: id,
             breed_type: breed_type, 
             date_of_birth: date_of_birth,
             description: description,
@@ -101,9 +105,7 @@ export default function AnimalForm ({navigation}) {
             animal_name: animal_name,
         } });
 
-        const fromScreen = 'Animal';
-
-        navigation.navigate('Home', {screen: 'FormSuccess', params: {fromScreen}});
+        navigation.navigate('Home', {screen: 'FormSuccess'});
     };
   
     const onChange = arg => {
@@ -113,7 +115,7 @@ export default function AnimalForm ({navigation}) {
     };
 
     const placeholderSex = {
-        label: 'Select a gender',
+        label: 'Select Gender',
         value: null,
     };
 
@@ -131,7 +133,7 @@ export default function AnimalForm ({navigation}) {
         <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
             <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING, marginBottom: SPACING}}> 
                 <View style={styles.header_inner}>
-                    <PageHeader label="Add Animal" goBack={navigation.goBack} showChevron='true' />
+                    <PageHeader label="Edit Animal" goBack={navigation.goBack} showChevron='true' />
                 </View>              
             </View>   
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex: 1,}}>
@@ -151,14 +153,14 @@ export default function AnimalForm ({navigation}) {
                                 returnKeyType='done' 
                                 placeholder='40122'
                                 placeholderTextColor='#848D95'
-                                onSubmitEditing={() => ref_input2.current.focus()}
                                 blurOnSubmit={false}
                                 maxLength={5}
+                                editable={false}
                             />
                         )}
                         name="tagNumber"
                         rules={{ required: true }}
-                        defaultValue={null}
+                        defaultValue={item.tag_number.toString()}
                     />
 
                     <Text style={styles.label}>Sire Number</Text>
@@ -174,15 +176,12 @@ export default function AnimalForm ({navigation}) {
                                 returnKeyType='done'
                                 placeholder='10234'
                                 placeholderTextColor='#848D95'
-                                ref={ref_input2}
-                                onSubmitEditing={() => ref_input3.current.focus()}
                                 blurOnSubmit={false}
-                                maxLength={5}
                             />
                         )}
                         name="sireNumber"
                         rules={{ required: true }}
-                        defaultValue={null}
+                        defaultValue={item.sire_number.toString()}
                     />
 
                     <Text style={styles.label}>Mother Number</Text>
@@ -198,13 +197,12 @@ export default function AnimalForm ({navigation}) {
                                 returnKeyType='done' 
                                 placeholder='20455'
                                 placeholderTextColor='#848D95'
-                                ref={ref_input3}
                                 maxLength={5}
                             />
                         )}
                         name="motherNumber"
                         rules={{ required: true }}
-                        defaultValue={null}
+                        defaultValue={item.mother_number.toString()}
                     />
                     
                     <Text style={styles.label}>Sex</Text>
@@ -225,7 +223,7 @@ export default function AnimalForm ({navigation}) {
                         )}
                         name="sex"
                         rules={{ required: true }}
-                        defaultValue={null}
+                        defaultValue={item.male_female}
                     />
 
                     <Text style={styles.label}>Breed</Text>
@@ -240,15 +238,13 @@ export default function AnimalForm ({navigation}) {
                                 returnKeyType='next'
                                 placeholder='HBX'
                                 placeholderTextColor='#848D95'
-                                ref={ref_input4}
-                                onSubmitEditing={() => ref_input5.current.focus()}
                                 maxLength={3}
                                 autoCapitalize='characters'
                             />
                         )}
                         name="breed"
                         rules={{ required: true }}
-                        defaultValue={null}
+                        defaultValue={item.breed_type}
                     />
 
                     <Text style={styles.label}>Date of Birth</Text>
@@ -263,12 +259,11 @@ export default function AnimalForm ({navigation}) {
                                 returnKeyType='next'
                                 placeholder='2021-01-11'
                                 placeholderTextColor='#848D95'
-                                ref={ref_input5}
                             />
                         )}
                         name="dateOfBirth"
                         rules={{ required: true }}
-                        defaultValue={null}
+                        defaultValue={date_of_birth}
                     />
 
                     <Text style={styles.label}>Pure Breed</Text>
@@ -289,7 +284,7 @@ export default function AnimalForm ({navigation}) {
                         )}
                         name="pureBreed"
                         rules={{ required: true }}
-                        defaultValue={null}
+                        defaultValue={item.pure_breed}
                     />
 
                     <Text style={styles.label}>Description</Text>
@@ -302,12 +297,12 @@ export default function AnimalForm ({navigation}) {
                                 onChangeText={value => onChange(value)}
                                 value={value}
                                 returnKeyType='done'
+                                defaultValue={item.description}
                             />
                         )}
                         name="description"
                         rules={{ required: true }}
-                        defaultValue={null}
-                        maxLength={50}
+                        defaultValue={item.description}
                     />
 
                     <Button

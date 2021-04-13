@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState, useEffect } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { MaterialIcons, Feather } from '@expo/vector-icons'; 
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
@@ -7,15 +7,18 @@ import {
     SafeAreaView, 
     View, 
     StyleSheet, 
-    FlatList, 
     TouchableOpacity, 
     Text, 
     TextInput,
     Image,
+    ScrollView
 } from 'react-native';
-import { Card, Paragraph, Modal, Portal, Provider, Button } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import BottomSheet, { BottomSheetFlatList, BottomSheetModalProvider, BottomSheetModal, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { CustomSheetBackground } from '../../components/atoms/CustomSheetBackground'
+
+// LOADER
+import { PageLoader } from '../../components/atoms/PageLoader';
 
 // THEME
 import { 
@@ -29,8 +32,9 @@ import {
     CELL_HEIGHT
 } from '../../config/theme';
 
-// DATA
-import { assignMedicationData } from '../../config/data/Animal'
+// QUERY
+import { useQuery } from '@apollo/client';
+import { GET_HERD } from '../../config/graphql/queries';
 
 const styles = StyleSheet.create({
     name: {
@@ -103,28 +107,27 @@ const modalStyles = StyleSheet.create({
 });
 
 export default function MedicineDetail ({ navigation, route }) {
-    const { item } = route.params;
-    const array = [];
-    array.push(item);
+    const { item, purchase_date } = route.params;
 
     // Variables for Assign Medication Form
-    const medicineName = item.medicineName;
-    const withdrawalMilk = item.medicineMilk;
-    const withdrawalMeat = item.medicineMeat;
-    const medicineQuantity = item.medicineQuantity;
+    const medicineName = item.medication_name;
+    const withdrawalMilk = item.withdrawal_days_dairy;
+    const withdrawalMeat = item.withdrawal_days_meat;
+    const medicineQuantity = item.remaining_quantity;
+    const medicineQuantityType = item.quantity_type;
 
     // MEDICINE QUANTITY COLOR
-    const color = item.medicineLevel === 'Low Quantity' ? medicineLevelLow
-                              : item.medicineLevel === 'Medium Quantity' ? medicineLevelMedium
-                              : medicineLevelHigh
+    const midLevel = item.quantity / 2;
+
+    const medicineLevelColor = item.remaining_quantity < midLevel ? medicineLevelLow
+                                : item.remaining_quantity === midLevel ? medicineLevelMedium
+                                : medicineLevelHigh
+
+    const medicineLevelLabel = item.remaining_quantity < midLevel ? 'Low Quantity'
+                                : item.remaining_quantity === midLevel ? 'Medium Quantity'
+                                : 'High Quantity'
     
     const activeColor = item.medicineWithdrawal === 'Active' ? medicineLevelLow : medicineLevelHigh
-
-    // EDIT MODAL
-    const [visible, setVisible] = React.useState(false);
-    const showModal = () => setVisible(true);
-    const hideModal = () => setVisible(false);
-    const containerStyle = {backgroundColor: cardBackground, borderRadius: 15, marginHorizontal: SPACING, height: 250, bottom: 100};
 
     // ASSIGN MEDICATION MODAL
     const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
@@ -141,22 +144,29 @@ export default function MedicineDetail ({ navigation, route }) {
         bottomSheetModalRef.current?.close();
     }, []);
 
-    const renderItem = ({ item }) => {
+    const renderAnimalList = ({ item }) => {
 
-        // COW LOGO
-        const cowLogo = item.animal_sex === 'Female' ? 'https://i.ibb.co/B4cgVmv/cow-5.png' : 'https://i.ibb.co/g6MntkZ/cow-6.png';
+        const cowLogo = item.male_female === 'F' ? 'https://i.ibb.co/B4cgVmv/cow-5.png' : 'https://i.ibb.co/g6MntkZ/cow-6.png';
 
         return (
             <TouchableOpacity 
-                onPress={() => navigation.navigate('AssignMedication', {animalID: item.animal_id, medicineName: medicineName, withdrawalMeat: withdrawalMeat, withdrawalMilk: withdrawalMilk, medicineQuantity: medicineQuantity, color: color})}
+                onPress={() => navigation.navigate('AssignMedicationForm', {
+                    animalID: item.tag_number, 
+                    medicineName: medicineName, 
+                    withdrawalMeat: withdrawalMeat, 
+                    withdrawalMilk: withdrawalMilk, 
+                    medicineQuantity: medicineQuantity, 
+                    medicineQuantityType: medicineQuantityType, 
+                    color: medicineLevelColor
+                })}
                 style={{flexDirection: 'row', marginBottom: 40, alignItems: 'center',}}
             >
                 <View style={{ flexDirection: 'row',}}>
                     <Image source={{ uri: cowLogo }} style={{ height: 50, width: 50 }}/>
                     <View>
-                        <Text style={{fontFamily: 'Sora-SemiBold', fontSize: 18, color: 'white', left: SPACING}}>ID: <Text style={{color: '#F4F3BE'}}>{item.animal_id}</Text></Text>
+                        <Text style={{fontFamily: 'Sora-SemiBold', fontSize: 18, color: 'white', left: SPACING}}>ID: <Text style={{color: '#F4F3BE'}}>{item.tag_number}</Text></Text>
                         <View style={{borderBottomColor: '#9D9D9D', opacity: 0.4, borderBottomWidth: 1, top: 45, width: 300,}}/>
-                        <Text style={{fontFamily: 'Sora-SemiBold', fontSize: 18, color: 'white', left: SPACING}}><Text style={{color: 'white', opacity: 0.8}}>{item.animal_group}</Text></Text>
+                        <Text style={{fontFamily: 'Sora-SemiBold', fontSize: 18, color: 'white', left: SPACING}}>Breed Type: <Text style={{color: '#F4F3BE'}}>{item.breed_type}</Text></Text>
                     </View>
                 </View>
                 <Feather name="chevron-right" size={30} color="#F4F3BE" style={{position: 'absolute', right: 0, bottom: SPACING}}/> 
@@ -165,33 +175,33 @@ export default function MedicineDetail ({ navigation, route }) {
     };
 
     // SEARCH HANDLES
-    const [search, setSearch] = useState('');
-    const [filteredDataSource, setFilteredDataSource] = useState([]);
-    const [masterDataSource, setMasterDataSource] = useState([]);
+    const [searchText, setSearchText] = useState('');
+    const [filteredData, setFilteredData] = useState([]);
 
-    useEffect(() => {
-        setFilteredDataSource(assignMedicationData);
-        setMasterDataSource(assignMedicationData);
-    }, [])
+    const { data, loading } = useQuery(GET_HERD);
+    
+    if (loading) {
+        return <PageLoader />
+    } 
 
-    const searchFilterFunction = (text) => {
-        if (text) {
-            const newData = masterDataSource.filter(function (item) {
-                const itemData = item.animal_id ? item.animal_id.toUpperCase() : ''.toUpperCase();
-                const textData = text.toUpperCase();
-                return itemData.indexOf(textData) > -1;
-            });
-            setFilteredDataSource(newData);
-            setSearch(text);
-        } else {
-            setFilteredDataSource(masterDataSource);
-            setSearch(text);
-        }
-    };
+    const AnimalList = data.herd.animals;
+
+    const search = (searchText) => {
+        setSearchText(searchText);
+
+        let filteredData = AnimalList.filter(function (item) {
+            const tag_number_search = item.tag_number.toString().includes(searchText);
+            const breed_type_search = item.breed_type.includes(searchText);
+            
+            return tag_number_search || breed_type_search;
+        });
+
+        setFilteredData(filteredData);
+    }
 
     return (
         <>
-        <SafeAreaView style={{backgroundColor: defaultBackground}}>
+        <SafeAreaView style={{backgroundColor: defaultBackground, flex: 1}}>
 
             {/* HEADER */}
             <View style={[styles.navBar, {marginTop: Platform.OS === 'android' ? getStatusBarHeight() : getStatusBarHeight() - 20}]}>
@@ -199,111 +209,85 @@ export default function MedicineDetail ({ navigation, route }) {
                     <MaterialIcons name="arrow-back-ios" size={30} color="white" />
                 </TouchableOpacity>
                 <Text style={styles.name}>
-                    {item.medicineName} 
+                    {item.medication_name} 
                 </Text>
                 <View style={styles.rightContainer}>
+                    <TouchableOpacity>
+                        <MaterialIcons name="edit" size={30} color="white" />
+                    </TouchableOpacity>
                 </View>
             </View>
-            <Text style={{fontSize: 20, fontFamily: 'Sora-Bold', textAlign: 'center', color: color, paddingBottom: SPACING,}}>
-                {item.medicineLevel}
+            <Text style={{fontSize: 20, fontFamily: 'Sora-Bold', textAlign: 'center', color: medicineLevelColor, paddingBottom: SPACING,}}>
+                {medicineLevelLabel}
             </Text>
 
             {/* CONTENT */}
-            <FlatList
-                style={{backgroundColor: defaultBackground}}
-                showsVerticalScrollIndicator={false}
-                scrollEnabled={true}
-                data={array}
-                keyExtractor={(item) => item.key}
-                contentContainerStyle={{ padding: SPACING }}
-                renderItem={({ item }) => {
-                    return (
-                        <>
-                        <Button
-                            contentStyle={{height: 50, width: 25, }} 
-                            icon="pill" 
-                            mode="contained" 
-                            color='#F4F3BE' 
-                            style={{marginTop: 30, borderRadius: 10}} 
-                            contentStyle={{height: 50}} 
-                            labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
-                            onPress={handlePresentModalPress}
-                        >
-                            Give Medication
-                        </Button>
-                        {/* DETAILS */}
-                        <View style={{marginBottom: CELL_HEIGHT / 10, marginTop: 30, height: 235}} >
-                            <View style={{flex: 1, padding: SPACING}}>
-                                <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
-                                    <View style={{flexDirection: 'row'}}>
-                                        <View>
-                                            <Text style={styles.key}>Expiry Date</Text>
-                                            <Text style={styles.key}>Withdrawal Period</Text>
-                                            <Text style={styles.key}>Meat</Text>
-                                            <Text style={styles.key}>Milk</Text>
-                                        </View>
-                                        <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
-                                            <Text style={styles.value}>{item.medicineExpiry}</Text>
-                                            <Text style={{color: activeColor, fontSize: 18, paddingTop: 23, fontFamily: 'Sora-SemiBold'}}>{item.medicineWithdrawal}</Text>
-                                            <Text style={styles.value}>{item.medicineMeat}</Text>
-                                            <Text style={styles.value}>{item.medicineMilk}</Text>
-                                        </View>
-                                    </View>
-                            </View>
-                        </View>
-                        <View style={{marginBottom: CELL_HEIGHT / 10, height: 225}}>
-                            <View style={{flex: 1, padding: SPACING}}>
-                                <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
-                                    <View style={{flexDirection: 'row'}}>
-                                        <View>
-                                            <Text style={styles.key}>Quantity</Text>
-                                            <Text style={styles.key}>Purchase Date</Text>
-                                            <Text style={styles.key}>Supplied By</Text>
-                                            <Text style={styles.key}>Batch No</Text>
-                                        </View>
-                                        <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
-                                            <Text style={styles.value}>{item.medicineQuantity}</Text>
-                                            <Text style={styles.value}>{item.medicinePurchaseDate}</Text>
-                                            <Text style={styles.value}>{item.medicinePurchaseAt}</Text>
-                                            <Text style={styles.value}>{item.medicineBatchNo}</Text>
-                                        </View>
+            <ScrollView style={{padding: SPACING, marginBottom: SPACING}}>
+                <Button
+                    contentStyle={{height: 50, width: 25, }} 
+                    icon="pill" 
+                    mode="contained" 
+                    color='#F4F3BE' 
+                    style={{marginTop: SPACING, borderRadius: 10}} 
+                    contentStyle={{height: 50}} 
+                    labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17, color: cardBackground}}
+                    onPress={handlePresentModalPress}
+                >
+                    Give Medication
+                </Button>
+                {/* DETAILS */}
+                <View style={{marginBottom: CELL_HEIGHT / 10, marginTop: 30, height: 235}} >
+                    <View style={{flex: 1, padding: SPACING}}>
+                        <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
+                            <View style={{flexDirection: 'row'}}>
+                                <View>
+                                    <Text style={styles.key}>Expiry Date</Text>
+                                    <Text style={styles.key}>Withdrawal Period</Text>
+                                    <Text style={styles.key}>Meat</Text>
+                                    <Text style={styles.key}>Milk</Text>
+                                </View>
+                                <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
+                                    <Text style={styles.value}>{purchase_date}</Text>
+                                    <Text style={{color: activeColor, fontSize: 18, paddingTop: 23, fontFamily: 'Sora-SemiBold'}}>{item.medicineWithdrawal}</Text>
+                                    <Text style={styles.value}>{item.withdrawal_days_meat} days</Text>
+                                    <Text style={styles.value}>{item.withdrawal_days_dairy} days</Text>
                                 </View>
                             </View>
+                    </View>
+                </View>
+                <View style={{marginBottom: CELL_HEIGHT / 10, height: 225}}>
+                    <View style={{flex: 1, padding: SPACING}}>
+                        <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
+                            <View style={{flexDirection: 'row'}}>
+                                <View>
+                                    <Text style={styles.key}>Quantity</Text>
+                                    <Text style={styles.key}>Purchase Date</Text>
+                                    <Text style={styles.key}>Supplied By</Text>
+                                    <Text style={styles.key}>Batch No</Text>
+                                </View>
+                                <View style={{alignItems: 'flex-end', position: 'absolute', right: 0}}>
+                                    <Text style={styles.value}>{item.remaining_quantity} / {item.quantity} {item.quantity_type}</Text>
+                                    <Text style={styles.value}>{purchase_date}</Text>
+                                    <Text style={styles.value}>{item.supplied_by}</Text>
+                                    <Text style={styles.value}>{item.batch_number}</Text>
+                                </View>
                         </View>
+                    </View>
+                </View>
 
-                        {/* NOTE */}
-                        <View style={{marginBottom: CELL_HEIGHT / 10, height: 225, marginTop: 10}} >
-                            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 0}}>
-                                <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', textAlign: 'left', color: 'white', opacity: 0.8}}>Comments</Text>
-                                <TouchableOpacity onPress={showModal}>
-                                    <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: '#F4F3BE'}}>Edit</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <Card style={{borderRadius: 10, marginTop: 10, backgroundColor: cardBackground}}>
-                                <Card.Content>
-                                    <Paragraph style={{paddingVertical: SPACING, color: 'white', fontFamily: 'Sora-SemiBold', fontSize: 18}}>This is a note</Paragraph>
-                                </Card.Content>
-                            </Card>
+                <Text style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: '#F4F3BE', paddingVertical: SPACING}}>Comments</Text>
+                <View style={{marginBottom: CELL_HEIGHT / 10, height: 150}}>
+                    <View style={{flex: 1, padding: SPACING}}>
+                        <View style={[StyleSheet.absoluteFillObject, { backgroundColor: cardBackground, borderRadius: 15}]}></View>
+                            <View style={{flexDirection: 'row'}}>
+                                <View>
+                                    <Text style={styles.key}>{item.comments}</Text>
+                                </View>
                         </View>
-                        </>
-                    )
-                }}
-            />
+                    </View>
+                </View>
+            </ScrollView>
         </SafeAreaView>
-
-        {/* EDIT MODAL */}
-        <Provider>
-            <Portal>
-                <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-                    <TextInput style={{fontSize: 18, fontFamily: 'Sora-SemiBold', color: 'white', bottom: 50, textAlign: 'center'}} autoFocus={true}>
-                        This is a note
-                    </TextInput>
-                    <Button icon="check" mode="contained" color='#F4F3BE' style={{top: 70, marginHorizontal: SPACING,}} onPress={hideModal} labelStyle={{fontFamily: 'Sora-Bold', fontSize: 17}}>
-                        Edit
-                    </Button>
-                </Modal>
-            </Portal>
-        </Provider>
         
         {/* ASSIGN MEDICATION MODAL */}
         <BottomSheetModalProvider>
@@ -315,15 +299,13 @@ export default function MedicineDetail ({ navigation, route }) {
                 backgroundComponent={CustomSheetBackground}
                 backdropComponent={BottomSheetBackdrop}
             >
-                {/* <Text style={{ padding: SPACING, color: 'white', fontSize: 25, fontFamily: 'Sora-Bold', marginBottom: SPACING}}>Select Animal</Text> */}
                 <View style={styles.containerModal}>
                     <TextInput
                         style={styles.input}
-                        textContentType="name"
                         placeholder="Search for Animal"
                         clearButtonMode='always'
-                        onChangeText={(text) => searchFilterFunction(text)}
-                        onClear={(text) => searchFilterFunction('')}
+                        onChangeText={search}
+                        value={searchText}
                         placeholderTextColor='#848D95'
                         keyboardType='decimal-pad'
                         returnKeyType='done'
@@ -331,9 +313,9 @@ export default function MedicineDetail ({ navigation, route }) {
                 </View>
                 <BottomSheetFlatList
                     showsVerticalScrollIndicator={true}
-                    data={filteredDataSource}
-                    keyExtractor={(item) => item.key}
-                    renderItem={renderItem}
+                    data={filteredData && filteredData.length > 0 ? filteredData : AnimalList}
+                    keyExtractor={(item, index) => item.id}
+                    renderItem={renderAnimalList}
                     contentContainerStyle={modalStyles.contentContainer}
                 />
             </BottomSheetModal>

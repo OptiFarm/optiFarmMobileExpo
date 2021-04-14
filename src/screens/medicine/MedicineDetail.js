@@ -14,7 +14,7 @@ import {
     ScrollView
 } from 'react-native';
 import { Button } from 'react-native-paper';
-import BottomSheet, { BottomSheetFlatList, BottomSheetModalProvider, BottomSheetModal, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetFlatList, BottomSheetModalProvider, BottomSheetModal, BottomSheetBackdrop, BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { CustomSheetBackground } from '../../components/atoms/CustomSheetBackground'
 
 // LOADER
@@ -191,7 +191,7 @@ export default function MedicineDetail ({ navigation, route }) {
 
         let filteredData = AnimalList.filter(function (item) {
             const tag_number_search = item.tag_number.toString().includes(searchText);
-            const breed_type_search = item.breed_type.includes(searchText);
+            const breed_type_search = item.breed_type.includes(searchText.toUpperCase());
             
             return tag_number_search || breed_type_search;
         });
@@ -298,17 +298,18 @@ export default function MedicineDetail ({ navigation, route }) {
                 index={1}
                 backgroundComponent={CustomSheetBackground}
                 backdropComponent={BottomSheetBackdrop}
+                keyboardBehavior="interactive"
+                keyboardBlurBehavior="restore"
             >
                 <View style={styles.containerModal}>
-                    <TextInput
+                    <BottomSheetTextInput
                         style={styles.input}
                         placeholder="Search for Animal"
                         clearButtonMode='always'
                         onChangeText={search}
                         value={searchText}
                         placeholderTextColor='#848D95'
-                        keyboardType='decimal-pad'
-                        returnKeyType='done'
+                        returnKeyType='search'
                     />
                 </View>
                 <BottomSheetFlatList

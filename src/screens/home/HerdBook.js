@@ -49,13 +49,14 @@ const styles = StyleSheet.create({
         width: width - 20,
       },
       back_icon_box: {
-        width: 40,
-        height: 40,
+        width: 50,
+        height: 50,
         borderRadius: 40,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: 5
+        marginRight: 5,
+        backgroundColor: defaultBackground,
       },
       input: {
         backgroundColor: defaultBackground, 

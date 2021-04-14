@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import React from "react";
+=======
+import React from 'react';
+import Moment from 'moment';
+>>>>>>> e7bc21118096f203c59172a1f54ca3b503497968
 
 // COMPONENTS
 import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
@@ -49,6 +54,7 @@ const styles = StyleSheet.create({
 });
 
 export const MedicineUsageItemView = ({ navigation, item }) => {
+<<<<<<< HEAD
   return (
     <TouchableOpacity
       onPress={() => {}}
@@ -63,6 +69,28 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
             { backgroundColor: cardBackground, borderRadius: 15 },
           ]}
         />
+=======
+
+    // FORMAT DATE TIME
+    Moment.locale('en');
+    var dt = item.date_of_administration;
+    const date_of_administration = Moment(dt).format('YYYY-MM-DD');
+
+    return (
+        <TouchableOpacity 
+            onPress={() => navigation.navigate('Home', { screen: 'MedicineUsageDetail', 
+            params: {
+                administeredBy: item.administered_by, 
+                dateAdministered: date_of_administration,
+                quantityAdministered: item.quantity_administered, 
+                quantityType: item.quantity_type, 
+                reason: item.reason_for_administration
+            }})}
+            style={{ marginBottom: 20, height: 300 }}
+        >
+            <View style={{ flex: 1, padding: SPACING, height: height - 50, top: SPACING}}>
+                <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderRadius: 15}]}/>
+>>>>>>> e7bc21118096f203c59172a1f54ca3b503497968
 
         <Text style={styles.name}>{item.medication}</Text>
         <Text style={styles.medicineType}>Medicament</Text>
@@ -89,6 +117,7 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
           </View>
         </View>
 
+<<<<<<< HEAD
         <Text style={styles.medicineLabel}>Date of Administration</Text>
         <Text style={styles.medicineDesc}>
           {moment(item.date_of_administration).format("YYYY-MM-DD")}
@@ -97,3 +126,12 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
     </TouchableOpacity>
   );
 };
+=======
+                <Text style={styles.medicineLabel}>Date of Administration</Text>
+                <Text style={styles.medicineDesc}>{date_of_administration}</Text>
+
+            </View>
+        </TouchableOpacity>
+    );
+}
+>>>>>>> e7bc21118096f203c59172a1f54ca3b503497968

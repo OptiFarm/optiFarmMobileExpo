@@ -9,7 +9,7 @@ import AnimalForm from "../screens/home/AnimalForm";
 import FormSuccess from "../screens/home/FormSuccess";
 import SearchScreen from "../screens/home/SearchScreen";
 import EditAnimalForm from "../screens/home/EditAnimalForm";
-import UpdateFormSuccess from "../screens/home/UpdateFormSuccess";
+import MedicineUsageDetail from "../screens/home/MedicineUsageDetail";
 
 const HomeStack = createStackNavigator();
 export default function HomeStackComp() {
@@ -23,8 +23,8 @@ export default function HomeStackComp() {
       <HomeStack.Screen name="SearchScreen" component={SearchScreen} />
       <HomeStack.Screen name="EditAnimalForm" component={EditAnimalForm} />
       <HomeStack.Screen
-        name="UpdateFormSuccess"
-        component={UpdateFormSuccess}
+        name="MedicineUsageDetail"
+        component={MedicineUsageDetail}
       />
     </HomeStack.Navigator>
   );

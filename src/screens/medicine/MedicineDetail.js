@@ -116,6 +116,7 @@ export default function MedicineDetail({ navigation, route }) {
   const { item, purchase_date } = route.params;
 
   // Variables for Assign Medication Form
+  const medicineID = item.id;
   const medicineName = item.medication_name;
   const withdrawalMilk = item.withdrawal_days_dairy;
   const withdrawalMeat = item.withdrawal_days_meat;
@@ -167,7 +168,9 @@ export default function MedicineDetail({ navigation, route }) {
       <TouchableOpacity
         onPress={() =>
           navigation.navigate("AssignMedicationForm", {
-            animalID: item.tag_number,
+            animalID: item.id,
+            animalTag: item.tag_number,
+            medicineID: medicineID,
             medicineName: medicineName,
             withdrawalMeat: withdrawalMeat,
             withdrawalMilk: withdrawalMilk,

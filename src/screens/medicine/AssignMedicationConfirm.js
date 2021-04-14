@@ -72,7 +72,13 @@ const styles = StyleSheet.create({
 
 export default function AssignMedicationConfirm({ navigation, route }) {
   // GET ALL REQUIED VALUE
-  const { animalID, data, medicineQuantityType, medicineID } = route.params;
+  const {
+    animalID,
+    data,
+    medicineQuantityType,
+    medicineID,
+    animalTag,
+  } = route.params;
 
   // ADD ADMINISTRITION_MEDICATION
   const [addMedicineUsage, { loading, called }] = useMutation(
@@ -102,7 +108,6 @@ export default function AssignMedicationConfirm({ navigation, route }) {
 
     if (loading) {
       <PageLoader />;
-      console.log(called);
     }
 
     const fromScreen = "Medicine Usage";
@@ -158,7 +163,7 @@ export default function AssignMedicationConfirm({ navigation, route }) {
             <View>
               <Text style={styles.medicineLabel}>Animal ID</Text>
               <Text style={[styles.medicineDesc, { color: "#F3F4B8" }]}>
-                {data.animal}
+                {animalTag}
               </Text>
             </View>
             <View style={{ position: "absolute", right: 0 }}>
@@ -181,21 +186,6 @@ export default function AssignMedicationConfirm({ navigation, route }) {
 
           <Text style={styles.medicineLabel}>Date of Administration</Text>
           <Text style={styles.medicineDesc}>{data.date_of_administration}</Text>
-
-          {/* <Text style={styles.medicineLabel}>Withdrawal Period</Text>
-          <Text style={[styles.medicineDesc, { color: "#D74747" }]}>
-            Active
-          </Text> */}
-          {/* 
-          <Text style={styles.medicineLabel}>Withdrawal Period (Meat)</Text>
-          <Text style={styles.medicineDesc}>
-            {route.params["withdrawalMeat"]}
-          </Text>
-
-          <Text style={styles.medicineLabel}>Withdrawal Period (Milk)</Text>
-          <Text style={styles.medicineDesc}>
-            {route.params["withdrawalMilk"]}
-          </Text> */}
 
           <Text style={styles.medicineLabel}>Comment</Text>
           <Text style={styles.medicineDesc}>

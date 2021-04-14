@@ -65,8 +65,6 @@ export default function AssignMedicationForm({ navigation, route }) {
     animalTag,
     medicineName,
     medicineID,
-    withdrawalMeat,
-    withdrawalMilk,
     medicineQuantity,
     medicineQuantityType,
     color,
@@ -79,6 +77,7 @@ export default function AssignMedicationForm({ navigation, route }) {
       data,
       animalID,
       medicineID,
+      animalTag,
       medicineQuantityType,
     });
   };

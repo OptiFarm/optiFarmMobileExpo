@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
 export default function UpdateFormSuccess({ route }) {
   const { fromScreen } = route.params;
 
-  const navigateTo = fromScreen === "Medicine" ? "MedicineTab" : "HomeTab";
+  const navigateTo =
+    fromScreen === "Medicine Usage" ? "MedicineTab" : "HomeTab";
 
   const navigation = useNavigation();
   return (

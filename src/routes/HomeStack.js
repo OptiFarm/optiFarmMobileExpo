@@ -7,7 +7,6 @@ import MedicineUsage from "../screens/home/MedicineUsage";
 import AnimalDetail from "../screens/home/AnimalDetail";
 import AnimalForm from "../screens/home/AnimalForm";
 import FormSuccess from "../screens/home/FormSuccess";
-import SearchScreen from "../screens/home/SearchScreen";
 import EditAnimalForm from "../screens/home/EditAnimalForm";
 import MedicineUsageDetail from "../screens/home/MedicineUsageDetail";
 
@@ -20,7 +19,6 @@ export default function HomeStackComp() {
       <HomeStack.Screen name="AnimalDetail" component={AnimalDetail} />
       <HomeStack.Screen name="AnimalForm" component={AnimalForm} />
       <HomeStack.Screen name="FormSuccess" component={FormSuccess} />
-      <HomeStack.Screen name="SearchScreen" component={SearchScreen} />
       <HomeStack.Screen name="EditAnimalForm" component={EditAnimalForm} />
       <HomeStack.Screen
         name="MedicineUsageDetail"

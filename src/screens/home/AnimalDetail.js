@@ -13,7 +13,7 @@ import {
     ScrollView
 } from 'react-native';
 import { Button } from 'react-native-paper';
-import BottomSheet, { BottomSheetFlatList, BottomSheetModalProvider, BottomSheetModal, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetFlatList, BottomSheetModalProvider, BottomSheetModal, BottomSheetBackdrop, BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { CustomSheetBackground } from '../../components/atoms/CustomSheetBackground'
 
 // LOADER
@@ -298,16 +298,18 @@ export default function AnimalDetail ({ navigation, route }) {
                 index={1}
                 backgroundComponent={CustomSheetBackground}
                 backdropComponent={BottomSheetBackdrop}
+                keyboardBehavior="interactive"
+                keyboardBlurBehavior="restore"
             >
                 <View style={styles.containerModal}>
-                    <TextInput
+                    <BottomSheetTextInput
                         style={styles.input}
                         placeholder="Search for Medicine"
                         clearButtonMode='always'
                         onChangeText={search}
                         value={searchText}
                         placeholderTextColor='#848D95'
-                        returnKeyType='done'
+                        returnKeyType='search'
                     />
                 </View>
                 <BottomSheetFlatList

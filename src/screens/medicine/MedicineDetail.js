@@ -19,6 +19,7 @@ import BottomSheet, {
   BottomSheetModalProvider,
   BottomSheetModal,
   BottomSheetBackdrop,
+  BottomSheetTextInput,
 } from "@gorhom/bottom-sheet";
 import { CustomSheetBackground } from "../../components/atoms/CustomSheetBackground";
 
@@ -113,8 +114,8 @@ const modalStyles = StyleSheet.create({
 
 export default function MedicineDetail({ navigation, route }) {
   const { item, purchase_date } = route.params;
+
   // Variables for Assign Medication Form
-  const medicneID = item.id;
   const medicineName = item.medication_name;
   const withdrawalMilk = item.withdrawal_days_dairy;
   const withdrawalMeat = item.withdrawal_days_meat;
@@ -166,10 +167,8 @@ export default function MedicineDetail({ navigation, route }) {
       <TouchableOpacity
         onPress={() =>
           navigation.navigate("AssignMedicationForm", {
-            animalID: item.id,
-            animalTag: item.tag_number,
+            animalID: item.tag_number,
             medicineName: medicineName,
-            medicineID: medicneID,
             withdrawalMeat: withdrawalMeat,
             withdrawalMilk: withdrawalMilk,
             medicineQuantity: medicineQuantity,
@@ -241,7 +240,9 @@ export default function MedicineDetail({ navigation, route }) {
 
     let filteredData = AnimalList.filter(function (item) {
       const tag_number_search = item.tag_number.toString().includes(searchText);
-      const breed_type_search = item.breed_type.includes(searchText);
+      const breed_type_search = item.breed_type.includes(
+        searchText.toUpperCase()
+      );
 
       return tag_number_search || breed_type_search;
     });
@@ -272,14 +273,7 @@ export default function MedicineDetail({ navigation, route }) {
           </TouchableOpacity>
           <Text style={styles.name}>{item.medication_name}</Text>
           <View style={styles.rightContainer}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Home", {
-                  screen: "EditMedicineForm",
-                  params: { item },
-                })
-              }
-            >
+            <TouchableOpacity>
               <MaterialIcons name="edit" size={30} color="white" />
             </TouchableOpacity>
           </View>
@@ -435,17 +429,18 @@ export default function MedicineDetail({ navigation, route }) {
           index={1}
           backgroundComponent={CustomSheetBackground}
           backdropComponent={BottomSheetBackdrop}
+          keyboardBehavior="interactive"
+          keyboardBlurBehavior="restore"
         >
           <View style={styles.containerModal}>
-            <TextInput
+            <BottomSheetTextInput
               style={styles.input}
               placeholder="Search for Animal"
               clearButtonMode="always"
               onChangeText={search}
               value={searchText}
               placeholderTextColor="#848D95"
-              keyboardType="decimal-pad"
-              returnKeyType="done"
+              returnKeyType="search"
             />
           </View>
           <BottomSheetFlatList

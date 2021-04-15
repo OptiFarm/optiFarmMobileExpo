@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     },
     label: {
       color:'white', 
-      fontSize: 30, 
+      fontSize: 20, 
       fontFamily: 'Sora-SemiBold', 
       top: SPACING
     },
@@ -51,13 +51,17 @@ export default function FormSuccess ({ route }) {
 
     const navigateTo = fromScreen === 'Medicine' ? 'MedicineTab' : 'HomeTab';
 
+    const label = fromScreen === 'Medicine' ? 'New Medicine Added'
+                                : fromScreen === 'Animal' ? 'New Animal Added'
+                                : 'Assign Medication Success'
+
     const navigation = useNavigation()
     return (
         <>
           <View style={styles.background}>
             <KeyboardAvoidingView style={styles.container} behavior="padding">
               <Feather name="check-square" size={50} color="#82F5A8" />
-              <Text style={styles.label}>{fromScreen} Added</Text>
+              <Text style={styles.label}>{label}</Text>
               <Text style={styles.subLabel}>Your new {fromScreen} has been added to the system</Text>
               <Button
                   contentStyle={{height: 50, width: 25,}} 

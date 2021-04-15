@@ -110,11 +110,10 @@ export default function AssignMedicationConfirm({ navigation, route }) {
       <PageLoader />;
     }
 
-    const fromScreen = "Medicine Usage";
-    navigation.navigate("Home", {
-      screen: "UpdateFormSuccess",
-      params: { fromScreen },
-    });
+    const fromScreen = 'Medicine Usage';
+
+    navigation.navigate('Home', {screen: 'FormSuccess', params: {fromScreen}});
+    
   };
 
   return (

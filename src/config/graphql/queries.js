@@ -191,6 +191,8 @@ export const GET_MEDICATION_USAGE_LIST = gql`
         reason_for_administration
         animal_id
         medication_id
+        medication_name
+        tag_number
       }
     }
   }
@@ -225,16 +227,16 @@ export const GET_MEDICATION_USAGE_DETAIL = gql`
 /**
  * @description: query for getting animal count
  * @param:
- * @requires: 
+ * @requires:
  */
 export const GET_ANIMAL_COUNT = gql`
   query herdCount {
     herdCount {
-        responseCheck {
-            success
-            message
-        }
-        count
+      responseCheck {
+        success
+        message
+      }
+      count
     }
-}
+  }
 `;

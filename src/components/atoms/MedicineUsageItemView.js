@@ -61,6 +61,8 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
         navigation.navigate("Home", {
           screen: "MedicineUsageDetail",
           params: {
+            animalTagNumber: item.tag_number,
+            medicineName: item.medication_name,
             administeredBy: item.administered_by,
             dateAdministered: date_of_administration,
             quantityAdministered: item.quantity_administered,
@@ -81,7 +83,7 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
           ]}
         />
 
-        <Text style={styles.name}>{item.medication}</Text>
+        <Text style={styles.name}>{item.medication_name}</Text>
         <Text style={styles.medicineType}>Medicament</Text>
 
         <View style={styles.border} />
@@ -90,7 +92,7 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
           <View>
             <Text style={styles.medicineLabel}>Animal ID</Text>
             <Text style={[styles.medicineDesc, { color: "#F3F4B8" }]}>
-              {item.animal_id}
+              {item.tag_number}
             </Text>
           </View>
           <View style={{ position: "absolute", right: 0 }}>

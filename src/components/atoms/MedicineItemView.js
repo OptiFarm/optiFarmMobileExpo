@@ -69,7 +69,7 @@ export const MedicineItemView = ({ navigation, item }) => {
 
     const medicineLevelLabel =
         item.remaining_quantity === 0
-            ? "No Quantity"
+            ? "None Remaining"
             : item.remaining_quantity < midLevel && item.remaining_quantity > 0
             ? "Low Quantity"
             : item.remaining_quantity === midLevel

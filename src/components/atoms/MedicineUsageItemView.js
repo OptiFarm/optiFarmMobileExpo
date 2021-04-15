@@ -84,7 +84,7 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
         />
 
         <Text style={styles.name}>{item.medication_name}</Text>
-        <Text style={styles.medicineType}>Medicament</Text>
+        <Text style={styles.medicineType}>Medicine</Text>
 
         <View style={styles.border} />
 

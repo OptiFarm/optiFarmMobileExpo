@@ -119,7 +119,7 @@ export default function AnimalDetail({ navigation, route }) {
 
   // Variables for Assign Medication Form
   const animalTag = item.tag_number;
-  const animalID = item.id;
+  const animalID = item._id;
 
   // ASSIGN MEDICATION MODAL
   const snapPoints = useMemo(() => ["25%", "50%", "90%"], []);
@@ -137,7 +137,7 @@ export default function AnimalDetail({ navigation, route }) {
   }, []);
 
   const renderMedicineList = ({ item }) => {
-    const medicineID = item.id;
+    const medicineID = item._id;
     const medicineName = item.medication_name;
     const withdrawalMilk = item.withdrawal_days_dairy;
     const withdrawalMeat = item.withdrawal_days_meat;
@@ -442,7 +442,7 @@ export default function AnimalDetail({ navigation, route }) {
                 ? filteredData
                 : MedicineList
             }
-            keyExtractor={(item, index) => item.id}
+            keyExtractor={(item, index) => item._id}
             renderItem={renderMedicineList}
             contentContainerStyle={modalStyles.contentContainer}
           />

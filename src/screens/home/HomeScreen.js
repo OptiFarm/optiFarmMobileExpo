@@ -138,7 +138,7 @@ export default function HomeScreen({ navigation }) {
           }
           showsVerticalScrollIndicator={false}
           data={MedicineHomepageList}
-          keyExtractor={(item, index) => item.id}
+          keyExtractor={(item, index) => item._id}
           renderItem={renderItem}
           ref={ref}
         />

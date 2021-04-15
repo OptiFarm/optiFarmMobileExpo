@@ -69,7 +69,7 @@ export default function AssignMedicationForm({ navigation, route }) {
     medicineQuantityType,
     color,
   } = route.params;
-
+  console.log(route.params);
   // REACT HOOK FORM FUNCTIONS
   const { control, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {

@@ -17,7 +17,7 @@ import RNPickerSelect from "react-native-picker-select";
 
 // QUERY
 import { useMutation } from "@apollo/client";
-import { ADD_OR_UPDATE_ANIMAL } from "../../config/graphql/mutation";
+import { ADD_OR_UPDATE_ANIMAL, LOGIN } from "../../config/graphql/mutation";
 
 // THEME
 import {
@@ -103,7 +103,7 @@ export default function EditAnimalForm({ navigation, route }) {
 
   // ADD ANIMAL DATA MUTATION
   const [editAnimal, { data }] = useMutation(ADD_OR_UPDATE_ANIMAL);
-
+  console.log(data);
   // REACT HOOK FORM FUNCTIONS
   const {
     register,
@@ -114,7 +114,9 @@ export default function EditAnimalForm({ navigation, route }) {
     errors,
   } = useForm();
   const onSubmit = (data) => {
-    const id = item.id;
+    console.log(data);
+    console.log(item._id);
+    const _id = item._id;
     const breed_type = data.breed;
     const date_of_birth = data.dateOfBirth;
     const description = data.description;
@@ -127,7 +129,7 @@ export default function EditAnimalForm({ navigation, route }) {
 
     editAnimal({
       variables: {
-        id: id,
+        _id: _id,
         breed_type: breed_type,
         date_of_birth: date_of_birth,
         description: description,
@@ -140,7 +142,11 @@ export default function EditAnimalForm({ navigation, route }) {
       },
     });
 
-    navigation.navigate("Home", { screen: "FormSuccess" });
+    const fromScreen = "Animal Info";
+    navigation.navigate("Home", {
+      screen: "FormSuccess",
+      params: { fromScreen },
+    });
   };
 
   const onChange = (arg) => {
@@ -354,7 +360,7 @@ export default function EditAnimalForm({ navigation, route }) {
                 />
               )}
               name="description"
-              rules={{ required: true }}
+              rules={{ required: false }}
               defaultValue={item.description}
             />
 

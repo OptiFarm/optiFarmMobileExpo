@@ -105,7 +105,6 @@ export default function EditMedicineForm({ navigation, route }) {
 
   // ADD ANIMAL DATA MUTATION
   const [editMedicine] = useMutation(SAVE_OR_UPDATE_MEDICATION);
-
   // REACT HOOK FORM FUNCTIONS
   const {
     register,
@@ -116,7 +115,7 @@ export default function EditMedicineForm({ navigation, route }) {
     errors,
   } = useForm();
   const onSubmit = (data) => {
-    const id = item.id;
+    const id = item._id;
     const medication_name = data.medicineName;
     const medicine_type = data.medicineType;
     const supplied_by = data.suppliedBy;
@@ -146,10 +145,10 @@ export default function EditMedicineForm({ navigation, route }) {
       },
     });
 
-    const fromScreen = "Medicine";
+    const fromScreen = "Medicine Info";
 
     navigation.navigate("Home", {
-      screen: "UpdateFormSuccess",
+      screen: "FormSuccess",
       params: { fromScreen },
     });
   };
@@ -355,7 +354,7 @@ export default function EditMedicineForm({ navigation, route }) {
               )}
               name="withdrawalForMilk"
               rules={{ required: true }}
-              defaultValue={item.withdrawal_days_meat.toString()}
+              defaultValue={item.withdrawal_days_dairy.toString()}
             />
 
             <Text style={styles.label}>Withdrawal For Meat</Text>

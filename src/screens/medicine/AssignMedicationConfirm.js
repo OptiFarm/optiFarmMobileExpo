@@ -80,6 +80,8 @@ export default function AssignMedicationConfirm({ navigation, route }) {
     animalTag,
   } = route.params;
 
+  console.log(route.params);
+
   // ADD ADMINISTRITION_MEDICATION
   const [addMedicineUsage, { loading, called }] = useMutation(
     SAVE_OR_UPDATE_MEDICATION_USAGE
@@ -110,10 +112,12 @@ export default function AssignMedicationConfirm({ navigation, route }) {
       <PageLoader />;
     }
 
-    const fromScreen = 'Medicine Usage';
+    const fromScreen = "Medicine Usage";
 
-    navigation.navigate('Home', {screen: 'FormSuccess', params: {fromScreen}});
-    
+    navigation.navigate("Home", {
+      screen: "FormSuccess",
+      params: { fromScreen },
+    });
   };
 
   return (

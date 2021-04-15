@@ -60,7 +60,7 @@ export const SIGN_UP = gql`
       }
       token
       farmer {
-        id
+        _id
         first_name
         second_name
         farm_type
@@ -87,7 +87,7 @@ export const SIGN_UP = gql`
  */
 export const ADD_OR_UPDATE_ANIMAL = gql`
   mutation saveAnimal(
-    $id: ID
+    $_id: ID
     $tag_number: Int!
     $sire_number: Int!
     $mother_number: Int!
@@ -99,7 +99,7 @@ export const ADD_OR_UPDATE_ANIMAL = gql`
     $date_of_birth: Date!
   ) {
     saveAnimal(
-      id: $id
+      _id: $_id
       tag_number: $tag_number
       sire_number: $sire_number
       mother_number: $mother_number
@@ -135,8 +135,8 @@ export const ADD_OR_UPDATE_ANIMAL = gql`
  * @param: id:ID! the animal id generated automatically
  */
 export const DELETE_ANIMAL = gql`
-  mutation deleteAnimal($id: ID!) {
-    deleteAnimal(id: $id) {
+  mutation deleteAnimal($_id: ID!) {
+    deleteAnimal(_id: $_id) {
       responseCheck {
         success
         message
@@ -170,7 +170,7 @@ export const CREATE_OR_UPDATE_GROUP = gql`
     $group_description: String!
   ) {
     saveGroup(
-      id: $id
+      _id: $id
       group_name: $group_name
       group_description: $group_description
     ) {
@@ -216,7 +216,7 @@ export const SAVE_OR_UPDATE_MEDICATION = gql`
     $comments: String
   ) {
     saveMedication(
-      id: $id
+      _id: $id
       medication_name: $medication_name
       medicine_type: $medicine_type
       supplied_by: $supplied_by
@@ -273,7 +273,7 @@ export const SAVE_OR_UPDATE_MEDICATION_USAGE = gql`
     $medication_id: ID
   ) {
     saveAdminMed(
-      id: $id
+      _id: $id
       date_of_administration: $date_of_administration
       quantity_administered: $quantity_administered
       administered_by: $administered_by

@@ -239,7 +239,7 @@ export default function MedicationUsage({ navigation }) {
               ? filteredData
               : MedicineUsageList
           }
-          keyExtractor={(item, index) => item.id}
+          keyExtractor={(item, index) => item._id}
           contentContainerStyle={{ paddingHorizontal: SPACING }}
           renderItem={({ item }) => (
             <MedicineUsageItemView item={item} navigation={navigation} />

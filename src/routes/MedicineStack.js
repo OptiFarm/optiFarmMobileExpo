@@ -12,23 +12,11 @@ const MedicineHomeStack = createStackNavigator();
 export default function MedicineStackComp() {
   return (
     <MedicineHomeStack.Navigator headerMode="none">
-      <MedicineHomeStack.Screen
-        name="MedicineDetail"
-        component={MedicineDetail}
-      />
+      <MedicineHomeStack.Screen name="MedicineDetail" component={MedicineDetail}/>
       <MedicineHomeStack.Screen name="MedicineForm" component={MedicineForm} />
-      <MedicineHomeStack.Screen
-        name="AssignMedicationForm"
-        component={AssignMedicationForm}
-      />
-      <MedicineHomeStack.Screen
-        name="AssignMedicationConfirm"
-        component={AssignMedicationConfirm}
-      />
-      <MedicineHomeStack.Screen
-        name="EditMedicineForm"
-        component={EditMedicineForm}
-      />
+      <MedicineHomeStack.Screen name="AssignMedicationForm" component={AssignMedicationForm} />
+      <MedicineHomeStack.Screen name="AssignMedicationConfirm" component={AssignMedicationConfirm} />
+      <MedicineHomeStack.Screen name="EditMedicineForm" component={EditMedicineForm} />
     </MedicineHomeStack.Navigator>
   );
 }

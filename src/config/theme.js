@@ -9,6 +9,7 @@ export const defaultBackground = '#161C29'
 export const cardBackground = '#1C2436'
 
 // Medicine Levels
+export const medicineEmpty = '#636E72'
 export const medicineLevelLow = '#D74747'
 export const medicineLevelMedium = '#FF9F47'
 export const medicineLevelHigh = '#82F5A8'

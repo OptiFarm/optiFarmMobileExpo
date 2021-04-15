@@ -12,6 +12,7 @@ import {
   TextInput,
   Image,
   ScrollView,
+  Alert,
 } from "react-native";
 import { Button } from "react-native-paper";
 import BottomSheet, {
@@ -32,6 +33,7 @@ import {
   height,
   defaultBackground,
   cardBackground,
+  medicineEmpty,
   medicineLevelLow,
   medicineLevelMedium,
   medicineLevelHigh,
@@ -113,7 +115,7 @@ const modalStyles = StyleSheet.create({
 });
 
 export default function MedicineDetail({ navigation, route }) {
-  const { item, purchase_date } = route.params;
+  const { item, purchase_date, medicineLevelColor, medicineLevelLabel} = route.params;
 
   // Variables for Assign Medication Form
   const medicineID = item.id;
@@ -122,23 +124,6 @@ export default function MedicineDetail({ navigation, route }) {
   const withdrawalMeat = item.withdrawal_days_meat;
   const medicineQuantity = item.remaining_quantity;
   const medicineQuantityType = item.quantity_type;
-
-  // MEDICINE QUANTITY COLOR
-  const midLevel = item.quantity / 2;
-
-  const medicineLevelColor =
-    item.remaining_quantity < midLevel
-      ? medicineLevelLow
-      : item.remaining_quantity === midLevel
-      ? medicineLevelMedium
-      : medicineLevelHigh;
-
-  const medicineLevelLabel =
-    item.remaining_quantity < midLevel
-      ? "Low Quantity"
-      : item.remaining_quantity === midLevel
-      ? "Medium Quantity"
-      : "High Quantity";
 
   const activeColor =
     item.medicineWithdrawal === "Active" ? medicineLevelLow : medicineLevelHigh;
@@ -157,6 +142,23 @@ export default function MedicineDetail({ navigation, route }) {
   const handleClosePress = useCallback(() => {
     bottomSheetModalRef.current?.close();
   }, []);
+
+  // DISABLE ASSIGN MEDICATION IF QUANTITY 0
+  const medicineEmpty = () => {
+    Alert.alert(
+      "Unable to Give Medication",
+      "Medicine quantity is 0, you are not able to use this medicine",
+      [
+        {
+          text: "OK",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+      ]
+    );
+  }
+
+  const handleMedicineAction = medicineQuantity === 0 ? medicineEmpty : handlePresentModalPress;
 
   const renderAnimalList = ({ item }) => {
     const cowLogo =
@@ -307,7 +309,7 @@ export default function MedicineDetail({ navigation, route }) {
               fontSize: 17,
               color: cardBackground,
             }}
-            onPress={handlePresentModalPress}
+            onPress={handleMedicineAction}
           >
             Give Medication
           </Button>

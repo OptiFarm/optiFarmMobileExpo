@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { useScrollToTop } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
@@ -10,9 +10,6 @@ import { GroupItemView } from '../../components/atoms/GroupItemView';
 
 // LOADER
 import { PageLoader } from '../../components/atoms/PageLoader';
-
-// DATA
-import { groupData } from '../../config/data/Animal';
 
 // QUERY
 import { useQuery } from '@apollo/client';
@@ -38,7 +35,16 @@ export default function GroupScreen ({navigation}) {
     const ref = React.useRef(null);
     useScrollToTop(ref);
 
-    const { data, loading } = useQuery(GET_GROUP);
+    const { data, loading, refetch } = useQuery(GET_GROUP);
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+          if (refetch) {
+            refetch();
+          }
+        });
+        return unsubscribe;
+    }, [navigation]);
 
     if (loading) {
         return <PageLoader />
@@ -72,7 +78,7 @@ export default function GroupScreen ({navigation}) {
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     data={GroupList}
-                    keyExtractor={(item) => item.key}
+                    keyExtractor={(item, index) => item.id}
                     contentContainerStyle={{ paddingHorizontal: SPACING }}
                     renderItem={({item}) => <GroupItemView item={item} navigation={navigation} />}
                     ref={ref}

@@ -5,7 +5,17 @@ import Moment from 'moment';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 // THEME
-import { SPACING, width, height, cardBackground, CELL_HEIGHT, medicineLevelLow, medicineLevelMedium, medicineLevelHigh } from '../../config/theme';
+import { 
+    SPACING, 
+    width, 
+    height, 
+    cardBackground, 
+    CELL_HEIGHT, 
+    medicineEmpty,
+    medicineLevelLow, 
+    medicineLevelMedium, 
+    medicineLevelHigh 
+} from '../../config/theme';
 
 const styles = StyleSheet.create({
     name: {
@@ -48,13 +58,23 @@ export const MedicineItemView = ({ navigation, item }) => {
 
     const midLevel = item.quantity / 2;
 
-    const medicineLevelColor = item.remaining_quantity < midLevel ? medicineLevelLow
-                                : item.remaining_quantity === midLevel ? medicineLevelMedium
-                                : medicineLevelHigh
+    const medicineLevelColor =
+        item.remaining_quantity === 0
+            ? medicineEmpty
+            : item.remaining_quantity < midLevel && item.remaining_quantity > 0
+            ? medicineLevelLow
+            : item.remaining_quantity === midLevel
+            ? medicineLevelMedium
+            : medicineLevelHigh;
 
-    const medicineLevelLabel = item.remaining_quantity < midLevel ? 'Low Quantity'
-                                : item.remaining_quantity === midLevel ? 'Medium Quantity'
-                                : 'High Quantity'
+    const medicineLevelLabel =
+        item.remaining_quantity === 0
+            ? "No Quantity"
+            : item.remaining_quantity < midLevel && item.remaining_quantity > 0
+            ? "Low Quantity"
+            : item.remaining_quantity === midLevel
+            ? "Medium Quantity"
+            : "High Quantity";
 
     const medicineType = item.medicine_type.charAt(0) + item.medicine_type.slice(1).toLowerCase();
 
@@ -65,7 +85,7 @@ export const MedicineItemView = ({ navigation, item }) => {
 
     return (
         <TouchableOpacity 
-            onPress={() => navigation.navigate('Medicine', {screen: 'MedicineDetail', params: {item, purchase_date}})}
+            onPress={() => navigation.navigate('Medicine', {screen: 'MedicineDetail', params: {item, purchase_date, medicineLevelLabel, medicineLevelColor}})}
             style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 200 }}
         >
             <View style={{ flex: 1, padding: SPACING }}>

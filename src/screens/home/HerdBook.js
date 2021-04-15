@@ -2,7 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'; 
 
 // COMPONENTS
-import { View, FlatList, SafeAreaView, StyleSheet, TouchableHighlight, TextInput } from 'react-native';
+import { 
+    View, 
+    FlatList, 
+    SafeAreaView, 
+    StyleSheet, 
+    TouchableHighlight, 
+    TextInput, 
+    Alert, 
+} from 'react-native';
 import { Button } from 'react-native-paper';
 import { PageHeader } from '../../components/atoms/PageHeader';
 import { AnimalItemView } from '../../components/atoms/AnimalItemView';
@@ -13,7 +21,9 @@ import { PageLoader } from '../../components/atoms/PageLoader';
 
 // QUERY
 import { useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { GET_HERD } from '../../config/graphql/queries';
+import { DELETE_ANIMAL } from '../../config/graphql/mutation';
 
 // ANIMATION
 import Animated, { EasingNode } from 'react-native-reanimated'
@@ -126,13 +136,22 @@ export default function HerdBook ({navigation}) {
         ref_input.current.blur();
     }
     
-    const { data, loading } = useQuery(GET_HERD);
-    
+    // QUERY & MUTATION
+    const { data: herdList, loading, refetch } = useQuery(GET_HERD);
+    const [deleteAnimal, { data }] = useMutation(DELETE_ANIMAL);
+
+    const onDelete = item => {
+        deleteAnimal({ variables: {
+            id: item.id
+        }})
+        refetch();
+    }
+
     if (loading) {
         return <PageLoader />
     } 
 
-    const AnimalList = data.herd.animals;
+    const AnimalList = herdList.herd.animals;
 
     const search = (searchText) => {
         setSearchText(searchText);
@@ -142,6 +161,22 @@ export default function HerdBook ({navigation}) {
         });
 
         setFilteredData(filteredData);
+    }
+
+    // HANDLE DELETE ANIMAL
+    const handleDeleteAnimal = item => {
+        Alert.alert(
+            "Delete Animal",
+            "Are you sure you want to delete this Animal?",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "Yes", onPress: () => {onDelete(item)} }
+            ]
+        );  
     }
 
     return (
@@ -216,7 +251,7 @@ export default function HerdBook ({navigation}) {
                 data={filteredData && filteredData.length > 0 ? filteredData : AnimalList}
                 keyExtractor={(item, index) => item.id}
                 contentContainerStyle={{ paddingHorizontal: SPACING, }}
-                renderItem={({item}) => <AnimalItemView item={item} navigation={navigation} />} 
+                renderItem={({item}) => <AnimalItemView item={item} navigation={navigation} onRightPress={ () => {handleDeleteAnimal(item)}} />} 
             /> 
         </View>
         </>

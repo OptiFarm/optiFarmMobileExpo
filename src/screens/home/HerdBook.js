@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons, Feather } from "@expo/vector-icons";
 
 // COMPONENTS
 import {
@@ -10,6 +10,9 @@ import {
   TouchableHighlight,
   TextInput,
   Alert,
+  Modal,
+  Pressable,
+  Text,
 } from "react-native";
 import { Button } from "react-native-paper";
 import { PageHeader } from "../../components/atoms/PageHeader";
@@ -85,7 +88,36 @@ const styles = StyleSheet.create({
   },
 });
 
+const modalStyles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    position: 'absolute',
+    bottom: 70,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#E4E5E9',
+    padding: 30,
+    width: width-25,
+    borderRadius: 5,
+    borderLeftColor: '#3E9141', 
+    borderLeftWidth: 10,
+  },
+  modalText: {
+    color: cardBackground, 
+    fontSize: 18, 
+    fontFamily: 'Sora-SemiBold',
+  },
+})
+
 export default function HerdBook({ navigation }) {
+
+  const [modalVisible, setModalVisible] = useState(false);
+
   // ANIMATION
   const { Value, timing } = Animated;
   const [isFocused, setIsFocused] = useState(true);
@@ -146,14 +178,13 @@ export default function HerdBook({ navigation }) {
   const { data: herdList, loading, refetch } = useQuery(GET_HERD);
   const [deleteAnimal, { data }] = useMutation(DELETE_ANIMAL);
 
-  const onDelete = (item) => {
+  const onDelete = async (item) => {
     const _id = item._id;
     deleteAnimal({
       variables: {
         _id: _id,
       },
     });
-    refetch();
   };
 
   if (loading) {
@@ -172,8 +203,16 @@ export default function HerdBook({ navigation }) {
     setFilteredData(filteredData);
   };
 
+  const showModal = () => {
+    setModalVisible(true)
+    setTimeout(() => {
+      setModalVisible(false);
+    }, 2500);
+  };
+
+
   // HANDLE DELETE ANIMAL
-  const handleDeleteAnimal = (item) => {
+  const handleDeleteAnimal = async (item) => {
     Alert.alert(
       "Delete Animal",
       "Are you sure you want to delete this Animal?",
@@ -186,7 +225,12 @@ export default function HerdBook({ navigation }) {
         {
           text: "Yes",
           onPress: () => {
-            onDelete(item);
+            async function deleteYes() {
+              const deleting = await onDelete(item);
+              refetch();
+            }
+            deleteYes();
+            showModal();
           },
         },
       ]
@@ -313,6 +357,20 @@ export default function HerdBook({ navigation }) {
             />
           )}
         />
+        <View style={modalStyles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+          >
+            <View style={modalStyles.centeredView}>
+              <View style={modalStyles.modalView}>
+                <MaterialIcons name="check-circle" size={25} color='#3E9141' style={{marginRight: SPACING}} />
+                <Text style={modalStyles.modalText}>Animal Deleted!</Text>
+              </View>
+            </View>
+          </Modal>
+        </View>
       </View>
     </>
   );

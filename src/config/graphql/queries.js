@@ -277,3 +277,54 @@ export const GET_HOMEPAGE_MEDICNE = gql`
     }
   }
 `;
+
+/**
+ * @description: query for last medicated inside animal details
+ * @param:
+ * @requires:
+ */
+export const GET_LAST_MEDICATION_ANIMAL = gql`
+  query animalWithLastMedication($id: ID!) {
+    animalWithLastMedication(_id: $id) {
+      responseCheck {
+        success
+        message
+      }
+        administeredMedications {
+            _id
+            date_of_administration
+            administered_by
+            quantity_administered 
+            quantity_type
+            reason_for_administration
+            medication {
+              _id
+              medication_name
+              supplied_by
+              quantity
+              quantity_type
+              withdrawal_days_meat
+              withdrawal_days_dairy
+              remaining_quantity
+              batch_number
+              expiry_date
+              purchase_date
+              comments
+            }
+            animal {
+              _id
+              tag_number
+              herd_number
+              sire_number
+              mother_number
+              male_female
+              breed_type
+              pure_breed
+              animal_name
+              description
+              date_of_birth
+            }
+        }
+    }
+  }
+`;

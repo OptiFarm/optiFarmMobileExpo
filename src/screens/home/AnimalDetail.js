@@ -28,6 +28,7 @@ import { PageLoader } from "../../components/atoms/PageLoader";
 // QUERY
 import { useQuery } from "@apollo/client";
 import { GET_MEDICATIONS } from "../../config/graphql/queries";
+import { GET_LAST_MEDICATION_ANIMAL } from "../../config/graphql/queries";
 
 // THEME
 import {
@@ -115,7 +116,7 @@ const modalStyles = StyleSheet.create({
 });
 
 export default function AnimalDetail({ navigation, route }) {
-  const { item, date_of_birth, cowLogo, last_calved } = route.params;
+  const { item, date_of_birth, cowLogo, last_calved, male_female } = route.params;
 
   // Variables for Assign Medication Form
   const animalTag = item.tag_number;
@@ -233,13 +234,59 @@ export default function AnimalDetail({ navigation, route }) {
   const [searchText, setSearchText] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
+  const id = item._id
+
   const { data, loading } = useQuery(GET_MEDICATIONS);
 
-  if (loading) {
+  const { data: lastMedication, loading: loadLastMedication } = useQuery(GET_LAST_MEDICATION_ANIMAL, {
+    variables: {id},
+  });
+
+  // const { medicineInfo, medicineAssignedName, administeredBy, dateAdministered, quantityAdministered, quantityType, reason } = ''; 
+
+  if (loading || loadLastMedication) {
     return <PageLoader />;
   }
 
   const MedicineList = data.medications.medications;
+
+  const DisplayMedication = () => {
+    if (lastMedication.animalWithLastMedication.administeredMedications === null) {
+      return (
+        <Text style={styles.value}>N/A</Text>
+      )
+    }
+    else {
+      const medicineInfo = lastMedication.animalWithLastMedication.administeredMedications[0].medication[0]
+      const medicineAssignedName = medicineInfo.medication_name;
+      const administeredBy = lastMedication.animalWithLastMedication.administeredMedications[0].administered_by;
+      const dateAdministered = lastMedication.animalWithLastMedication.administeredMedications[0].date_of_administration;
+      const quantityAdministered = lastMedication.animalWithLastMedication.administeredMedications[0].quantity_administered;
+      const quantityType = lastMedication.animalWithLastMedication.administeredMedications[0].quantity_type;
+      const reason = lastMedication.animalWithLastMedication.administeredMedications[0].reason_for_administration;
+  
+      return (
+        <TouchableOpacity       
+          onPress={() =>
+              navigation.navigate("Home", {
+                screen: "MedicineUsageDetail",
+                params: {
+                  animalTagNumber: animalTag,
+                  medicineName: medicineAssignedName,
+                  administeredBy: administeredBy,
+                  dateAdministered: dateAdministered,
+                  quantityAdministered: quantityAdministered,
+                  quantityType: quantityType,
+                  reason: reason,
+                },
+              })
+            }
+          >
+          <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>
+        </TouchableOpacity>
+      )
+    }
+  }
 
   const search = (searchText) => {
     setSearchText(searchText);
@@ -341,7 +388,7 @@ export default function AnimalDetail({ navigation, route }) {
                   <Text style={styles.value}>{item.herd_number}</Text>
                   <Text style={styles.value}>{item.sire_number}</Text>
                   <Text style={styles.value}>{item.mother_number}</Text>
-                  <Text style={styles.value}>{item.male_female}</Text>
+                  <Text style={styles.value}>{male_female}</Text>
                   <Text style={styles.value}>{date_of_birth}</Text>
                   <Text style={styles.value}>{item.breed_type}</Text>
                   <Text style={styles.value}>{last_calved}</Text>
@@ -349,7 +396,7 @@ export default function AnimalDetail({ navigation, route }) {
               </View>
             </View>
           </View>
-          <View style={{ marginBottom: CELL_HEIGHT / 10, height: 280 }}>
+          <View style={{ marginBottom: CELL_HEIGHT / 10, height: 190 }}>
             <View style={{ flex: 1, padding: SPACING }}>
               <View
                 style={[
@@ -360,7 +407,7 @@ export default function AnimalDetail({ navigation, route }) {
               <View style={{ flexDirection: "row" }}>
                 <View>
                   <Text style={styles.key}>Pure Breed</Text>
-                  <Text style={styles.key}>Medication</Text>
+                  <Text style={styles.key}>Last Medication</Text>
                   <Text style={styles.key}>View Progeny</Text>
                 </View>
                 <View
@@ -371,8 +418,28 @@ export default function AnimalDetail({ navigation, route }) {
                   }}
                 >
                   <Text style={styles.value}>{item.pure_breed.toString()}</Text>
-                  <Text style={styles.value}>{item.pure_breed.toString()}</Text>
-                  <Text style={styles.value}>Click Here</Text>
+                  {/* <TouchableOpacity       
+                    onPress={() =>
+                        navigation.navigate("Home", {
+                          screen: "MedicineUsageDetail",
+                          params: {
+                            animalTagNumber: animalTag,
+                            medicineName: medicineAssignedName,
+                            administeredBy: administeredBy,
+                            dateAdministered: dateAdministered,
+                            quantityAdministered: quantityAdministered,
+                            quantityType: quantityType,
+                            reason: reason,
+                          },
+                        })
+                    }
+                  >
+                    <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>
+                  </TouchableOpacity> */}
+                  <DisplayMedication />
+                  <TouchableOpacity>
+                    <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>

@@ -72,11 +72,12 @@ export const AnimalItemView = ({ navigation, item, onRightPress }) => {
 
     // COW LOGO
     const cowLogo = item.male_female === 'M' ? 'https://i.ibb.co/NnqjqXC/maleCow.png' : 'https://i.ibb.co/V989V52/female-Cow.png';
-    
+
     // FORMAT DATE TIME
     Moment.locale('en');
-    var dt = item.date_of_birth;
+    const dt = item.date_of_birth;
     const date_of_birth = Moment(dt).format('YYYY-MM-DD');
+    const last_calved = item.last_calved !== null ? Moment(item.last_calved).format('YYYY-MM-DD') : 'N/A';
 
     return (
         <Swipeable
@@ -85,18 +86,18 @@ export const AnimalItemView = ({ navigation, item, onRightPress }) => {
             )}
         >
             <TouchableOpacity 
-                onPress={() => navigation.navigate('Home', {screen: 'AnimalDetail', params: {item, date_of_birth, cowLogo}})}
+                onPress={() => navigation.navigate('Home', {screen: 'AnimalDetail', params: {item, date_of_birth, cowLogo, last_calved}})}
                 style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 265 }}
             >
                 <View style={{ flex: 1, padding: SPACING }}>
                     <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderRadius: 15}]}/>
 
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{flexDirection: 'row',}}>
                         <View>
-                            <Text style={styles.name}>ID: <Text style={{color: '#F4F3BE'}}>{item.tag_number}</Text></Text>
-                            <Text style={styles.animalType}>Herd Number: <Text style={{color: '#F4F3BE'}}>{item.herd_number}</Text></Text>
+                            <Text style={styles.name}>Tag Number: <Text style={{color: '#F4F3BE'}}>{item.tag_number}</Text></Text>
+                            {/* <Text style={styles.animalType}></Text> */}
                         </View>
-                        <View style={{position: 'absolute', right: 0, top: SPACING}}>
+                        <View style={{position: 'absolute', right: 0,}}>
                             <Image source={{ uri: cowLogo }} style={{ height: 40, width: 40 }}/>
                         </View>
                     </View>

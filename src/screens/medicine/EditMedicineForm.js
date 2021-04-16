@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     position: "relative",
-    marginTop: topOS - 70,
+    marginTop: topOS,
   },
   label: {
     color: "white",

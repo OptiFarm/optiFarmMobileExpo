@@ -50,13 +50,13 @@ const styles = StyleSheet.create({
 });
 
 export const MedicineUsageItemView = ({ navigation, item }) => {
-  
+
   // FORMAT DATE TIME
   Moment.locale("en");
   var dt = item.date_of_administration;
   const date_of_administration = Moment(dt).format("YYYY-MM-DD");
 
-  const animalTag = item.animal === undefined ? item.animal[0].tag_number : 'null'
+  const animalTag = item.animal !== undefined ? item.animal[0].tag_number : 'null'
   const medicineName = item.medication[0].medication_name
 
   return (
@@ -94,7 +94,7 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
 
         <View style={{ flexDirection: "row" }}>
           <View>
-            <Text style={styles.medicineLabel}>Animal ID</Text>
+            <Text style={styles.medicineLabel}>Tag Number</Text>
             <Text style={[styles.medicineDesc, { color: "#F3F4B8" }]}>
               {animalTag}
             </Text>

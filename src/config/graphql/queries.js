@@ -86,6 +86,7 @@ export const GET_HERD = gql`
         animal_name
         description
         date_of_birth
+        last_calved
       }
     }
   }
@@ -95,7 +96,7 @@ export const GET_HERD = gql`
  * @description: Get Animal details by id
  * @param: id: ID was generated automatically
  */
-export const GET_ANIMAL_DITAILS = gql`
+export const GET_ANIMAL_DETAILS = gql`
   query animal($id: ID!) {
     animal(_id: $id) {
       responseCheck {
@@ -114,6 +115,7 @@ export const GET_ANIMAL_DITAILS = gql`
         animal_name
         description
         date_of_birth
+        last_calved
       }
     }
   }
@@ -241,6 +243,37 @@ export const GET_ANIMAL_COUNT = gql`
         message
       }
       count
+    }
+  }
+`;
+
+/**
+ * @description: query for homepage medicine list
+ * @param:
+ * @requires:
+ */
+export const GET_HOMEPAGE_MEDICNE = gql`
+  query medicationsLastThreeUsed{
+    medicationsLastThreeUsed{
+      responseCheck{
+        success
+        message
+      }
+      medications{
+        _id,
+        medication_name
+        medicine_type
+        supplied_by
+        quantity
+        quantity_type
+        withdrawal_days_meat
+        withdrawal_days_dairy
+        remaining_quantity
+        batch_number
+        expiry_date
+        purchase_date
+        comments
+      }
     }
   }
 `;

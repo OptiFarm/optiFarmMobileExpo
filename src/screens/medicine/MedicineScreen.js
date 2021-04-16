@@ -223,7 +223,7 @@ export default function MedicineScreen ({navigation}, props) {
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     data={filteredData && filteredData.length > 0 ? filteredData : MedicineList}
-                    keyExtractor={(item, index) => item.id}
+                    keyExtractor={(item, index) => item._id}
                     contentContainerStyle={{ padding: SPACING }}
                     renderItem={({item}) => <MedicineItemView item={item} navigation={navigation} />}
                     ref={ref}

@@ -468,7 +468,7 @@ export default function MedicineDetail({ navigation, route }) {
                 ? filteredData
                 : AnimalList
             }
-            keyExtractor={(item, index) => item.id}
+            keyExtractor={(item, index) => item._id}
             renderItem={renderAnimalList}
             contentContainerStyle={modalStyles.contentContainer}
           />

@@ -115,7 +115,7 @@ const modalStyles = StyleSheet.create({
 });
 
 export default function AnimalDetail({ navigation, route }) {
-  const { item, date_of_birth, cowLogo } = route.params;
+  const { item, date_of_birth, cowLogo, last_calved } = route.params;
 
   // Variables for Assign Medication Form
   const animalTag = item.tag_number;
@@ -311,7 +311,7 @@ export default function AnimalDetail({ navigation, route }) {
             style={{
               marginBottom: CELL_HEIGHT / 10,
               marginTop: 30,
-              height: 325,
+              height: 370,
             }}
           >
             <View style={{ flex: 1, padding: SPACING }}>
@@ -325,10 +325,11 @@ export default function AnimalDetail({ navigation, route }) {
                 <View>
                   <Text style={styles.key}>Herd No</Text>
                   <Text style={styles.key}>Sire Number</Text>
-                  <Text style={styles.key}>Mother Number</Text>
+                  <Text style={styles.key}>Dam Number</Text>
                   <Text style={styles.key}>Sex</Text>
                   <Text style={styles.key}>Date of Birth</Text>
                   <Text style={styles.key}>Breed</Text>
+                  <Text style={styles.key}>Last Calved</Text>
                 </View>
                 <View
                   style={{
@@ -343,6 +344,7 @@ export default function AnimalDetail({ navigation, route }) {
                   <Text style={styles.value}>{item.male_female}</Text>
                   <Text style={styles.value}>{date_of_birth}</Text>
                   <Text style={styles.value}>{item.breed_type}</Text>
+                  <Text style={styles.value}>{last_calved}</Text>
                 </View>
               </View>
             </View>
@@ -358,8 +360,6 @@ export default function AnimalDetail({ navigation, route }) {
               <View style={{ flexDirection: "row" }}>
                 <View>
                   <Text style={styles.key}>Pure Breed</Text>
-                  <Text style={styles.key}>Vaccination</Text>
-                  <Text style={styles.key}>Doesing</Text>
                   <Text style={styles.key}>Medication</Text>
                   <Text style={styles.key}>View Progeny</Text>
                 </View>
@@ -371,15 +371,8 @@ export default function AnimalDetail({ navigation, route }) {
                   }}
                 >
                   <Text style={styles.value}>{item.pure_breed.toString()}</Text>
-                  <Text style={styles.value}>{item.animal_vaccine}</Text>
-                  <Text style={styles.value}>{item.animal_doesing}</Text>
-                  <Text style={styles.value}>{item.animal_medication}</Text>
-                  <TouchableOpacity>
-                    <Text style={[styles.value, { color: "#F4F3BE" }]}>
-                      <Feather name="info" size={18} color="#F4F3BE" /> Click
-                      Here
-                    </Text>
-                  </TouchableOpacity>
+                  <Text style={styles.value}>{item.pure_breed.toString()}</Text>
+                  <Text style={styles.value}>Click Here</Text>
                 </View>
               </View>
             </View>

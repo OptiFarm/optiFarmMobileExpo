@@ -31,7 +31,7 @@ const client = new ApolloClient({
   uri: "http://54.144.86.17:4000/optiFarm",
   headers: {
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZmJkNWE2NGJjOTM3MDA0ZjRhZDIxZDIiLCJpYXQiOjE2MTc2MzIyODZ9._muvW5leYi4jVrO5nYvbNWaEJw4zPJ6rdMCWLqJdojY",
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDc4NzQ0Y2MwOTBiZjEzMGMxYWQyNTgiLCJpYXQiOjE2MTg1MDY5NzV9.SgkjF5GQiHt4UyDI_cfBCASo3AfaGYQakgfL2ens7uQ",
     "Content-Type": "application/json",
   },
   cache,

@@ -75,9 +75,9 @@ export const AnimalItemView = ({ navigation, item, onRightPress }) => {
 
     // FORMAT DATE TIME
     Moment.locale('en');
-    const dt = item.date_of_birth;
-    const date_of_birth = Moment(dt).format('YYYY-MM-DD');
+    const date_of_birth = Moment(item.date_of_birth).format('YYYY-MM-DD');
     const last_calved = item.last_calved !== null ? Moment(item.last_calved).format('YYYY-MM-DD') : 'N/A';
+    const male_female = item.male_female === 'M' ? 'Male' : 'Female';
 
     return (
         <Swipeable
@@ -86,7 +86,7 @@ export const AnimalItemView = ({ navigation, item, onRightPress }) => {
             )}
         >
             <TouchableOpacity 
-                onPress={() => navigation.navigate('Home', {screen: 'AnimalDetail', params: {item, date_of_birth, cowLogo, last_calved}})}
+                onPress={() => navigation.navigate('Home', {screen: 'AnimalDetail', params: {item, date_of_birth, cowLogo, last_calved, male_female}})}
                 style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 265 }}
             >
                 <View style={{ flex: 1, padding: SPACING }}>
@@ -105,7 +105,7 @@ export const AnimalItemView = ({ navigation, item, onRightPress }) => {
                     <View style={{flexDirection: 'row'}}>
                         <View>
                             <Text style={styles.animalLabel}>Sex</Text>
-                            <Text style={styles.animalDesc}>{item.male_female}</Text>
+                            <Text style={styles.animalDesc}>{male_female}</Text>
                         </View>
                         <View style={{position: 'absolute', right: 0}}>
                             <Text style={styles.animalLabel}>Breed</Text>

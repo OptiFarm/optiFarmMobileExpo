@@ -103,7 +103,7 @@ export default function EditAnimalForm({ navigation, route }) {
 
   // ADD ANIMAL DATA MUTATION
   const [editAnimal, { data }] = useMutation(ADD_OR_UPDATE_ANIMAL);
-  console.log(data);
+
   // REACT HOOK FORM FUNCTIONS
   const {
     register,
@@ -114,8 +114,6 @@ export default function EditAnimalForm({ navigation, route }) {
     errors,
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
-    console.log(item._id);
     const _id = item._id;
     const breed_type = data.breed;
     const date_of_birth = data.dateOfBirth;

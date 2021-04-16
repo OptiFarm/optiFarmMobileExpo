@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
 
 export default function FormSuccess({ route }) {
   const { fromScreen } = route.params;
-  console.log(fromScreen);
   const navigateTo = fromScreen === "Medicine" ? "MedicineTab" : "HomeTab";
 
   const label =

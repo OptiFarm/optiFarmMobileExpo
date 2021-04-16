@@ -80,8 +80,6 @@ export default function AssignMedicationConfirm({ navigation, route }) {
     animalTag,
   } = route.params;
 
-  console.log(route.params);
-
   // ADD ADMINISTRITION_MEDICATION
   const [addMedicineUsage, { loading, called }] = useMutation(
     SAVE_OR_UPDATE_MEDICATION_USAGE

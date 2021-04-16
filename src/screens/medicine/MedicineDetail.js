@@ -115,10 +115,15 @@ const modalStyles = StyleSheet.create({
 });
 
 export default function MedicineDetail({ navigation, route }) {
-  const { item, purchase_date, medicineLevelColor, medicineLevelLabel} = route.params;
+  const {
+    item,
+    purchase_date,
+    medicineLevelColor,
+    medicineLevelLabel,
+  } = route.params;
 
   // Variables for Assign Medication Form
-  const medicineID = item.id;
+  const medicineID = item._id;
   const medicineName = item.medication_name;
   const withdrawalMilk = item.withdrawal_days_dairy;
   const withdrawalMeat = item.withdrawal_days_meat;
@@ -152,13 +157,14 @@ export default function MedicineDetail({ navigation, route }) {
         {
           text: "OK",
           onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
+          style: "cancel",
         },
       ]
     );
-  }
+  };
 
-  const handleMedicineAction = medicineQuantity === 0 ? medicineEmpty : handlePresentModalPress;
+  const handleMedicineAction =
+    medicineQuantity === 0 ? medicineEmpty : handlePresentModalPress;
 
   const renderAnimalList = ({ item }) => {
     const cowLogo =
@@ -170,7 +176,7 @@ export default function MedicineDetail({ navigation, route }) {
       <TouchableOpacity
         onPress={() =>
           navigation.navigate("AssignMedicationForm", {
-            animalID: item.id,
+            animalID: item._id,
             animalTag: item.tag_number,
             medicineID: medicineID,
             medicineName: medicineName,
@@ -278,7 +284,14 @@ export default function MedicineDetail({ navigation, route }) {
           </TouchableOpacity>
           <Text style={styles.name}>{item.medication_name}</Text>
           <View style={styles.rightContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("Medicine", {
+                  screen: "EditMedicineForm",
+                  params: { item },
+                })
+              }
+            >
               <MaterialIcons name="edit" size={30} color="white" />
             </TouchableOpacity>
           </View>
@@ -455,7 +468,7 @@ export default function MedicineDetail({ navigation, route }) {
                 ? filteredData
                 : AnimalList
             }
-            keyExtractor={(item, index) => item.id}
+            keyExtractor={(item, index) => item._id}
             renderItem={renderAnimalList}
             contentContainerStyle={modalStyles.contentContainer}
           />

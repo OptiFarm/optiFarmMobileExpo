@@ -21,8 +21,8 @@ import { PageLoader } from "../../components/atoms/PageLoader";
 // QUERY
 import { useQuery } from "@apollo/client";
 import {
-  GET_MEDICATIONS,
   GET_ANIMAL_COUNT,
+  GET_HOMEPAGE_MEDICNE,
 } from "../../config/graphql/queries";
 
 // THEME
@@ -50,7 +50,8 @@ export default function HomeScreen({ navigation }) {
   useScrollToTop(ref);
 
   // MEDICINE LIST
-  const { data, loading, refetch } = useQuery(GET_MEDICATIONS);
+  const { data, loading, refetch } = useQuery(GET_HOMEPAGE_MEDICNE);
+
   const {
     data: animalCountData,
     loading: loadingCount,
@@ -71,7 +72,7 @@ export default function HomeScreen({ navigation }) {
     return <PageLoader />;
   }
 
-  const MedicineHomepageList = data.medications.medications;
+  const HomepageMedicineList = data.medicationsLastThreeUsed.medications;
   const animalCount = animalCountData.herdCount.count;
 
   const renderItem = ({ item }) => (
@@ -116,7 +117,7 @@ export default function HomeScreen({ navigation }) {
                     padding: SPACING,
                   }}
                 >
-                  My Medicine
+                  Last Medicine Used
                 </Text>
                 <TouchableOpacity
                   style={{ position: "absolute", right: 10 }}
@@ -137,8 +138,8 @@ export default function HomeScreen({ navigation }) {
             </>
           }
           showsVerticalScrollIndicator={false}
-          data={MedicineHomepageList}
-          keyExtractor={(item, index) => item.id}
+          data={HomepageMedicineList}
+          keyExtractor={(item, index) => item._id}
           renderItem={renderItem}
           ref={ref}
         />

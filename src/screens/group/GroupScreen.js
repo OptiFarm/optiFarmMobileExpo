@@ -78,7 +78,7 @@ export default function GroupScreen ({navigation}) {
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     data={GroupList}
-                    keyExtractor={(item, index) => item.id}
+                    keyExtractor={(item, index) => item._id}
                     contentContainerStyle={{ paddingHorizontal: SPACING }}
                     renderItem={({item}) => <GroupItemView item={item} navigation={navigation} />}
                     ref={ref}

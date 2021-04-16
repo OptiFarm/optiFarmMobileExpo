@@ -111,7 +111,7 @@ export default function MedicineUsageDetail({ navigation, route }) {
 
           <View style={{ flexDirection: "row" }}>
             <View>
-              <Text style={styles.medicineLabel}>Animal ID</Text>
+              <Text style={styles.medicineLabel}>Tag Number</Text>
               <Text style={[styles.medicineDesc, { color: "#F3F4B8" }]}>
                 {animalTagNumber}
               </Text>

@@ -16,7 +16,7 @@ export const GET_MEDICATIONS = gql`
         message
       }
       medications {
-        id
+        _id
         medication_name
         medicine_type
         supplied_by
@@ -41,13 +41,13 @@ export const GET_MEDICATIONS = gql`
 
 export const GET_MEDICATION_DETAILS = gql`
   query medication($id: ID!) {
-    medication(id: $id) {
+    medication(_id: $id) {
       responseCheck {
         success
         message
       }
       medication {
-        id
+        _id
         medication_name
         supplied_by
         quantity
@@ -75,7 +75,7 @@ export const GET_HERD = gql`
         message
       }
       animals {
-        id
+        _id
         tag_number
         herd_number
         sire_number
@@ -86,6 +86,7 @@ export const GET_HERD = gql`
         animal_name
         description
         date_of_birth
+        last_calved
       }
     }
   }
@@ -95,15 +96,15 @@ export const GET_HERD = gql`
  * @description: Get Animal details by id
  * @param: id: ID was generated automatically
  */
-export const GET_ANIMAL_DITAILS = gql`
+export const GET_ANIMAL_DETAILS = gql`
   query animal($id: ID!) {
-    animal(id: $id) {
+    animal(_id: $id) {
       responseCheck {
         success
         message
       }
       animal {
-        id
+        _id
         tag_number
         herd_number
         sire_number
@@ -114,6 +115,7 @@ export const GET_ANIMAL_DITAILS = gql`
         animal_name
         description
         date_of_birth
+        last_calved
       }
     }
   }
@@ -122,13 +124,13 @@ export const GET_ANIMAL_DITAILS = gql`
 // Query for getting breed info
 export const GET_BREED_INFO = gql`
   query breed($id: ID!) {
-    breed(id: $id) {
+    breed(_id: $id) {
       responseCheck {
         success
         message
       }
       breed {
-        id
+        _id
         breed_name
         breed_code
       }
@@ -145,7 +147,7 @@ export const GET_GROUP = gql`
         message
       }
       groups {
-        id
+        _id
         group_name
         group_description
       }
@@ -162,7 +164,7 @@ export const GET_USER_INFO = gql`
         message
       }
       farmer {
-        id
+        _id
         first_name
         second_name
         farm_type
@@ -183,7 +185,7 @@ export const GET_MEDICATION_USAGE_LIST = gql`
         message
       }
       administeredMedications {
-        id
+        _id
         date_of_administration
         quantity_administered
         quantity_type
@@ -191,8 +193,12 @@ export const GET_MEDICATION_USAGE_LIST = gql`
         reason_for_administration
         animal_id
         medication_id
-        medication_name
-        tag_number
+        medication {
+          medication_name
+        }
+        animal {
+          tag_number
+        }
       }
     }
   }
@@ -205,13 +211,13 @@ export const GET_MEDICATION_USAGE_LIST = gql`
  */
 export const GET_MEDICATION_USAGE_DETAIL = gql`
   query administeredMedication($id: ID) {
-    administeredMedication(id: $id) {
+    administeredMedication(_id: $id) {
       responseCheck {
         success
         message
       }
       administeredMedication {
-        id
+        _id
         date_of_administration
         quantity_administered
         quantity_type
@@ -237,6 +243,88 @@ export const GET_ANIMAL_COUNT = gql`
         message
       }
       count
+    }
+  }
+`;
+
+/**
+ * @description: query for homepage medicine list
+ * @param:
+ * @requires:
+ */
+export const GET_HOMEPAGE_MEDICNE = gql`
+  query medicationsLastThreeUsed{
+    medicationsLastThreeUsed{
+      responseCheck{
+        success
+        message
+      }
+      medications{
+        _id,
+        medication_name
+        medicine_type
+        supplied_by
+        quantity
+        quantity_type
+        withdrawal_days_meat
+        withdrawal_days_dairy
+        remaining_quantity
+        batch_number
+        expiry_date
+        purchase_date
+        comments
+      }
+    }
+  }
+`;
+
+/**
+ * @description: query for last medicated inside animal details
+ * @param:
+ * @requires:
+ */
+export const GET_LAST_MEDICATION_ANIMAL = gql`
+  query animalWithLastMedication($id: ID!) {
+    animalWithLastMedication(_id: $id) {
+      responseCheck {
+        success
+        message
+      }
+        administeredMedications {
+            _id
+            date_of_administration
+            administered_by
+            quantity_administered 
+            quantity_type
+            reason_for_administration
+            medication {
+              _id
+              medication_name
+              supplied_by
+              quantity
+              quantity_type
+              withdrawal_days_meat
+              withdrawal_days_dairy
+              remaining_quantity
+              batch_number
+              expiry_date
+              purchase_date
+              comments
+            }
+            animal {
+              _id
+              tag_number
+              herd_number
+              sire_number
+              mother_number
+              male_female
+              breed_type
+              pure_breed
+              animal_name
+              description
+              date_of_birth
+            }
+        }
     }
   }
 `;

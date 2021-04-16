@@ -50,10 +50,14 @@ const styles = StyleSheet.create({
 });
 
 export const MedicineUsageItemView = ({ navigation, item }) => {
+
   // FORMAT DATE TIME
   Moment.locale("en");
   var dt = item.date_of_administration;
   const date_of_administration = Moment(dt).format("YYYY-MM-DD");
+
+  const animalTag = item.animal !== undefined ? item.animal[0].tag_number : 'null'
+  const medicineName = item.medication[0].medication_name
 
   return (
     <TouchableOpacity
@@ -61,8 +65,8 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
         navigation.navigate("Home", {
           screen: "MedicineUsageDetail",
           params: {
-            animalTagNumber: item.tag_number,
-            medicineName: item.medication_name,
+            animalTagNumber: animalTag,
+            medicineName: medicineName,
             administeredBy: item.administered_by,
             dateAdministered: date_of_administration,
             quantityAdministered: item.quantity_administered,
@@ -83,16 +87,16 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
           ]}
         />
 
-        <Text style={styles.name}>{item.medication_name}</Text>
+        <Text style={styles.name}>{medicineName}</Text>
         <Text style={styles.medicineType}>Medicine</Text>
 
         <View style={styles.border} />
 
         <View style={{ flexDirection: "row" }}>
           <View>
-            <Text style={styles.medicineLabel}>Animal ID</Text>
+            <Text style={styles.medicineLabel}>Tag Number</Text>
             <Text style={[styles.medicineDesc, { color: "#F3F4B8" }]}>
-              {item.tag_number}
+              {animalTag}
             </Text>
           </View>
           <View style={{ position: "absolute", right: 0 }}>

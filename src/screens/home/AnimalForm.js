@@ -237,7 +237,7 @@ export default function AnimalForm({ navigation }) {
               defaultValue={null}
             />
 
-            <Text style={styles.label}>Mother Number</Text>
+            <Text style={styles.label}>Dam Number</Text>
             <Controller
               control={control}
               render={({ onChange, onBlur, value }) => (

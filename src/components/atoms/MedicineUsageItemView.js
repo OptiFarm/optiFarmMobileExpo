@@ -56,7 +56,7 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
   var dt = item.date_of_administration;
   const date_of_administration = Moment(dt).format("YYYY-MM-DD");
 
-  const animalTag = item.animal[0].tag_number
+  const animalTag = item.animal === undefined ? item.animal[0].tag_number : 'null'
   const medicineName = item.medication[0].medication_name
 
   return (

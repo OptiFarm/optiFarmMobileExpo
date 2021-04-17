@@ -143,8 +143,8 @@ export default function ProfileScreen({ navigation }) {
         <View>
           <Button
             onPress={() => {
-              removeToken();
               signOut();
+              removeToken();
             }}
             contentStyle={{ height: 50, width: 20 }}
             mode="contained"

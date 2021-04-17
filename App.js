@@ -8,7 +8,6 @@ import TabNavigator from "./src/routes/TabNavigator";
 
 // AUTHENTICATION
 import { AuthContext } from "./src/components/context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // STACK IMPORTS
 import HomeStackComp from "./src/routes/HomeStack";
@@ -21,32 +20,20 @@ import AuthenticationStackComp from "./src/routes/AuthenticationStack";
 import { PageLoader } from "./src/components/atoms/PageLoader";
 
 // GRAPHQL
-import { ApolloProvider, InMemoryCache, ApolloClient } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 import { makeApolloClient } from "./src/config/graphql/client";
+import { getToken } from "./src/config/config";
 
 const RootStack = createStackNavigator();
 
-// GRAPHQL CLIENT
-// const cache = new InMemoryCache();
-// const client = new ApolloClient({
-//   uri: "http://54.144.86.17:4000/optiFarm",
-//   headers: {
-//     Authorization:
-//       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZmJkNWE2NGJjOTM3MDA0ZjRhZDIxZDIiLCJpYXQiOjE2MTg2NzIzNzF9.hmsiY8zzfVBCQtpIO4tQ7JmloSUeAiQ5KXl109oTZJ8",
-//     "Content-Type": "application/json",
-//   },
-//   cache,
-//   defaultOptions: { watchQuery: { fetchPolicy: "cache-and-network" } },
-// });
+let store_token = getToken();
 
-let client = new makeApolloClient(null);
+console.log("Token", store_token);
+let client = new makeApolloClient();
 export default function App() {
-  // const [isLoading, setIsLoading] = React.useState(true);
-  // const [userToken, setUserToken] = React.useState(null);
   const initialLoginState = {
     isLoading: false,
-    isSignout: true,
-    // userToken: null,
+    isSignout: store_token._W === null ? true : false,
   };
 
   const loginReducer = (prevState, action) => {
@@ -54,26 +41,22 @@ export default function App() {
       case "RETRIEVE_TOKEN":
         return {
           ...prevState,
-          // userToken: action.token,
           isLoading: false,
         };
       case "LOGIN":
         return {
           ...prevState,
           isSignout: false,
-          // userToken: action.token,
         };
       case "LOGOUT":
         return {
           ...prevState,
           isSignout: true,
-          // userToken: null,
         };
       case "REGISTER":
         return {
           ...prevState,
-          isSignout: true,
-          // userToken: action.token,
+          isSignout: false,
         };
     }
   };
@@ -87,16 +70,15 @@ export default function App() {
     () => ({
       signIn: (token) => {
         client = new makeApolloClient(token);
-        // dispatch({ type: "LOGIN", token: token });
         dispatch({ type: "LOGIN" });
       },
-      signOut: async () => {
+      signOut: () => {
         client = new makeApolloClient(null);
         dispatch({ type: "LOGOUT" });
       },
       signUp: (token) => {
         client = new makeApolloClient(token);
-        dispatch({ type: "REGISTER", token: token });
+        dispatch({ type: "REGISTER" });
       },
     }),
     []

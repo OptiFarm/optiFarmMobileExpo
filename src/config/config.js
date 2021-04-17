@@ -8,6 +8,15 @@ export const storeToken = async (value) => {
   }
 };
 
+export const getToken = async () => {
+  try {
+    const token = await AsyncStorage.getItem("@user_token");
+    return token != null ? token : null;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const removeToken = async () => {
   try {
     await AsyncStorage.removeItem("@user_token");

@@ -16,14 +16,8 @@ import {
 import { Button } from "react-native-paper";
 import { Logo } from "../../components/atoms/Logo";
 
-// DATA
-import UserData from "../../model/Users";
-
 // THEME
 import { cardBackground, SPACING } from "../../config/theme";
-
-// REACT-HOOK-FORM
-import { useForm, Controller } from "react-hook-form";
 
 // APOLLO & QUERY
 import { useMutation } from "@apollo/client";
@@ -121,11 +115,16 @@ export default function LoginScreen({ navigation }) {
   const [isValidPassword, setIsValidPassword] = React.useState(true);
   const { signIn } = React.useContext(AuthContext);
 
-  const [userInfo, { data, called }] = useMutation(LOGIN, {
+  const [userInfo] = useMutation(LOGIN, {
     onCompleted(data) {
-      console.log("data", data);
-      storeToken(data.login.token);
-      signIn(data.login.token);
+      if (data.login.responseCheck.message === "Password Incorrect.") {
+        Alert.alert("Wrong Password");
+      } else if (data.login.responseCheck.message === "Email doesn't Exist.") {
+        Alert.alert("Wrong Email");
+      } else {
+        storeToken(data.login.token);
+        signIn(data.login.token);
+      }
     },
   });
 
@@ -158,7 +157,6 @@ export default function LoginScreen({ navigation }) {
 
   const loginHandle = (userName, password) => {
     const email = userName;
-    console.log(email, password);
     userInfo({
       variables: {
         email: email,

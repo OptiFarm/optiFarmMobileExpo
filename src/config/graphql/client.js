@@ -5,7 +5,7 @@ export const makeApolloClient = (token) => {
   const client = new ApolloClient({
     uri: "http://54.144.86.17:4000/optiFarm",
     headers: {
-      Authorization: token !== null ? `Bearer ${token.toString()}` : "",
+      Authorization: token !== null ? `Bearer ${token}` : "",
       "Content-Type": "application/json",
     },
     cache,

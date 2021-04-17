@@ -49,10 +49,9 @@ const styles = StyleSheet.create({
 export default function HomeScreen({ navigation }) {
   const ref = React.useRef(null);
   useScrollToTop(ref);
-
+  let HomepageMedicineList = [];
   // MEDICINE LIST
-  const { data, loading, refetch, called } = useQuery(GET_HOMEPAGE_MEDICNE);
-  console.log("called : ", called);
+  const { data, loading, refetch } = useQuery(GET_HOMEPAGE_MEDICNE);
   const {
     data: animalCountData,
     loading: loadingCount,
@@ -73,10 +72,19 @@ export default function HomeScreen({ navigation }) {
     return <PageLoader />;
   }
 
-  const HomepageMedicineList = data.medicationsLastThreeUsed.medications;
-  // const HomepageMedicineList = [];
-  const animalCount = animalCountData.herdCount.count;
-  // const animalCount = 3;
+  if (typeof data !== undefined) {
+    if (data.medicationsLastThreeUsed.medications !== null)
+      data.medicationsLastThreeUsed.medications.forEach((medication) => {
+        if (medication._id !== null) {
+          HomepageMedicineList.push(medication);
+        }
+      });
+  }
+
+  const animalCount =
+    animalCountData.herdCount.count === null
+      ? 0
+      : animalCountData.herdCount.count;
 
   const renderItem = ({ item }) => (
     <View style={{ paddingHorizontal: SPACING }}>

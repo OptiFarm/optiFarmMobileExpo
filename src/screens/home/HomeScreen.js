@@ -23,6 +23,7 @@ import { useQuery } from "@apollo/client";
 import {
   GET_ANIMAL_COUNT,
   GET_HOMEPAGE_MEDICNE,
+  GET_TEST_INFO,
 } from "../../config/graphql/queries";
 
 // THEME
@@ -50,8 +51,8 @@ export default function HomeScreen({ navigation }) {
   useScrollToTop(ref);
 
   // MEDICINE LIST
-  const { data, loading, refetch } = useQuery(GET_HOMEPAGE_MEDICNE);
-
+  const { data, loading, refetch, called } = useQuery(GET_HOMEPAGE_MEDICNE);
+  console.log("called : ", called);
   const {
     data: animalCountData,
     loading: loadingCount,
@@ -73,7 +74,9 @@ export default function HomeScreen({ navigation }) {
   }
 
   const HomepageMedicineList = data.medicationsLastThreeUsed.medications;
+  // const HomepageMedicineList = [];
   const animalCount = animalCountData.herdCount.count;
+  // const animalCount = 3;
 
   const renderItem = ({ item }) => (
     <View style={{ paddingHorizontal: SPACING }}>

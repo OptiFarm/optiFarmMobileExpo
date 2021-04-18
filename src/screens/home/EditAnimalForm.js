@@ -119,7 +119,7 @@ export default function EditAnimalForm({ navigation, route }) {
     const date_of_birth = data.dateOfBirth;
     const description = data.description;
     const mother_number = parseInt(data.motherNumber);
-    const pure_breed = data.pureBreed;
+    const pure_breed = JSON.parse(data.pureBreed);
     const male_female = data.sex;
     const sire_number = parseInt(data.sireNumber);
     const tag_number = parseInt(data.tagNumber);
@@ -159,7 +159,7 @@ export default function EditAnimalForm({ navigation, route }) {
   };
 
   const placeholderPureBreed = {
-    label: "Select Pure Blood",
+    label: "Select Pure Breed",
     value: null,
   };
 
@@ -329,8 +329,8 @@ export default function EditAnimalForm({ navigation, route }) {
               render={({ onChange, onBlur, value }) => (
                 <RNPickerSelect
                   items={[
-                    { label: "True", value: true },
-                    { label: "False", value: false },
+                    { label: "True", value: 'true' },
+                    { label: "False", value: 'false' },
                   ]}
                   onValueChange={(value) => onChange(value)}
                   style={styles.input}

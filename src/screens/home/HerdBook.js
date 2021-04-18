@@ -197,7 +197,15 @@ export default function HerdBook({ navigation }) {
     setSearchText(searchText);
 
     let filteredData = AnimalList.filter(function (item) {
-      return item.tag_number.toString().includes(searchText);
+      const tag_number_search = item.tag_number.toString().includes(searchText);
+      const breed_type_search = item.breed_type.includes(
+        searchText.toUpperCase()
+      );
+      const sex_search = item.male_female.includes(
+        searchText.charAt(0)
+      );
+
+      return tag_number_search || breed_type_search || sex_search;
     });
 
     setFilteredData(filteredData);
@@ -296,8 +304,7 @@ export default function HerdBook({ navigation }) {
                 searchIcon={null}
                 clearIcon={true}
                 placeholder="Search Animal"
-                keyboardType="decimal-pad"
-                returnKeyType="done"
+                returnKeyType="search"
                 ref={ref_input}
                 value={searchText}
                 maxLength={5}

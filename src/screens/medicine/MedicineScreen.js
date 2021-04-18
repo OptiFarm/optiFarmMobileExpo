@@ -151,7 +151,12 @@ export default function MedicineScreen ({navigation}, props) {
         setSearchText(searchText);
 
         let filteredData = MedicineList.filter(function (item) {
-            return item.medication_name.includes(searchText);
+            const medicine_name_search = item.medication_name.includes(searchText);
+            const medicine_type = item.medicine_type.includes(
+              searchText.toUpperCase()
+            );
+            
+            return medicine_name_search || medicine_type;
         });
 
         setFilteredData(filteredData);

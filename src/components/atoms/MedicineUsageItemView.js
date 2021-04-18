@@ -100,7 +100,14 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
             </Text>
           </View>
           <View style={{ position: "absolute", right: 0 }}>
-            <Text style={styles.medicineLabel}>Quantity</Text>
+            <Text
+              style={[
+                styles.medicineLabel,
+                { alignSelf: 'flex-end'},
+              ]}
+            >
+              Quantity
+            </Text>
             <Text
               style={[
                 styles.medicineDesc,

@@ -104,8 +104,8 @@ export const MedicineItemView = ({ navigation, item }) => {
                         <Text style={styles.medicineDesc}>{purchase_date}</Text>
                     </View>
                     <View style={{position: 'absolute', right: 0}}>
-                        <Text style={styles.medicineLabel}>Quantity Left</Text>
-                        <Text style={[styles.medicineDesc, {position: 'absolute', right: 0, top: 58}]}>{item.remaining_quantity} {item.quantity_type}</Text>
+                        <Text style={[styles.medicineLabel, {alignSelf: 'flex-end',}]}>Quantity Left</Text>
+                        <Text style={[styles.medicineDesc, {alignSelf: 'flex-end',}]}>{item.remaining_quantity} {item.quantity_type}</Text>
                     </View>
                 </View>
             </View>

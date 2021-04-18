@@ -376,7 +376,7 @@ export default function MedicineDetail({ navigation, route }) {
               </View>
             </View>
           </View>
-          <View style={{ marginBottom: CELL_HEIGHT / 10, height: 225 }}>
+          <View style={{ marginBottom: CELL_HEIGHT / 10, height: 245 }}>
             <View style={{ flex: 1, padding: SPACING }}>
               <View
                 style={[

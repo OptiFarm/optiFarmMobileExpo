@@ -118,7 +118,7 @@ export default function LoginScreen({ navigation }) {
   const [userInfo] = useMutation(LOGIN, {
     onCompleted(data) {
       if (!data.login.responseCheck.success) {
-        Alert.alert("Wrong Password", data.login.responseCheck.message);
+        Alert.alert("Unable to Login.", data.login.responseCheck.message);
       } else {
         storeToken(data.login.token);
         signIn(data.login.token);

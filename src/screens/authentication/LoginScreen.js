@@ -176,7 +176,7 @@ export default function LoginScreen ({navigation}) {
                 <KeyboardAvoidingView style={styles.parentContainer} behavior="padding">  
                     <View style={styles.container}>
                         <TextInput
-                            placeholder='Username'
+                            placeholder='Email'
                             style={styles.input}
                             returnKeyType='done'
                             value={username}

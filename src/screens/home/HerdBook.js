@@ -123,8 +123,8 @@ export default function HerdBook({ navigation }) {
   const [isFocused, setIsFocused] = useState(true);
   const ref_input = useRef();
 
-  const input_box_translate_x = new Value(width);
-  const back_button_opacity = new Value(0);
+  const input_box_translate_x = useRef(new Value(width)).current;
+  const back_button_opacity = useRef(new Value(0)).current;
 
   // SEARCH
   const [searchText, setSearchText] = useState("");
@@ -197,7 +197,15 @@ export default function HerdBook({ navigation }) {
     setSearchText(searchText);
 
     let filteredData = AnimalList.filter(function (item) {
-      return item.tag_number.toString().includes(searchText);
+      const tag_number_search = item.tag_number.toString().includes(searchText);
+      const breed_type_search = item.breed_type.includes(
+        searchText.toUpperCase()
+      );
+      const sex_search = item.male_female.includes(
+        searchText.charAt(0)
+      );
+
+      return tag_number_search || breed_type_search || sex_search;
     });
 
     setFilteredData(filteredData);
@@ -295,9 +303,8 @@ export default function HerdBook({ navigation }) {
                 round
                 searchIcon={null}
                 clearIcon={true}
-                placeholder="Search Animal ID"
-                keyboardType="decimal-pad"
-                returnKeyType="done"
+                placeholder="Search Animal"
+                returnKeyType="search"
                 ref={ref_input}
                 value={searchText}
                 maxLength={5}

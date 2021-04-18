@@ -129,9 +129,9 @@ export default function MedicineDetail({ navigation, route }) {
   const withdrawalMeat = item.withdrawal_days_meat;
   const medicineQuantity = item.remaining_quantity;
   const medicineQuantityType = item.quantity_type;
+  const withdrawalPeriodActive = withdrawalMeat || withdrawalMilk !== '' ? 'Active' : 'Not Active'
 
-  const activeColor =
-    item.medicineWithdrawal === "Active" ? medicineLevelLow : medicineLevelHigh;
+  const activeColor = withdrawalPeriodActive === "Active" ? medicineLevelLow : medicineLevelHigh;
 
   // ASSIGN MEDICATION MODAL
   const snapPoints = useMemo(() => ["25%", "50%", "90%"], []);
@@ -364,7 +364,7 @@ export default function MedicineDetail({ navigation, route }) {
                       fontFamily: "Sora-SemiBold",
                     }}
                   >
-                    {item.medicineWithdrawal}
+                    {withdrawalPeriodActive}
                   </Text>
                   <Text style={styles.value}>
                     {item.withdrawal_days_meat} days
@@ -376,7 +376,7 @@ export default function MedicineDetail({ navigation, route }) {
               </View>
             </View>
           </View>
-          <View style={{ marginBottom: CELL_HEIGHT / 10, height: 225 }}>
+          <View style={{ marginBottom: CELL_HEIGHT / 10, height: 245 }}>
             <View style={{ flex: 1, padding: SPACING }}>
               <View
                 style={[

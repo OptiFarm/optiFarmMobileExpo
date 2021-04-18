@@ -88,8 +88,8 @@ export default function MedicationUsage({ navigation }) {
   const [isFocused, setIsFocused] = useState(true);
   const ref_input = useRef();
 
-  const input_box_translate_x = new Value(width);
-  const back_button_opacity = new Value(0);
+  const input_box_translate_x = useRef(new Value(width)).current;
+  const back_button_opacity = useRef(new Value(0)).current;
 
   // SEARCH
   const [searchText, setSearchText] = useState("");
@@ -153,7 +153,11 @@ export default function MedicationUsage({ navigation }) {
     setSearchText(searchText);
 
     let filteredData = MedicineUsageList.filter(function (item) {
-      return item.reason_for_administration.includes(searchText);
+      console.log(item)
+      const animal_tag_search = item.animal[0].tag_number.toString().includes(searchText);
+      const medicine_name_search = item.medication[0].medication_name.includes(searchText);
+
+      return animal_tag_search || medicine_name_search;
     });
 
     setFilteredData(filteredData);

@@ -26,6 +26,7 @@ import { useMutation } from "@apollo/client";
 import { SAVE_OR_UPDATE_MEDICATION_USAGE } from "../../config/graphql/mutation";
 
 import { PageLoader } from "../../components/atoms/PageLoader";
+import { Alert } from "react-native";
 
 const styles = StyleSheet.create({
   header_inner: {
@@ -81,8 +82,22 @@ export default function AssignMedicationConfirm({ navigation, route }) {
   } = route.params;
 
   // ADD ADMINISTRITION_MEDICATION
-  const [addMedicineUsage, { loading, called }] = useMutation(
-    SAVE_OR_UPDATE_MEDICATION_USAGE
+  const [addMedicineUsage, { loading }] = useMutation(
+    SAVE_OR_UPDATE_MEDICATION_USAGE,
+    {
+      onCompleted(data) {
+        if (!data.saveAdminMed.responseCheck.success) {
+          Alert.alert("Operation failed");
+        } else {
+          const fromScreen = "Medicine Usage";
+
+          navigation.navigate("Home", {
+            screen: "FormSuccess",
+            params: { fromScreen },
+          });
+        }
+      },
+    }
   );
 
   // REACT HOOK FORM FUNCION
@@ -109,13 +124,6 @@ export default function AssignMedicationConfirm({ navigation, route }) {
     if (loading) {
       <PageLoader />;
     }
-
-    const fromScreen = "Medicine Usage";
-
-    navigation.navigate("Home", {
-      screen: "FormSuccess",
-      params: { fromScreen },
-    });
   };
 
   return (

@@ -151,38 +151,6 @@ export default function AssignMedicationForm({ navigation, route }) {
             defaultValue={medicineName}
           />
 
-          {/* <Text style={styles.label}>Withdrawal For Meat</Text>
-                    <Controller
-                        control={control}
-                        render={({ onChange, onBlur, value }) => (
-                        <TextInput
-                            style={styles.input}
-                            onBlur={onBlur}
-                            value={value}
-                            editable={false}
-                        />
-                        )}
-                        name="withdrawalMeat"
-                        rules={{ required: true }}
-                        defaultValue={withdrawalMeat.toString() + ' Days'}
-                    /> */}
-
-          {/* <Text style={styles.label}>Withdrawal For Milk</Text>
-                    <Controller
-                        control={control}
-                        render={({ onChange, onBlur, value }) => (
-                        <TextInput
-                            style={styles.input}
-                            onBlur={onBlur}
-                            value={value}
-                            editable={false}
-                        />
-                        )}
-                        name="withdrawalMilk"
-                        rules={{ required: true }}
-                        defaultValue={withdrawalMilk.toString() + ' Days'}
-                    />           */}
-
           <Text style={styles.label}>
             Quantity
             <Text style={{ color: color, fontSize: 13 }}>

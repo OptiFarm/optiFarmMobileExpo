@@ -23,6 +23,7 @@ import { useQuery } from "@apollo/client";
 import {
   GET_ANIMAL_COUNT,
   GET_HOMEPAGE_MEDICNE,
+  GET_TEST_INFO,
 } from "../../config/graphql/queries";
 
 // THEME
@@ -48,10 +49,9 @@ const styles = StyleSheet.create({
 export default function HomeScreen({ navigation }) {
   const ref = React.useRef(null);
   useScrollToTop(ref);
-
+  let HomepageMedicineList = [];
   // MEDICINE LIST
   const { data, loading, refetch } = useQuery(GET_HOMEPAGE_MEDICNE);
-
   const {
     data: animalCountData,
     loading: loadingCount,
@@ -72,8 +72,19 @@ export default function HomeScreen({ navigation }) {
     return <PageLoader />;
   }
 
-  const HomepageMedicineList = data.medicationsLastThreeUsed.medications;
-  const animalCount = animalCountData.herdCount.count;
+  if (typeof data !== undefined) {
+    if (data.medicationsLastThreeUsed.medications !== null)
+      data.medicationsLastThreeUsed.medications.forEach((medication) => {
+        if (medication._id !== null) {
+          HomepageMedicineList.push(medication);
+        }
+      });
+  }
+
+  const animalCount =
+    animalCountData.herdCount.count === null
+      ? 0
+      : animalCountData.herdCount.count;
 
   const renderItem = ({ item }) => (
     <View style={{ paddingHorizontal: SPACING }}>

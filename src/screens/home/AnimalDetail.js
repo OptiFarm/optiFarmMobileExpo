@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
+import Moment from 'moment';
 
 // COMPONENTS
 import {
@@ -257,10 +258,11 @@ export default function AnimalDetail({ navigation, route }) {
       )
     }
     else {
+      Moment.locale('en');
       const medicineInfo = lastMedication.animalWithLastMedication.administeredMedications[0].medication[0]
       const medicineAssignedName = medicineInfo.medication_name;
       const administeredBy = lastMedication.animalWithLastMedication.administeredMedications[0].administered_by;
-      const dateAdministered = lastMedication.animalWithLastMedication.administeredMedications[0].date_of_administration;
+      const dateAdministered = Moment(lastMedication.animalWithLastMedication.administeredMedications[0].date_of_administration).format('YYYY-MM-DD');
       const quantityAdministered = lastMedication.animalWithLastMedication.administeredMedications[0].quantity_administered;
       const quantityType = lastMedication.animalWithLastMedication.administeredMedications[0].quantity_type;
       const reason = lastMedication.animalWithLastMedication.administeredMedications[0].reason_for_administration;

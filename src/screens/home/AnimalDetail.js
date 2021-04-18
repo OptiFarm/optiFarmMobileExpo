@@ -420,24 +420,6 @@ export default function AnimalDetail({ navigation, route }) {
                   }}
                 >
                   <Text style={styles.value}>{item.pure_breed.toString()}</Text>
-                  {/* <TouchableOpacity       
-                    onPress={() =>
-                        navigation.navigate("Home", {
-                          screen: "MedicineUsageDetail",
-                          params: {
-                            animalTagNumber: animalTag,
-                            medicineName: medicineAssignedName,
-                            administeredBy: administeredBy,
-                            dateAdministered: dateAdministered,
-                            quantityAdministered: quantityAdministered,
-                            quantityType: quantityType,
-                            reason: reason,
-                          },
-                        })
-                    }
-                  >
-                    <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>
-                  </TouchableOpacity> */}
                   <DisplayMedication />
                   <TouchableOpacity>
                     <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>

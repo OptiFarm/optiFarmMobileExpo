@@ -79,8 +79,8 @@ export default function MedicineScreen ({navigation}, props) {
     const [isFocused, setIsFocused] = useState(true);
     const ref_input = useRef();
 
-    const input_box_translate_x = new Value(width);
-    const back_button_opacity = new Value(0)
+    const input_box_translate_x = useRef(new Value(width)).current;
+    const back_button_opacity = useRef(new Value(0)).current;
 
     // SEARCH
     const [searchText, setSearchText] = useState('');

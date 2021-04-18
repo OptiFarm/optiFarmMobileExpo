@@ -123,8 +123,8 @@ export default function HerdBook({ navigation }) {
   const [isFocused, setIsFocused] = useState(true);
   const ref_input = useRef();
 
-  const input_box_translate_x = new Value(width);
-  const back_button_opacity = new Value(0);
+  const input_box_translate_x = useRef(new Value(width)).current;
+  const back_button_opacity = useRef(new Value(0)).current;
 
   // SEARCH
   const [searchText, setSearchText] = useState("");
@@ -295,7 +295,7 @@ export default function HerdBook({ navigation }) {
                 round
                 searchIcon={null}
                 clearIcon={true}
-                placeholder="Search Animal ID"
+                placeholder="Search Animal"
                 keyboardType="decimal-pad"
                 returnKeyType="done"
                 ref={ref_input}

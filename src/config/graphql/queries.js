@@ -328,3 +328,32 @@ export const GET_LAST_MEDICATION_ANIMAL = gql`
     }
   }
 `;
+
+/**
+ * @description: query for getting progeny list
+ * @param:
+ * @requires:
+ */
+export const GET_ANIMAL_BY_PROGENY = gql`
+  query animalByProgeny ($tag_number: Int!) {
+    animalByProgeny (tag_number: $tag_number) {
+        responseCheck {
+            success
+            message
+        }
+        animals {
+            _id
+            tag_number
+            herd_number
+            sire_number
+            mother_number
+            male_female
+            breed_type
+            pure_breed
+            animal_name
+            description
+            date_of_birth
+        }
+    }
+  }
+`;

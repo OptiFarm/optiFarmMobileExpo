@@ -119,6 +119,9 @@ const modalStyles = StyleSheet.create({
 export default function AnimalDetail({ navigation, route }) {
   const { item, date_of_birth, cowLogo, last_calved, male_female } = route.params;
 
+  console.log(item)
+  const description = item.description === 'null' ? '' : item.description; 
+
   // Variables for Assign Medication Form
   const animalTag = item.tag_number;
   const animalID = item._id;
@@ -448,7 +451,7 @@ export default function AnimalDetail({ navigation, route }) {
               ></View>
               <View style={{ flexDirection: "row" }}>
                 <View>
-                  <Text style={styles.key}>{item.description}</Text>
+                  <Text style={styles.key}>{description}</Text>
                 </View>
               </View>
             </View>

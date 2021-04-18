@@ -87,7 +87,10 @@ export default function AssignMedicationConfirm({ navigation, route }) {
     {
       onCompleted(data) {
         if (!data.saveAdminMed.responseCheck.success) {
-          Alert.alert("Operation failed");
+          Alert.alert(
+            "Unable to Give Medication",
+            data.saveAdminMed.responseCheck.message
+          );
         } else {
           const fromScreen = "Medicine Usage";
 

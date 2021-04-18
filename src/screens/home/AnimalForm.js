@@ -28,6 +28,7 @@ import {
   width,
   topOS,
 } from "../../config/theme";
+import { Alert } from "react-native";
 
 const styles = StyleSheet.create({
   header_inner: {
@@ -100,7 +101,20 @@ const pickerSelectStyles = StyleSheet.create({
 
 export default function AnimalForm({ navigation }) {
   // ADD ANIMAL DATA MUTATION
-  const [addAnimal, { data }] = useMutation(ADD_OR_UPDATE_ANIMAL);
+  const [addAnimal, { data }] = useMutation(ADD_OR_UPDATE_ANIMAL, {
+    onCompleted(data) {
+      if (!data.saveAnimal.responseCheck.success) {
+        const message = data.saveAnimal.responseCheck.message;
+        Alert.alert("Unable to Add New Animal", message);
+      } else {
+        const fromScreen = "Animal";
+        navigation.navigate("Home", {
+          screen: "FormSuccess",
+          params: { fromScreen },
+        });
+      }
+    },
+  });
   // REACT HOOK FORM FUNCTIONS
   const {
     register,
@@ -134,13 +148,6 @@ export default function AnimalForm({ navigation }) {
         tag_number: tag_number,
         animal_name: animal_name,
       },
-    });
-
-    const fromScreen = "Animal";
-
-    navigation.navigate("Home", {
-      screen: "FormSuccess",
-      params: { fromScreen },
     });
   };
 
@@ -353,8 +360,8 @@ export default function AnimalForm({ navigation }) {
               render={({ onChange, onBlur, value }) => (
                 <RNPickerSelect
                   items={[
-                    { label: "True", value: 'true' },
-                    { label: "False", value: 'false' },
+                    { label: "True", value: "true" },
+                    { label: "False", value: "false" },
                   ]}
                   onValueChange={(value) => onChange(value)}
                   style={styles.input}

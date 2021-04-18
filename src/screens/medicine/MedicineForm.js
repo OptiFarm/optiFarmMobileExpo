@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: cardBackground,
-    height: 50,
+    height: 65,
     padding: 10,
     borderRadius: 15,
     fontFamily: "Sora-SemiBold",
@@ -77,7 +77,7 @@ const pickerSelectStyles = StyleSheet.create({
     color: "white",
     paddingRight: 30, // to ensure the text is never behind the icon
     backgroundColor: cardBackground,
-    height: 50,
+    height: 65,
     fontFamily: "Sora-SemiBold",
     fontSize: 18,
     marginBottom: 25,
@@ -91,7 +91,7 @@ const pickerSelectStyles = StyleSheet.create({
     color: "white",
     paddingRight: 30, // to ensure the text is never behind the icon
     backgroundColor: cardBackground,
-    height: 50,
+    height: 65,
     fontFamily: "Sora-SemiBold",
     fontSize: 18,
     marginBottom: 25,
@@ -122,7 +122,7 @@ export default function MedicineForm({ navigation }) {
     const batch_number = data.batchNo;
     const expiry_date = data.expiryDate;
     const dateOfPurchase = data.dateOfPurchase;
-    const comments = data.notes;
+    const comments = String(data.notes);
 
     addMedicine({
       variables: {
@@ -170,8 +170,6 @@ export default function MedicineForm({ navigation }) {
   const ref_input5 = useRef();
   const ref_input6 = useRef();
   const ref_input7 = useRef();
-  const ref_input8 = useRef();
-  const ref_input9 = useRef();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
@@ -209,9 +207,8 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="next"
-                  placeholder="Penstrep"
+                  placeholder="enter alphanumeric characters"
                   placeholderTextColor="#848D95"
-                  onSubmitEditing={() => ref_input2.current.focus()}
                   blurOnSubmit={false}
                 />
               )}
@@ -242,28 +239,6 @@ export default function MedicineForm({ navigation }) {
               defaultValue={null}
             />
 
-            <Text style={styles.label}>Supplied By</Text>
-            <Controller
-              control={control}
-              render={({ onChange, onBlur, value }) => (
-                <TextInput
-                  style={styles.input}
-                  onBlur={onBlur}
-                  onChangeText={(value) => onChange(value)}
-                  value={value}
-                  returnKeyType="next"
-                  placeholder="Glanbia"
-                  placeholderTextColor="#848D95"
-                  ref={ref_input2}
-                  onSubmitEditing={() => ref_input3.current.focus()}
-                  blurOnSubmit={false}
-                />
-              )}
-              name="suppliedBy"
-              rules={{ required: true }}
-              defaultValue={null}
-            />
-
             <Text style={styles.label}>Date of Purchase</Text>
             <Controller
               control={control}
@@ -274,13 +249,33 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="next"
-                  placeholder="21 March 2021"
+                  placeholder="date in format YYYY-MM-DD"
                   placeholderTextColor="#848D95"
-                  ref={ref_input3}
-                  onSubmitEditing={() => ref_input4.current.focus()}
+                  onSubmitEditing={() => ref_input2.current.focus()}
                 />
               )}
               name="dateOfPurchase"
+              rules={{ required: true }}
+              defaultValue={null}
+            />      
+
+            <Text style={styles.label}>Expiry Date</Text>
+            <Controller
+              control={control}
+              render={({ onChange, onBlur, value }) => (
+                <TextInput
+                  style={styles.input}
+                  onBlur={onBlur}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  returnKeyType="next"
+                  placeholder="date in format YYYY-MM-DD"
+                  placeholderTextColor="#848D95"
+                  ref={ref_input2}
+                  onSubmitEditing={() => ref_input3.current.focus()}
+                />
+              )}
+              name="expiryDate"
               rules={{ required: true }}
               defaultValue={null}
             />
@@ -296,9 +291,9 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="done"
-                  placeholder="5"
+                  placeholder="enter numeric value, e.g. 10"
                   placeholderTextColor="#848D95"
-                  ref={ref_input4}
+                  ref={ref_input3}
                 />
               )}
               name="quantity"
@@ -329,28 +324,6 @@ export default function MedicineForm({ navigation }) {
               defaultValue={null}
             />
 
-            <Text style={styles.label}>Withdrawal For Milk</Text>
-            <Controller
-              control={control}
-              render={({ onChange, onBlur, value }) => (
-                <TextInput
-                  keyboardType="decimal-pad"
-                  style={styles.input}
-                  onBlur={onBlur}
-                  onChangeText={(value) => onChange(value)}
-                  value={value}
-                  returnKeyType="done"
-                  placeholder="12"
-                  placeholderTextColor="#848D95"
-                  onSubmitEditing={() => ref_input5.current.focus()}
-                  blurOnSubmit={false}
-                />
-              )}
-              name="withdrawalForMilk"
-              rules={{ required: true }}
-              defaultValue={null}
-            />
-
             <Text style={styles.label}>Withdrawal For Meat</Text>
             <Controller
               control={control}
@@ -362,10 +335,9 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="done"
-                  placeholder="10"
+                  placeholder="enter numeric value, e.g. 10"
                   placeholderTextColor="#848D95"
-                  ref={ref_input5}
-                  onSubmitEditing={() => ref_input6.current.focus()}
+                  onSubmitEditing={() => ref_input4.current.focus()}
                   blurOnSubmit={false}
                 />
               )}
@@ -374,7 +346,7 @@ export default function MedicineForm({ navigation }) {
               defaultValue={null}
             />
 
-            <Text style={styles.label}>Batch</Text>
+            <Text style={styles.label}>Withdrawal For Milk</Text>
             <Controller
               control={control}
               render={({ onChange, onBlur, value }) => (
@@ -385,18 +357,19 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="done"
-                  placeholder="11233"
+                  placeholder="enter numeric value, e.g. 10"
                   placeholderTextColor="#848D95"
-                  ref={ref_input6}
-                  onSubmitEditing={() => ref_input7.current.focus()}
+                  ref={ref_input4}
+                  onSubmitEditing={() => ref_input5.current.focus()}
+                  blurOnSubmit={false}
                 />
               )}
-              name="batchNo"
+              name="withdrawalForMilk"
               rules={{ required: true }}
               defaultValue={null}
             />
 
-            <Text style={styles.label}>Expiry Date</Text>
+            <Text style={styles.label}>Batch</Text>
             <Controller
               control={control}
               render={({ onChange, onBlur, value }) => (
@@ -406,16 +379,38 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="next"
-                  placeholder="21 January 2022"
+                  placeholder="enter medication batch"
                   placeholderTextColor="#848D95"
-                  ref={ref_input7}
-                  onSubmitEditing={() => ref_input8.current.focus()}
+                  ref={ref_input5}
+                  onSubmitEditing={() => ref_input6.current.focus()}
                 />
               )}
-              name="expiryDate"
+              name="batchNo"
               rules={{ required: true }}
               defaultValue={null}
             />
+
+            <Text style={styles.label}>Supplied By</Text>
+            <Controller
+              control={control}
+              render={({ onChange, onBlur, value }) => (
+                <TextInput
+                  style={styles.input}
+                  onBlur={onBlur}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  returnKeyType="next"
+                  placeholder="enter supplier of medication"
+                  placeholderTextColor="#848D95"
+                  ref={ref_input6}
+                  onSubmitEditing={() => ref_input7.current.focus()}
+                  blurOnSubmit={false}
+                />
+              )}
+              name="suppliedBy"
+              rules={{ required: true }}
+              defaultValue={null}
+            />  
 
             <Text style={styles.label}>Notes</Text>
             <Controller
@@ -427,11 +422,11 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="done"
-                  ref={ref_input8}
+                  ref={ref_input7}
                 />
               )}
               name="notes"
-              rules={{ required: true }}
+              rules={{ required: false }}
               defaultValue={null}
             />
 

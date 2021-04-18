@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
+import Moment from 'moment';
 
 // COMPONENTS
 import {
@@ -117,6 +118,9 @@ const modalStyles = StyleSheet.create({
 
 export default function AnimalDetail({ navigation, route }) {
   const { item, date_of_birth, cowLogo, last_calved, male_female } = route.params;
+
+  console.log(item)
+  const description = item.description === 'null' ? '' : item.description; 
 
   // Variables for Assign Medication Form
   const animalTag = item.tag_number;
@@ -257,10 +261,11 @@ export default function AnimalDetail({ navigation, route }) {
       )
     }
     else {
+      Moment.locale('en');
       const medicineInfo = lastMedication.animalWithLastMedication.administeredMedications[0].medication[0]
       const medicineAssignedName = medicineInfo.medication_name;
       const administeredBy = lastMedication.animalWithLastMedication.administeredMedications[0].administered_by;
-      const dateAdministered = lastMedication.animalWithLastMedication.administeredMedications[0].date_of_administration;
+      const dateAdministered = Moment(lastMedication.animalWithLastMedication.administeredMedications[0].date_of_administration).format('YYYY-MM-DD');
       const quantityAdministered = lastMedication.animalWithLastMedication.administeredMedications[0].quantity_administered;
       const quantityType = lastMedication.animalWithLastMedication.administeredMedications[0].quantity_type;
       const reason = lastMedication.animalWithLastMedication.administeredMedications[0].reason_for_administration;
@@ -418,24 +423,6 @@ export default function AnimalDetail({ navigation, route }) {
                   }}
                 >
                   <Text style={styles.value}>{item.pure_breed.toString()}</Text>
-                  {/* <TouchableOpacity       
-                    onPress={() =>
-                        navigation.navigate("Home", {
-                          screen: "MedicineUsageDetail",
-                          params: {
-                            animalTagNumber: animalTag,
-                            medicineName: medicineAssignedName,
-                            administeredBy: administeredBy,
-                            dateAdministered: dateAdministered,
-                            quantityAdministered: quantityAdministered,
-                            quantityType: quantityType,
-                            reason: reason,
-                          },
-                        })
-                    }
-                  >
-                    <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>
-                  </TouchableOpacity> */}
                   <DisplayMedication />
                   <TouchableOpacity>
                     <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>
@@ -464,7 +451,7 @@ export default function AnimalDetail({ navigation, route }) {
               ></View>
               <View style={{ flexDirection: "row" }}>
                 <View>
-                  <Text style={styles.key}>{item.description}</Text>
+                  <Text style={styles.key}>{description}</Text>
                 </View>
               </View>
             </View>

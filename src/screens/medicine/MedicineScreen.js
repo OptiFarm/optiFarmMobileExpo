@@ -79,8 +79,8 @@ export default function MedicineScreen ({navigation}, props) {
     const [isFocused, setIsFocused] = useState(true);
     const ref_input = useRef();
 
-    const input_box_translate_x = new Value(width);
-    const back_button_opacity = new Value(0)
+    const input_box_translate_x = useRef(new Value(width)).current;
+    const back_button_opacity = useRef(new Value(0)).current;
 
     // SEARCH
     const [searchText, setSearchText] = useState('');
@@ -151,7 +151,12 @@ export default function MedicineScreen ({navigation}, props) {
         setSearchText(searchText);
 
         let filteredData = MedicineList.filter(function (item) {
-            return item.medication_name.includes(searchText);
+            const medicine_name_search = item.medication_name.includes(searchText);
+            const medicine_type = item.medicine_type.includes(
+              searchText.toUpperCase()
+            );
+            
+            return medicine_name_search || medicine_type;
         });
 
         setFilteredData(filteredData);

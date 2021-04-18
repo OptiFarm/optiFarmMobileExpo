@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: cardBackground,
-    height: 50,
+    height: 65,
     padding: 10,
     borderRadius: 15,
     fontFamily: "Sora-SemiBold",
@@ -75,9 +75,9 @@ const pickerSelectStyles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 15,
     color: "white",
-    paddingRight: 30, // to ensure the text is never behind the icon
+    paddingRight: 30,
     backgroundColor: cardBackground,
-    height: 50,
+    height: 65,
     fontFamily: "Sora-SemiBold",
     fontSize: 18,
     marginBottom: 25,
@@ -89,9 +89,9 @@ const pickerSelectStyles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 15,
     color: "white",
-    paddingRight: 30, // to ensure the text is never behind the icon
+    paddingRight: 30,
     backgroundColor: cardBackground,
-    height: 50,
+    height: 65,
     fontFamily: "Sora-SemiBold",
     fontSize: 18,
     marginBottom: 25,
@@ -111,18 +111,19 @@ export default function AnimalForm({ navigation }) {
     errors,
   } = useForm();
   const onSubmit = (data) => {
+    const animal_name = String(data.animalName);
     const breed_type = data.breed;
     const date_of_birth = data.dateOfBirth;
-    const description = data.description;
+    const description = String(data.description);
     const mother_number = parseInt(data.motherNumber);
-    const pure_breed = data.pureBreed;
+    const pure_breed = JSON.parse(data.pureBreed);
     const male_female = data.sex;
     const sire_number = parseInt(data.sireNumber);
     const tag_number = parseInt(data.tagNumber);
-    const animal_name = "TEST";
 
     addAnimal({
       variables: {
+        animal_name: animal_name,
         breed_type: breed_type,
         date_of_birth: date_of_birth,
         description: description,
@@ -163,6 +164,7 @@ export default function AnimalForm({ navigation }) {
   const ref_input3 = useRef();
   const ref_input4 = useRef();
   const ref_input5 = useRef();
+  const ref_input6 = useRef();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: defaultBackground }}>
@@ -189,7 +191,7 @@ export default function AnimalForm({ navigation }) {
       >
         <ScrollView style={{ padding: SPACING }}>
           <>
-            <Text style={styles.label}>Tag Number</Text>
+            <Text style={styles.label}>Animal Name</Text>
             <Controller
               control={control}
               render={({ onChange, onBlur, value }) => (
@@ -199,11 +201,33 @@ export default function AnimalForm({ navigation }) {
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
                   value={value}
-                  keyboardType="decimal-pad"
-                  returnKeyType="done"
-                  placeholder="40122"
+                  returnKeyType="next"
+                  placeholder="enter animal name if it has one"
                   placeholderTextColor="#848D95"
                   onSubmitEditing={() => ref_input2.current.focus()}
+                  blurOnSubmit={false}
+                />
+              )}
+              name="animalName"
+              rules={{ required: false }}
+              defaultValue={null}
+            />
+
+            <Text style={styles.label}>Tag Number</Text>
+            <Controller
+              control={control}
+              render={({ onChange, onBlur, value }) => (
+                <TextInput
+                  style={styles.input}
+                  onBlur={onBlur}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  keyboardType="decimal-pad"
+                  returnKeyType="done"
+                  placeholder="enter 5 digits number"
+                  placeholderTextColor="#848D95"
+                  ref={ref_input2}
+                  onSubmitEditing={() => ref_input3.current.focus()}
                   blurOnSubmit={false}
                   maxLength={5}
                 />
@@ -224,10 +248,10 @@ export default function AnimalForm({ navigation }) {
                   value={value}
                   keyboardType="decimal-pad"
                   returnKeyType="done"
-                  placeholder="10234"
+                  placeholder="enter 5 digits number"
                   placeholderTextColor="#848D95"
-                  ref={ref_input2}
-                  onSubmitEditing={() => ref_input3.current.focus()}
+                  ref={ref_input3}
+                  onSubmitEditing={() => ref_input4.current.focus()}
                   blurOnSubmit={false}
                   maxLength={5}
                 />
@@ -248,9 +272,9 @@ export default function AnimalForm({ navigation }) {
                   value={value}
                   keyboardType="decimal-pad"
                   returnKeyType="done"
-                  placeholder="20455"
+                  placeholder="enter 5 digits number"
                   placeholderTextColor="#848D95"
-                  ref={ref_input3}
+                  ref={ref_input4}
                   maxLength={5}
                 />
               )}
@@ -290,11 +314,11 @@ export default function AnimalForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="next"
-                  placeholder="HBX"
+                  placeholder="enter 2-4 digits breed code"
                   placeholderTextColor="#848D95"
-                  ref={ref_input4}
-                  onSubmitEditing={() => ref_input5.current.focus()}
-                  maxLength={3}
+                  ref={ref_input5}
+                  onSubmitEditing={() => ref_input6.current.focus()}
+                  maxLength={4}
                   autoCapitalize="characters"
                 />
               )}
@@ -313,9 +337,9 @@ export default function AnimalForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="next"
-                  placeholder="2021-01-11"
+                  placeholder="date in format YYYY-MM-DD"
                   placeholderTextColor="#848D95"
-                  ref={ref_input5}
+                  ref={ref_input6}
                 />
               )}
               name="dateOfBirth"
@@ -329,8 +353,8 @@ export default function AnimalForm({ navigation }) {
               render={({ onChange, onBlur, value }) => (
                 <RNPickerSelect
                   items={[
-                    { label: "True", value: true },
-                    { label: "False", value: false },
+                    { label: "True", value: 'true' },
+                    { label: "False", value: 'false' },
                   ]}
                   onValueChange={(value) => onChange(value)}
                   style={styles.input}
@@ -354,10 +378,12 @@ export default function AnimalForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="done"
+                  placeholder="description / comment on animal"
+                  placeholderTextColor="#848D95"
                 />
               )}
               name="description"
-              rules={{ required: true }}
+              rules={{ required: false }}
               defaultValue={null}
               maxLength={50}
             />

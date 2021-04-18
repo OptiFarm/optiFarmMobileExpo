@@ -91,7 +91,7 @@ export default function AssignMedicationConfirm({ navigation, route }) {
     const date_of_administration = data.date_of_administration;
     const quantity_administered = parseInt(data.quantity_administered);
     const administered_by = data.administered_by;
-    const reason_for_administration = data.reason_for_administration;
+    const reason_for_administration = String(data.reason_for_administration);
     const animal_id = animalID;
     const medication_id = medicineID;
 

@@ -95,7 +95,6 @@ export const AnimalItemView = ({ navigation, item, onRightPress }) => {
                     <View style={{flexDirection: 'row',}}>
                         <View>
                             <Text style={styles.name}>Tag Number: <Text style={{color: '#F4F3BE'}}>{item.tag_number}</Text></Text>
-                            {/* <Text style={styles.animalType}></Text> */}
                         </View>
                         <View style={{position: 'absolute', right: 0,}}>
                             <Image source={{ uri: cowLogo }} style={{ height: 40, width: 40 }}/>
@@ -109,7 +108,7 @@ export const AnimalItemView = ({ navigation, item, onRightPress }) => {
                         </View>
                         <View style={{position: 'absolute', right: 0}}>
                             <Text style={styles.animalLabel}>Breed</Text>
-                            <Text style={[styles.animalDesc, {position: 'absolute', right: 0, top: 63,}]}>{item.breed_type}</Text>
+                            <Text style={[styles.animalDesc, {alignSelf: 'flex-end',}]}>{item.breed_type}</Text>
                         </View>
                     </View>
                     <Text style={styles.animalLabel}>Date of Birth</Text>

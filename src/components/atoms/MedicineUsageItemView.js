@@ -104,7 +104,7 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
             <Text
               style={[
                 styles.medicineDesc,
-                { position: "absolute", right: 0, top: 60 },
+                { alignSelf: 'flex-end'},
               ]}
             >
               {item.quantity_administered} {item.quantity_type}

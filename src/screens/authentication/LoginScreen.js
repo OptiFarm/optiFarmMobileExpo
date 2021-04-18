@@ -173,7 +173,7 @@ export default function LoginScreen ({navigation}) {
                     <Text style={styles.rightContainer}>
                     </Text>
                 </View>
-                <KeyboardAvoidingView style={styles.parentContainer} behavior="padding">  
+                <KeyboardAvoidingView style={styles.parentContainer} behavior={Platform.OS === "ios" ? "padding" : "height"}>  
                     <View style={styles.container}>
                         <TextInput
                             placeholder='Email'

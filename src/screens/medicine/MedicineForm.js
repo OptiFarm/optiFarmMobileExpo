@@ -28,6 +28,7 @@ import {
   width,
   topOS,
 } from "../../config/theme";
+import { Alert } from "react-native";
 
 const styles = StyleSheet.create({
   header_inner: {
@@ -100,7 +101,23 @@ const pickerSelectStyles = StyleSheet.create({
 
 export default function MedicineForm({ navigation }) {
   // ADD ANIMAL DATA MUTATION
-  const [addMedicine, { data }] = useMutation(SAVE_OR_UPDATE_MEDICATION);
+  const [addMedicine] = useMutation(SAVE_OR_UPDATE_MEDICATION, {
+    onCompleted(data) {
+      if (!data.saveMedication.responseCheck.success) {
+        Alert.alert(
+          "Unable to Add New Medication",
+          data.saveMedication.responseCheck.message
+        );
+      } else {
+        const fromScreen = "Medicine";
+
+        navigation.navigate("Home", {
+          screen: "FormSuccess",
+          params: { fromScreen },
+        });
+      }
+    },
+  });
 
   // REACT HOOK FORM FUNCTIONS
   const {
@@ -138,13 +155,6 @@ export default function MedicineForm({ navigation }) {
         purchase_date: dateOfPurchase,
         comments: comments,
       },
-    });
-
-    const fromScreen = "Medicine";
-
-    navigation.navigate("Home", {
-      screen: "FormSuccess",
-      params: { fromScreen },
     });
   };
 
@@ -257,7 +267,7 @@ export default function MedicineForm({ navigation }) {
               name="dateOfPurchase"
               rules={{ required: true }}
               defaultValue={null}
-            />      
+            />
 
             <Text style={styles.label}>Expiry Date</Text>
             <Controller
@@ -410,7 +420,7 @@ export default function MedicineForm({ navigation }) {
               name="suppliedBy"
               rules={{ required: true }}
               defaultValue={null}
-            />  
+            />
 
             <Text style={styles.label}>Notes</Text>
             <Controller

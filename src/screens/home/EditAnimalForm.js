@@ -28,6 +28,7 @@ import {
   width,
   topOS,
 } from "../../config/theme";
+import { Alert } from "react-native";
 
 const styles = StyleSheet.create({
   header_inner: {
@@ -102,7 +103,23 @@ export default function EditAnimalForm({ navigation, route }) {
   const { item, date_of_birth } = route.params;
 
   // ADD ANIMAL DATA MUTATION
-  const [editAnimal, { data }] = useMutation(ADD_OR_UPDATE_ANIMAL);
+  const [editAnimal, { data }] = useMutation(ADD_OR_UPDATE_ANIMAL, {
+    onCompleted(data) {
+      console.log(data);
+      if (!data.saveAnimal.responseCheck.success) {
+        Alert.alert(
+          "Unable to Edit Animal",
+          data.saveAnimal.responseCheck.message
+        );
+      } else {
+        const fromScreen = "Animal Info";
+        navigation.navigate("Home", {
+          screen: "FormSuccess",
+          params: { fromScreen },
+        });
+      }
+    },
+  });
 
   // REACT HOOK FORM FUNCTIONS
   const {
@@ -138,12 +155,6 @@ export default function EditAnimalForm({ navigation, route }) {
         tag_number: tag_number,
         animal_name: animal_name,
       },
-    });
-
-    const fromScreen = "Animal Info";
-    navigation.navigate("Home", {
-      screen: "FormSuccess",
-      params: { fromScreen },
     });
   };
 
@@ -329,8 +340,8 @@ export default function EditAnimalForm({ navigation, route }) {
               render={({ onChange, onBlur, value }) => (
                 <RNPickerSelect
                   items={[
-                    { label: "True", value: 'true' },
-                    { label: "False", value: 'false' },
+                    { label: "True", value: "true" },
+                    { label: "False", value: "false" },
                   ]}
                   onValueChange={(value) => onChange(value)}
                   style={styles.input}

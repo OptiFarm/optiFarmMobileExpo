@@ -203,7 +203,6 @@ export default function MedicineScreen ({navigation}, props) {
                                 clearIcon={true}
                                 ref={ref_input}
                                 value={searchText}
-                                maxLength={5}
                                 onChangeText={search}
                                 onClear={onBlur}
                                 onSubmitEditing={onBlur}

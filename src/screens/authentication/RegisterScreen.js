@@ -233,7 +233,6 @@ export default function RegisterScreen({ navigation }) {
                     control={control}
                     render={({ onChange, onBlur, value }) => (
                       <TextInput
-                        autoFocus={true}
                         style={styles.input}
                         onBlur={onBlur}
                         onChangeText={(value) => onChange(value)}

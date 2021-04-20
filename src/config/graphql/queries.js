@@ -357,3 +357,20 @@ export const GET_ANIMAL_BY_PROGENY = gql`
     }
   }
 `;
+
+/**
+ * @description: query for getting animal count within a group
+ * @param:
+ * @requires:
+ */
+export const GET_ANIMAL_IN_GROUP_COUNT = gql`
+  query animalsInGroupCount($group_id: ID!) {
+    animalsInGroupCount(group_id: $group_id) {
+      responseCheck {
+          success
+          message
+      }
+      count
+    }
+  }
+`;

@@ -10,6 +10,7 @@ import {
     KeyboardAvoidingView,
     SafeAreaView,
     ScrollView,
+    Alert,
 } from "react-native";
 import { PageHeader } from '../../components/atoms/PageHeader';
 import { Button } from "react-native-paper";
@@ -56,7 +57,16 @@ const styles = StyleSheet.create({
 export default function GroupForm ({ navigation }) {
 
     // ADD GROUP QUERY
-    const [addGroup, { data }] = useMutation(SAVE_GROUP);
+    const [addGroup, { data }] = useMutation(SAVE_GROUP, {
+        onCompleted(data) {
+            if(data.saveGroup.responseCheck.success) {
+                navigation.navigate("GroupTab");
+            } else {
+                const message = data.saveGroup.responseCheck.message;
+                Alert.alert("Unable to Add New Group", message);
+            }
+        }
+    });
 
     const {
         register,
@@ -74,7 +84,6 @@ export default function GroupForm ({ navigation }) {
                 group_description: String(data.groupDesc),
             },
         });
-        navigation.navigate("GroupTab");
       };
 
     const onChange = (arg) => {

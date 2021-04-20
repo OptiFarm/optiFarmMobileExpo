@@ -120,6 +120,7 @@ export default function MedicineDetail({ navigation, route }) {
     purchase_date,
     medicineLevelColor,
     medicineLevelLabel,
+    medicineQuantityType,
   } = route.params;
 
   // Variables for Assign Medication Form
@@ -128,7 +129,6 @@ export default function MedicineDetail({ navigation, route }) {
   const withdrawalMilk = item.withdrawal_days_dairy;
   const withdrawalMeat = item.withdrawal_days_meat;
   const medicineQuantity = item.remaining_quantity;
-  const medicineQuantityType = item.quantity_type;
   const withdrawalPeriodActive = withdrawalMeat || withdrawalMilk !== '' ? 'Active' : 'Not Active'
 
   const activeColor = withdrawalPeriodActive === "Active" ? medicineLevelLow : medicineLevelHigh;
@@ -400,7 +400,7 @@ export default function MedicineDetail({ navigation, route }) {
                 >
                   <Text style={styles.value}>
                     {item.remaining_quantity} / {item.quantity}{" "}
-                    {item.quantity_type}
+                    {medicineQuantityType}
                   </Text>
                   <Text style={styles.value}>{purchase_date}</Text>
                   <Text style={styles.value}>{item.supplied_by}</Text>

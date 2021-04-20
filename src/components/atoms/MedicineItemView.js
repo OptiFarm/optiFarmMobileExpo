@@ -78,6 +78,8 @@ export const MedicineItemView = ({ navigation, item }) => {
 
     const medicineType = item.medicine_type.charAt(0) + item.medicine_type.slice(1).toLowerCase();
 
+    const medicineQuantityType = item.quantity_type === 'UNASSIGNED' ? '' : item.quantity_type;
+
     // FORMAT DATE TIME
     Moment.locale('en');
     var dt = item.purchase_date;
@@ -85,7 +87,7 @@ export const MedicineItemView = ({ navigation, item }) => {
 
     return (
         <TouchableOpacity 
-            onPress={() => navigation.navigate('Medicine', {screen: 'MedicineDetail', params: {item, purchase_date, medicineLevelLabel, medicineLevelColor}})}
+            onPress={() => navigation.navigate('Medicine', {screen: 'MedicineDetail', params: {item, purchase_date, medicineLevelLabel, medicineLevelColor, medicineQuantityType}})}
             style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 200 }}
         >
             <View style={{ flex: 1, padding: SPACING }}>
@@ -105,7 +107,7 @@ export const MedicineItemView = ({ navigation, item }) => {
                     </View>
                     <View style={{position: 'absolute', right: 0}}>
                         <Text style={[styles.medicineLabel, {alignSelf: 'flex-end',}]}>Quantity Left</Text>
-                        <Text style={[styles.medicineDesc, {alignSelf: 'flex-end',}]}>{item.remaining_quantity} {item.quantity_type}</Text>
+                        <Text style={[styles.medicineDesc, {alignSelf: 'flex-end',}]}>{item.remaining_quantity} {medicineQuantityType}</Text>
                     </View>
                 </View>
             </View>

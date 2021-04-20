@@ -297,3 +297,19 @@ export const SAVE_OR_UPDATE_MEDICATION_USAGE = gql`
     }
   }
 `;
+
+export const SAVE_GROUP = gql`
+  mutation saveGroup ( $group_name: String!, $group_description: String!) {
+    saveGroup (group_name: $group_name, group_description: $group_description) {
+        responseCheck {
+            success
+            message
+        }
+        group {
+            _id
+            group_name
+            group_description
+        }
+    }
+  }
+`;

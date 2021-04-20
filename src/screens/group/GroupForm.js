@@ -68,20 +68,13 @@ export default function GroupForm ({ navigation }) {
     } = useForm();
 
     const onSubmit = (data) => {
-
         addGroup({
-          variables: {
-            group_name: data.groupName,
-            group_description: String(data.groupDesc),
-        },
-    });
-    
-        // const fromScreen = "Medicine";
-    
-        // navigation.navigate("Home", {
-        //   screen: "FormSuccess",
-        //   params: { fromScreen },
-        // });
+            variables: {
+                group_name: data.groupName,
+                group_description: String(data.groupDesc),
+            },
+        });
+        navigation.navigate("GroupTab");
       };
 
     const onChange = (arg) => {

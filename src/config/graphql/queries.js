@@ -364,13 +364,37 @@ export const GET_ANIMAL_BY_PROGENY = gql`
  * @requires:
  */
 export const GET_ANIMAL_IN_GROUP_COUNT = gql`
-  query animalsInGroupCount($group_id: ID!) {
-    animalsInGroupCount(group_id: $group_id) {
+  query animalsInGroupCount($groups_id: ID!) {
+    animalsInGroupCount(groups_id: $groups_id) {
       responseCheck {
           success
           message
       }
       count
+    }
+  }
+`;
+
+export const GET_ANIMAL_IN_GROUP = gql`
+  query animalsInGroup($groups_id: ID!) {
+    animalsInGroup (groups_id: $groups_id) {
+      responseCheck {
+          success
+          message
+      }
+      animals {
+        _id
+        tag_number
+        herd_number
+        sire_number
+        mother_number
+        male_female
+        breed_type
+        pure_breed
+        animal_name
+        description
+        date_of_birth
+      }
     }
   }
 `;

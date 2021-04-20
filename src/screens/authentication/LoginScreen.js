@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useRef, useState, useContext } from "react";
 import { AuthContext } from "../../components/context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { getStatusBarHeight } from "react-native-status-bar-height";
@@ -107,13 +107,15 @@ const styles = StyleSheet.create({
 });
 
 export default function LoginScreen({ navigation }) {
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [inputTextChange, setInputTextChange] = React.useState(false);
-  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
-  const [isValidUser, setIsValidUser] = React.useState(true);
-  const [isValidPassword, setIsValidPassword] = React.useState(true);
-  const { signIn } = React.useContext(AuthContext);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [inputTextChange, setInputTextChange] = useState(false);
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [isValidUser, setIsValidUser] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(true);
+  const { signIn } = useContext(AuthContext);
+
+  const ref_input2 = useRef();
 
   const [userInfo] = useMutation(LOGIN, {
     onCompleted(data) {
@@ -197,14 +199,16 @@ export default function LoginScreen({ navigation }) {
             <TextInput
               placeholder="Email"
               style={styles.input}
-              returnKeyType="done"
+              returnKeyType="next"
               value={username}
               onChangeText={(val) => textInputChange(val)}
               onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
+              onSubmitEditing={() => ref_input2.current.focus()}
+              autoFocus={true}
             />
             {isValidUser ? null : (
               <Text style={styles.errorMsg}>
-                Username must be 4 characters long
+                Please input a valid email
               </Text>
             )}
             <TextInput
@@ -214,6 +218,7 @@ export default function LoginScreen({ navigation }) {
               value={password}
               onChangeText={(val) => handlePasswordChange(val)}
               secureTextEntry
+              ref={ref_input2}
             />
             {isValidPassword ? null : (
               <Text style={styles.errorMsg}>

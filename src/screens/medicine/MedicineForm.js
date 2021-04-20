@@ -165,7 +165,7 @@ export default function MedicineForm({ navigation }) {
   };
 
   const placeholderType = {
-    label: "Select quantity type",
+    label: "Select medicine type",
     value: null,
   };
 
@@ -217,7 +217,7 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="next"
-                  placeholder="enter alphanumeric characters"
+                  placeholder="enter medicine name"
                   placeholderTextColor="#848D95"
                   blurOnSubmit={false}
                 />
@@ -301,7 +301,7 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="done"
-                  placeholder="enter numeric value, e.g. 10"
+                  placeholder="enter quantity"
                   placeholderTextColor="#848D95"
                   ref={ref_input3}
                 />
@@ -345,7 +345,7 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="done"
-                  placeholder="enter numeric value, e.g. 10"
+                  placeholder="number of days"
                   placeholderTextColor="#848D95"
                   onSubmitEditing={() => ref_input4.current.focus()}
                   blurOnSubmit={false}
@@ -367,7 +367,7 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="done"
-                  placeholder="enter numeric value, e.g. 10"
+                  placeholder="number of days"
                   placeholderTextColor="#848D95"
                   ref={ref_input4}
                   onSubmitEditing={() => ref_input5.current.focus()}
@@ -389,7 +389,7 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="next"
-                  placeholder="enter medication batch"
+                  placeholder="enter batch number"
                   placeholderTextColor="#848D95"
                   ref={ref_input5}
                   onSubmitEditing={() => ref_input6.current.focus()}
@@ -410,7 +410,7 @@ export default function MedicineForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="next"
-                  placeholder="enter supplier of medication"
+                  placeholder="enter supplier"
                   placeholderTextColor="#848D95"
                   ref={ref_input6}
                   onSubmitEditing={() => ref_input7.current.focus()}

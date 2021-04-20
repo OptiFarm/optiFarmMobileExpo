@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Sora-Bold',
         color: '#F3F4B8',
         paddingTop: SPACING,
+        textAlign: 'center',
     },
     groupLabel: {
         fontSize: 18, 
@@ -24,11 +25,12 @@ const styles = StyleSheet.create({
         opacity: 0.8, 
         fontFamily: 'Sora-SemiBold',
     },
-    groupDesc: {
+    count: {
         color: 'white', 
         fontSize: 18, 
         fontFamily: 'Sora-Bold',
         top: 5,
+        textAlign: 'center',
     },
 });
 
@@ -36,24 +38,14 @@ export const GroupItemView = ({ navigation, item }) => {
     return (
         <TouchableOpacity 
             onPress={() => navigation.navigate('Group', {screen: 'GroupDetail', params: {item}})}
-            style={{ marginBottom: 20, height: CELL_HEIGHT }}
+            style={{ marginBottom: 20, height: 180, marginLeft: 'auto', marginRight: 'auto', width: 180 }}
         >
             <View style={{ flex: 1, padding: SPACING, top: SPACING}}>
                 <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderRadius: 15}]}/>
-
-                <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.name}>{item.group_name}</Text>
-                    <Ionicons name="chevron-forward-outline" size={35} color="white" style={{right: 0, position: 'absolute', padding: SPACING}} />
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                    <View>
-                        <Text style={styles.groupLabel}>Animal Count</Text>
-                        <Text style={styles.groupDesc}>{item.groupAmount}</Text>
-                    </View>
-                </View>
-                <Text style={styles.groupLabel}>Note</Text>
-                <Text style={styles.groupDesc}>{item.group_description}</Text>
+                <Text style={styles.name}>{item.group_name}</Text>
+                <Text style={styles.count}>{item.group_size} Cows</Text>
             </View>
+            <Ionicons name="chevron-forward-outline" size={35} color="white" style={{bottom: 0, right: 0, position: 'absolute',}} />
         </TouchableOpacity>
     );
 }

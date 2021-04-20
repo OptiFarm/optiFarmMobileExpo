@@ -67,8 +67,11 @@ export default function AssignMedicationForm({ navigation, route }) {
     medicineID,
     medicineQuantity,
     medicineQuantityType,
+    medicineType,
     color,
   } = route.params;
+  
+  console.log(medicineType)
 
   // REACT HOOK FORM FUNCTIONS
   const { control, handleSubmit, errors } = useForm();
@@ -79,6 +82,7 @@ export default function AssignMedicationForm({ navigation, route }) {
       medicineID,
       animalTag,
       medicineQuantityType,
+      medicineType,
     });
   };
 
@@ -204,7 +208,7 @@ export default function AssignMedicationForm({ navigation, route }) {
             defaultValue={null}
           />
 
-          <Text style={styles.label}>Note</Text>
+          <Text style={styles.label}>Reason</Text>
           <Controller
             control={control}
             render={({ onChange, onBlur, value }) => (
@@ -218,7 +222,7 @@ export default function AssignMedicationForm({ navigation, route }) {
               />
             )}
             name="reason_for_administration"
-            rules={{ required: true }}
+            rules={{ required: false }}
             defaultValue={null}
           />
 

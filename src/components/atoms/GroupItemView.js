@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         opacity: 0.8, 
         fontFamily: 'Sora-SemiBold',
     },
-    groupDesc: {
+    count: {
         color: 'white', 
         fontSize: 18, 
         fontFamily: 'Sora-Bold',
@@ -43,7 +43,7 @@ export const GroupItemView = ({ navigation, item }) => {
             <View style={{ flex: 1, padding: SPACING, top: SPACING}}>
                 <View style={[StyleSheet.absoluteFillObject, {backgroundColor: cardBackground, borderRadius: 15}]}/>
                 <Text style={styles.name}>{item.group_name}</Text>
-                <Text style={styles.groupDesc}>7 Cows</Text>
+                <Text style={styles.count}>{item.group_size} Cows</Text>
             </View>
             <Ionicons name="chevron-forward-outline" size={35} color="white" style={{bottom: 0, right: 0, position: 'absolute',}} />
         </TouchableOpacity>

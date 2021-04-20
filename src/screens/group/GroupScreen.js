@@ -13,7 +13,7 @@ import { PageLoader } from '../../components/atoms/PageLoader';
 
 // QUERY
 import { useQuery } from '@apollo/client';
-import { GET_GROUP, GET_ANIMAL_IN_GROUP_COUNT } from '../../config/graphql/queries';
+import { GET_GROUP } from '../../config/graphql/queries';
 
 // THEME
 import { SPACING, defaultBackground, cardBackground, topOS } from '../../config/theme';
@@ -58,31 +58,18 @@ export default function GroupScreen ({navigation}) {
 
     const { data, loading, refetch } = useQuery(GET_GROUP);
 
-    let groups_id = '607e89350297211178acdbea';
-
-    const { data: groupCount, loading: groupCountLoad, refetch: groupCountRefetch } = 
-        useQuery(GET_ANIMAL_IN_GROUP_COUNT, {
-            variables: {groups_id}
-        }
-    );
-
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
           if (refetch) {
             refetch();
-            // groupCountRefetch();
           }
         });
         return unsubscribe;
     }, [navigation]);
 
-    if (loading || groupCountLoad) {
+    if (loading) {
         return <PageLoader />
     }
-
-
-
-    console.log(groupCount)
 
     const GroupList = data.groups.groups;
 

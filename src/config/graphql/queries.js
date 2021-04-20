@@ -150,6 +150,7 @@ export const GET_GROUP = gql`
         _id
         group_name
         group_description
+        group_size
       }
     }
   }

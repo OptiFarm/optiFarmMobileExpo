@@ -112,8 +112,11 @@ export default function GroupDetail ({ navigation, route }) {
     );
     const [deleteGroup, { data: deleteAnimal }] = useMutation(DELETE_GROUP, {
         onCompleted(data) {
-            if(!data.deleteGroup.responseCheck.success) {
-                
+            if(data.deleteGroup.responseCheck.success) {
+                navigation.navigate("GroupTab");
+            } else {
+                const message = data.deleteGroup.responseCheck.message;
+                Alert.alert("Unable to Delete Group", message);
             }
         }
     });
@@ -217,14 +220,11 @@ export default function GroupDetail ({ navigation, route }) {
                 },
                 {
                     text: "Yes",
-                    onPress: () => {
-                        deleteGroup({
-                            variables: {
-                                _id: groups_id,
-                            }
-                        }),
-                        navigation.navigate("GroupTab")
-                    },
+                    onPress: () => deleteGroup({
+                        variables: {
+                            _id: groups_id,
+                        }
+                    }),
                 },
             ]
         );
@@ -247,7 +247,7 @@ export default function GroupDetail ({ navigation, route }) {
                 </View>
             </View>
             <Text style={{fontSize: 20, fontFamily: 'Sora-Bold', textAlign: 'center', color: 'white', paddingBottom: SPACING}}>
-                7 Cows
+                {item.group_description}
             </Text>
             <View style={{flexDirection: 'row', paddingBottom: SPACING}}>
                 <Button 

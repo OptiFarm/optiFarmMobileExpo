@@ -29,6 +29,7 @@ import { storeToken } from "../../config/config";
 
 // THEME
 import { cardBackground, SPACING } from "../../config/theme";
+import { Alert } from "react-native";
 
 const styles = StyleSheet.create({
   background: {
@@ -113,13 +114,15 @@ export default function RegisterScreen({ navigation }) {
   const { signUp } = React.useContext(AuthContext);
 
   // USE QUERY
-  const [userInfo] = useMutation(SIGN_UP, {
+  const [userInfo, { error }] = useMutation(SIGN_UP, {
     onCompleted(data) {
-      storeToken(data.signUp.token);
-      signUp(data.signUp.token);
+      if (!data.signUp.responseCheck.success) {
+        Alert.alert("Unable to SignUp", data.signUp.responseCheck.message);
+      } else {
+        signUp(data.signUp.token);
+      }
     },
   });
-
   // REACT HOOK FORM FUNCTIONS
   const {
     register,
@@ -307,25 +310,6 @@ export default function RegisterScreen({ navigation }) {
                     rules={{ required: true }}
                     defaultValue={null}
                   />
-
-                  {/* <Text style={styles.label}>{item.vet}</Text>
-                  <Controller
-                    control={control}
-                    render={({ onChange, onBlur, value }) => (
-                      <TextInput
-                        style={styles.input}
-                        onBlur={onBlur}
-                        onChangeText={(value) => onChange(value)}
-                        value={value}
-                        returnKeyType="next"
-                        ref={ref_input4}
-                        onSubmitEditing={() => ref_input5.current.focus()}
-                      />
-                    )}
-                    name="vet"
-                    rules={{ required: true }}
-                    defaultValue={null}
-                  /> */}
 
                   <Text style={styles.label}>{item.address}</Text>
                   <Controller

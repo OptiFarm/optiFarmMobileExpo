@@ -29,6 +29,7 @@ import {
   topOS,
 } from "../../config/theme";
 import moment from "moment";
+import { Alert } from "react-native";
 
 const styles = StyleSheet.create({
   header_inner: {
@@ -104,7 +105,22 @@ export default function EditMedicineForm({ navigation, route }) {
   const { item } = route.params;
 
   // ADD ANIMAL DATA MUTATION
-  const [editMedicine] = useMutation(SAVE_OR_UPDATE_MEDICATION);
+  const [editMedicine] = useMutation(SAVE_OR_UPDATE_MEDICATION, {
+    onCompleted(data) {
+      if (!data.saveMedication.responseCheck.success) {
+        Alert.alert(
+          "Unable to Edit Medication Info",
+          data.saveMedication.responseCheck.message
+        );
+      } else {
+        const fromScreen = "Medicine Info";
+        navigation.navigate("Home", {
+          screen: "FormSuccess",
+          params: { fromScreen },
+        });
+      }
+    },
+  });
   // REACT HOOK FORM FUNCTIONS
   const {
     register,
@@ -143,13 +159,6 @@ export default function EditMedicineForm({ navigation, route }) {
         purchase_date: purchase_date,
         comments: comments,
       },
-    });
-
-    const fromScreen = "Medicine Info";
-
-    navigation.navigate("Home", {
-      screen: "FormSuccess",
-      params: { fromScreen },
     });
   };
 

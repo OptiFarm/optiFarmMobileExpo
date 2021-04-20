@@ -117,10 +117,8 @@ export default function LoginScreen({ navigation }) {
 
   const [userInfo] = useMutation(LOGIN, {
     onCompleted(data) {
-      if (data.login.responseCheck.message === "Password Incorrect.") {
-        Alert.alert("Wrong Password");
-      } else if (data.login.responseCheck.message === "Email doesn't Exist.") {
-        Alert.alert("Wrong Email");
+      if (!data.login.responseCheck.success) {
+        Alert.alert("Unable to Login.", data.login.responseCheck.message);
       } else {
         storeToken(data.login.token);
         signIn(data.login.token);
@@ -191,10 +189,13 @@ export default function LoginScreen({ navigation }) {
           </Text>
           <Text style={styles.rightContainer}></Text>
         </View>
-        <KeyboardAvoidingView style={styles.parentContainer} behavior="padding">
+        <KeyboardAvoidingView
+          style={styles.parentContainer}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
           <View style={styles.container}>
             <TextInput
-              placeholder="Username"
+              placeholder="Email"
               style={styles.input}
               returnKeyType="done"
               value={username}

@@ -10,12 +10,6 @@ const ProfileData = [
     navigation: 'PersonalData'
   },
   {
-    type: 'Settings',
-    image: 'https://i.ibb.co/JqZJj9y/settings.png',
-    backgroundColor: cardBackground,
-    navigation: ''
-  },
-  {
     type: 'OptiFarm Pro',
     image: 'https://i.ibb.co/WnYLvbp/graph.png',
     backgroundColor: cardBackground,

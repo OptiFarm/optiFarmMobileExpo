@@ -205,6 +205,7 @@ export default function LoginScreen({ navigation }) {
               onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
               onSubmitEditing={() => ref_input2.current.focus()}
               autoFocus={true}
+              keyboardType='email-address'
             />
             {isValidUser ? null : (
               <Text style={styles.errorMsg}>

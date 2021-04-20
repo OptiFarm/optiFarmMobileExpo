@@ -313,3 +313,45 @@ export const SAVE_GROUP = gql`
     }
   }
 `;
+
+export const ADD_ANIMAL_TO_GROUP = gql`
+  mutation addAnimalToGroup ($_id: ID!, $groups_id: ID!) {
+    addAnimalToGroup (_id: $_id, groups_id: $groups_id) {
+      responseCheck {
+          success
+          message
+      }
+      animal {
+        _id
+        tag_number
+        herd_number
+        sire_number
+        mother_number
+        last_calved
+        male_female
+        breed_type
+        groups_id
+        pure_breed
+        animal_name
+        description
+        date_of_birth
+      }
+    }
+  }
+`;
+
+export const DELETE_GROUP = gql`
+  mutation deleteGroup ($_id: ID!) {
+    deleteGroup (_id: $_id) {
+        responseCheck {
+            success
+            message
+        }
+        group {
+            _id
+            group_name
+            group_description
+        }
+    }
+  }
+`; 

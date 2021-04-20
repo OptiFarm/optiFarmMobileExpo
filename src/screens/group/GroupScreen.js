@@ -58,11 +58,11 @@ export default function GroupScreen ({navigation}) {
 
     const { data, loading, refetch } = useQuery(GET_GROUP);
 
-    const id = '607dc48e240b9e0ffc9afa6a'
+    let groups_id = '607e89350297211178acdbea';
 
     const { data: groupCount, loading: groupCountLoad, refetch: groupCountRefetch } = 
         useQuery(GET_ANIMAL_IN_GROUP_COUNT, {
-            variables: {id}
+            variables: {groups_id}
         }
     );
 
@@ -76,9 +76,13 @@ export default function GroupScreen ({navigation}) {
         return unsubscribe;
     }, [navigation]);
 
-    if (loading) {
+    if (loading || groupCountLoad) {
         return <PageLoader />
     }
+
+
+
+    console.log(groupCount)
 
     const GroupList = data.groups.groups;
 
@@ -94,13 +98,15 @@ export default function GroupScreen ({navigation}) {
         <View style={{backgroundColor: defaultBackground, flex: 1}}>
             <View style={{backgroundColor: defaultBackground, flex: 1}}>
                 <View style={{flexDirection: 'row', paddingBottom: SPACING}}>
-                    <Button onPress={() => navigation.navigate('Group', {screen: 'GroupForm'})}
-                            mode="contained" color='#E4E5E9' style={{marginHorizontal: SPACING, marginVertical: SPACING, borderRadius: 20,}} 
-                            uppercase={false}
-                            labelStyle={{fontFamily: 'Sora-SemiBold', fontSize: 15, color: cardBackground}}
-                            icon={({ size, color }) => (
-                                <MaterialCommunityIcons name="plus-circle" size={24} color={cardBackground} />
-                            )} 
+                    <Button 
+                        onPress={() => navigation.navigate('Group', {screen: 'GroupForm'})}
+                        mode="contained" color='#E4E5E9' 
+                        style={{marginHorizontal: SPACING, marginVertical: SPACING, borderRadius: 20,}} 
+                        uppercase={false}
+                        labelStyle={{fontFamily: 'Sora-SemiBold', fontSize: 15, color: cardBackground}}
+                        icon={({ size, color }) => (
+                            <MaterialCommunityIcons name="plus-circle" size={24} color={cardBackground} />
+                        )} 
                     >
                         Add Group
                     </Button>

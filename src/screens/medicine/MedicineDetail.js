@@ -121,6 +121,7 @@ export default function MedicineDetail({ navigation, route }) {
     medicineLevelColor,
     medicineLevelLabel,
     medicineQuantityType,
+    medicineType,
   } = route.params;
 
   // Variables for Assign Medication Form
@@ -184,6 +185,7 @@ export default function MedicineDetail({ navigation, route }) {
             withdrawalMilk: withdrawalMilk,
             medicineQuantity: medicineQuantity,
             medicineQuantityType: medicineQuantityType,
+            medicineType: medicineType,
             color: medicineLevelColor,
           })
         }

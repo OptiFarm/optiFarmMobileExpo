@@ -79,6 +79,7 @@ export default function AssignMedicationConfirm({ navigation, route }) {
     medicineQuantityType,
     medicineID,
     animalTag,
+    medicineType,
   } = route.params;
 
   // ADD ADMINISTRITION_MEDICATION
@@ -166,8 +167,8 @@ export default function AssignMedicationConfirm({ navigation, route }) {
             ]}
           />
 
-          <Text style={styles.name}>{route.params["medication"]}</Text>
-          <Text style={styles.medicineType}>{data.medication}</Text>
+          <Text style={styles.name}>{data.medication}</Text>
+          <Text style={styles.medicineType}>{medicineType}</Text>
 
           <View style={styles.border} />
 

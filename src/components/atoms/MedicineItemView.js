@@ -77,7 +77,6 @@ export const MedicineItemView = ({ navigation, item }) => {
             : "High Quantity";
 
     const medicineType = item.medicine_type.charAt(0) + item.medicine_type.slice(1).toLowerCase();
-
     const medicineQuantityType = item.quantity_type === 'UNASSIGNED' ? '' : item.quantity_type;
 
     // FORMAT DATE TIME
@@ -87,7 +86,7 @@ export const MedicineItemView = ({ navigation, item }) => {
 
     return (
         <TouchableOpacity 
-            onPress={() => navigation.navigate('Medicine', {screen: 'MedicineDetail', params: {item, purchase_date, medicineLevelLabel, medicineLevelColor, medicineQuantityType}})}
+            onPress={() => navigation.navigate('Medicine', {screen: 'MedicineDetail', params: {item, purchase_date, medicineLevelLabel, medicineLevelColor, medicineQuantityType, medicineType}})}
             style={{ marginBottom: CELL_HEIGHT / 10, top: CELL_HEIGHT / 10, height: 200 }}
         >
             <View style={{ flex: 1, padding: SPACING }}>

@@ -67,8 +67,11 @@ export default function AssignMedicationForm({ navigation, route }) {
     medicineID,
     medicineQuantity,
     medicineQuantityType,
+    medicineType,
     color,
   } = route.params;
+  
+  console.log(medicineType)
 
   // REACT HOOK FORM FUNCTIONS
   const { control, handleSubmit, errors } = useForm();
@@ -79,6 +82,7 @@ export default function AssignMedicationForm({ navigation, route }) {
       medicineID,
       animalTag,
       medicineQuantityType,
+      medicineType,
     });
   };
 

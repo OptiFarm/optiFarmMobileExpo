@@ -165,7 +165,7 @@ export default function MedicineForm({ navigation }) {
   };
 
   const placeholderType = {
-    label: "Select quantity type",
+    label: "Select medicine type",
     value: null,
   };
 

@@ -86,16 +86,6 @@ const styles = StyleSheet.create({
     color: "red",
     paddingTop: 8,
   },
-  forgotPassword: {
-    width: "100%",
-    alignItems: "flex-end",
-    marginBottom: 24,
-  },
-  forgot: {
-    opacity: 0.7,
-    fontSize: 13,
-    fontFamily: "Sora-SemiBold",
-  },
   row: {
     flexDirection: "row",
     marginTop: 4,
@@ -206,6 +196,7 @@ export default function LoginScreen({ navigation }) {
               onSubmitEditing={() => ref_input2.current.focus()}
               autoFocus={true}
               keyboardType='email-address'
+              autoCapitalize='none'
             />
             {isValidUser ? null : (
               <Text style={styles.errorMsg}>
@@ -226,13 +217,6 @@ export default function LoginScreen({ navigation }) {
                 Password must be 8 characters long
               </Text>
             )}
-            <View style={styles.forgotPassword}>
-              <TouchableOpacity
-              // onPress={() => navigation.navigate('ForgotPasswordScreen')}
-              >
-                <Text style={styles.forgot}>Forgot your password?</Text>
-              </TouchableOpacity>
-            </View>
             <Button
               contentStyle={{ height: 50, width: 25 }}
               mode="contained"

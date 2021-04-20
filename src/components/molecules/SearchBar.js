@@ -91,7 +91,9 @@ export default function SearchBarList ({ items, setFilteredData, fromScreen }) {
 
     // SEARCH
     const [searchText, setSearchText] = useState("");
-    // const [filteredData, setFilteredData] = useState([]);
+    
+    // PLACEHOLDER
+    const placeholder = fromScreen === 'herdbook' ? 'Search Animal' : fromScreen === 'medicine' ? 'Search Medicine' : 'Search Medicine Usage';
 
     const onFocus = () => {
         setIsFocused(true);
@@ -179,7 +181,7 @@ export default function SearchBarList ({ items, setFilteredData, fromScreen }) {
                 onPress={onFocus}
                 style={styles.search_icon_box}
             >
-              <MaterialIcons name="search" size={30} color={cardBackground} />
+                <MaterialIcons name="search" size={30} color={cardBackground} />
             </TouchableHighlight>
 
             <Animated.View
@@ -212,7 +214,7 @@ export default function SearchBarList ({ items, setFilteredData, fromScreen }) {
                     round
                     searchIcon={null}
                     clearIcon={true}
-                    placeholder="Search Animal"
+                    placeholder={placeholder}
                     returnKeyType="search"
                     ref={ref_input}
                     value={searchText}

@@ -158,7 +158,7 @@ export default function AnimalForm({ navigation }) {
   };
 
   const placeholderSex = {
-    label: "Select a gender",
+    label: "Select Sex",
     value: null,
   };
 
@@ -198,28 +198,6 @@ export default function AnimalForm({ navigation }) {
       >
         <ScrollView style={{ padding: SPACING }}>
           <>
-            <Text style={styles.label}>Animal Name</Text>
-            <Controller
-              control={control}
-              render={({ onChange, onBlur, value }) => (
-                <TextInput
-                  autoFocus={true}
-                  style={styles.input}
-                  onBlur={onBlur}
-                  onChangeText={(value) => onChange(value)}
-                  value={value}
-                  returnKeyType="next"
-                  placeholder="enter animal name if it has one"
-                  placeholderTextColor="#848D95"
-                  onSubmitEditing={() => ref_input2.current.focus()}
-                  blurOnSubmit={false}
-                />
-              )}
-              name="animalName"
-              rules={{ required: false }}
-              defaultValue={null}
-            />
-
             <Text style={styles.label}>Tag Number</Text>
             <Controller
               control={control}
@@ -231,7 +209,7 @@ export default function AnimalForm({ navigation }) {
                   value={value}
                   keyboardType="decimal-pad"
                   returnKeyType="done"
-                  placeholder="enter 5 digits number"
+                  placeholder="5 digit tag number"
                   placeholderTextColor="#848D95"
                   ref={ref_input2}
                   onSubmitEditing={() => ref_input3.current.focus()}
@@ -255,7 +233,7 @@ export default function AnimalForm({ navigation }) {
                   value={value}
                   keyboardType="decimal-pad"
                   returnKeyType="done"
-                  placeholder="enter 5 digits number"
+                  placeholder="5 digit tag number"
                   placeholderTextColor="#848D95"
                   ref={ref_input3}
                   onSubmitEditing={() => ref_input4.current.focus()}
@@ -279,7 +257,7 @@ export default function AnimalForm({ navigation }) {
                   value={value}
                   keyboardType="decimal-pad"
                   returnKeyType="done"
-                  placeholder="enter 5 digits number"
+                  placeholder="5 digit tag number"
                   placeholderTextColor="#848D95"
                   ref={ref_input4}
                   maxLength={5}
@@ -321,7 +299,7 @@ export default function AnimalForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="next"
-                  placeholder="enter 2-4 digits breed code"
+                  placeholder="2-4 character breed code"
                   placeholderTextColor="#848D95"
                   ref={ref_input5}
                   onSubmitEditing={() => ref_input6.current.focus()}
@@ -375,7 +353,35 @@ export default function AnimalForm({ navigation }) {
               defaultValue={null}
             />
 
-            <Text style={styles.label}>Description</Text>
+            <Text style={styles.label}>
+              Animal Name
+              <Text style={{ color: "#D74747", fontSize: 13 }}> Optional</Text>
+            </Text>
+            <Controller
+              control={control}
+              render={({ onChange, onBlur, value }) => (
+                <TextInput
+                  autoFocus={true}
+                  style={styles.input}
+                  onBlur={onBlur}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  returnKeyType="next"
+                  placeholder="animal name"
+                  placeholderTextColor="#848D95"
+                  onSubmitEditing={() => ref_input2.current.focus()}
+                  blurOnSubmit={false}
+                />
+              )}
+              name="animalName"
+              rules={{ required: false }}
+              defaultValue={null}
+            />
+
+            <Text style={styles.label}>
+              Description
+              <Text style={{ color: "#D74747", fontSize: 13 }}> Optional</Text>
+            </Text>
             <Controller
               control={control}
               render={({ onChange, onBlur, value }) => (
@@ -385,7 +391,6 @@ export default function AnimalForm({ navigation }) {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   returnKeyType="done"
-                  placeholder="description / comment on animal"
                   placeholderTextColor="#848D95"
                 />
               )}

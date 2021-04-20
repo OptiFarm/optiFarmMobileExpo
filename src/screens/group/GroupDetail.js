@@ -96,6 +96,8 @@ export default function GroupDetail ({ navigation, route }) {
 
     const [animalID, setAnimalID] = useState('');
     const [sheetClose, setSheetClose] = useState(false);
+    const [searchText, setSearchText] = useState("");
+    const [filteredData, setFilteredData] = useState([]);
 
     const groups_id = item._id;
 
@@ -207,6 +209,21 @@ export default function GroupDetail ({ navigation, route }) {
         );
     };
 
+    const search = (searchText) => {
+        setSearchText(searchText);
+    
+        let filteredData = AnimalList.filter(function (item) {
+          const tag_number_search = item.tag_number.toString().includes(searchText);
+          const breed_type_search = item.breed_type.includes(
+            searchText.toUpperCase()
+          );
+    
+          return tag_number_search || breed_type_search;
+        });
+    
+        setFilteredData(filteredData);
+    };
+
     // DELETE GROUP
     const handleDeleteGroup = () => {
         Alert.alert(
@@ -288,8 +305,8 @@ export default function GroupDetail ({ navigation, route }) {
                     style={styles.input}
                     placeholder="Search for Animal"
                     clearButtonMode="always"
-                    // onChangeText={search}
-                    // value={searchText}
+                    onChangeText={search}
+                    value={searchText}
                     placeholderTextColor="#848D95"
                     returnKeyType="search"
                 />
@@ -297,7 +314,9 @@ export default function GroupDetail ({ navigation, route }) {
             <BottomSheetFlatList
                 showsVerticalScrollIndicator={true}
                 data={
-                    AnimalList
+                    filteredData && filteredData.length > 0
+                    ? filteredData
+                    : AnimalList
                 }
                 keyExtractor={(item, index) => item._id}
                 renderItem={renderAnimalList}

@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
-import Moment from 'moment';
+import Moment from "moment";
 
 // COMPONENTS
 import {
@@ -29,7 +29,10 @@ import { PageLoader } from "../../components/atoms/PageLoader";
 // QUERY
 import { useQuery } from "@apollo/client";
 import { GET_MEDICATIONS } from "../../config/graphql/queries";
-import { GET_LAST_MEDICATION_ANIMAL, GET_ANIMAL_BY_PROGENY } from "../../config/graphql/queries";
+import {
+  GET_LAST_MEDICATION_ANIMAL,
+  GET_ANIMAL_BY_PROGENY,
+} from "../../config/graphql/queries";
 
 // THEME
 import {
@@ -117,9 +120,15 @@ const modalStyles = StyleSheet.create({
 });
 
 export default function AnimalDetail({ navigation, route }) {
-  const { item, date_of_birth, cowLogo, last_calved, male_female } = route.params;
+  const {
+    item,
+    date_of_birth,
+    cowLogo,
+    last_calved,
+    male_female,
+  } = route.params;
 
-  const description = item.description === 'null' ? '' : item.description; 
+  const description = item.description === "null" ? "" : item.description;
 
   // Variables for Assign Medication Form
   const tag_number = item.tag_number;
@@ -299,17 +308,26 @@ export default function AnimalDetail({ navigation, route }) {
 
   const ref_input = useRef();
 
-  const id = item._id
+  const id = item._id;
 
   const { data, loading } = useQuery(GET_MEDICATIONS);
 
-  const { data: lastMedication, loading: loadLastMedication } = useQuery(GET_LAST_MEDICATION_ANIMAL, {
-    variables: {id},
-  });
+  const { data: lastMedication, loading: loadLastMedication } = useQuery(
+    GET_LAST_MEDICATION_ANIMAL,
+    {
+      variables: { id },
+      onCompleted(data) {
+        console.log(data);
+      },
+    }
+  );
 
-  const { data: progenyList, loading: loadProgeny} = useQuery(GET_ANIMAL_BY_PROGENY, {
-    variables: {tag_number},
-  })
+  const { data: progenyList, loading: loadProgeny } = useQuery(
+    GET_ANIMAL_BY_PROGENY,
+    {
+      variables: { tag_number },
+    }
+  );
 
   if (loading || loadLastMedication || loadProgeny) {
     return <PageLoader />;
@@ -327,7 +345,7 @@ export default function AnimalDetail({ navigation, route }) {
     setSearchText("");
     setFilteredData([]);
     handlePresentModalPress();
-  }
+  };
 
   const onClickGiveMedicine = () => {
     setListData(MedicineList);
@@ -336,28 +354,49 @@ export default function AnimalDetail({ navigation, route }) {
     setSearchText("");
     setFilteredData([]);
     handlePresentModalPress();
-  }
+  };
 
-  const renderModalList = ({item}) => {
-    if (renderList === 'progeny') {
+  const renderModalList = ({ item }) => {
+    if (renderList === "progeny") {
       const cowLogo =
-      item.male_female === "F"
-        ? "https://i.ibb.co/B4cgVmv/cow-5.png"
-        : "https://i.ibb.co/g6MntkZ/cow-6.png";
+        item.male_female === "F"
+          ? "https://i.ibb.co/B4cgVmv/cow-5.png"
+          : "https://i.ibb.co/g6MntkZ/cow-6.png";
 
       // FORMAT DATE TIME
-      Moment.locale('en');
-      const date_of_birth = Moment(item.date_of_birth).format('YYYY-MM-DD');
-      const last_calved = item.last_calved !== null ? Moment(item.last_calved).format('YYYY-MM-DD') : 'N/A';
-      const male_female = item.male_female === 'M' ? 'Male' : 'Female';
+      Moment.locale("en");
+      const date_of_birth = Moment(item.date_of_birth).format("YYYY-MM-DD");
+      const last_calved =
+        item.last_calved !== null
+          ? Moment(item.last_calved).format("YYYY-MM-DD")
+          : "N/A";
+      const male_female = item.male_female === "M" ? "Male" : "Female";
 
       return (
         <TouchableOpacity
-          style={{ flexDirection: "row", marginBottom: 40, alignItems: "center" }}
-          onPress={() => navigation.navigate('Home', {screen: 'AnimalDetail', params: {item, date_of_birth, cowLogo, last_calved, male_female}})}
+          style={{
+            flexDirection: "row",
+            marginBottom: 40,
+            alignItems: "center",
+          }}
+          onPress={() =>
+            navigation.navigate("Home", {
+              screen: "AnimalDetail",
+              params: {
+                item,
+                date_of_birth,
+                cowLogo,
+                last_calved,
+                male_female,
+              },
+            })
+          }
         >
           <View style={{ flexDirection: "row" }}>
-            <Image source={{ uri: cowLogo }} style={{ height: 50, width: 50 }} />
+            <Image
+              source={{ uri: cowLogo }}
+              style={{ height: 50, width: 50 }}
+            />
             <View>
               <Text
                 style={{
@@ -398,166 +437,185 @@ export default function AnimalDetail({ navigation, route }) {
             style={{ position: "absolute", right: 0, bottom: SPACING }}
           />
         </TouchableOpacity>
-      )
+      );
     } else {
       const medicineID = item._id;
-    const medicineName = item.medication_name;
-    const withdrawalMilk = item.withdrawal_days_dairy;
-    const withdrawalMeat = item.withdrawal_days_meat;
-    const medicineQuantity = item.remaining_quantity;
-    const medicineQuantityType = item.quantity_type;
+      const medicineName = item.medication_name;
+      const withdrawalMilk = item.withdrawal_days_dairy;
+      const withdrawalMeat = item.withdrawal_days_meat;
+      const medicineQuantity = item.remaining_quantity;
+      const medicineQuantityType = item.quantity_type;
 
-    // MEDICINE QUANTITY COLOR
-    const midLevel = item.quantity / 2;
+      // MEDICINE QUANTITY COLOR
+      const midLevel = item.quantity / 2;
 
-    const medicineLevelColor =
-      item.remaining_quantity < midLevel
-        ? medicineLevelLow
-        : item.remaining_quantity === midLevel
-        ? medicineLevelMedium
-        : medicineLevelHigh;
+      const medicineLevelColor =
+        item.remaining_quantity < midLevel
+          ? medicineLevelLow
+          : item.remaining_quantity === midLevel
+          ? medicineLevelMedium
+          : medicineLevelHigh;
 
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("Medicine", {
-            screen: "AssignMedicationForm",
-            params: {
-              animalID: animalID,
-              animalTag: tag_number,
-              medicineID: medicineID,
-              medicineName: medicineName,
-              withdrawalMeat: withdrawalMeat,
-              withdrawalMilk: withdrawalMilk,
-              medicineQuantity: medicineQuantity,
-              medicineQuantityType: medicineQuantityType,
-              color: medicineLevelColor,
-            },
-          })
-        }
-        style={{ flexDirection: "row", marginBottom: 40, alignItems: "center" }}
-      >
-        <View style={{ flexDirection: "row" }}>
-          <View
-            style={{
-              backgroundColor: cardBackground,
-              borderTopRightRadius: 15,
-              borderBottomRightRadius: 15,
-              borderLeftColor: medicineLevelColor,
-              borderLeftWidth: 3,
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: "Sora-SemiBold",
-                fontSize: 18,
-                color: "white",
-                left: SPACING,
-              }}
-            >
-              Medicine:{" "}
-              <Text style={{ color: "#F4F3BE" }}>{item.medication_name}</Text>
-            </Text>
+      return (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("Medicine", {
+              screen: "AssignMedicationForm",
+              params: {
+                animalID: animalID,
+                animalTag: tag_number,
+                medicineID: medicineID,
+                medicineName: medicineName,
+                withdrawalMeat: withdrawalMeat,
+                withdrawalMilk: withdrawalMilk,
+                medicineQuantity: medicineQuantity,
+                medicineQuantityType: medicineQuantityType,
+                color: medicineLevelColor,
+              },
+            })
+          }
+          style={{
+            flexDirection: "row",
+            marginBottom: 40,
+            alignItems: "center",
+          }}
+        >
+          <View style={{ flexDirection: "row" }}>
             <View
               style={{
-                borderBottomColor: "#9D9D9D",
-                opacity: 0.4,
-                borderBottomWidth: 1,
-                top: 45,
-                width: 350,
-              }}
-            />
-            <Text
-              style={{
-                fontFamily: "Sora-SemiBold",
-                fontSize: 18,
-                color: "white",
-                left: SPACING,
+                backgroundColor: cardBackground,
+                borderTopRightRadius: 15,
+                borderBottomRightRadius: 15,
+                borderLeftColor: medicineLevelColor,
+                borderLeftWidth: 3,
               }}
             >
-              Quantity:{" "}
-              <Text style={{ color: "#F4F3BE" }}>
-                {item.remaining_quantity} / {item.quantity} {item.quantity_type}
+              <Text
+                style={{
+                  fontFamily: "Sora-SemiBold",
+                  fontSize: 18,
+                  color: "white",
+                  left: SPACING,
+                }}
+              >
+                Medicine:{" "}
+                <Text style={{ color: "#F4F3BE" }}>{item.medication_name}</Text>
               </Text>
-            </Text>
+              <View
+                style={{
+                  borderBottomColor: "#9D9D9D",
+                  opacity: 0.4,
+                  borderBottomWidth: 1,
+                  top: 45,
+                  width: 350,
+                }}
+              />
+              <Text
+                style={{
+                  fontFamily: "Sora-SemiBold",
+                  fontSize: 18,
+                  color: "white",
+                  left: SPACING,
+                }}
+              >
+                Quantity:{" "}
+                <Text style={{ color: "#F4F3BE" }}>
+                  {item.remaining_quantity} / {item.quantity}{" "}
+                  {item.quantity_type}
+                </Text>
+              </Text>
+            </View>
           </View>
-        </View>
-        <Feather
-          name="chevron-right"
-          size={30}
-          color="#F4F3BE"
-          style={{ position: "absolute", right: 0, bottom: SPACING }}
-        />
-      </TouchableOpacity>
-    );
+          <Feather
+            name="chevron-right"
+            size={30}
+            color="#F4F3BE"
+            style={{ position: "absolute", right: 0, bottom: SPACING }}
+          />
+        </TouchableOpacity>
+      );
     }
-  }
+  };
 
   const DisplayMedication = () => {
-    if (lastMedication.animalWithLastMedication.administeredMedications === null) {
-      return (
-        <Text style={styles.value}>N/A</Text>
-      )
-    }
-    else {
-      Moment.locale('en');
-      const medicineInfo = lastMedication.animalWithLastMedication.administeredMedications[0].medication[0]
+    if (
+      lastMedication.animalWithLastMedication.administeredMedications === null
+    ) {
+      return <Text style={styles.value}>N/A</Text>;
+    } else {
+      Moment.locale("en");
+      const medicineInfo =
+        lastMedication.animalWithLastMedication.administeredMedications[0]
+          .medication[0];
       const medicineAssignedName = medicineInfo.medication_name;
-      const administeredBy = lastMedication.animalWithLastMedication.administeredMedications[0].administered_by;
-      const dateAdministered = Moment(lastMedication.animalWithLastMedication.administeredMedications[0].date_of_administration).format('YYYY-MM-DD');
-      const quantityAdministered = lastMedication.animalWithLastMedication.administeredMedications[0].quantity_administered;
-      const quantityType = lastMedication.animalWithLastMedication.administeredMedications[0].quantity_type;
-      const reason = lastMedication.animalWithLastMedication.administeredMedications[0].reason_for_administration;
-  
+      const administeredBy =
+        lastMedication.animalWithLastMedication.administeredMedications[0]
+          .administered_by;
+      const dateAdministered = Moment(
+        lastMedication.animalWithLastMedication.administeredMedications[0]
+          .date_of_administration
+      ).format("YYYY-MM-DD");
+      const quantityAdministered =
+        lastMedication.animalWithLastMedication.administeredMedications[0]
+          .quantity_administered;
+      const quantityType =
+        lastMedication.animalWithLastMedication.administeredMedications[0]
+          .quantity_type;
+      const reason =
+        lastMedication.animalWithLastMedication.administeredMedications[0]
+          .reason_for_administration;
+      const withdrawal_end_dairy =
+        lastMedication.animalWithLastMedication.administeredMedications[0]
+          .withdrawal_end_dairy;
+      const withdrawal_end_meat =
+        lastMedication.animalWithLastMedication.administeredMedications[0]
+          .withdrawal_end_meat;
+
       return (
-        <TouchableOpacity       
+        <TouchableOpacity
           onPress={() =>
-              navigation.navigate("Home", {
-                screen: "MedicineUsageDetail",
-                params: {
-                  animalTagNumber: tag_number,
-                  medicineName: medicineAssignedName,
-                  administeredBy: administeredBy,
-                  dateAdministered: dateAdministered,
-                  quantityAdministered: quantityAdministered,
-                  quantityType: quantityType,
-                  reason: reason,
-                },
-              })
-            }
-          >
-          <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>
+            navigation.navigate("Home", {
+              screen: "MedicineUsageDetail",
+              params: {
+                animalTagNumber: tag_number,
+                medicineName: medicineAssignedName,
+                administeredBy: administeredBy,
+                dateAdministered: dateAdministered,
+                quantityAdministered: quantityAdministered,
+                withdrawalEndDairy: withdrawal_end_dairy,
+                withdrawalEndMeat: withdrawal_end_meat,
+                quantityType: quantityType,
+                reason: reason,
+              },
+            })
+          }
+        >
+          <Text style={[styles.value, { color: "#F4F3BE" }]}>Click Here</Text>
         </TouchableOpacity>
-      )
+      );
     }
-  }
+  };
 
   const DisplayProgeny = () => {
-    if(ProgenyList.length == 0) {
-      return (
-        <Text style={styles.value}>N/A</Text>
-      )
-    }
-    else {
+    if (ProgenyList.length == 0) {
+      return <Text style={styles.value}>N/A</Text>;
+    } else {
       return (
         <TouchableOpacity onPress={onClickProgeny}>
-          <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>
+          <Text style={[styles.value, { color: "#F4F3BE" }]}>Click Here</Text>
         </TouchableOpacity>
-      )
+      );
     }
-  }
+  };
 
   const search = (searchText) => {
     setSearchText(searchText);
 
     let filteredData = listData.filter(function (item) {
-
-      let { medicine_name_search, tag_number_search, breed_type_search } = '';
-      if (renderList === 'progeny') {
+      let { medicine_name_search, tag_number_search, breed_type_search } = "";
+      if (renderList === "progeny") {
         tag_number_search = item.tag_number.toString().includes(searchText);
-        breed_type_search = item.breed_type.includes(
-          searchText.toUpperCase()
-        );
+        breed_type_search = item.breed_type.includes(searchText.toUpperCase());
 
         return tag_number_search || breed_type_search;
       } else {
@@ -750,9 +808,7 @@ export default function AnimalDetail({ navigation, route }) {
           <BottomSheetFlatList
             showsVerticalScrollIndicator={true}
             data={
-              filteredData && filteredData.length > 0
-                ? filteredData
-                : listData
+              filteredData && filteredData.length > 0 ? filteredData : listData
             }
             keyExtractor={(item, index) => item._id}
             renderItem={renderModalList}

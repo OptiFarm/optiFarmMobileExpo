@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: cardBackground,
-    height: 50,
+    height: 65,
     padding: 10,
     borderRadius: 15,
     fontFamily: "Sora-SemiBold",
@@ -76,9 +76,9 @@ const pickerSelectStyles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 15,
     color: "white",
-    paddingRight: 30, // to ensure the text is never behind the icon
+    paddingRight: 30,
     backgroundColor: cardBackground,
-    height: 50,
+    height: 65,
     fontFamily: "Sora-SemiBold",
     fontSize: 18,
     marginBottom: 25,
@@ -90,9 +90,9 @@ const pickerSelectStyles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 15,
     color: "white",
-    paddingRight: 30, // to ensure the text is never behind the icon
+    paddingRight: 30,
     backgroundColor: cardBackground,
-    height: 50,
+    height: 65,
     fontFamily: "Sora-SemiBold",
     fontSize: 18,
     marginBottom: 25,
@@ -249,7 +249,7 @@ export default function EditAnimalForm({ navigation, route }) {
               defaultValue={item.sire_number.toString()}
             />
 
-            <Text style={styles.label}>Mother Number</Text>
+            <Text style={styles.label}>Dam Number</Text>
             <Controller
               control={control}
               render={({ onChange, onBlur, value }) => (
@@ -386,7 +386,7 @@ export default function EditAnimalForm({ navigation, route }) {
               }}
               onPress={handleSubmit(onSubmit)}
             >
-              Submit
+              Edit
             </Button>
           </>
         </ScrollView>

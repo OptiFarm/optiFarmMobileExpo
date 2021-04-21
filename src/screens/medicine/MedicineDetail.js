@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
 import { getStatusBarHeight } from "react-native-status-bar-height";
+import Moment from "moment";
 
 // COMPONENTS
 import {
@@ -42,7 +43,7 @@ import {
 
 // QUERY
 import { useQuery } from "@apollo/client";
-import { GET_HERD } from "../../config/graphql/queries";
+import { GET_HERD, GET_ACTIVE_MEDICATIONS_MEDICINE } from "../../config/graphql/queries";
 
 const styles = StyleSheet.create({
   name: {
@@ -115,6 +116,9 @@ const modalStyles = StyleSheet.create({
 });
 
 export default function MedicineDetail({ navigation, route }) {
+
+  Moment.locale('en');
+
   const {
     item,
     purchase_date,
@@ -125,12 +129,13 @@ export default function MedicineDetail({ navigation, route }) {
   } = route.params;
 
   // Variables for Assign Medication Form
+  const medication_id = item._id;
   const medicineID = item._id;
   const medicineName = item.medication_name;
   const withdrawalMilk = item.withdrawal_days_dairy;
   const withdrawalMeat = item.withdrawal_days_meat;
   const medicineQuantity = item.remaining_quantity;
-  const withdrawalPeriodActive = withdrawalMeat || withdrawalMilk !== '' ? 'Active' : 'Not Active'
+  const withdrawalPeriodActive = withdrawalMeat || withdrawalMilk !== '' ? 'Click Here' : 'N'
 
   const activeColor = withdrawalPeriodActive === "Active" ? medicineLevelLow : medicineLevelHigh;
 
@@ -144,9 +149,6 @@ export default function MedicineDetail({ navigation, route }) {
   }, []);
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
-  }, []);
-  const handleClosePress = useCallback(() => {
-    bottomSheetModalRef.current?.close();
   }, []);
 
   // DISABLE ASSIGN MEDICATION IF QUANTITY 0
@@ -167,26 +169,138 @@ export default function MedicineDetail({ navigation, route }) {
   const handleMedicineAction =
     medicineQuantity === 0 ? medicineEmpty : handlePresentModalPress;
 
-  const renderAnimalList = ({ item }) => {
-    const cowLogo =
+  // SEARCH HANDLES
+  const [listData, setListData] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [renderList, setRenderList] = useState("");
+  const [searchFor, setSearchFor] = useState("");
+
+  // GET HERD LIST
+  const { data, loading } = useQuery(GET_HERD);
+
+  // GET ACTIVE MEDICATION LIST
+  const { data: activeMedication, loading: loadActiveMedication} = useQuery(GET_ACTIVE_MEDICATIONS_MEDICINE, {
+    variables: {medication_id}
+  })
+
+  // LOAD ALL QUERIES
+  if (loading || loadActiveMedication) {
+    return <PageLoader />;
+  }
+
+  // LISTS
+  const AnimalList = data.herd.animals;
+  const ActiveMedicationList = activeMedication.administeredMedicationsActiveWithdrawalByMedication.administeredMedications
+  
+  const onClickGiveMedicine = () => {
+    setListData(AnimalList);
+    setSearchFor("Search for Animal");
+    setRenderList("medicine");
+    setSearchText("");
+    setFilteredData([]);
+    handlePresentModalPress();
+  };
+
+  const onClickActiveMedicine = () => {
+    setListData(ActiveMedicationList);
+    setSearchFor("Search for Medicated Animals");
+    setRenderList("activeMedication");
+    setSearchText("");
+    setFilteredData([]);
+    handlePresentModalPress();
+  };
+
+  const renderModalList = ({item}) => {
+    if (renderList === 'medicine') {
+      const cowLogo =
       item.male_female === "F"
         ? "https://i.ibb.co/B4cgVmv/cow-5.png"
         : "https://i.ibb.co/g6MntkZ/cow-6.png";
 
+      return (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("AssignMedicationForm", {
+              animalID: item._id,
+              animalTag: item.tag_number,
+              medicineID: medicineID,
+              medicineName: medicineName,
+              withdrawalMeat: withdrawalMeat,
+              withdrawalMilk: withdrawalMilk,
+              medicineQuantity: medicineQuantity,
+              medicineQuantityType: medicineQuantityType,
+              medicineType: medicineType,
+              color: medicineLevelColor,
+            })
+          }
+          style={{ flexDirection: "row", marginBottom: 40, alignItems: "center" }}
+        >
+          <View style={{ flexDirection: "row" }}>
+            <Image source={{ uri: cowLogo }} style={{ height: 50, width: 50 }} />
+            <View>
+              <Text
+                style={{
+                  fontFamily: "Sora-SemiBold",
+                  fontSize: 18,
+                  color: "white",
+                  left: SPACING,
+                }}
+              >
+                ID: <Text style={{ color: "#F4F3BE" }}>{item.tag_number}</Text>
+              </Text>
+              <View
+                style={{
+                  borderBottomColor: "#9D9D9D",
+                  opacity: 0.4,
+                  borderBottomWidth: 1,
+                  top: 45,
+                  width: 300,
+                }}
+              />
+              <Text
+                style={{
+                  fontFamily: "Sora-SemiBold",
+                  fontSize: 18,
+                  color: "white",
+                  left: SPACING,
+                }}
+              >
+                Breed Type:{" "}
+                <Text style={{ color: "#F4F3BE" }}>{item.breed_type}</Text>
+              </Text>
+            </View>
+          </View>
+          <Feather
+            name="chevron-right"
+            size={30}
+            color="#F4F3BE"
+            style={{ position: "absolute", right: 0, bottom: SPACING }}
+          />
+        </TouchableOpacity>
+      );
+    } 
+    const tagNumber = item.animal[0].tag_number;
+    const breedType = item.animal[0].breed_type;
+    const cowLogo =
+    item.animal[0].male_female === "F"
+      ? "https://i.ibb.co/B4cgVmv/cow-5.png"
+      : "https://i.ibb.co/g6MntkZ/cow-6.png";
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("AssignMedicationForm", {
-            animalID: item._id,
-            animalTag: item.tag_number,
-            medicineID: medicineID,
-            medicineName: medicineName,
-            withdrawalMeat: withdrawalMeat,
-            withdrawalMilk: withdrawalMilk,
-            medicineQuantity: medicineQuantity,
-            medicineQuantityType: medicineQuantityType,
-            medicineType: medicineType,
-            color: medicineLevelColor,
+          navigation.navigate("Home", {
+            screen: "MedicineUsageDetail",
+            params: {
+              animalTagNumber: tagNumber,
+              medicineName: medicineName,
+              administeredBy: item.administered_by,
+              dateAdministered: Moment(item.date_of_administration).format('YYYY-MM-DD'),
+              quantityAdministered: item.quantity_administered,
+              quantityType: item.quantity_type,
+              medicineType: item.medicine_type,
+              reason: item.reason_for_administration,
+            },
           })
         }
         style={{ flexDirection: "row", marginBottom: 40, alignItems: "center" }}
@@ -202,7 +316,7 @@ export default function MedicineDetail({ navigation, route }) {
                 left: SPACING,
               }}
             >
-              ID: <Text style={{ color: "#F4F3BE" }}>{item.tag_number}</Text>
+              ID: <Text style={{ color: "#F4F3BE" }}>{tagNumber}</Text>
             </Text>
             <View
               style={{
@@ -222,7 +336,7 @@ export default function MedicineDetail({ navigation, route }) {
               }}
             >
               Breed Type:{" "}
-              <Text style={{ color: "#F4F3BE" }}>{item.breed_type}</Text>
+              <Text style={{ color: "#F4F3BE" }}>{breedType}</Text>
             </Text>
           </View>
         </View>
@@ -234,19 +348,7 @@ export default function MedicineDetail({ navigation, route }) {
         />
       </TouchableOpacity>
     );
-  };
-
-  // SEARCH HANDLES
-  const [searchText, setSearchText] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
-
-  const { data, loading } = useQuery(GET_HERD);
-
-  if (loading) {
-    return <PageLoader />;
   }
-
-  const AnimalList = data.herd.animals;
 
   const search = (searchText) => {
     setSearchText(searchText);
@@ -262,6 +364,35 @@ export default function MedicineDetail({ navigation, route }) {
 
     setFilteredData(filteredData);
   };
+
+  const DisplayActiveMedication = () => {
+    if(!ActiveMedicationList.length) {
+      return (
+        <Text style={styles.value}>None</Text>
+      )
+    }
+    return (
+      <TouchableOpacity onPress={onClickActiveMedicine}>
+        <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>
+      </TouchableOpacity>
+    )
+  }
+
+  let searchBar
+  if (renderList === 'medicine') {
+    searchBar = 
+      <BottomSheetTextInput
+        style={styles.input}
+        placeholder={searchFor}
+        clearButtonMode="always"
+        onChangeText={search}
+        value={searchText}
+        placeholderTextColor="#848D95"
+        returnKeyType="search"
+      />
+  } else {
+    searchBar = <Text style={{padding: SPACING, fontFamily: "Sora-SemiBold", color: 'white', fontSize: 25}}>Active Medicines</Text>
+  }
 
   return (
     <>
@@ -324,7 +455,7 @@ export default function MedicineDetail({ navigation, route }) {
               fontSize: 17,
               color: cardBackground,
             }}
-            onPress={handleMedicineAction}
+            onPress={onClickGiveMedicine}
           >
             Give Medication
           </Button>
@@ -358,16 +489,7 @@ export default function MedicineDetail({ navigation, route }) {
                   }}
                 >
                   <Text style={styles.value}>{purchase_date}</Text>
-                  <Text
-                    style={{
-                      color: activeColor,
-                      fontSize: 18,
-                      paddingTop: 23,
-                      fontFamily: "Sora-SemiBold",
-                    }}
-                  >
-                    {withdrawalPeriodActive}
-                  </Text>
+                  <DisplayActiveMedication />
                   <Text style={styles.value}>
                     {item.withdrawal_days_meat} days
                   </Text>
@@ -453,25 +575,15 @@ export default function MedicineDetail({ navigation, route }) {
           keyboardBlurBehavior="restore"
         >
           <View style={styles.containerModal}>
-            <BottomSheetTextInput
-              style={styles.input}
-              placeholder="Search for Animal"
-              clearButtonMode="always"
-              onChangeText={search}
-              value={searchText}
-              placeholderTextColor="#848D95"
-              returnKeyType="search"
-            />
+            {searchBar}
           </View>
           <BottomSheetFlatList
             showsVerticalScrollIndicator={true}
             data={
-              filteredData && filteredData.length > 0
-                ? filteredData
-                : AnimalList
+              filteredData && filteredData.length > 0 ? filteredData : listData
             }
             keyExtractor={(item, index) => item._id}
-            renderItem={renderAnimalList}
+            renderItem={renderModalList}
             contentContainerStyle={modalStyles.contentContainer}
           />
         </BottomSheetModal>

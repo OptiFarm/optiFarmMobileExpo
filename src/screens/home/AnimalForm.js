@@ -203,6 +203,7 @@ export default function AnimalForm({ navigation }) {
               control={control}
               render={({ onChange, onBlur, value }) => (
                 <TextInput
+                  autoFocus={true}
                   style={styles.input}
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
@@ -211,8 +212,7 @@ export default function AnimalForm({ navigation }) {
                   returnKeyType="done"
                   placeholder="5 digit tag number"
                   placeholderTextColor="#848D95"
-                  ref={ref_input2}
-                  onSubmitEditing={() => ref_input3.current.focus()}
+                  onSubmitEditing={() => ref_input2.current.focus()}
                   blurOnSubmit={false}
                   maxLength={5}
                 />
@@ -235,8 +235,8 @@ export default function AnimalForm({ navigation }) {
                   returnKeyType="done"
                   placeholder="5 digit tag number"
                   placeholderTextColor="#848D95"
-                  ref={ref_input3}
-                  onSubmitEditing={() => ref_input4.current.focus()}
+                  ref={ref_input2}
+                  onSubmitEditing={() => ref_input3.current.focus()}
                   blurOnSubmit={false}
                   maxLength={5}
                 />
@@ -259,8 +259,9 @@ export default function AnimalForm({ navigation }) {
                   returnKeyType="done"
                   placeholder="5 digit tag number"
                   placeholderTextColor="#848D95"
-                  ref={ref_input4}
+                  ref={ref_input3}
                   maxLength={5}
+                  blurOnSubmit={false}
                 />
               )}
               name="motherNumber"
@@ -301,8 +302,7 @@ export default function AnimalForm({ navigation }) {
                   returnKeyType="next"
                   placeholder="2-4 character breed code"
                   placeholderTextColor="#848D95"
-                  ref={ref_input5}
-                  onSubmitEditing={() => ref_input6.current.focus()}
+                  onSubmitEditing={() => ref_input4.current.focus()}
                   maxLength={4}
                   autoCapitalize="characters"
                 />
@@ -324,7 +324,7 @@ export default function AnimalForm({ navigation }) {
                   returnKeyType="next"
                   placeholder="date in format YYYY-MM-DD"
                   placeholderTextColor="#848D95"
-                  ref={ref_input6}
+                  ref={ref_input4}
                 />
               )}
               name="dateOfBirth"
@@ -361,7 +361,6 @@ export default function AnimalForm({ navigation }) {
               control={control}
               render={({ onChange, onBlur, value }) => (
                 <TextInput
-                  autoFocus={true}
                   style={styles.input}
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
@@ -369,7 +368,7 @@ export default function AnimalForm({ navigation }) {
                   returnKeyType="next"
                   placeholder="animal name"
                   placeholderTextColor="#848D95"
-                  onSubmitEditing={() => ref_input2.current.focus()}
+                  onSubmitEditing={() => ref_input5.current.focus()}
                   blurOnSubmit={false}
                 />
               )}
@@ -392,6 +391,7 @@ export default function AnimalForm({ navigation }) {
                   value={value}
                   returnKeyType="done"
                   placeholderTextColor="#848D95"
+                  ref={ref_input5}
                 />
               )}
               name="description"

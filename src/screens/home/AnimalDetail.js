@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
-import Moment from 'moment';
+import Moment from "moment";
 
 // COMPONENTS
 import {
@@ -152,7 +152,10 @@ export default function AnimalDetail({ navigation, route }) {
 
   // GET LAST MEDICATION DETAIL
   const { data: lastMedication, loading: loadLastMedication } = useQuery(GET_LAST_MEDICATION_ANIMAL, {
-    variables: {id},
+    variables: { id },
+    onCompleted(data) {
+      console.log(data);
+    },
   });
 
   // GET PROGENY LIST
@@ -191,7 +194,7 @@ export default function AnimalDetail({ navigation, route }) {
     setSearchText("");
     setFilteredData([]);
     handlePresentModalPress();
-  }
+  };
 
   const onClickActiveMedicine = () => {
     setListData(ActiveMedicationList);
@@ -200,7 +203,7 @@ export default function AnimalDetail({ navigation, route }) {
     setSearchText("");
     setFilteredData([]);
     handlePresentModalPress();
-  }
+  };
 
   // BOTTOM SHEET LIST RENDER
   const renderModalList = ({item}) => {
@@ -208,11 +211,29 @@ export default function AnimalDetail({ navigation, route }) {
     if (renderList === 'progeny') {
       return (
         <TouchableOpacity
-          style={{ flexDirection: "row", marginBottom: 40, alignItems: "center" }}
-          onPress={() => navigation.navigate('Home', {screen: 'AnimalDetail', params: {item, date_of_birth, cowLogo, last_calved, male_female}})}
+          style={{
+            flexDirection: "row",
+            marginBottom: 40,
+            alignItems: "center",
+          }}
+          onPress={() =>
+            navigation.navigate("Home", {
+              screen: "AnimalDetail",
+              params: {
+                item,
+                date_of_birth,
+                cowLogo,
+                last_calved,
+                male_female,
+              },
+            })
+          }
         >
           <View style={{ flexDirection: "row" }}>
-            <Image source={{ uri: cowLogo }} style={{ height: 50, width: 50 }} />
+            <Image
+              source={{ uri: cowLogo }}
+              style={{ height: 50, width: 50 }}
+            />
             <View>
               <Text
                 style={{
@@ -376,26 +397,41 @@ export default function AnimalDetail({ navigation, route }) {
             </Text>
             <View
               style={{
-                borderBottomColor: "#9D9D9D",
-                opacity: 0.4,
-                borderBottomWidth: 1,
-                top: 45,
-                width: 350,
-              }}
-            />
-            <Text
-              style={{
-                fontFamily: "Sora-SemiBold",
-                fontSize: 18,
-                color: "white",
-                left: SPACING,
+                backgroundColor: cardBackground,
+                borderTopRightRadius: 15,
+                borderBottomRightRadius: 15,
+                borderLeftColor: medicineLevelColor,
+                borderLeftWidth: 3,
               }}
             >
               Date Administered:{" "}
               <Text style={{ color: "#F4F3BE" }}>
                 {dateAdministered}
               </Text>
-            </Text>
+              <View
+                style={{
+                  borderBottomColor: "#9D9D9D",
+                  opacity: 0.4,
+                  borderBottomWidth: 1,
+                  top: 45,
+                  width: 350,
+                }}
+              />
+              <Text
+                style={{
+                  fontFamily: "Sora-SemiBold",
+                  fontSize: 18,
+                  color: "white",
+                  left: SPACING,
+                }}
+              >
+                Quantity:{" "}
+                <Text style={{ color: "#F4F3BE" }}>
+                  {item.remaining_quantity} / {item.quantity}{" "}
+                  {item.quantity_type}
+                </Text>
+              </Text>
+            </View>
           </View>
         </View>
         <Feather
@@ -466,13 +502,10 @@ export default function AnimalDetail({ navigation, route }) {
     setSearchText(searchText);
 
     let filteredData = listData.filter(function (item) {
-
-      let { medicine_name_search, tag_number_search, breed_type_search } = '';
-      if (renderList === 'progeny') {
+      let { medicine_name_search, tag_number_search, breed_type_search } = "";
+      if (renderList === "progeny") {
         tag_number_search = item.tag_number.toString().includes(searchText);
-        breed_type_search = item.breed_type.includes(
-          searchText.toUpperCase()
-        );
+        breed_type_search = item.breed_type.includes(searchText.toUpperCase());
 
         return tag_number_search || breed_type_search;
       } else {
@@ -671,9 +704,7 @@ export default function AnimalDetail({ navigation, route }) {
           <BottomSheetFlatList
             showsVerticalScrollIndicator={true}
             data={
-              filteredData && filteredData.length > 0
-                ? filteredData
-                : listData
+              filteredData && filteredData.length > 0 ? filteredData : listData
             }
             keyExtractor={(item, index) => item._id}
             renderItem={renderModalList}

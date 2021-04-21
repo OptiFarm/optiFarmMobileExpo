@@ -130,7 +130,6 @@ export default function GroupDetail ({ navigation, route }) {
     // DELETE ANIMAL FROM GROUP
     const [deleteAnimal, { data: removeAnimal }] = useMutation(REMOVE_ANIMAL_FROM_GROUP, {
         onCompleted(data) {
-            console.log(data)
             if (data.removeAnimalFromGroup.responseCheck.success) {
                 refetch();
             } else {

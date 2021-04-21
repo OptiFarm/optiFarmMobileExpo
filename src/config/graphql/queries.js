@@ -165,7 +165,6 @@ export const GET_USER_INFO = gql`
         message
       }
       farmer {
-        _id
         first_name
         second_name
         farm_type

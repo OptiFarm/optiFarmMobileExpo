@@ -376,6 +376,11 @@ export const GET_ANIMAL_IN_GROUP_COUNT = gql`
   }
 `;
 
+/**
+ * @description: query for getting list of animals in group
+ * @param: 
+ * @requires:
+ */
 export const GET_ANIMAL_IN_GROUP = gql`
   query animalsInGroup($groups_id: ID!) {
     animalsInGroup (groups_id: $groups_id) {
@@ -395,6 +400,109 @@ export const GET_ANIMAL_IN_GROUP = gql`
         animal_name
         description
         date_of_birth
+      }
+    }
+  }
+`;
+
+/**
+ * @description: get medications list currently assigned to an animal
+ * @param: 
+ * @requires:
+ */
+export const GET_ACTIVE_MEDICATIONS_ANIMAL = gql`
+  query administeredMedicationsActiveWithdrawalByAnimal($animal_id: ID!){
+    administeredMedicationsActiveWithdrawalByAnimal(animal_id: $animal_id){
+      responseCheck{
+        success
+        message
+      }
+      administeredMedications{
+        _id
+        date_of_administration
+        withdrawal_end_meat
+        withdrawal_end_dairy
+        quantity_administered
+        quantity_type
+        administered_by
+        reason_for_administration
+        animal_id
+        medication_id
+        medication{
+          _id
+          medication_name
+          supplied_by
+          quantity
+          medicine_type
+          quantity_type
+          withdrawal_days_meat
+          withdrawal_days_dairy
+          remaining_quantity
+          batch_number
+          expiry_date
+          purchase_date
+          comments
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * @description: query for getting list of animals assigned by a medicine
+ * @param: 
+ * @requires:
+ */
+export const GET_ACTIVE_MEDICATIONS_MEDICINE = gql`
+  query administeredMedicationsActiveWithdrawalByMedication($medication_id: ID!){
+    administeredMedicationsActiveWithdrawalByMedication(medication_id: $medication_id){
+      responseCheck{
+        success
+        message
+      }
+      administeredMedications{
+        _id
+        date_of_administration
+        withdrawal_end_meat
+        withdrawal_end_dairy
+        quantity_administered
+        quantity_type
+        administered_by
+        reason_for_administration
+        animal_id
+        medicine_type
+        medication_name
+        medication_id
+        medication{
+          _id
+          medication_name
+          supplied_by
+          quantity
+          medicine_type
+          quantity_type
+          withdrawal_days_meat
+          withdrawal_days_dairy
+          remaining_quantity
+          batch_number
+          expiry_date
+          purchase_date
+          comments
+        }
+        animal{
+          _id
+          tag_number
+          herd_number
+          sire_number
+          mother_number
+          last_calved
+          male_female
+          breed_type
+          groups_id
+          pure_breed
+          animal_name
+          description
+          date_of_birth
+        }
       }
     }
   }

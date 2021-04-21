@@ -165,7 +165,7 @@ export default function GroupForm ({ navigation }) {
                 <Button
                     mode="contained"
                     color="#F4F3BE"
-                    style={{ margin: SPACING, borderRadius: 10, width: width-25, }}
+                    style={{ marginHorizontal: SPACING, borderRadius: 10, width: width-25, }}
                     contentStyle={{ height: 50 }}
                     labelStyle={{
                         fontFamily: "Sora-Bold",

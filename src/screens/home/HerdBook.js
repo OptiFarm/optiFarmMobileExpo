@@ -77,9 +77,28 @@ export default function HerdBook({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
 
-  // QUERY & MUTATION
+  const showModal = () => {
+    setModalVisible(true)
+    setTimeout(() => {
+      setModalVisible(false);
+    }, 2000);
+  };
+
+  // GET HERD LIST
   const { data: herdList, loading, refetch } = useQuery(GET_HERD);
-  const [deleteAnimal, { data }] = useMutation(DELETE_ANIMAL);
+
+  // DELETE ANIMAL
+  const [deleteAnimal, { data }] = useMutation(DELETE_ANIMAL, {
+    onCompleted(data) {
+      if (data.deleteAnimal.responseCheck.success) {
+        refetch();
+        showModal();
+      } else {
+        const message = data.deleteAnimal.responseCheck.message;
+        Alert.alert("Unable to Delete Animal", message);
+      }
+    }
+  });
 
   const onDelete = async (item) => {
     const _id = item._id;
@@ -95,13 +114,6 @@ export default function HerdBook({ navigation }) {
   }
 
   const AnimalList = herdList.herd.animals;
-
-  const showModal = () => {
-    setModalVisible(true)
-    setTimeout(() => {
-      setModalVisible(false);
-    }, 2500);
-  };
 
   // HANDLE DELETE ANIMAL
   const handleDeleteAnimal = async (item) => {
@@ -119,10 +131,8 @@ export default function HerdBook({ navigation }) {
           onPress: () => {
             async function deleteYes() {
               const deleting = await onDelete(item);
-              refetch();
             }
             deleteYes();
-            showModal();
           },
         },
       ]

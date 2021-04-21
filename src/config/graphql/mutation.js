@@ -298,6 +298,11 @@ export const SAVE_OR_UPDATE_MEDICATION_USAGE = gql`
   }
 `;
 
+/**
+ * @description: adding new group
+ * @param: group_name: String!
+ *         group_description: String!
+ */
 export const SAVE_GROUP = gql`
   mutation saveGroup ( $group_name: String!, $group_description: String!) {
     saveGroup (group_name: $group_name, group_description: $group_description) {
@@ -314,6 +319,12 @@ export const SAVE_GROUP = gql`
   }
 `;
 
+/**
+ * @description: adding animal to a group
+ * @param: _id: ID!
+ *         groups_id: ID!
+ * !warning: id is required to adding animal from group
+ */
 export const ADD_ANIMAL_TO_GROUP = gql`
   mutation addAnimalToGroup ($_id: ID!, $groups_id: ID!) {
     addAnimalToGroup (_id: $_id, groups_id: $groups_id) {
@@ -340,6 +351,11 @@ export const ADD_ANIMAL_TO_GROUP = gql`
   }
 `;
 
+/**
+ * @description: deleting group
+ * @param: _id: ID!
+ * !warning: id is required to delete group
+ */
 export const DELETE_GROUP = gql`
   mutation deleteGroup ($_id: ID!) {
     deleteGroup (_id: $_id) {
@@ -355,3 +371,35 @@ export const DELETE_GROUP = gql`
     }
   }
 `; 
+
+/**
+ * @description: remove animal from group
+ * @param: _id: ID!
+ *         groups_id: ID!
+ * !warning: id is required to remove animal from group
+ */
+export const REMOVE_ANIMAL_FROM_GROUP = gql`
+  mutation removeAnimalFromGroup ($_id: ID!, $groups_id: ID!) {
+    removeAnimalFromGroup (_id: $_id, groups_id: $groups_id) {
+      responseCheck {
+        success
+        message
+      }
+      animal {
+        _id
+        tag_number
+        herd_number
+        sire_number
+        mother_number
+        last_calved
+        male_female
+        breed_type
+        groups_id
+        pure_breed
+        animal_name
+        description
+        date_of_birth
+      }
+    }
+  }
+`;

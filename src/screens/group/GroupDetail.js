@@ -35,7 +35,7 @@ import { SPACING, width, height, defaultBackground, cardBackground, } from '../.
 // QUERY
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_HERD, GET_ANIMAL_IN_GROUP } from "../../config/graphql/queries";
-import { DELETE_GROUP } from '../../config/graphql/mutation';
+import { DELETE_GROUP, REMOVE_ANIMAL_FROM_GROUP } from '../../config/graphql/mutation';
 
 // SIZING
 const styles = StyleSheet.create({
@@ -92,27 +92,31 @@ const modalStyles = StyleSheet.create({
 });
 
 export default function GroupDetail ({ navigation, route }) {
+    
     const { item } = route.params;
+    const groups_id = item._id;
 
     const [animalID, setAnimalID] = useState('');
     const [sheetClose, setSheetClose] = useState(false);
     const [searchText, setSearchText] = useState("");
     const [filteredData, setFilteredData] = useState([]);
 
-    const groups_id = item._id;
-
     // ASSIGN MEDICATION MODAL
     const snapPoints = useMemo(() => ["25%", "50%", "90%"], []);
-
     const bottomSheetModalRef = useRef(null);
 
+    // GET ANIMAL LIST FOR MODAL
     const { data, loading } = useQuery(GET_HERD);
+
+    // GET ANIMALS IN GROUP
     const { data: getAnimalInGroup, loading: loadAnimalInGroup, refetch } = 
         useQuery(GET_ANIMAL_IN_GROUP, {
             variables: {groups_id}
         }
     );
-    const [deleteGroup, { data: deleteAnimal }] = useMutation(DELETE_GROUP, {
+
+    // DELETE GROUP
+    const [deleteGroup, { data: removeGroup }] = useMutation(DELETE_GROUP, {
         onCompleted(data) {
             if(data.deleteGroup.responseCheck.success) {
                 navigation.navigate("GroupTab");
@@ -122,7 +126,20 @@ export default function GroupDetail ({ navigation, route }) {
             }
         }
     });
-    
+
+    // DELETE ANIMAL FROM GROUP
+    const [deleteAnimal, { data: removeAnimal }] = useMutation(REMOVE_ANIMAL_FROM_GROUP, {
+        onCompleted(data) {
+            console.log(data)
+            if (data.removeAnimalFromGroup.responseCheck.success) {
+                refetch();
+            } else {
+                const message = data.removeAnimalFromGroup.responseCheck.message;
+                Alert.alert("Unable to remove animal", message);
+            }
+        }
+    })
+
     const handleSheetChanges = useCallback((index) => {
         if (index === -1) {
             //-1 sheet close
@@ -286,7 +303,17 @@ export default function GroupDetail ({ navigation, route }) {
                 data={AnimalInGroupList}
                 keyExtractor={(item) => item._id}
                 contentContainerStyle={{ paddingHorizontal: SPACING }}
-                renderItem={({item}) => <AnimalItemView item={item} navigation={navigation} />} 
+                renderItem={({item}) => 
+                    <AnimalItemView 
+                        item={item} 
+                        navigation={navigation} 
+                        onRightPress={() => deleteAnimal({
+                            variables: {
+                                _id: item._id,
+                                groups_id: groups_id,
+                            }
+                        })}
+                    />} 
             /> 
         </SafeAreaView>
         <BottomSheetModalProvider>

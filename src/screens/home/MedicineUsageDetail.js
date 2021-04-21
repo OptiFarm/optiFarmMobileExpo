@@ -16,6 +16,7 @@ import {
   topOS,
 } from "../../config/theme";
 import { ScrollView } from "react-native";
+import moment from "moment";
 
 // SIZING
 export const CELL_HEIGHT = height * 0.18;
@@ -71,6 +72,8 @@ export default function MedicineUsageDetail({ navigation, route }) {
     quantityType,
     reason,
     animalTagNumber,
+    withdrawalEndDairy,
+    withdrawalEndMeat,
     medicineName,
   } = route.params;
 
@@ -96,7 +99,7 @@ export default function MedicineUsageDetail({ navigation, route }) {
 
       {/* CONFIRMATION CARD */}
       <ScrollView style={{ paddingHorizontal: SPACING }}>
-        <View style={{ flex: 1, padding: SPACING, height: 500, top: SPACING }}>
+        <View style={{ flex: 1, padding: SPACING, height: 650, top: SPACING }}>
           <View
             style={[
               StyleSheet.absoluteFillObject,
@@ -128,6 +131,20 @@ export default function MedicineUsageDetail({ navigation, route }) {
               </Text>
             </View>
           </View>
+
+          <Text style={styles.medicineLabel}>Withdrawal End Days Dairy</Text>
+          <Text style={styles.medicineDesc}>
+            {withdrawalEndDairy === null
+              ? "N/A"
+              : moment(withdrawalEndDairy).format("YYYY-MM-DD")}
+          </Text>
+
+          <Text style={styles.medicineLabel}>Withdrawal End Days Meat</Text>
+          <Text style={styles.medicineDesc}>
+            {withdrawalEndMeat === null
+              ? "N/A"
+              : moment(withdrawalEndMeat).format("YYYY-MM-DD")}
+          </Text>
 
           <Text style={styles.medicineLabel}>Date of Administration</Text>
           <Text style={styles.medicineDesc}>{dateAdministered}</Text>

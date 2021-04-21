@@ -28,11 +28,8 @@ import { PageLoader } from "../../components/atoms/PageLoader";
 
 // QUERY
 import { useQuery } from "@apollo/client";
-import { GET_MEDICATIONS } from "../../config/graphql/queries";
-import {
-  GET_LAST_MEDICATION_ANIMAL,
-  GET_ANIMAL_BY_PROGENY,
-} from "../../config/graphql/queries";
+import { GET_ACTIVE_MEDICATIONS_MEDICINE, GET_MEDICATIONS } from "../../config/graphql/queries";
+import { GET_LAST_MEDICATION_ANIMAL, GET_ANIMAL_BY_PROGENY, GET_ACTIVE_MEDICATIONS_ANIMAL } from "../../config/graphql/queries";
 
 // THEME
 import {
@@ -42,6 +39,7 @@ import {
   cardBackground,
   topOS,
   CELL_HEIGHT,
+  medicineEmpty,
   medicineLevelLow,
   medicineLevelMedium,
   medicineLevelHigh,
@@ -66,6 +64,7 @@ const styles = StyleSheet.create({
     paddingTop: 23,
     color: "white",
     fontFamily: "Sora-SemiBold",
+    alignSelf: 'flex-end',
   },
   navBar: {
     height: 60,
@@ -120,19 +119,14 @@ const modalStyles = StyleSheet.create({
 });
 
 export default function AnimalDetail({ navigation, route }) {
-  const {
-    item,
-    date_of_birth,
-    cowLogo,
-    last_calved,
-    male_female,
-  } = route.params;
 
-  const description = item.description === "null" ? "" : item.description;
+  Moment.locale('en');
 
-  // Variables for Assign Medication Form
+  const { item, date_of_birth, cowLogo, last_calved, male_female } = route.params;
+  const description = item.description === 'null' ? '' : item.description; 
+  const id = item._id
+  const animal_id = item._id
   const tag_number = item.tag_number;
-  const animalID = item._id;
 
   // ASSIGN MEDICATION MODAL
   const snapPoints = useMemo(() => ["25%", "50%", "90%"], []);
@@ -145,159 +139,6 @@ export default function AnimalDetail({ navigation, route }) {
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
-  const handleClosePress = useCallback(() => {
-    bottomSheetModalRef.current?.close();
-  }, []);
-
-  // FLATLIST RENDER FOR GIVE MEDICATION MODAL
-  const renderMedicineList = ({ item }) => {
-    const medicineID = item._id;
-    const medicineName = item.medication_name;
-    const withdrawalMilk = item.withdrawal_days_dairy;
-    const withdrawalMeat = item.withdrawal_days_meat;
-    const medicineQuantity = item.remaining_quantity;
-    const medicineQuantityType = item.quantity_type;
-
-    // MEDICINE QUANTITY COLOR
-    const midLevel = item.quantity / 2;
-
-    const medicineLevelColor =
-      item.remaining_quantity < midLevel
-        ? medicineLevelLow
-        : item.remaining_quantity === midLevel
-        ? medicineLevelMedium
-        : medicineLevelHigh;
-
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("Medicine", {
-            screen: "AssignMedicationForm",
-            params: {
-              animalID: animalID,
-              animalTag: tag_number,
-              medicineID: medicineID,
-              medicineName: medicineName,
-              withdrawalMeat: withdrawalMeat,
-              withdrawalMilk: withdrawalMilk,
-              medicineQuantity: medicineQuantity,
-              medicineQuantityType: medicineQuantityType,
-              color: medicineLevelColor,
-            },
-          })
-        }
-        style={{ flexDirection: "row", marginBottom: 40, alignItems: "center" }}
-      >
-        <View style={{ flexDirection: "row" }}>
-          <View
-            style={{
-              backgroundColor: cardBackground,
-              borderTopRightRadius: 15,
-              borderBottomRightRadius: 15,
-              borderLeftColor: medicineLevelColor,
-              borderLeftWidth: 3,
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: "Sora-SemiBold",
-                fontSize: 18,
-                color: "white",
-                left: SPACING,
-              }}
-            >
-              Medicine:{" "}
-              <Text style={{ color: "#F4F3BE" }}>{item.medication_name}</Text>
-            </Text>
-            <View
-              style={{
-                borderBottomColor: "#9D9D9D",
-                opacity: 0.4,
-                borderBottomWidth: 1,
-                top: 45,
-                width: 350,
-              }}
-            />
-            <Text
-              style={{
-                fontFamily: "Sora-SemiBold",
-                fontSize: 18,
-                color: "white",
-                left: SPACING,
-              }}
-            >
-              Quantity:{" "}
-              <Text style={{ color: "#F4F3BE" }}>
-                {item.remaining_quantity} / {item.quantity} {item.quantity_type}
-              </Text>
-            </Text>
-          </View>
-        </View>
-        <Feather
-          name="chevron-right"
-          size={30}
-          color="#F4F3BE"
-          style={{ position: "absolute", right: 0, bottom: SPACING }}
-        />
-      </TouchableOpacity>
-    );
-  };
-
-  // FLATLIST RENDER FOR PROGENY MODAL
-  const renderProgenyList = ({ item }) => {
-    const cowLogo =
-      item.male_female === "F"
-        ? "https://i.ibb.co/B4cgVmv/cow-5.png"
-        : "https://i.ibb.co/g6MntkZ/cow-6.png";
-
-    return (
-      <TouchableOpacity
-        style={{ flexDirection: "row", marginBottom: 40, alignItems: "center" }}
-      >
-        <View style={{ flexDirection: "row" }}>
-          <Image source={{ uri: cowLogo }} style={{ height: 50, width: 50 }} />
-          <View>
-            <Text
-              style={{
-                fontFamily: "Sora-SemiBold",
-                fontSize: 18,
-                color: "white",
-                left: SPACING,
-              }}
-            >
-              ID: <Text style={{ color: "#F4F3BE" }}>{item.tag_number}</Text>
-            </Text>
-            <View
-              style={{
-                borderBottomColor: "#9D9D9D",
-                opacity: 0.4,
-                borderBottomWidth: 1,
-                top: 45,
-                width: 300,
-              }}
-            />
-            <Text
-              style={{
-                fontFamily: "Sora-SemiBold",
-                fontSize: 18,
-                color: "white",
-                left: SPACING,
-              }}
-            >
-              Breed Type:{" "}
-              <Text style={{ color: "#F4F3BE" }}>{item.breed_type}</Text>
-            </Text>
-          </View>
-        </View>
-        <Feather
-          name="chevron-right"
-          size={30}
-          color="#F4F3BE"
-          style={{ position: "absolute", right: 0, bottom: SPACING }}
-        />
-      </TouchableOpacity>
-    );
-  };
 
   // SEARCH HANDLES
   const [listData, setListData] = useState([]);
@@ -306,38 +147,46 @@ export default function AnimalDetail({ navigation, route }) {
   const [renderList, setRenderList] = useState("");
   const [searchFor, setSearchFor] = useState("");
 
-  const ref_input = useRef();
-
-  const id = item._id;
-
+  // GET MEDICINE LIST 
   const { data, loading } = useQuery(GET_MEDICATIONS);
 
-  const { data: lastMedication, loading: loadLastMedication } = useQuery(
-    GET_LAST_MEDICATION_ANIMAL,
-    {
-      variables: { id },
-      onCompleted(data) {
-        console.log(data);
-      },
-    }
-  );
+  // GET LAST MEDICATION DETAIL
+  const { data: lastMedication, loading: loadLastMedication } = useQuery(GET_LAST_MEDICATION_ANIMAL, {
+    variables: { id },
+    onCompleted(data) {
+      console.log(data);
+    },
+  });
 
-  const { data: progenyList, loading: loadProgeny } = useQuery(
-    GET_ANIMAL_BY_PROGENY,
-    {
-      variables: { tag_number },
-    }
-  );
+  // GET PROGENY LIST
+  const { data: progenyList, loading: loadProgeny} = useQuery(GET_ANIMAL_BY_PROGENY, {
+    variables: {tag_number},
+  })
 
-  if (loading || loadLastMedication || loadProgeny) {
+  // GET ACTIVE MEDICATION LIST
+  const { data: activeMedication, loading: loadActiveMedication } = useQuery(GET_ACTIVE_MEDICATIONS_ANIMAL, {
+    variables: {animal_id},
+  })
+
+  // LOAD ALL QUERIES
+  if (loading || loadLastMedication || loadProgeny || loadActiveMedication) {
     return <PageLoader />;
   }
 
+  // LISTS
   const MedicineList = data.medications.medications;
-
   const ProgenyList = progenyList.animalByProgeny.animals;
+  const ActiveMedicationList = activeMedication.administeredMedicationsActiveWithdrawalByAnimal.administeredMedications;
 
-  // When either give medication or view progeny is clicked, render this
+  const onClickGiveMedicine = () => {
+    setListData(MedicineList);
+    setSearchFor("Search for Medicine");
+    setRenderList("medicine");
+    setSearchText("");
+    setFilteredData([]);
+    handlePresentModalPress();
+  }
+
   const onClickProgeny = () => {
     setListData(ProgenyList);
     setSearchFor("Search for Progeny");
@@ -347,31 +196,18 @@ export default function AnimalDetail({ navigation, route }) {
     handlePresentModalPress();
   };
 
-  const onClickGiveMedicine = () => {
-    setListData(MedicineList);
-    setSearchFor("Search for Medicine");
-    setRenderList("medicine");
+  const onClickActiveMedicine = () => {
+    setListData(ActiveMedicationList);
+    setSearchFor("Search for Active Medication");
+    setRenderList("activeMedication");
     setSearchText("");
     setFilteredData([]);
     handlePresentModalPress();
   };
 
-  const renderModalList = ({ item }) => {
-    if (renderList === "progeny") {
-      const cowLogo =
-        item.male_female === "F"
-          ? "https://i.ibb.co/B4cgVmv/cow-5.png"
-          : "https://i.ibb.co/g6MntkZ/cow-6.png";
-
-      // FORMAT DATE TIME
-      Moment.locale("en");
-      const date_of_birth = Moment(item.date_of_birth).format("YYYY-MM-DD");
-      const last_calved =
-        item.last_calved !== null
-          ? Moment(item.last_calved).format("YYYY-MM-DD")
-          : "N/A";
-      const male_female = item.male_female === "M" ? "Male" : "Female";
-
+  // BOTTOM SHEET LIST RENDER
+  const renderModalList = ({item}) => {
+    if (renderList === 'progeny') {
       return (
         <TouchableOpacity
           style={{
@@ -437,48 +273,40 @@ export default function AnimalDetail({ navigation, route }) {
             style={{ position: "absolute", right: 0, bottom: SPACING }}
           />
         </TouchableOpacity>
-      );
-    } else {
-      const medicineID = item._id;
-      const medicineName = item.medication_name;
-      const withdrawalMilk = item.withdrawal_days_dairy;
-      const withdrawalMeat = item.withdrawal_days_meat;
-      const medicineQuantity = item.remaining_quantity;
-      const medicineQuantityType = item.quantity_type;
-
-      // MEDICINE QUANTITY COLOR
+      )
+    } else if (renderList === 'medicine'){
+      
       const midLevel = item.quantity / 2;
-
       const medicineLevelColor =
-        item.remaining_quantity < midLevel
-          ? medicineLevelLow
-          : item.remaining_quantity === midLevel
-          ? medicineLevelMedium
-          : medicineLevelHigh;
-
+        item.remaining_quantity === 0
+            ? medicineEmpty
+            : item.remaining_quantity < midLevel && item.remaining_quantity > 0
+            ? medicineLevelLow
+            : item.remaining_quantity === midLevel
+            ? medicineLevelMedium
+            : medicineLevelHigh;
+      const medicineQuantityType = item.quantity_type === 'UNASSIGNED' ? '' : item.quantity_type;
+      
       return (
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("Medicine", {
               screen: "AssignMedicationForm",
               params: {
-                animalID: animalID,
+                animalID: animal_id,
                 animalTag: tag_number,
-                medicineID: medicineID,
-                medicineName: medicineName,
-                withdrawalMeat: withdrawalMeat,
-                withdrawalMilk: withdrawalMilk,
-                medicineQuantity: medicineQuantity,
+                medicineID: item._id,
+                medicineName: item.medication_name,
+                medicineType: item.medicine_type,
+                withdrawalMeat: item.withdrawal_days_meat,
+                withdrawalMilk: item.withdrawal_days_dairy,
+                medicineQuantity: item.remaining_quantity,
                 medicineQuantityType: medicineQuantityType,
                 color: medicineLevelColor,
               },
             })
           }
-          style={{
-            flexDirection: "row",
-            marginBottom: 40,
-            alignItems: "center",
-          }}
+          style={{ flexDirection: "row", marginBottom: 40, alignItems: "center" }}
         >
           <View style={{ flexDirection: "row" }}>
             <View
@@ -520,8 +348,7 @@ export default function AnimalDetail({ navigation, route }) {
               >
                 Quantity:{" "}
                 <Text style={{ color: "#F4F3BE" }}>
-                  {item.remaining_quantity} / {item.quantity}{" "}
-                  {item.quantity_type}
+                  {item.remaining_quantity} / {item.quantity} {medicineQuantityType}
                 </Text>
               </Text>
             </View>
@@ -535,78 +362,127 @@ export default function AnimalDetail({ navigation, route }) {
         </TouchableOpacity>
       );
     }
-  };
-
-  const DisplayMedication = () => {
-    if (
-      lastMedication.animalWithLastMedication.administeredMedications === null
-    ) {
-      return <Text style={styles.value}>N/A</Text>;
-    } else {
-      Moment.locale("en");
-      const medicineInfo =
-        lastMedication.animalWithLastMedication.administeredMedications[0]
-          .medication[0];
-      const medicineAssignedName = medicineInfo.medication_name;
-      const administeredBy =
-        lastMedication.animalWithLastMedication.administeredMedications[0]
-          .administered_by;
-      const dateAdministered = Moment(
-        lastMedication.animalWithLastMedication.administeredMedications[0]
-          .date_of_administration
-      ).format("YYYY-MM-DD");
-      const quantityAdministered =
-        lastMedication.animalWithLastMedication.administeredMedications[0]
-          .quantity_administered;
-      const quantityType =
-        lastMedication.animalWithLastMedication.administeredMedications[0]
-          .quantity_type;
-      const reason =
-        lastMedication.animalWithLastMedication.administeredMedications[0]
-          .reason_for_administration;
-      const withdrawal_end_dairy =
-        lastMedication.animalWithLastMedication.administeredMedications[0]
-          .withdrawal_end_dairy;
-      const withdrawal_end_meat =
-        lastMedication.animalWithLastMedication.administeredMedications[0]
-          .withdrawal_end_meat;
-
-      return (
-        <TouchableOpacity
+    const medicineName = item.medication[0].medication_name
+    const dateAdministered = Moment(item.date_of_administration).format('YYYY-MM-DD');
+    return (
+      <TouchableOpacity
           onPress={() =>
             navigation.navigate("Home", {
               screen: "MedicineUsageDetail",
               params: {
                 animalTagNumber: tag_number,
-                medicineName: medicineAssignedName,
-                administeredBy: administeredBy,
+                medicineName: medicineName,
+                administeredBy: item.administered_by,
                 dateAdministered: dateAdministered,
-                quantityAdministered: quantityAdministered,
-                withdrawalEndDairy: withdrawal_end_dairy,
-                withdrawalEndMeat: withdrawal_end_meat,
-                quantityType: quantityType,
-                reason: reason,
+                quantityAdministered: item.quantity_administered,
+                quantityType: item.quantity_type,
+                medicineType: item.medicine_type,
+                reason: item.reason_for_administration,
+              },
+            })
+          }
+          style={{ flexDirection: "row", marginBottom: 40, alignItems: "center" }}
+        >
+          <View style={{ flexDirection: "row" }}>
+            <View>
+              <Text
+                style={{
+                  fontFamily: "Sora-SemiBold",
+                  fontSize: 18,
+                  color: "white",
+                  left: SPACING,
+                }}
+              >
+                Medicine:{" "}
+                <Text style={{ color: "#F4F3BE" }}>{medicineName}</Text>
+              </Text>
+              <View
+                style={{
+                  borderBottomColor: "#9D9D9D",
+                  opacity: 0.4,
+                  borderBottomWidth: 1,
+                  top: 45,
+                  width: 350,
+                }}
+              />
+              <Text
+                style={{
+                  fontFamily: "Sora-SemiBold",
+                  fontSize: 18,
+                  color: "white",
+                  left: SPACING,
+                }}
+              >
+                Date Administered:{" "}
+                <Text style={{ color: "#F4F3BE" }}>
+                  {dateAdministered}
+                </Text>
+              </Text>
+            </View>
+          </View>
+          <Feather
+            name="chevron-right"
+            size={30}
+            color="#F4F3BE"
+            style={{ position: "absolute", right: 0, bottom: SPACING }}
+          />
+        </TouchableOpacity>
+    );
+  }
+
+  const DisplayLastMedication = () => {
+    if (lastMedication.animalWithLastMedication.administeredMedications === null) {
+      return (
+        <Text style={styles.value}>None</Text>
+      )
+    }
+    return (
+      <TouchableOpacity             
+          onPress={() =>
+            navigation.navigate("Home", {
+              screen: "MedicineUsageDetail",
+              params: {
+                animalTagNumber: tag_number,
+                medicineName: lastMedication.animalWithLastMedication.administeredMedications[0].medication[0].medication_name,
+                administeredBy: lastMedication.animalWithLastMedication.administeredMedications[0].administered_by,
+                dateAdministered: Moment(lastMedication.animalWithLastMedication.administeredMedications[0].date_of_administration).format('YYYY-MM-DD'),
+                quantityAdministered: lastMedication.animalWithLastMedication.administeredMedications[0].quantity_administered,
+                quantityType: lastMedication.animalWithLastMedication.administeredMedications[0].quantity_type,
+                reason: lastMedication.animalWithLastMedication.administeredMedications[0].reason_for_administration,
               },
             })
           }
         >
-          <Text style={[styles.value, { color: "#F4F3BE" }]}>Click Here</Text>
-        </TouchableOpacity>
-      );
-    }
-  };
+        <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>
+      </TouchableOpacity>
+    )
+  }
 
   const DisplayProgeny = () => {
-    if (ProgenyList.length == 0) {
-      return <Text style={styles.value}>N/A</Text>;
-    } else {
+    if(ProgenyList.length == 0) {
       return (
-        <TouchableOpacity onPress={onClickProgeny}>
-          <Text style={[styles.value, { color: "#F4F3BE" }]}>Click Here</Text>
-        </TouchableOpacity>
-      );
+        <Text style={styles.value}>No Progeny</Text>
+      )
     }
-  };
+    return (
+      <TouchableOpacity onPress={onClickProgeny}>
+        <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>
+      </TouchableOpacity>
+    )
+  }
+
+  const DisplayActiveMedication = () => {
+    if(ActiveMedicationList.length == 0) {
+      return (
+        <Text style={styles.value}>None</Text>
+      )
+    }
+    return (
+      <TouchableOpacity onPress={onClickActiveMedicine}>
+        <Text style={[styles.value, {color: '#F4F3BE'}]}>Click Here</Text>
+      </TouchableOpacity>
+    )
+  }
 
   const search = (searchText) => {
     setSearchText(searchText);
@@ -619,13 +495,29 @@ export default function AnimalDetail({ navigation, route }) {
 
         return tag_number_search || breed_type_search;
       } else {
-        medicine_name_search = item.medication_name.includes(searchText);
+        medicine_name_search = item.medication_name.toLowerCase().includes(searchText.toLowerCase());
         return tag_number_search || breed_type_search || medicine_name_search;
       }
     });
 
     setFilteredData(filteredData);
   };
+
+  let searchBar
+  if (renderList === 'medicine' || renderList === 'progeny') {
+    searchBar = 
+      <BottomSheetTextInput
+        style={styles.input}
+        placeholder={searchFor}
+        clearButtonMode="always"
+        onChangeText={search}
+        value={searchText}
+        placeholderTextColor="#848D95"
+        returnKeyType="search"
+      />
+  } else {
+    searchBar = <Text style={{padding: SPACING, fontFamily: "Sora-SemiBold", color: 'white', fontSize: 25}}>Active Medicines</Text>
+  }
 
   return (
     <>
@@ -687,7 +579,7 @@ export default function AnimalDetail({ navigation, route }) {
             style={{
               marginBottom: CELL_HEIGHT / 10,
               marginTop: 30,
-              height: 370,
+              height: 380,
             }}
           >
             <View style={{ flex: 1, padding: SPACING }}>
@@ -699,33 +591,32 @@ export default function AnimalDetail({ navigation, route }) {
               ></View>
               <View style={{ flexDirection: "row" }}>
                 <View>
-                  <Text style={styles.key}>Herd No</Text>
                   <Text style={styles.key}>Sire Number</Text>
                   <Text style={styles.key}>Dam Number</Text>
                   <Text style={styles.key}>Sex</Text>
                   <Text style={styles.key}>Date of Birth</Text>
                   <Text style={styles.key}>Breed</Text>
                   <Text style={styles.key}>Last Calved</Text>
+                  <Text style={styles.key}>Pure Breed</Text>
                 </View>
                 <View
                   style={{
-                    alignItems: "flex-end",
                     position: "absolute",
                     right: 0,
                   }}
                 >
-                  <Text style={styles.value}>{item.herd_number}</Text>
                   <Text style={styles.value}>{item.sire_number}</Text>
                   <Text style={styles.value}>{item.mother_number}</Text>
                   <Text style={styles.value}>{male_female}</Text>
                   <Text style={styles.value}>{date_of_birth}</Text>
                   <Text style={styles.value}>{item.breed_type}</Text>
                   <Text style={styles.value}>{last_calved}</Text>
+                  <Text style={styles.value}>{item.pure_breed.toString().charAt(0).toUpperCase() + item.pure_breed.toString().slice(1)}</Text>
                 </View>
               </View>
             </View>
           </View>
-          <View style={{ marginBottom: CELL_HEIGHT / 10, height: 190 }}>
+          <View style={{ marginBottom: CELL_HEIGHT / 10, height: 195 }}>
             <View style={{ flex: 1, padding: SPACING }}>
               <View
                 style={[
@@ -735,7 +626,7 @@ export default function AnimalDetail({ navigation, route }) {
               ></View>
               <View style={{ flexDirection: "row" }}>
                 <View>
-                  <Text style={styles.key}>Pure Breed</Text>
+                  <Text style={styles.key}>Active Medication</Text>
                   <Text style={styles.key}>Last Medication</Text>
                   <Text style={styles.key}>View Progeny</Text>
                 </View>
@@ -746,8 +637,8 @@ export default function AnimalDetail({ navigation, route }) {
                     right: 0,
                   }}
                 >
-                  <Text style={styles.value}>{item.pure_breed.toString()}</Text>
-                  <DisplayMedication />
+                  <DisplayActiveMedication />
+                  <DisplayLastMedication />
                   <DisplayProgeny />
                 </View>
               </View>
@@ -756,7 +647,7 @@ export default function AnimalDetail({ navigation, route }) {
           <Text
             style={{
               fontSize: 18,
-              fontFamily: "Sora-SemiBold",
+              fontFamily: "Sora-Bold",
               color: "#F4F3BE",
               paddingVertical: SPACING,
             }}
@@ -794,16 +685,7 @@ export default function AnimalDetail({ navigation, route }) {
           keyboardBlurBehavior="restore"
         >
           <View style={styles.containerModal}>
-            <BottomSheetTextInput
-              style={styles.input}
-              placeholder={searchFor}
-              clearButtonMode="always"
-              onChangeText={search}
-              value={searchText}
-              placeholderTextColor="#848D95"
-              returnKeyType="search"
-              ref={ref_input}
-            />
+            {searchBar}
           </View>
           <BottomSheetFlatList
             showsVerticalScrollIndicator={true}

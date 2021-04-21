@@ -207,7 +207,6 @@ export default function AnimalDetail({ navigation, route }) {
 
   // BOTTOM SHEET LIST RENDER
   const renderModalList = ({item}) => {
-    console.log(item)
     if (renderList === 'progeny') {
       return (
         <TouchableOpacity
@@ -298,6 +297,7 @@ export default function AnimalDetail({ navigation, route }) {
                 animalTag: tag_number,
                 medicineID: item._id,
                 medicineName: item.medication_name,
+                medicineType: item.medicine_type,
                 withdrawalMeat: item.withdrawal_days_meat,
                 withdrawalMilk: item.withdrawal_days_dairy,
                 medicineQuantity: item.remaining_quantity,
@@ -366,47 +366,35 @@ export default function AnimalDetail({ navigation, route }) {
     const dateAdministered = Moment(item.date_of_administration).format('YYYY-MM-DD');
     return (
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("Home", {
-            screen: "MedicineUsageDetail",
-            params: {
-              animalTagNumber: tag_number,
-              medicineName: medicineName,
-              administeredBy: item.administered_by,
-              dateAdministered: dateAdministered,
-              quantityAdministered: item.quantity_administered,
-              quantityType: item.quantity_type,
-              reason: item.reason_for_administration,
-            },
-          })
-        }
-        style={{ flexDirection: "row", marginBottom: 40, alignItems: "center" }}
-      >
-        <View style={{ flexDirection: "row" }}>
-          <View>
-            <Text
-              style={{
-                fontFamily: "Sora-SemiBold",
-                fontSize: 18,
-                color: "white",
-                left: SPACING,
-              }}
-            >
-              Medicine:{" "}
-              <Text style={{ color: "#F4F3BE" }}>{medicineName}</Text>
-            </Text>
-            <View
-              style={{
-                backgroundColor: cardBackground,
-                borderTopRightRadius: 15,
-                borderBottomRightRadius: 15,
-                borderLeftColor: medicineLevelColor,
-                borderLeftWidth: 3,
-              }}
-            >
-              Date Administered:{" "}
-              <Text style={{ color: "#F4F3BE" }}>
-                {dateAdministered}
+          onPress={() =>
+            navigation.navigate("Home", {
+              screen: "MedicineUsageDetail",
+              params: {
+                animalTagNumber: tag_number,
+                medicineName: medicineName,
+                administeredBy: item.administered_by,
+                dateAdministered: dateAdministered,
+                quantityAdministered: item.quantity_administered,
+                quantityType: item.quantity_type,
+                medicineType: item.medicine_type,
+                reason: item.reason_for_administration,
+              },
+            })
+          }
+          style={{ flexDirection: "row", marginBottom: 40, alignItems: "center" }}
+        >
+          <View style={{ flexDirection: "row" }}>
+            <View>
+              <Text
+                style={{
+                  fontFamily: "Sora-SemiBold",
+                  fontSize: 18,
+                  color: "white",
+                  left: SPACING,
+                }}
+              >
+                Medicine:{" "}
+                <Text style={{ color: "#F4F3BE" }}>{medicineName}</Text>
               </Text>
               <View
                 style={{
@@ -425,22 +413,20 @@ export default function AnimalDetail({ navigation, route }) {
                   left: SPACING,
                 }}
               >
-                Quantity:{" "}
+                Date Administered:{" "}
                 <Text style={{ color: "#F4F3BE" }}>
-                  {item.remaining_quantity} / {item.quantity}{" "}
-                  {item.quantity_type}
+                  {dateAdministered}
                 </Text>
               </Text>
             </View>
           </View>
-        </View>
-        <Feather
-          name="chevron-right"
-          size={30}
-          color="#F4F3BE"
-          style={{ position: "absolute", right: 0, bottom: SPACING }}
-        />
-      </TouchableOpacity>
+          <Feather
+            name="chevron-right"
+            size={30}
+            color="#F4F3BE"
+            style={{ position: "absolute", right: 0, bottom: SPACING }}
+          />
+        </TouchableOpacity>
     );
   }
 

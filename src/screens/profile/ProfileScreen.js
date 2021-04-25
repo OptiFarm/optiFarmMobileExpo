@@ -14,6 +14,11 @@ import { SPACING, defaultBackground, cardBackground } from "../../config/theme";
 // DATA
 import ProfileData from "../../config/data/Profile";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useQuery } from "@apollo/client";
+import { GET_USER_INFO } from "../../config/graphql/queries";
+
+// LOADER
+import { PageLoader } from "../../components/atoms/PageLoader";
 
 //CLEAN ASYNCSTORAGE
 import { removeToken } from "../../config/config";
@@ -40,6 +45,14 @@ const styles = StyleSheet.create({
 });
 
 export default function ProfileScreen({ navigation }) {
+  // USER INFO
+  const { data, loading } = useQuery(GET_USER_INFO);
+
+  if (loading) {
+    return <PageLoader />;
+  }
+  const farmerInfo = data.farmer.farmer;
+
   const { signOut } = React.useContext(AuthContext);
   return (
     <>
@@ -80,8 +93,10 @@ export default function ProfileScreen({ navigation }) {
             />
           </View>
           <View>
-            <Text style={styles.name}>Derek Watson</Text>
-            <Text style={styles.subName}>Dairy Farmer</Text>
+            <Text style={styles.name}>
+              {farmerInfo.first_name} {farmerInfo.second_name}
+            </Text>
+            <Text style={styles.subName}>{farmerInfo.farm_type}</Text>
           </View>
         </View>
 

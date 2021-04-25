@@ -191,6 +191,8 @@ export const GET_MEDICATION_USAGE_LIST = gql`
         quantity_type
         administered_by
         reason_for_administration
+        withdrawal_end_meat
+        withdrawal_end_dairy
         animal_id
         medication_id
         medication {
@@ -381,7 +383,7 @@ export const GET_ANIMAL_IN_GROUP_COUNT = gql`
 
 /**
  * @description: query for getting list of animals in group
- * @param: 
+ * @param:
  * @requires:
  */
 export const GET_ANIMAL_IN_GROUP = gql`
@@ -410,17 +412,17 @@ export const GET_ANIMAL_IN_GROUP = gql`
 
 /**
  * @description: get medications list currently assigned to an animal
- * @param: 
+ * @param:
  * @requires:
  */
 export const GET_ACTIVE_MEDICATIONS_ANIMAL = gql`
-  query administeredMedicationsActiveWithdrawalByAnimal($animal_id: ID!){
-    administeredMedicationsActiveWithdrawalByAnimal(animal_id: $animal_id){
-      responseCheck{
+  query administeredMedicationsActiveWithdrawalByAnimal($animal_id: ID!) {
+    administeredMedicationsActiveWithdrawalByAnimal(animal_id: $animal_id) {
+      responseCheck {
         success
         message
       }
-      administeredMedications{
+      administeredMedications {
         _id
         date_of_administration
         withdrawal_end_meat
@@ -431,7 +433,7 @@ export const GET_ACTIVE_MEDICATIONS_ANIMAL = gql`
         reason_for_administration
         animal_id
         medication_id
-        medication{
+        medication {
           _id
           medication_name
           supplied_by
@@ -453,17 +455,21 @@ export const GET_ACTIVE_MEDICATIONS_ANIMAL = gql`
 
 /**
  * @description: query for getting list of animals assigned by a medicine
- * @param: 
+ * @param:
  * @requires:
  */
 export const GET_ACTIVE_MEDICATIONS_MEDICINE = gql`
-  query administeredMedicationsActiveWithdrawalByMedication($medication_id: ID!){
-    administeredMedicationsActiveWithdrawalByMedication(medication_id: $medication_id){
-      responseCheck{
+  query administeredMedicationsActiveWithdrawalByMedication(
+    $medication_id: ID!
+  ) {
+    administeredMedicationsActiveWithdrawalByMedication(
+      medication_id: $medication_id
+    ) {
+      responseCheck {
         success
         message
       }
-      administeredMedications{
+      administeredMedications {
         _id
         date_of_administration
         withdrawal_end_meat
@@ -476,7 +482,7 @@ export const GET_ACTIVE_MEDICATIONS_MEDICINE = gql`
         medicine_type
         medication_name
         medication_id
-        medication{
+        medication {
           _id
           medication_name
           supplied_by
@@ -491,7 +497,7 @@ export const GET_ACTIVE_MEDICATIONS_MEDICINE = gql`
           purchase_date
           comments
         }
-        animal{
+        animal {
           _id
           tag_number
           herd_number

@@ -51,7 +51,19 @@ export default function ProfileScreen({ navigation }) {
   if (loading) {
     return <PageLoader />;
   }
-  const farmerInfo = data.farmer.farmer;
+  
+  let farmerInfo;
+  let firstName;
+  let lastName;
+  let farmType;
+
+  console.log(data)
+  if (data.farmer.farmer !== null) {
+    farmerInfo = data.farmer.farmer;
+    firstName = farmerInfo.first_name;
+    lastName = farmerInfo.second_name;
+    farmType = farmerInfo.farm_type;
+  }
 
   const { signOut } = React.useContext(AuthContext);
   return (
@@ -94,9 +106,9 @@ export default function ProfileScreen({ navigation }) {
           </View>
           <View>
             <Text style={styles.name}>
-              {farmerInfo.first_name} {farmerInfo.second_name}
+              {firstName} {lastName}
             </Text>
-            <Text style={styles.subName}>{farmerInfo.farm_type}</Text>
+            <Text style={styles.subName}>{farmType}</Text>
           </View>
         </View>
 

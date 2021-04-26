@@ -231,6 +231,10 @@ export default function AnimalDetail({ navigation, route }) {
   // BOTTOM SHEET LIST RENDER
   const renderModalList = ({ item }) => {
     if (renderList === "progeny") {
+      const cowLogo = item.male_female === 'M' ? 'https://i.ibb.co/NnqjqXC/maleCow.png' : 'https://i.ibb.co/V989V52/female-Cow.png';
+      const date_of_birth = Moment(item.date_of_birth).format('YYYY-MM-DD');
+      const last_calved = item.last_calved !== undefined ? Moment(item.last_calved).format('YYYY-MM-DD') : 'N/A';
+      const male_female = item.male_female === 'M' ? 'Male' : 'Female';
       return (
         <TouchableOpacity
           style={{

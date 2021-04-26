@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Simplify Farming",
+    "githubUrl": "https://github.com/OptiFarm/optiFarmMobileExpo"
   }
 }

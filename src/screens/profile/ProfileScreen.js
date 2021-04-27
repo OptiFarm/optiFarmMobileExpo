@@ -45,25 +45,6 @@ const styles = StyleSheet.create({
 });
 
 export default function ProfileScreen({ navigation }) {
-  // USER INFO
-  const { data, loading } = useQuery(GET_USER_INFO);
-
-  if (loading) {
-    return <PageLoader />;
-  }
-  
-  let farmerInfo;
-  let firstName;
-  let lastName;
-  let farmType;
-
-  console.log(data)
-  if (data.farmer.farmer !== null) {
-    farmerInfo = data.farmer.farmer;
-    firstName = farmerInfo.first_name;
-    lastName = farmerInfo.second_name;
-    farmType = farmerInfo.farm_type;
-  }
 
   const { signOut } = React.useContext(AuthContext);
   return (
@@ -90,7 +71,7 @@ export default function ProfileScreen({ navigation }) {
             <Text style={styles.name}>
               James Murphy
             </Text>
-            <Text style={styles.subName}>{farmType.charAt(0) + farmType.slice(1).toLowerCase()} Farmer</Text>
+            <Text style={styles.subName}>Suckler Farmer</Text>
           </View>
         </View>
 

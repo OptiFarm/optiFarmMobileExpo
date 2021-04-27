@@ -76,6 +76,7 @@ export default function HerdBook({ navigation }) {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   const showModal = () => {
     setModalVisible(true)
@@ -157,7 +158,7 @@ export default function HerdBook({ navigation }) {
               goBack={navigation.goBack}
               showChevron="true"
             />
-            <SearchBarList items={AnimalList} setFilteredData={setFilteredData} fromScreen='herdbook'/>
+            <SearchBarList items={AnimalList} setSearchText={setSearchText} searchText={searchText} setFilteredData={setFilteredData} fromScreen='herdbook'/>
           </View>
         </View>
       </SafeAreaView>

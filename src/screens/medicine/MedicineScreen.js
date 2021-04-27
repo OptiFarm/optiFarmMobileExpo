@@ -47,6 +47,7 @@ export default function MedicineScreen ({navigation}, props) {
     useScrollToTop(ref);
 
     const [filteredData, setFilteredData] = useState([]);
+    const [searchText, setSearchText] = useState("");
 
     const { data, loading, refetch } = useQuery(GET_MEDICATIONS);
 
@@ -71,7 +72,7 @@ export default function MedicineScreen ({navigation}, props) {
                 <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING, marginBottom: SPACING}}> 
                     <View style={styles.header_inner}>
                         <PageHeader label="My Medicine" goBack={navigation.goBack} showChevron='false' />
-                        <SearchBarList items={MedicineList} setFilteredData={setFilteredData} fromScreen='medicine'/>
+                        <SearchBarList items={MedicineList} setSearchText={setSearchText} searchText={searchText} setFilteredData={setFilteredData} fromScreen='medicine'/>
                     </View>              
                 </View>        
             </SafeAreaView>

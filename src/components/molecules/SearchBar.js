@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     },
   });
 
-export default function SearchBarList ({ items, setFilteredData, fromScreen }) {
+export default function SearchBarList ({ items, setFilteredData, setSearchText, searchText, fromScreen }) {
 
     // ANIMATION
     const { Value, timing } = Animated;
@@ -88,9 +88,6 @@ export default function SearchBarList ({ items, setFilteredData, fromScreen }) {
 
     const input_box_translate_x = useRef(new Value(width)).current;
     const back_button_opacity = useRef(new Value(0)).current;
-
-    // SEARCH
-    const [searchText, setSearchText] = useState("");
     
     // PLACEHOLDER
     const placeholder = fromScreen === 'herdbook' ? 'Search Animal' : fromScreen === 'medicine' ? 'Search Medicine' : 'Search Medicine Usage';

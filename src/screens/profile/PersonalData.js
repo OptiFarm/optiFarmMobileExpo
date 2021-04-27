@@ -126,23 +126,7 @@ export default function PersonalData({ navigation }) {
         </View>
       </SafeAreaView>
       <View style={{ backgroundColor: defaultBackground, flex: 1 }}>
-        <View
-          style={{
-            backgroundColor: cardBackground,
-            borderRadius: 15,
-            alignSelf: "center",
-            top: -10,
-          }}
-        >
-          <Image
-            source={{
-              uri:
-                "https://i.ibb.co/XLMTmxc/53ccd086b469f546e7debba892ac46a5.jpg",
-            }}
-            style={{ width: 80, height: 80, borderRadius: 15 }}
-          />
-        </View>
-        <ScrollView style={{ padding: SPACING }}>
+        <ScrollView style={{ paddingHorizontal: SPACING }}>
           <View
             style={{
               backgroundColor: defaultBackground,

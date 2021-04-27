@@ -171,7 +171,6 @@ export default function AssignMedicationForm({ navigation, route }) {
                 onChangeText={(value) => onChange(value)}
                 keyboardType="decimal-pad"
                 returnKeyType="done"
-                placeholder="1"
                 placeholderTextColor="#848D95"
                 onSubmitEditing={() => ref_input2.current.focus()}
                 blurOnSubmit={false}
@@ -195,7 +194,6 @@ export default function AssignMedicationForm({ navigation, route }) {
                 onChangeText={(value) => onChange(value)}
                 value={value}
                 returnKeyType="next"
-                placeholder="Derek"
                 placeholderTextColor="#848D95"
                 ref={ref_input2}
                 onSubmitEditing={() => ref_input3.current.focus()}

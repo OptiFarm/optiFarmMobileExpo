@@ -13,7 +13,7 @@ const ProfileData = [
     type: 'OptiFarm Pro',
     image: 'https://i.ibb.co/WnYLvbp/graph.png',
     backgroundColor: cardBackground,
-    navigation: ''
+    navigation: 'OptifarmPro'
   },
 ];
 

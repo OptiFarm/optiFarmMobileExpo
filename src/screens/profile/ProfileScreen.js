@@ -25,13 +25,13 @@ import { removeToken } from "../../config/config";
 
 const styles = StyleSheet.create({
   name: {
-    fontSize: 18,
+    fontSize: 22,
     fontFamily: "Sora-SemiBold",
     color: "white",
     paddingLeft: SPACING,
   },
   subName: {
-    fontSize: 15,
+    fontSize: 18,
     fontFamily: "Sora-SemiBold",
     color: "white",
     opacity: 0.8,
@@ -86,29 +86,11 @@ export default function ProfileScreen({ navigation }) {
             flexDirection: "row",
           }}
         >
-          <View
-            style={{
-              width: 70,
-              height: 70,
-              backgroundColor: cardBackground,
-              borderRadius: 15,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Image
-              source={{
-                uri:
-                  "https://i.ibb.co/XLMTmxc/53ccd086b469f546e7debba892ac46a5.jpg",
-              }}
-              style={{ width: 70, height: 70, borderRadius: 15 }}
-            />
-          </View>
           <View>
             <Text style={styles.name}>
-              {firstName} {lastName}
+              James Murphy
             </Text>
-            <Text style={styles.subName}>{farmType}</Text>
+            <Text style={styles.subName}>{farmType.charAt(0) + farmType.slice(1).toLowerCase()} Farmer</Text>
           </View>
         </View>
 

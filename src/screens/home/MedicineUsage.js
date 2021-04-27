@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
 export default function MedicationUsage({ navigation }) {
 
   const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   // MEDICINE USAGE LIST
   const { data, loading } = useQuery(GET_MEDICATION_USAGE_LIST);
@@ -69,7 +70,7 @@ export default function MedicationUsage({ navigation }) {
               goBack={navigation.goBack}
               showChevron="true"
             />
-            <SearchBarList items={MedicineUsageList} setFilteredData={setFilteredData} fromScreen='medicineusage'/>
+            <SearchBarList items={MedicineUsageList} setSearchText={setSearchText} searchText={searchText} setFilteredData={setFilteredData} fromScreen='medicineusage'/>
           </View>
         </View>
       </SafeAreaView>

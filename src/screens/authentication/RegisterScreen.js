@@ -19,7 +19,7 @@ import { Button } from "react-native-paper";
 import RNPickerSelect from "react-native-picker-select";
 
 // DATA
-import { RegisterFormData } from "../../model/Users";
+import RegisterFormData from "../../model/Users";
 
 // APOLLO REACT HOOK & QUERY
 import { from, useMutation } from "@apollo/client";

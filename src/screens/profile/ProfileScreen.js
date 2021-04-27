@@ -14,19 +14,24 @@ import { SPACING, defaultBackground, cardBackground } from "../../config/theme";
 // DATA
 import ProfileData from "../../config/data/Profile";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useQuery } from "@apollo/client";
+import { GET_USER_INFO } from "../../config/graphql/queries";
+
+// LOADER
+import { PageLoader } from "../../components/atoms/PageLoader";
 
 //CLEAN ASYNCSTORAGE
 import { removeToken } from "../../config/config";
 
 const styles = StyleSheet.create({
   name: {
-    fontSize: 18,
+    fontSize: 22,
     fontFamily: "Sora-SemiBold",
     color: "white",
     paddingLeft: SPACING,
   },
   subName: {
-    fontSize: 15,
+    fontSize: 18,
     fontFamily: "Sora-SemiBold",
     color: "white",
     opacity: 0.8,
@@ -40,6 +45,26 @@ const styles = StyleSheet.create({
 });
 
 export default function ProfileScreen({ navigation }) {
+  // USER INFO
+  const { data, loading } = useQuery(GET_USER_INFO);
+
+  if (loading) {
+    return <PageLoader />;
+  }
+  
+  let farmerInfo;
+  let firstName;
+  let lastName;
+  let farmType;
+
+  console.log(data)
+  if (data.farmer.farmer !== null) {
+    farmerInfo = data.farmer.farmer;
+    firstName = farmerInfo.first_name;
+    lastName = farmerInfo.second_name;
+    farmType = farmerInfo.farm_type;
+  }
+
   const { signOut } = React.useContext(AuthContext);
   return (
     <>
@@ -61,27 +86,11 @@ export default function ProfileScreen({ navigation }) {
             flexDirection: "row",
           }}
         >
-          <View
-            style={{
-              width: 70,
-              height: 70,
-              backgroundColor: cardBackground,
-              borderRadius: 15,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Image
-              source={{
-                uri:
-                  "https://i.ibb.co/XLMTmxc/53ccd086b469f546e7debba892ac46a5.jpg",
-              }}
-              style={{ width: 70, height: 70, borderRadius: 15 }}
-            />
-          </View>
           <View>
-            <Text style={styles.name}>Derek Watson</Text>
-            <Text style={styles.subName}>Dairy Farmer</Text>
+            <Text style={styles.name}>
+              James Murphy
+            </Text>
+            <Text style={styles.subName}>{farmType.charAt(0) + farmType.slice(1).toLowerCase()} Farmer</Text>
           </View>
         </View>
 

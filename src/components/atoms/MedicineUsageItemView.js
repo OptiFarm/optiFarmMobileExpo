@@ -50,14 +50,14 @@ const styles = StyleSheet.create({
 });
 
 export const MedicineUsageItemView = ({ navigation, item }) => {
-
   // FORMAT DATE TIME
   Moment.locale("en");
   var dt = item.date_of_administration;
   const date_of_administration = Moment(dt).format("YYYY-MM-DD");
 
-  const animalTag = item.animal !== undefined ? item.animal[0].tag_number : 'null'
-  const medicineName = item.medication[0].medication_name
+  const animalTag =
+    item.animal !== undefined ? item.animal[0].tag_number : "null";
+  const medicineName = item.medication[0].medication_name;
 
   return (
     <TouchableOpacity
@@ -72,6 +72,8 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
             quantityAdministered: item.quantity_administered,
             quantityType: item.quantity_type,
             reason: item.reason_for_administration,
+            withdrawalEndDairy: item.withdrawal_end_dairy,
+            withdrawalEndMeat: item.withdrawal_end_meat,
           },
         })
       }
@@ -100,20 +102,10 @@ export const MedicineUsageItemView = ({ navigation, item }) => {
             </Text>
           </View>
           <View style={{ position: "absolute", right: 0 }}>
-            <Text
-              style={[
-                styles.medicineLabel,
-                { alignSelf: 'flex-end'},
-              ]}
-            >
+            <Text style={[styles.medicineLabel, { alignSelf: "flex-end" }]}>
               Quantity
             </Text>
-            <Text
-              style={[
-                styles.medicineDesc,
-                { alignSelf: 'flex-end'},
-              ]}
-            >
+            <Text style={[styles.medicineDesc, { alignSelf: "flex-end" }]}>
               {item.quantity_administered} {item.quantity_type}
             </Text>
           </View>
